@@ -1,8 +1,8 @@
 name: image_pickers
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+description: image_pickers Support picture selection, video multiple selection, support to save network pictures to albums, support preview video and preview picture function
+version: 1.0.2
+author: lisen <453354858@qq.com>
+homepage: https://github.com/lisen87/image_pickers.git
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
