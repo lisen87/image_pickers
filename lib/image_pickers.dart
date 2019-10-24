@@ -11,9 +11,10 @@ enum GalleryMode {
   ///选择视频
   video,
 }
-class ImagePickers {
 
-  static const MethodChannel _channel = const MethodChannel('flutter/image_pickers');
+class ImagePickers {
+  static const MethodChannel _channel =
+      const MethodChannel('flutter/image_pickers');
 
   ///选择图片或视频 Choose an image or video
   ///
@@ -36,19 +37,19 @@ class ImagePickers {
     int selectCount: 1,
     bool showCamera: false,
     CorpConfig corpConfig,
-    int compressSize : 500,
+    int compressSize: 500,
   }) async {
     String gMode = "image";
-    if(galleryMode == GalleryMode.image){
+    if (galleryMode == GalleryMode.image) {
       gMode = "image";
-    }else if(galleryMode == GalleryMode.video){
+    } else if (galleryMode == GalleryMode.video) {
       gMode = "video";
     }
 
     bool enableCrop = false;
     int width = 1;
     int height = 1;
-    if(corpConfig != null){
+    if (corpConfig != null) {
       enableCrop = corpConfig.enableCrop;
       width = corpConfig.width <= 0 ? 1 : corpConfig.width;
       height = corpConfig.height <= 0 ? 1 : corpConfig.height;
@@ -63,9 +64,10 @@ class ImagePickers {
       'height': height,
       'compressSize': compressSize < 50 ? 50 : compressSize,
     };
-    final List<dynamic> paths = await _channel.invokeMethod('getPickerPaths',params);
+    final List<dynamic> paths =
+        await _channel.invokeMethod('getPickerPaths', params);
     List<Media> medias = List();
-    paths.forEach((data){
+    paths.forEach((data) {
       Media media = Media();
       media.thumbPath = data["thumbPath"];
       media.path = data["path"];
@@ -83,20 +85,21 @@ class ImagePickers {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': imagePath,
     };
-    _channel.invokeMethod('previewImage',params);
+    _channel.invokeMethod('previewImage', params);
   }
+
   ///预览视频 Preview video
   ///
   /// videoPath 图片本地路径或者网络url Image local path or web url
   ///
   /// thumbPath 视频封面图 Video cover
 
-  static previewVideo(String videoPath,{String thumbPath : ""}) {
+  static previewVideo(String videoPath, {String thumbPath: ""}) {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': videoPath,
       'thumbPath': thumbPath,
     };
-    _channel.invokeMethod('previewVideo',params);
+    _channel.invokeMethod('previewVideo', params);
   }
 
   ///保存图片到相册中 Save image to album
@@ -109,7 +112,7 @@ class ImagePickers {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': imageUrl,
     };
-    String path = await _channel.invokeMethod('saveImageToGallery',params);
+    String path = await _channel.invokeMethod('saveImageToGallery', params);
     return path;
   }
 }

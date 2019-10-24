@@ -1,4 +1,4 @@
-# [pickers](https://github.com/lisen87/pickers.git)
+# [image_pickers](https://github.com/lisen87/image_pickers.git)
 
 image_pickers Support picture selection, video multiple selection, support to save network pictures to albums, support preview video and preview picture function
 
@@ -58,3 +58,20 @@ ImagePickers.previewVideo(_listVideoPaths[index].path);
 ImagePickers.saveImageToGallery("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
 ```
 
+## iOS
+Add the following entry to your `Info.plist` file, located in `/Info.plist` :
+`
+<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>...</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>...</string>
+    <key>NSCameraUsageDescription</key>
+    <string>...</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>...</string>
+`
