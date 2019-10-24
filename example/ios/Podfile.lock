@@ -1,0 +1,35 @@
+PODS:
+  - Flutter (1.0.0)
+  - image_pickers (0.0.1):
+    - Flutter
+    - ZLPhotoBrowser
+  - SDWebImage (5.1.1):
+    - SDWebImage/Core (= 5.1.1)
+  - SDWebImage/Core (5.1.1)
+  - ZLPhotoBrowser (3.1.1):
+    - SDWebImage (~> 5.1.0)
+
+DEPENDENCIES:
+  - Flutter (from `.symlinks/flutter/ios`)
+  - image_pickers (from `.symlinks/plugins/image_pickers/ios`)
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+    - ZLPhotoBrowser
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  image_pickers:
+    :path: ".symlinks/plugins/image_pickers/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  image_pickers: cb9f5893d726a58d078574592045e5b7c7683401
+  SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
+  ZLPhotoBrowser: 7d4a2cea21469d7e29680991ed38e5224786ed44
+
+PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
+
+COCOAPODS: 1.8.4
