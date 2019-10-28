@@ -140,6 +140,16 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text("保存图片"),
               ),
+
+              RaisedButton(
+                onPressed: () {
+                  Future<String> future = ImagePickers.saveVideoToGallery("https://cloud.video.taobao.com/play/u/2200646347659/p/2/e/6/t/1/226017030674.mp4");
+                  future.then((path){
+                    print("视频保存成功");
+                  });
+                },
+                child: Text("保存视频"),
+              ),
             ],
           ),
         ),

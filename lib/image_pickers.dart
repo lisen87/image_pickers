@@ -115,4 +115,12 @@ class ImagePickers {
     String path = await _channel.invokeMethod('saveImageToGallery', params);
     return path;
   }
+
+  static Future<String> saveVideoToGallery(String videoUrl) async {
+    final Map<String, dynamic> params = <String, dynamic>{
+      'path': videoUrl,
+    };
+    String path = await _channel.invokeMethod('saveVideoToGallery', params);
+    return path;
+  }
 }

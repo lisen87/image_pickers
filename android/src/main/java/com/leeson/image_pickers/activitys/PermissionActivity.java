@@ -33,7 +33,7 @@ public class PermissionActivity extends BaseActivity {
     @Override
     public void permissionSuccess(int requestCode) {
         super.permissionSuccess(requestCode);
-        setResult(RESULT_OK);
+        setResult(RESULT_OK,getIntent());
         finish();
     }
 
