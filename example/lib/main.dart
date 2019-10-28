@@ -143,7 +143,7 @@ class _MyAppState extends State<MyApp> {
 
               RaisedButton(
                 onPressed: () {
-                  Future<String> future = ImagePickers.saveVideoToGallery("https://cloud.video.taobao.com/play/u/2200646347659/p/2/e/6/t/1/226017030674.mp4");
+                  Future<String> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
                   future.then((path){
                     print("视频保存成功");
                   });
