@@ -116,6 +116,13 @@ class ImagePickers {
     return path;
   }
 
+  ///保存视频到相册中 Save video to album
+  ///
+  /// 返回保存的视频路径 Android 返回保存的视频文件路径 ios 暂无法返回本地视频路径
+  /// Return the saved video path Android returns the saved video file path ios can not return to the local video path
+  ///
+  /// videoUrl 网络视频url Web video url
+  ///
   static Future<String> saveVideoToGallery(String videoUrl) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': videoUrl,

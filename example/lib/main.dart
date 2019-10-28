@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 5,
+          selectCount: 12,
           showCamera: true,
           compressSize: 300,
 //          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.video;
       _listVideoPaths = await ImagePickers.pickerPaths(
         galleryMode: _galleryMode,
-        selectCount: 5,
+        selectCount: 2,
         showCamera: true,
       );
       setState(() {
@@ -143,10 +143,10 @@ class _MyAppState extends State<MyApp> {
 
               RaisedButton(
                 onPressed: () {
-                  Future<String> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
-                  future.then((path){
-                    print("视频保存成功");
-                  });
+                    Future<String> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
+                    future.then((path){
+                      print("视频保存成功");
+                    });
                 },
                 child: Text("保存视频"),
               ),

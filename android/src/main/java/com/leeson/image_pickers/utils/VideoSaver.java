@@ -5,7 +5,6 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.leeson.image_pickers.AppPath;
 
@@ -36,7 +35,6 @@ public class VideoSaver {
         this.result = result;
     }
     public void download(){
-        Log.e("download", "download: "+videoUrl );
         if (TextUtils.isEmpty(videoUrl)){
             return;
         }
@@ -57,7 +55,7 @@ public class VideoSaver {
             public void run() {
                 try {
                     URL url = new URL(videoUrl);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
                     int responseCode = connection.getResponseCode();
@@ -89,6 +87,17 @@ public class VideoSaver {
                                 mediaScannerConnection = new MediaScannerConnection(context,client);
                                 mediaScannerConnection.connect();
                                 result.success(videoFile.getAbsolutePath());
+                            }
+                        });
+                    }else {
+                        new Handler(context.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    result.error(connection.getResponseMessage()+"",connection.getResponseCode()+"",null);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                     }

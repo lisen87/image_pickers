@@ -1,6 +1,8 @@
 # [image_pickers](https://github.com/lisen87/image_pickers.git)
 
-image_pickers Support picture selection, video multiple selection, support to save network pictures to albums, support preview video and preview picture function
+image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能
+
+image_pickers Support local picture multiple selection, local video multiple selection, support to save network pictures to albums,support to save network vidoe to albums, support preview video and preview picture function
 
 > Supported  Platforms
 > * Android
@@ -10,7 +12,7 @@ image_pickers Support picture selection, video multiple selection, support to sa
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.2
+image_pickers: ^1.0.4
 ```
 
 ```dart
@@ -56,6 +58,10 @@ ImagePickers.previewVideo(_listVideoPaths[index].path);
 ```dart
 ///保存图片到图库 Save image to gallery
 ImagePickers.saveImageToGallery("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
+```
+```dart
+///保存视频到图库 Save video to gallery
+ImagePickers.saveVideoToGallery("http://xxxx/xx/xx.mp4");
 ```
 
 ## iOS

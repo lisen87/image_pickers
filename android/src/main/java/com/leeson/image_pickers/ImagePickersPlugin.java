@@ -3,7 +3,6 @@ package com.leeson.image_pickers;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
 import com.leeson.image_pickers.activitys.PermissionActivity;
 import com.leeson.image_pickers.activitys.PhotosActivity;
@@ -56,7 +55,6 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
         }else if(requestCode == WRITE_SDCARD){
           if (resultCode == Activity.RESULT_OK){
             String videoUrl = intent.getStringExtra("videoUrl");
-            Log.e("videoUrl", "onActivityResult: =====>"+videoUrl );
             VideoSaver videoSaver = new VideoSaver(registrar.context(),videoUrl,result);
             videoSaver.download();
           }
