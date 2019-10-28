@@ -263,7 +263,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     }else if([@"saveVideoToGallery" isEqualToString:call.method]){
           NSDictionary *dic = call.arguments;
         NSString *urlString =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
-//        urlString =@"http://apis.beboy.me/static/video/2019/07/20190730160222392332.mp4";
         [self  playerDownload :urlString];
     }
 }
