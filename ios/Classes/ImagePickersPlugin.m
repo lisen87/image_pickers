@@ -5,6 +5,7 @@
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <AFNetworking/AFNetworking.h>
 #define Frame_rectStatus ([[UIApplication sharedApplication] statusBarFrame].size.height)
 #define Frame_rectNav (self.navigationController.navigationBar.frame.size.height)
 #define Frame_NavAndStatus (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
@@ -24,9 +25,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
 }
--(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result{
-    
-    
+-(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result
+{
+    resultBack =result;
     
     if([@"getPickerPaths" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
@@ -195,8 +196,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
     }else if ([@"previewImage" isEqualToString:call.method]){
         
-        
-        
         NSDictionary *dic = call.arguments;
         NSMutableArray *arr =[[NSMutableArray alloc]init];
         
@@ -252,7 +251,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
              if(range.location+range.length<str.length){
                  str = [str substringFromIndex:range.location+range.length];
                  //NSLog(@"%@",str);
-                 
                  if (error) {
                      
                  }else{
@@ -260,19 +258,14 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                  }
              }
              
-             
-             
          }];
         
-        
-        
-        
-        
-        
-        
-        
+    }else if([@"saveVideoToGallery" isEqualToString:call.method]){
+          NSDictionary *dic = call.arguments;
+        NSString *urlString =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
+        urlString =@"http://apis.beboy.me/static/video/2019/07/20190730160222392332.mp4";
+        [self  playerDownload :urlString];
     }
-    
 }
 #pragma //mark 通过视频的URL，获得视频缩略图
 -(UIImage *)getImage:(NSString *)videoURL
@@ -298,5 +291,50 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     
     return thumb;
 }
+- (void)playerDownload:(NSString *)url{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString  *fullPath = [NSString stringWithFormat:@"%@/%@.mp4", documentsDirectory,[NSString stringWithFormat:@"%@",[formatter stringFromDate:[NSDate date]]]];
+    NSURL *urlNew = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:urlNew];
+    NSURLSessionDownloadTask *task =
+    [manager downloadTaskWithRequest:request
+                            progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                return [NSURL fileURLWithPath:fullPath];
+                            }
+                   completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                       NSLog(@"%@",response);
+                       [self saveVideo:fullPath];
+                   }];
+    [task resume];
+}
 
+//videoPath为视频下载到本地之后的本地路径
+- (void)saveVideo:(NSString *)videoPath{
+    if (videoPath) {
+        NSURL *url = [NSURL URLWithString:videoPath];
+        BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([url path]);
+        if (compatible)
+        {   //保存相册核心代码
+            UISaveVideoAtPathToSavedPhotosAlbum([url path], self, @selector(savedPhotoImage:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }
+}
+//保存视频完成之后的回调
+- (void) savedPhotoImage:(UIImage*)image didFinishSavingWithError: (NSError *)error contextInfo: (void *)contextInfo {
+    if (error) {
+        NSLog(@"保存视频失败%@", error.localizedDescription);
+        resultBack(@"fail");
+    }
+    else {
+        NSLog(@"保存视频成功");
+        resultBack(@"success");
+
+    }
+}
 @end
