@@ -1,3 +1,5 @@
+## 1.0.4+1
+Fix Android P can't preview image
 ## 1.0.4
 * configuration description
 ## 1.0.3
