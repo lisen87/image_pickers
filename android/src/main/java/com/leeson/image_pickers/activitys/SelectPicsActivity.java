@@ -81,8 +81,6 @@ public class SelectPicsActivity extends BaseActivity {
         compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
         mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
 
-        Log.e("===", "onCreate: "+compressSize.intValue() );
-
         Intent intent = new Intent(this, PermissionActivity.class);
         intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
                 , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
