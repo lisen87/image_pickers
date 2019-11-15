@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:image_pickers/image_pickers.dart';
 import 'package:image_pickers/CorpConfig.dart';
 import 'package:image_pickers/Media.dart';
-
+import 'package:image_pickers/UIConfig.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -31,10 +32,11 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 12,
+          selectCount: 1,
           showCamera: true,
           compressSize: 300,
-//          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
+          uiConfig: UIConfig(UITheme.orange),
+          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
       );
       print(_listImagePaths.toString());
       setState(() {

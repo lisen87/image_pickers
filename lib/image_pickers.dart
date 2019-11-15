@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:image_pickers/CorpConfig.dart';
 import 'package:image_pickers/Media.dart';
+import 'package:image_pickers/UIConfig.dart';
 
 enum GalleryMode {
   ///选择图片
@@ -34,6 +35,7 @@ class ImagePickers {
 
   static Future<List<Media>> pickerPaths({
     GalleryMode galleryMode: GalleryMode.image,
+    UIConfig uiConfig ,
     int selectCount: 1,
     bool showCamera: false,
     CorpConfig corpConfig,
@@ -44,6 +46,10 @@ class ImagePickers {
       gMode = "image";
     } else if (galleryMode == GalleryMode.video) {
       gMode = "video";
+    }
+    String uiColor = "UITheme.white" ;
+    if(uiConfig != null){
+      uiColor = uiConfig.uiTheme.toString();
     }
 
     bool enableCrop = false;
@@ -57,6 +63,7 @@ class ImagePickers {
 
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': gMode,
+      'uiColor': uiColor,
       'selectCount': selectCount,
       'showCamera': showCamera,
       'enableCrop': enableCrop,
@@ -76,6 +83,14 @@ class ImagePickers {
     });
     return medias;
   }
+
+//  String _switchColor(UIConfig uiConfig){
+//    switch (uiConfig.uiTheme){
+//      case UITheme.values[0]:
+//        return
+//    }
+//  }
+
 
   ///预览图片 preview picture
   ///

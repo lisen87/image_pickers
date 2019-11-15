@@ -80,6 +80,7 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
     this.result = result;
     if ("getPickerPaths".equals(methodCall.method)) {
       String galleryMode = methodCall.argument("galleryMode");
+      String uiColor = methodCall.argument("uiColor");
       Number selectCount = methodCall.argument("selectCount");
       Boolean showCamera = methodCall.argument("showCamera");
       Boolean enableCrop = methodCall.argument("enableCrop");
@@ -89,6 +90,7 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
 
       Intent intent = new Intent(registrar.context(), SelectPicsActivity.class);
       intent.putExtra(SelectPicsActivity.GALLERY_MODE,galleryMode);
+      intent.putExtra(SelectPicsActivity.UI_COLOR,uiColor);
       intent.putExtra(SelectPicsActivity.SELECT_COUNT,selectCount);
       intent.putExtra(SelectPicsActivity.SHOW_CAMERA,showCamera);
       intent.putExtra(SelectPicsActivity.ENABLE_CROP,enableCrop);

@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
+import com.leeson.image_pickers.beans.UIColor;
 import com.leeson.image_pickers.utils.CommonUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -30,7 +33,8 @@ import top.zibin.luban.OnRenameListener;
 
 /**
  * Created by lisen on 2018-09-11.
- *  只选择多张图片，
+ * 只选择多张图片，
+ *
  * @author lisen < 453354858@qq.com >
  */
 @SuppressWarnings("all")
@@ -39,6 +43,7 @@ public class SelectPicsActivity extends BaseActivity {
     private static final int WRITE_SDCARD = 101;
 
     public static final String GALLERY_MODE = "GALLERY_MODE";
+    public static final String UI_COLOR = "uiColor";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
     public static final String ENABLE_CROP = "ENABLE_CROP";
     public static final String WIDTH = "WIDTH";
@@ -51,6 +56,7 @@ public class SelectPicsActivity extends BaseActivity {
     private Number compressSize;
     private int compressCount = 0;
     private String mode;
+    private String uiColor;
     private Number selectCount;
     private boolean showCamera;
     private boolean enableCrop;
@@ -62,16 +68,20 @@ public class SelectPicsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_pics);
         mode = getIntent().getStringExtra(GALLERY_MODE);
-        selectCount = getIntent().getIntExtra(SELECT_COUNT,9);
-        showCamera = getIntent().getBooleanExtra(SHOW_CAMERA,false);
-        enableCrop = getIntent().getBooleanExtra(ENABLE_CROP,false);
-        width = getIntent().getIntExtra(WIDTH,1);
-        height = getIntent().getIntExtra(HEIGHT,1);
-        compressSize = getIntent().getIntExtra(COMPRESS_SIZE,500);
+        uiColor = getIntent().getStringExtra(UI_COLOR);
+
+        Log.e("uiColor ", "onCreate: "+uiColor );
+
+        selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
+        showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
+        enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
+        width = getIntent().getIntExtra(WIDTH, 1);
+        height = getIntent().getIntExtra(HEIGHT, 1);
+        compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
 
         Intent intent = new Intent(this, PermissionActivity.class);
         intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,
+                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.CAMERA});
         startActivityForResult(intent, WRITE_SDCARD);
     }
@@ -86,9 +96,10 @@ public class SelectPicsActivity extends BaseActivity {
         createNomedia(path);
         return path;
     }
+
     private void createNomedia(String path) {
-        File nomedia = new File(path,".nomedia");
-        if (!nomedia.exists()){
+        File nomedia = new File(path, ".nomedia");
+        if (!nomedia.exists()) {
             try {
                 nomedia.createNewFile();
             } catch (IOException e) {
@@ -114,29 +125,45 @@ public class SelectPicsActivity extends BaseActivity {
                     List<String> paths = new ArrayList<>();
                     for (int i = 0; i < selectList.size(); i++) {
                         LocalMedia localMedia = selectList.get(i);
-                        if (localMedia.isCut()){
+                        if (localMedia.isCut()) {
                             paths.add(localMedia.getCutPath());
-                        }else{
-                            paths.add(localMedia.getPath());
+                        } else {
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                paths.add(localMedia.getAndroidQToPath());
+                            } else {
+                                paths.add(localMedia.getPath());
+                            }
                         }
                     }
-                    if ("image".equals(mode)){
+                    if ("image".equals(mode)) {
                         lubanCompress(paths);
-                    }else{
+                    } else {
                         resolveVideoPath(paths);
                     }
 
                     break;
                 case WRITE_SDCARD:
+
+                    UIColor uiColorBean = switchTheme();
+
                     //添加图片
                     PictureSelector.create(this)
                             .openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo())
-                            .theme(R.style.picture_QQ_style)
+                            .theme(uiColorBean.getStyleId())
+
+                            .isOpenStyleNumComplete(true)
+                            .isOpenStyleCheckNumMode(true)
+
+                            .setCropTitleBarBackgroundColor(uiColorBean.getColorId())
+                            .setCropStatusBarColorPrimaryDark(uiColorBean.getColorId())
+                            .setCropTitleColor(uiColorBean.getColorId() == R.color.white ? R.color.bar_grey : R.color.white)
+
                             .isCamera(showCamera)
                             .maxSelectNum(selectCount.intValue())
-                            .withAspectRatio(width.intValue(),height.intValue())
-                            .imageSpanCount(3)// 每行显示个数 int
+                            .withAspectRatio(width.intValue(), height.intValue())
+                            .imageSpanCount(4)// 每行显示个数 int
                             .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                            .isSingleDirectReturn(true)// 单选模式下是否直接返回
                             .previewImage(true)// 是否可预览图片 true or false
                             .enableCrop(enableCrop)// 是否裁剪 true or false
                             .compress(false)// 是否压缩 true or false
@@ -145,31 +172,60 @@ public class SelectPicsActivity extends BaseActivity {
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                     break;
             }
-        }else{
+        } else {
             finish();
         }
     }
 
-    private void resolveVideoPath(List<String> paths){
+    private UIColor switchTheme() {
+        UIColor uiColorBean = new UIColor();
+        if ("UITheme.white".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_white_style);
+            uiColorBean.setColorId(R.color.white);
+        }else if("UITheme.black".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_black_style);
+            uiColorBean.setColorId(R.color.bar_grey);
+        }else if("UITheme.grey".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_grey_style);
+            uiColorBean.setColorId(R.color.grey);
+        }else if("UITheme.green".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_green_style);
+            uiColorBean.setColorId(R.color.green);
+        }else if("UITheme.red".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_red_style);
+            uiColorBean.setColorId(R.color.red);
+        }else if("UITheme.orange".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_orange_style);
+            uiColorBean.setColorId(R.color.orange);
+        }else if("UITheme.blue".equals(uiColor)){
+            uiColorBean.setStyleId(R.style.picture_blue_style);
+            uiColorBean.setColorId(R.color.blue);
+        }
+        return uiColorBean;
+    }
 
-        List<Map<String,String>> thumbPaths = new ArrayList<>();
+
+
+    private void resolveVideoPath(List<String> paths) {
+
+        List<Map<String, String>> thumbPaths = new ArrayList<>();
         for (int i = 0; i < paths.size(); i++) {
             String path = paths.get(i);
             Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-            String thumbPath = CommonUtils.saveBitmap(this,new AppPath(this).getImgPath(),bitmap);
-            Map<String,String> map = new HashMap<>();
-            map.put("thumbPath",thumbPath);
-            map.put("path",path);
+            String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getImgPath(), bitmap);
+            Map<String, String> map = new HashMap<>();
+            map.put("thumbPath", thumbPath);
+            map.put("path", path);
             thumbPaths.add(map);
         }
         Intent intent = new Intent();
         intent.putExtra(COMPRESS_PATHS, (Serializable) thumbPaths);
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
-    private void lubanCompress(final List<String> paths){
-        final List<Map<String,String>> lubanCompressPaths = new ArrayList<>();
+    private void lubanCompress(final List<String> paths) {
+        final List<Map<String, String>> lubanCompressPaths = new ArrayList<>();
         Luban.with(this)
                 .load(paths)
                 .ignoreBy(compressSize.intValue())
@@ -188,27 +244,28 @@ public class SelectPicsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(File file) {
                         // 压缩成功后调用，返回压缩后的图片文件
-                        Map<String,String> map = new HashMap<>();
-                        map.put("thumbPath",file.getAbsolutePath());
-                        map.put("path",file.getAbsolutePath());
+                        Map<String, String> map = new HashMap<>();
+                        map.put("thumbPath", file.getAbsolutePath());
+                        map.put("path", file.getAbsolutePath());
                         lubanCompressPaths.add(map);
                         compressCount++;
-                        compressFinish(paths,lubanCompressPaths);
+                        compressFinish(paths, lubanCompressPaths);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         // 当压缩过程出现问题时调用
                         compressCount++;
-                        compressFinish(paths,lubanCompressPaths);
+                        compressFinish(paths, lubanCompressPaths);
                     }
                 }).launch();
     }
-    private void compressFinish(List<String> paths,List<Map<String,String>> compressPaths){
-        if (compressCount == paths.size()){
+
+    private void compressFinish(List<String> paths, List<Map<String, String>> compressPaths) {
+        if (compressCount == paths.size()) {
             Intent intent = new Intent();
             intent.putExtra(COMPRESS_PATHS, (Serializable) compressPaths);
-            setResult(RESULT_OK,intent);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }

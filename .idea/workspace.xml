@@ -9,14 +9,39 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="视频保存">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/beans/UIColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/black_arrow_down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/black_arrow_up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/black_back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/black_arrow_down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/black_arrow_up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/black_back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_black_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_blue_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_grey_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_orange_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_red_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_white_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_black.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_blue.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_grey.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_orange.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_red.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_white.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/UIConfig.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_green_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_green_def.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_def.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/image_pickers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/image_pickers.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -33,7 +58,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="127.0.0.1:5555" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="emulator-5554" />
   <component name="FavoritesManager">
     <favorites_list name="image_pickers" />
   </component>
@@ -42,17 +67,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1166">
-              <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+            <state relative-caret-position="425">
+              <caret line="55" column="18" lean-forward="true" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/UIConfig.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="123" column="33" lean-forward="true" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
+            <state relative-caret-position="220">
+              <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -64,19 +101,16 @@
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="110">
-              <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+              <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#50#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="682">
+              <caret line="31" column="77" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
             </state>
           </provider>
         </entry>
@@ -85,12 +119,19 @@
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="132">
-              <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+              <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -106,20 +147,22 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/LICENSE" />
-        <option value="$PROJECT_DIR$/lib/Media.dart" />
         <option value="$PROJECT_DIR$/lib/CorpConfig.dart" />
         <option value="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" />
-        <option value="$PROJECT_DIR$/lib/image_pickers.dart" />
-        <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/example/android/app/build.gradle" />
+        <option value="$PROJECT_DIR$/lib/Media.dart" />
+        <option value="$PROJECT_DIR$/example/lib/main.dart" />
+        <option value="$PROJECT_DIR$/lib/UIConfig.dart" />
+        <option value="$PROJECT_DIR$/lib/image_pickers.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="168" />
-    <option name="y" value="54" />
+    <option name="x" value="156" />
+    <option name="y" value="37" />
     <option name="width" value="1651" />
     <option name="height" value="996" />
   </component>
@@ -143,7 +186,7 @@
             <path>
               <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
               <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -157,7 +200,7 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/example/android" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -223,14 +266,21 @@
       <option name="project" value="LOCAL" />
       <updated>1572245005248</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="修复安卓9无法加载图片问题">
+      <created>1573532848936</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1573532848936</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="168" y="54" width="1651" height="996" extended-state="0" />
+    <frame x="156" y="37" width="1651" height="996" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.13576367" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.13576367" />
       <window_info id="Captures" order="1" side_tool="true" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -240,12 +290,12 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" sideWeight="0.5021834" side_tool="true" weight="0.18856065" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.17181706" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49968573" weight="0.17058097" />
+      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49968573" visible="true" weight="0.20024721" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.487021" />
       <window_info anchor="bottom" id="Debug" order="5" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="6" visible="true" weight="0.35723114" />
+      <window_info anchor="bottom" id="Terminal" order="6" weight="0.12855376" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5003143" side_tool="true" weight="0.31025958" />
       <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.23733003" />
@@ -268,20 +318,14 @@
     <MESSAGE value="android 测试完成" />
     <MESSAGE value="测试完成" />
     <MESSAGE value="视频保存" />
-    <option name="LAST_COMMIT_MESSAGE" value="视频保存" />
+    <MESSAGE value="修复安卓9无法加载图片问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复安卓9无法加载图片问题" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Media.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -330,20 +374,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/CorpConfig.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1166">
-          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/res/xml/net_sec.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -365,16 +395,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="123" column="33" lean-forward="true" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -382,26 +402,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+    <entry file="file://$PROJECT_DIR$/example/android/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+        <state relative-caret-position="264">
+          <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="31" column="77" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
-          <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        <state relative-caret-position="110">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Media.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/CorpConfig.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Co.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="55" column="18" lean-forward="true" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
           <folding>
-            <element signature="e#0#50#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/UIConfig.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>
