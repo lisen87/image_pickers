@@ -13,9 +13,56 @@ enum GalleryMode {
   video,
 }
 
+enum CameraMimeType {
+  ///拍照
+  photo,
+
+  ///拍视频
+  video,
+}
+
 class ImagePickers {
   static const MethodChannel _channel =
       const MethodChannel('flutter/image_pickers');
+
+
+  /// cameraMimeType CameraMimeType.photo为拍照，CameraMimeType.video 为录制视频 CameraMimeType.photo is a photo, CameraMimeType.video is a video
+  ///
+  ///compressSize 拍照后（录制视频时此参数无效）的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
+  ///
+  static Future<Media> openCamera({
+    CameraMimeType cameraMimeType : CameraMimeType.photo,
+    int compressSize: 500,
+  }) async {
+    String mimeType = "photo";
+    if(cameraMimeType == CameraMimeType.video){
+      mimeType = "video";
+    }
+
+    final Map<String, dynamic> params = <String, dynamic>{
+      'galleryMode': "image",
+      'uiColor': "UITheme.white",
+      'selectCount': 1,
+      'showCamera': false,
+      'enableCrop': false,
+      'width': 1,
+      'height': 1,
+      'compressSize': compressSize < 50 ? 50 : compressSize,
+      'cameraMimeType': mimeType,
+    };
+    final List<dynamic> paths =
+    await _channel.invokeMethod('getPickerPaths', params);
+
+    if(paths != null && paths.length > 0){
+      Media media = Media();
+      media.thumbPath = paths[0]["thumbPath"];
+      media.path = paths[0]["path"];
+      media.galleryMode = GalleryMode.image;
+      return media;
+    }
+
+    return Media();
+  }
 
   ///选择图片或视频 Choose an image or video
   ///
@@ -30,7 +77,7 @@ class ImagePickers {
   ///
   ///corpConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
   ///
-  ///compressSize 选择后的压缩大小 单位 KB Compressed size after selection in KB
+  ///compressSize 选择图片（选择视频时此参数无效）后的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
 
   static Future<List<Media>> pickerPaths({
@@ -83,14 +130,6 @@ class ImagePickers {
     });
     return medias;
   }
-
-//  String _switchColor(UIConfig uiConfig){
-//    switch (uiConfig.uiTheme){
-//      case UITheme.values[0]:
-//        return
-//    }
-//  }
-
 
   ///预览图片 preview picture
   ///

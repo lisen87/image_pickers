@@ -32,11 +32,11 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 1,
+          selectCount: 2,
           showCamera: true,
-          compressSize: 300,
+          compressSize: 500,
           uiConfig: UIConfig(UITheme.orange),
-          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
+//          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
       );
       print(_listImagePaths.toString());
       setState(() {
@@ -98,6 +98,30 @@ class _MyAppState extends State<MyApp> {
                   selectImages();
                 },
                 child: Text("选择图片"),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  ImagePickers.openCamera().then((media){
+                    _listImagePaths.clear();
+                    _listImagePaths.add(media);
+                    setState(() {
+
+                    });
+                  });
+                },
+                child: Text("拍照"),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
+                    _listVideoPaths.clear();
+                    _listVideoPaths.add(media);
+                    setState(() {
+
+                    });
+                  });
+                },
+                child: Text("拍视频"),
               ),
               GridView.builder(
                   physics: NeverScrollableScrollPhysics(),

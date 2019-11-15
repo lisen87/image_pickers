@@ -13,6 +13,7 @@ import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
 import com.leeson.image_pickers.beans.UIColor;
 import com.leeson.image_pickers.utils.CommonUtils;
+import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -43,7 +44,7 @@ public class SelectPicsActivity extends BaseActivity {
     private static final int WRITE_SDCARD = 101;
 
     public static final String GALLERY_MODE = "GALLERY_MODE";
-    public static final String UI_COLOR = "uiColor";
+    public static final String UI_COLOR = "UI_COLOR";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
     public static final String ENABLE_CROP = "ENABLE_CROP";
     public static final String WIDTH = "WIDTH";
@@ -53,6 +54,7 @@ public class SelectPicsActivity extends BaseActivity {
     public static final String SELECT_COUNT = "SELECT_COUNT";//可选择的数量
 
     public static final String COMPRESS_PATHS = "COMPRESS_PATHS";//压缩的画
+    public static final String CAMERA_MIME_TYPE = "CAMERA_MIME_TYPE";//直接调用拍照或拍视频时有效
     private Number compressSize;
     private int compressCount = 0;
     private String mode;
@@ -62,6 +64,7 @@ public class SelectPicsActivity extends BaseActivity {
     private boolean enableCrop;
     private Number width;
     private Number height;
+    private String mimeType;
 
     @Override
     public void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
@@ -70,14 +73,15 @@ public class SelectPicsActivity extends BaseActivity {
         mode = getIntent().getStringExtra(GALLERY_MODE);
         uiColor = getIntent().getStringExtra(UI_COLOR);
 
-        Log.e("uiColor ", "onCreate: "+uiColor );
-
         selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
         showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
         enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
         width = getIntent().getIntExtra(WIDTH, 1);
         height = getIntent().getIntExtra(HEIGHT, 1);
         compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
+        mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
+
+        Log.e("===", "onCreate: "+compressSize.intValue() );
 
         Intent intent = new Intent(this, PermissionActivity.class);
         intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -135,22 +139,40 @@ public class SelectPicsActivity extends BaseActivity {
                             }
                         }
                     }
-                    if ("image".equals(mode)) {
-                        lubanCompress(paths);
-                    } else {
-                        resolveVideoPath(paths);
+                    if (mimeType != null){
+                        //直接调用拍照或拍视频时
+                        if ("photo".equals(mimeType)) {
+                            lubanCompress(paths);
+                        }else{
+                            resolveVideoPath(paths);
+                        }
+                    }else{
+                        if ("image".equals(mode)) {
+                            //如果选择的是图片就压缩
+                            lubanCompress(paths);
+                        } else {
+                            resolveVideoPath(paths);
+                        }
                     }
-
                     break;
                 case WRITE_SDCARD:
 
                     UIColor uiColorBean = switchTheme();
 
                     //添加图片
-                    PictureSelector.create(this)
-                            .openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo())
-                            .theme(uiColorBean.getStyleId())
-
+                    PictureSelector pictureSelector = PictureSelector.create(this);
+                    PictureSelectionModel pictureSelectionModel = null;
+                    if (mimeType != null){
+                        //直接调用拍照或拍视频时
+                        if ("photo".equals(mimeType)) {
+                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
+                        } else {
+                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
+                        }
+                    }else{
+                        pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
+                    }
+                    pictureSelectionModel.theme(uiColorBean.getStyleId())
                             .isOpenStyleNumComplete(true)
                             .isOpenStyleCheckNumMode(true)
 
@@ -158,6 +180,7 @@ public class SelectPicsActivity extends BaseActivity {
                             .setCropStatusBarColorPrimaryDark(uiColorBean.getColorId())
                             .setCropTitleColor(uiColorBean.getColorId() == R.color.white ? R.color.bar_grey : R.color.white)
 
+                            .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
                             .isCamera(showCamera)
                             .maxSelectNum(selectCount.intValue())
                             .withAspectRatio(width.intValue(), height.intValue())
@@ -167,7 +190,7 @@ public class SelectPicsActivity extends BaseActivity {
                             .previewImage(true)// 是否可预览图片 true or false
                             .enableCrop(enableCrop)// 是否裁剪 true or false
                             .compress(false)// 是否压缩 true or false
-//                .minimumCompressSize(compressSize.intValue())// 小于100kb的图片不压缩
+                            .minimumCompressSize(Integer.MAX_VALUE)// 小于100kb的图片不压缩
                             .compressSavePath(getPath())//压缩图片保存地址
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                     break;
@@ -200,10 +223,12 @@ public class SelectPicsActivity extends BaseActivity {
         }else if("UITheme.blue".equals(uiColor)){
             uiColorBean.setStyleId(R.style.picture_blue_style);
             uiColorBean.setColorId(R.color.blue);
+        }else{
+            uiColorBean.setStyleId(R.style.picture_white_style);
+            uiColorBean.setColorId(R.color.white);
         }
         return uiColorBean;
     }
-
 
 
     private void resolveVideoPath(List<String> paths) {

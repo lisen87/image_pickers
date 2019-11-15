@@ -10,36 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/beans/UIColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/black_arrow_down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/black_arrow_up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/black_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/black_arrow_down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/black_arrow_up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/black_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_black_selector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_blue_selector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_grey_selector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_orange_selector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_red_selector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_white_selector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_black.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_grey.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_orange.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_red.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_white.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/UIConfig.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xhdpi-v4/backb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/res/drawable-xxhdpi-v4/backb.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/drawable/checkbox_num_green_selector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_green_def.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/drawable/num_oval_def.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/image_pickers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/image_pickers.dart" afterDir="false" />
     </list>
@@ -67,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="55" column="18" lean-forward="true" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
+            <state relative-caret-position="159">
+              <caret line="34" column="26" lean-forward="true" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -88,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+            <state relative-caret-position="176">
+              <caret line="102" column="31" lean-forward="true" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -137,6 +115,7 @@
     <findStrings>
       <find>flutter</find>
       <find>flutter/pickers</find>
+      <find>cameraMimeType</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,15 +133,15 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/example/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/lib/Media.dart" />
-        <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/UIConfig.dart" />
         <option value="$PROJECT_DIR$/lib/image_pickers.dart" />
+        <option value="$PROJECT_DIR$/example/lib/main.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="156" />
-    <option name="y" value="37" />
+    <option name="x" value="48" />
+    <option name="y" value="49" />
     <option name="width" value="1651" />
     <option name="height" value="996" />
   </component>
@@ -273,14 +252,21 @@
       <option name="project" value="LOCAL" />
       <updated>1573532848936</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ui颜色">
+      <created>1573794330676</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1573794330677</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="156" y="37" width="1651" height="996" extended-state="0" />
+    <frame x="48" y="49" width="1651" height="996" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.13576367" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.116907604" />
       <window_info id="Captures" order="1" side_tool="true" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -290,7 +276,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" sideWeight="0.5021834" side_tool="true" weight="0.18856065" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.17181706" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49968573" visible="true" weight="0.20024721" />
+      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49968573" visible="true" weight="0.19653894" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.487021" />
@@ -319,7 +305,8 @@
     <MESSAGE value="测试完成" />
     <MESSAGE value="视频保存" />
     <MESSAGE value="修复安卓9无法加载图片问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复安卓9无法加载图片问题" />
+    <MESSAGE value="ui颜色" />
+    <option name="LAST_COMMIT_MESSAGE" value="ui颜色" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
@@ -454,16 +441,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="55" column="18" lean-forward="true" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/UIConfig.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -471,10 +448,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="34" column="26" lean-forward="true" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+        <state relative-caret-position="176">
+          <caret line="102" column="31" lean-forward="true" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>

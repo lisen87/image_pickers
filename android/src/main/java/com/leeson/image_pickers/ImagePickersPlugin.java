@@ -87,6 +87,7 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       Number width = methodCall.argument("width");
       Number height = methodCall.argument("height");
       Number compressSize = methodCall.argument("compressSize");
+      String cameraMimeType = methodCall.argument("cameraMimeType");
 
       Intent intent = new Intent(registrar.context(), SelectPicsActivity.class);
       intent.putExtra(SelectPicsActivity.GALLERY_MODE,galleryMode);
@@ -97,6 +98,8 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       intent.putExtra(SelectPicsActivity.WIDTH,width);
       intent.putExtra(SelectPicsActivity.HEIGHT,height);
       intent.putExtra(SelectPicsActivity.COMPRESS_SIZE,compressSize);
+      //直接调用拍照或拍视频时有效
+      intent.putExtra(SelectPicsActivity.CAMERA_MIME_TYPE,cameraMimeType);
       (registrar.activity()).startActivityForResult(intent, SELECT);
 
     } else if ("previewImage".equals(methodCall.method)) {
