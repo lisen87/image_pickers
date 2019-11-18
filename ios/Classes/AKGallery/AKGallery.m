@@ -45,6 +45,7 @@
 }
 
 -(void)setSelectIndex:(NSInteger)selectIndex{
+
     if (selectIndex<0||selectIndex>=self.items.count) {
         _selectIndex=0;
     }else{
