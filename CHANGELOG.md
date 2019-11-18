@@ -1,8 +1,10 @@
+## 1.0.5+1
+* Modify bug
 ## 1.0.5
 * 适配安卓安卓Q，增加ui主题配置功能，增加直接拍照和录制视频功能
 * Adapt Android Android Q, add ui theme configuration function, increase direct photo and record video function
 ## 1.0.4+1
-Fix Android P can't preview image
+* Fix Android P can't preview image
 ## 1.0.4
 * configuration description
 ## 1.0.3
