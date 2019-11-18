@@ -35,8 +35,8 @@ class _MyAppState extends State<MyApp> {
           selectCount: 2,
           showCamera: true,
           compressSize: 500,
-          uiConfig: UIConfig(UITheme.orange),
-//          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
+          uiConfig: UIConfig(UITheme.white),
+          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
       );
       print(_listImagePaths.toString());
       setState(() {
@@ -101,7 +101,8 @@ class _MyAppState extends State<MyApp> {
               ),
               RaisedButton(
                 onPressed: () {
-                  ImagePickers.openCamera().then((media){
+
+                  ImagePickers.openCamera(corpConfig: CorpConfig(enableCrop: false, width: 2, height: 3)).then((media){
                     _listImagePaths.clear();
                     _listImagePaths.add(media);
                     setState(() {

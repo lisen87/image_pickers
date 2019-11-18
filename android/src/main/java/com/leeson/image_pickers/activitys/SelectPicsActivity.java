@@ -7,7 +7,6 @@ import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
@@ -174,11 +173,12 @@ public class SelectPicsActivity extends BaseActivity {
                             .isOpenStyleNumComplete(true)
                             .isOpenStyleCheckNumMode(true)
 
+                            .setStatusBarColorPrimaryDark(uiColorBean.getColorId())
                             .setCropTitleBarBackgroundColor(uiColorBean.getColorId())
                             .setCropStatusBarColorPrimaryDark(uiColorBean.getColorId())
                             .setCropTitleColor(uiColorBean.getColorId() == R.color.white ? R.color.bar_grey : R.color.white)
 
-                            .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
+                            .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
                             .isCamera(showCamera)
                             .maxSelectNum(selectCount.intValue())
                             .withAspectRatio(width.intValue(), height.intValue())

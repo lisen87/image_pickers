@@ -28,10 +28,13 @@ class ImagePickers {
 
   /// cameraMimeType CameraMimeType.photo为拍照，CameraMimeType.video 为录制视频 CameraMimeType.photo is a photo, CameraMimeType.video is a video
   ///
+  ///corpConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
+  ///
   ///compressSize 拍照后（录制视频时此参数无效）的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
   static Future<Media> openCamera({
     CameraMimeType cameraMimeType : CameraMimeType.photo,
+    CorpConfig corpConfig,
     int compressSize: 500,
   }) async {
     String mimeType = "photo";
@@ -39,14 +42,23 @@ class ImagePickers {
       mimeType = "video";
     }
 
+    bool enableCrop = false;
+    int width = 1;
+    int height = 1;
+    if (corpConfig != null) {
+      enableCrop = corpConfig.enableCrop;
+      width = corpConfig.width <= 0 ? 1 : corpConfig.width;
+      height = corpConfig.height <= 0 ? 1 : corpConfig.height;
+    }
+
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': "image",
       'uiColor': "UITheme.white",
       'selectCount': 1,
       'showCamera': false,
-      'enableCrop': false,
-      'width': 1,
-      'height': 1,
+      'enableCrop': enableCrop,
+      'width': width,
+      'height': height,
       'compressSize': compressSize < 50 ? 50 : compressSize,
       'cameraMimeType': mimeType,
     };
