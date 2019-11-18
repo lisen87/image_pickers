@@ -110,7 +110,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
            //            cameraMimeType//type   photo video
                               
             [self colorChange:[NSString stringWithFormat:@"%@",[dic objectForKey:@"uiColor"]] configuration:configuration];
-
+            
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
                                     
             if ([cameraMimeType isEqualToString:@"photo"]) {
