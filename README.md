@@ -1,4 +1,4 @@
-# [image_pickers](https://github.com/lisen87/image_pickers.git)
+# [image_pickers](https://github.com/lisen87/image_pickers)
 
 image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，提供7种选择图片时的主题颜色
 
@@ -12,7 +12,7 @@ image_pickers Support local picture multiple selection, local video multiple sel
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.5+1
+image_pickers: ^1.0.5+2
 ```
 
 ```dart

@@ -1,3 +1,6 @@
+## 1.0.5+2
+* 修复项目主页重定向问题
+* Fix project homepage redirection problem
 ## 1.0.5+1
 * Modify bug
 ## 1.0.5
