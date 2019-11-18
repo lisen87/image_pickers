@@ -26,6 +26,8 @@ class ImagePickers {
       const MethodChannel('flutter/image_pickers');
 
 
+  /// 返回拍摄的图片或视频的信息 Return information of the selected picture or video
+  ///
   /// cameraMimeType CameraMimeType.photo为拍照，CameraMimeType.video 为录制视频 CameraMimeType.photo is a photo, CameraMimeType.video is a video
   ///
   ///corpConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
@@ -82,6 +84,8 @@ class ImagePickers {
   ///
   ///
   ///galleryMode 选择图片或者选择视频 枚举 Select an image or select a video to enumerate
+  ///
+  /// uiConfig 选择图片或选择视频页面的主题 默认 UITheme.white. Select an image or select the theme of the video page Default UITheme.white
   ///
   ///selectCount 要选择的图片数量 Number of images to select
   ///

@@ -1,6 +1,6 @@
 # [image_pickers](https://github.com/lisen87/image_pickers.git)
 
-image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能
+image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，提供7种选择图片时的主题颜色
 
 image_pickers Support local picture multiple selection, local video multiple selection, support to save network pictures to albums,support to save network vidoe to albums, support preview video and preview picture function
 
@@ -12,7 +12,7 @@ image_pickers Support local picture multiple selection, local video multiple sel
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.4+1
+image_pickers: ^1.0.5
 ```
 
 ```dart
@@ -22,30 +22,46 @@ import 'package:image_pickers/Media.dart';
 ```
 ```dart
 
-///选择图片 select images
+///选择多张图片 Select multiple images
 Future<void> selectImages() async {
     List<Media> _listImagePaths = await ImagePickers.pickerPaths(
               galleryMode: GalleryMode.image,
               selectCount: 2,
               showCamera: true,
               compressSize: 300,
+              uiConfig: UIConfig(UITheme.white),
               corpConfig: CorpConfig(enableCrop: true, width: 2, height: 1));
   }
 
 /// 或者 or
 ImagePickers.pickerPaths().then((List medias){
-      
+      /// medias 照片路径信息 Photo path information
     });
 
 ```
 ```dart
-///选择视频 select Videos
+///选择多个视频 Select multiple videos
 Future<void> selectVideos() async {
    List<Media> _listVideoPaths = await ImagePickers.pickerPaths(
           galleryMode: GalleryMode.video,
           selectCount: 5,
         );
   }
+```
+```dart
+///直接打开相机拍摄图片 Open the camera directly to take a picture
+ImagePickers.openCamera().then((Media media){
+    /// media 包含照片路径信息 Include photo path information
+  });
+
+```
+
+```dart
+///直接打开相机拍摄视频 Open the camera directly to shoot the video
+ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
+    /// media 包含视频路径信息 Contains video path information
+  });
+
 ```
 
 ```dart
