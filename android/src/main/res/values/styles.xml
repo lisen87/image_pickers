@@ -21,6 +21,9 @@
 
     <!--QQ数字风格样式，注意每一项都不能少-->
     <style name="picture_green_style" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <!-- Customize your theme here. -->
         <!--标题栏背景色-->
         <item name="colorPrimary">@color/green</item>

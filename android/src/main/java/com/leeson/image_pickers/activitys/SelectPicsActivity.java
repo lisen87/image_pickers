@@ -12,6 +12,7 @@ import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
 import com.leeson.image_pickers.beans.UIColor;
 import com.leeson.image_pickers.utils.CommonUtils;
+import com.leeson.image_pickers.utils.GlideEngine;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -169,10 +170,13 @@ public class SelectPicsActivity extends BaseActivity {
                     }else{
                         pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
                     }
-                    pictureSelectionModel.theme(uiColorBean.getStyleId())
+                    pictureSelectionModel
+                            .theme(uiColorBean.getStyleId())
+                            .loadImageEngine(GlideEngine.createGlideEngine())
                             .isOpenStyleNumComplete(true)
                             .isOpenStyleCheckNumMode(true)
 
+                            .setTitleBarBackgroundColor(uiColorBean.getColorId())
                             .setStatusBarColorPrimaryDark(uiColorBean.getColorId())
                             .setCropTitleBarBackgroundColor(uiColorBean.getColorId())
                             .setCropStatusBarColorPrimaryDark(uiColorBean.getColorId())
