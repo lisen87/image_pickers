@@ -12,7 +12,7 @@ image_pickers Support local picture multiple selection, local video multiple sel
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.5+2
+image_pickers: ^1.0.5+3
 ```
 
 ```dart

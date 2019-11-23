@@ -1,3 +1,6 @@
+## 1.0.5+3
+* 安卓修复加载库报错问题
+* Android fixes some mobile phone loading library error
 ## 1.0.5+2
 * 修复项目主页重定向问题
 * Fix project homepage redirection problem
