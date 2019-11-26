@@ -87,7 +87,7 @@ class ImagePickers {
   ///
   ///galleryMode 选择图片或者选择视频 枚举 Select an image or select a video to enumerate
   ///
-  /// uiConfig 选择图片或选择视频页面的主题 默认 #fffefefe Select an image or select the theme of the video page Default UITheme.white
+  /// uiConfig 选择图片或选择视频页面的主题 默认 0xfffefefe Select an image or select the theme of the video page Default UITheme.white
   ///
   ///selectCount 要选择的图片数量 Number of images to select
   ///
@@ -158,6 +158,31 @@ class ImagePickers {
       'path': imagePath,
     };
     _channel.invokeMethod('previewImage', params);
+  }
+
+  ///预览多张图片 Preview multiple pictures
+  ///
+  ///imagePaths 图片本地路径集合或者网络url集合 Image local path collection or network url collection
+
+  static previewImages(List<String> imagePaths,int initIndex) {
+    final Map<String, dynamic> params = <String, dynamic>{
+      'paths': imagePaths,
+      'initIndex': initIndex,
+    };
+    _channel.invokeMethod('previewImages', params);
+  }
+
+  ///预览多张图片 Preview multiple pictures
+  ///
+  ///imageMedias 图片数据集合 Image local path collection or network url collection
+  ///
+  ///Media中真正有效使用的数据是 Media.path The really effectively used data in Media is Media.path
+  ///
+  static previewImagesByMedia(List<Media> imageMedias,int initIndex) {
+    if(imageMedias != null && imageMedias.length > 0){
+      List<String> paths = imageMedias.map((Media media) => media.path).toList();
+      previewImages(paths,initIndex);
+    }
   }
 
   ///预览视频 Preview video

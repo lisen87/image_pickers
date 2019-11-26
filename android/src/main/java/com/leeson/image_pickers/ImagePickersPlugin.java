@@ -108,6 +108,13 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       images.add(String.valueOf(methodCall.argument("path")));
       intent.putExtra(PhotosActivity.IMAGES, (Serializable) images);
       (registrar.activity()).startActivity(intent);
+    } else if ("previewImages".equals(methodCall.method)) {
+      Intent intent = new Intent(registrar.context(), PhotosActivity.class);
+      List<String> images = methodCall.argument("paths");
+      Number initIndex = methodCall.argument("initIndex");
+      intent.putExtra(PhotosActivity.IMAGES, (Serializable) images);
+      intent.putExtra(PhotosActivity.CURRENT_POSITION, initIndex);
+      (registrar.activity()).startActivity(intent);
     }else if ("previewVideo".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), VideoActivity.class);
       intent.putExtra(VideoActivity.VIDEO_PATH, String.valueOf(methodCall.argument("path")));

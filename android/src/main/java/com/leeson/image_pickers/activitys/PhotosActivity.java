@@ -42,11 +42,12 @@ public class PhotosActivity extends BaseActivity {
     private static final int READ_SDCARD = 101;
 
     public static final String IMAGES = "IMAGES";
-    public static final String CURRENTPOSITION = "CURRENTPOSITION";
+    public static final String CURRENT_POSITION = "CURRENT_POSITION";
     ViewPager viewPager;
     LinearLayout layout_tip;
 
     private List<String> images;
+    private Number currentPosition;
 
     private SparseArray<View> imageViews;
 
@@ -125,6 +126,7 @@ public class PhotosActivity extends BaseActivity {
         layout_tip = findViewById(R.id.layout_tip);
         inflater = LayoutInflater.from(this);
         images = getIntent().getStringArrayListExtra(IMAGES);
+        currentPosition = getIntent().getIntExtra(CURRENT_POSITION,0);
 
         if (images != null && images.size() >0){
             imageViews= new SparseArray<>(images.size());
@@ -146,6 +148,7 @@ public class PhotosActivity extends BaseActivity {
                 }
             }
         }
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -174,6 +177,7 @@ public class PhotosActivity extends BaseActivity {
         if (resultCode == RESULT_OK){
             if (requestCode == READ_SDCARD){
                 viewPager.setAdapter(new Adapter());
+                viewPager.setCurrentItem(currentPosition.intValue());
             }
         }else{
             finish();

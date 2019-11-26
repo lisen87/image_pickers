@@ -32,11 +32,11 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 2,
+          selectCount: 10,
           showCamera: true,
           compressSize: 500,
           uiConfig: UIConfig(uiThemeColor: Color(0xff3faad0)),
-          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
+//          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
       );
       print(_listImagePaths.toString());
       setState(() {
@@ -83,7 +83,15 @@ class _MyAppState extends State<MyApp> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: (){
-                        ImagePickers.previewImage(_listImagePaths[index].path);
+//                        ImagePickers.previewImage(_listImagePaths[index].path);
+
+//                      List<String> paths = [];
+//                        _listImagePaths.forEach((media){
+//                          paths.add(media.path);
+//                        });
+//
+//                        ImagePickers.previewImages(paths,index);
+                      ImagePickers.previewImagesByMedia(_listImagePaths,index);
                       },
                       child: Image.file(
                         File(
@@ -101,7 +109,7 @@ class _MyAppState extends State<MyApp> {
               ),
               RaisedButton(
                 onPressed: () {
-
+                  
                   ImagePickers.openCamera(corpConfig: CorpConfig(enableCrop: false, width: 2, height: 3)).then((Media media){
                     _listImagePaths.clear();
                     _listImagePaths.add(media);
