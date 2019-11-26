@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_pickers/CorpConfig.dart';
 import 'package:image_pickers/Media.dart';
@@ -53,9 +54,10 @@ class ImagePickers {
       height = corpConfig.height <= 0 ? 1 : corpConfig.height;
     }
 
+    Color uiColor = UIConfig.defUiThemeColor;
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': "image",
-      'uiColor': "UITheme.white",
+      'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
       'selectCount': 1,
       'showCamera': false,
       'enableCrop': enableCrop,
@@ -85,7 +87,7 @@ class ImagePickers {
   ///
   ///galleryMode 选择图片或者选择视频 枚举 Select an image or select a video to enumerate
   ///
-  /// uiConfig 选择图片或选择视频页面的主题 默认 UITheme.white. Select an image or select the theme of the video page Default UITheme.white
+  /// uiConfig 选择图片或选择视频页面的主题 默认 #fffefefe Select an image or select the theme of the video page Default UITheme.white
   ///
   ///selectCount 要选择的图片数量 Number of images to select
   ///
@@ -110,9 +112,9 @@ class ImagePickers {
     } else if (galleryMode == GalleryMode.video) {
       gMode = "video";
     }
-    String uiColor = "UITheme.white" ;
+    Color uiColor = UIConfig.defUiThemeColor ;
     if(uiConfig != null){
-      uiColor = uiConfig.uiTheme.toString();
+      uiColor = uiConfig.uiThemeColor ;
     }
 
     bool enableCrop = false;
@@ -126,7 +128,7 @@ class ImagePickers {
 
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': gMode,
-      'uiColor': uiColor,
+      'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
       'selectCount': selectCount,
       'showCamera': showCamera,
       'enableCrop': enableCrop,

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_root"
-    android:background="@color/black"
+    android:background="@color/bar_grey"
     android:gravity="center"
     android:orientation="vertical">
 

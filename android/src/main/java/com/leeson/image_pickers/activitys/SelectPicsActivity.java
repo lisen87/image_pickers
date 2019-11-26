@@ -13,6 +13,7 @@ import com.leeson.image_pickers.R;
 import com.leeson.image_pickers.beans.UIColor;
 import com.leeson.image_pickers.utils.CommonUtils;
 import com.leeson.image_pickers.utils.GlideEngine;
+import com.leeson.image_pickers.utils.PictureStyleUtil;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -58,7 +59,7 @@ public class SelectPicsActivity extends BaseActivity {
     private Number compressSize;
     private int compressCount = 0;
     private String mode;
-    private String uiColor;
+    private Map<String,Number> uiColor;
     private Number selectCount;
     private boolean showCamera;
     private boolean enableCrop;
@@ -71,7 +72,7 @@ public class SelectPicsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_pics);
         mode = getIntent().getStringExtra(GALLERY_MODE);
-        uiColor = getIntent().getStringExtra(UI_COLOR);
+        uiColor = (Map<String, Number>) getIntent().getSerializableExtra(UI_COLOR);
 
         selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
         showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
@@ -157,6 +158,8 @@ public class SelectPicsActivity extends BaseActivity {
 
                     UIColor uiColorBean = switchTheme();
 
+                    PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
+
                     //添加图片
                     PictureSelector pictureSelector = PictureSelector.create(this);
                     PictureSelectionModel pictureSelectionModel = null;
@@ -171,16 +174,12 @@ public class SelectPicsActivity extends BaseActivity {
                         pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
                     }
                     pictureSelectionModel
-                            .theme(uiColorBean.getStyleId())
                             .loadImageEngine(GlideEngine.createGlideEngine())
                             .isOpenStyleNumComplete(true)
                             .isOpenStyleCheckNumMode(true)
 
-                            .setTitleBarBackgroundColor(uiColorBean.getColorId())
-                            .setStatusBarColorPrimaryDark(uiColorBean.getColorId())
-                            .setCropTitleBarBackgroundColor(uiColorBean.getColorId())
-                            .setCropStatusBarColorPrimaryDark(uiColorBean.getColorId())
-                            .setCropTitleColor(uiColorBean.getColorId() == R.color.white ? R.color.bar_grey : R.color.white)
+                            .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
+                            .setPictureCropStyle(pictureStyleUtil.getCorpStyle(uiColor))
 
                             .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
                             .isCamera(showCamera)

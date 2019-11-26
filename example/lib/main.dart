@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
           selectCount: 2,
           showCamera: true,
           compressSize: 500,
-          uiConfig: UIConfig(UITheme.white),
+          uiConfig: UIConfig(uiThemeColor: Color(0xff3faad0)),
           corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
       );
       print(_listImagePaths.toString());
