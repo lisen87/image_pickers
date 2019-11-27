@@ -1,9 +1,8 @@
 # [image_pickers](https://github.com/lisen87/image_pickers)
 
-image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，提供7种选择图片时的主题颜色
+image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，支持主题颜色设置
 
-image_pickers Support local picture multiple selection, local video multiple selection, support to save network pictures to albums,support to save network vidoe to albums, support preview video and preview picture function
-
+image pickers support multi-selection of local pictures, multi-selection of local videos, support for saving network pictures to albums, support for saving network videos to albums, support for preview videos and preview pictures, and support for theme color settings
 > Supported  Platforms
 > * Android
 > * iOS
@@ -12,13 +11,14 @@ image_pickers Support local picture multiple selection, local video multiple sel
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.5+3
+image_pickers: ^1.0.6
 ```
 
 ```dart
 import 'package:image_pickers/image_pickers.dart';
 import 'package:image_pickers/CorpConfig.dart';
 import 'package:image_pickers/Media.dart';
+import 'package:image_pickers/UIConfig.dart';
 ```
 ```dart
 
@@ -28,8 +28,8 @@ Future<void> selectImages() async {
               galleryMode: GalleryMode.image,
               selectCount: 2,
               showCamera: true,
-              compressSize: 300,
-              uiConfig: UIConfig(UITheme.white),
+              compressSize: 500,
+              uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
               corpConfig: CorpConfig(enableCrop: true, width: 2, height: 1));
   }
 
@@ -65,8 +65,12 @@ ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
 ```
 
 ```dart
-///预览图片 preview picture
+///预览图片 Preview picture
 ImagePickers.previewImage(_listImagePaths[index].path);
+///预览多张图片 Preview multiple pictures
+ImagePickers.previewImagesByMedia(_listImagePaths,index);
+///预览多张图片 Preview multiple pictures
+ImagePickers.previewImages(paths,index);
 
 ///预览视频 Preview video
 ImagePickers.previewVideo(_listVideoPaths[index].path);

@@ -1,3 +1,10 @@
+## 1.0.6
+* 添加预览多图功能
+* Add preview multi-picture function
+* 修改ui主题颜色功能，由原来的预制ui颜色改为动态设置ui颜色
+* Modify the ui theme color function from the original pre-made ui color to dynamically set the ui color
+* 修复无法展示gif图片功能（注意：忽略了gif裁剪/压缩功能）
+* Fix unable to display gif image function (note: gif crop/compress function is ignored)
 ## 1.0.5+3
 * 安卓修复加载库报错问题
 * Android fixes some mobile phone loading library error

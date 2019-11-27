@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -32,11 +31,11 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 10,
+          selectCount: 11,
           showCamera: true,
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xff3faad0)),
-//          corpConfig: CorpConfig(enableCrop: true, width: 4, height: 3)
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
+//          corpConfig: CorpConfig(enableCrop: true, width: 230, height: 320)
       );
       print(_listImagePaths.toString());
       setState(() {
@@ -110,7 +109,7 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 onPressed: () {
                   
-                  ImagePickers.openCamera(corpConfig: CorpConfig(enableCrop: false, width: 2, height: 3)).then((Media media){
+                  ImagePickers.openCamera(corpConfig: CorpConfig(enableCrop: true, width: 2, height: 3)).then((Media media){
                     _listImagePaths.clear();
                     _listImagePaths.add(media);
                     setState(() {

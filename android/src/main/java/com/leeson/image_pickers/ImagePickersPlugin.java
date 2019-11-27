@@ -115,22 +115,22 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       intent.putExtra(PhotosActivity.IMAGES, (Serializable) images);
       intent.putExtra(PhotosActivity.CURRENT_POSITION, initIndex);
       (registrar.activity()).startActivity(intent);
-    }else if ("previewVideo".equals(methodCall.method)) {
+    } else if ("previewVideo".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), VideoActivity.class);
       intent.putExtra(VideoActivity.VIDEO_PATH, String.valueOf(methodCall.argument("path")));
       intent.putExtra(VideoActivity.THUMB_PATH, String.valueOf(methodCall.argument("thumbPath")));
       (registrar.activity()).startActivity(intent);
-    }else if("saveImageToGallery".equals(methodCall.method)){
+    } else if("saveImageToGallery".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), SaveImageToGalleryActivity.class);
       intent.putExtra(SaveImageToGalleryActivity.PATH, String.valueOf(methodCall.argument("path")));
       (registrar.activity()).startActivityForResult(intent,SAVE_IMAGE);
-    }else if("saveVideoToGallery".equals(methodCall.method)){
+    } else if("saveVideoToGallery".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), PermissionActivity.class);
       intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
               ,Manifest.permission.READ_EXTERNAL_STORAGE});
       intent.putExtra("videoUrl",String.valueOf(methodCall.argument("path")));
       (registrar.activity()).startActivityForResult(intent, WRITE_SDCARD);
-    }else{
+    } else {
       result.notImplemented();
     }
   }

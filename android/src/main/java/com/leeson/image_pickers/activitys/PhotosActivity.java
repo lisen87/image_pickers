@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.leeson.image_pickers.R;
+import com.leeson.image_pickers.utils.CommonUtils;
 
 import java.util.List;
 
@@ -62,14 +71,15 @@ public class PhotosActivity extends BaseActivity {
 
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return view== object;
+            return view == object;
         }
+
         @NonNull
         @Override
         public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
             View view = imageViews.get(position);
-            if (view == null){
-                view = inflater.inflate(R.layout.item_activity_photos,container,false);
+            if (view == null) {
+                view = inflater.inflate(R.layout.item_activity_photos, container, false);
                 final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
                 final ImageView photoView = (ImageView) view.findViewById(R.id.photoView);
                 final PhotoViewAttacher attacher = new PhotoViewAttacher(photoView);
@@ -91,15 +101,49 @@ public class PhotosActivity extends BaseActivity {
                 });
                 progressBar.setVisibility(View.VISIBLE);
                 String url = images.get(position);
-                Glide.with(PhotosActivity.this).load(url).into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        photoView.setImageDrawable(resource);
-                        attacher.update();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-                imageViews.put(position,view);
+                if (!TextUtils.isEmpty(url) && url.endsWith(".gif")) {
+
+                    Glide.with(PhotosActivity.this)
+                            .asGif()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .priority(Priority.HIGH)
+                            .load(url)
+                            .listener(new RequestListener<GifDrawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    int resWidth = resource.getIntrinsicWidth();
+                                    int reHeight = resource.getIntrinsicHeight();
+                                    float scaleWH = (float) resWidth / (float) reHeight;
+                                    int photoViewHeight = (int) (CommonUtils.getScreenWidth(PhotosActivity.this) /scaleWH);
+                                    ViewGroup.LayoutParams layoutParams = photoView.getLayoutParams();
+                                    layoutParams.width =  CommonUtils.getScreenWidth(PhotosActivity.this);
+                                    layoutParams.height = photoViewHeight;
+                                    photoView.setLayoutParams(layoutParams);
+
+                                    attacher.update();
+                                    progressBar.setVisibility(View.GONE);
+                                    photoView.setImageDrawable(resource);
+                                    return false;
+                                }
+                            }).into(photoView);
+
+                } else {
+
+                    Glide.with(PhotosActivity.this).load(url).into(new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                            photoView.setImageDrawable(resource);
+                            attacher.update();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+                }
+                imageViews.put(position, view);
             }
             container.addView(view);
             return view;
@@ -111,10 +155,12 @@ public class PhotosActivity extends BaseActivity {
             container.removeView(view);
         }
     }
+
     public int dp2px(float dpValue) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -126,23 +172,23 @@ public class PhotosActivity extends BaseActivity {
         layout_tip = findViewById(R.id.layout_tip);
         inflater = LayoutInflater.from(this);
         images = getIntent().getStringArrayListExtra(IMAGES);
-        currentPosition = getIntent().getIntExtra(CURRENT_POSITION,0);
+        currentPosition = getIntent().getIntExtra(CURRENT_POSITION, 0);
 
-        if (images != null && images.size() >0){
-            imageViews= new SparseArray<>(images.size());
+        if (images != null && images.size() > 0) {
+            imageViews = new SparseArray<>(images.size());
 
-            if (images.size() < 10 && images.size() > 1){
+            if (images.size() < 10 && images.size() > 1) {
 
                 for (int i = 0; i < images.size(); i++) {
                     View view = new View(this);
-                    if (0 == i){
-                        view.setBackground(ContextCompat.getDrawable(this,R.drawable.circle_white));
-                    }else{
-                        view.setBackground(ContextCompat.getDrawable(this,R.drawable.circle_gray));
+                    if (0 == i) {
+                        view.setBackground(ContextCompat.getDrawable(this, R.drawable.circle_white));
+                    } else {
+                        view.setBackground(ContextCompat.getDrawable(this, R.drawable.circle_gray));
                     }
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     params.width = params.height = dp2px(6);
-                    params.leftMargin =params.rightMargin = dp2px(5);
+                    params.leftMargin = params.rightMargin = dp2px(5);
                     view.setLayoutParams(params);
                     layout_tip.addView(view);
                 }
@@ -156,7 +202,7 @@ public class PhotosActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (images.size() < 10){
+                if (images.size() < 10) {
                     reset(position);
                 }
             }
@@ -167,28 +213,28 @@ public class PhotosActivity extends BaseActivity {
         });
 
         Intent intent = new Intent(this, PermissionActivity.class);
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
+        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE});
         startActivityForResult(intent, READ_SDCARD);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == READ_SDCARD){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == READ_SDCARD) {
                 viewPager.setAdapter(new Adapter());
                 viewPager.setCurrentItem(currentPosition.intValue());
             }
-        }else{
+        } else {
             finish();
         }
     }
 
-    private void reset(int pos){
+    private void reset(int pos) {
         for (int i = 0; i < layout_tip.getChildCount(); i++) {
             View view = layout_tip.getChildAt(i);
-            view.setBackground(ContextCompat.getDrawable(this,R.drawable.circle_gray));
+            view.setBackground(ContextCompat.getDrawable(this, R.drawable.circle_gray));
         }
-        layout_tip.getChildAt(pos).setBackground(ContextCompat.getDrawable(this,R.drawable.circle_white));
+        layout_tip.getChildAt(pos).setBackground(ContextCompat.getDrawable(this, R.drawable.circle_white));
     }
 }

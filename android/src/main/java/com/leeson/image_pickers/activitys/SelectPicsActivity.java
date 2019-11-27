@@ -7,10 +7,10 @@ import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
-import com.leeson.image_pickers.beans.UIColor;
 import com.leeson.image_pickers.utils.CommonUtils;
 import com.leeson.image_pickers.utils.GlideEngine;
 import com.leeson.image_pickers.utils.PictureStyleUtil;
@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 import top.zibin.luban.OnRenameListener;
@@ -129,7 +130,20 @@ public class SelectPicsActivity extends BaseActivity {
                     for (int i = 0; i < selectList.size(); i++) {
                         LocalMedia localMedia = selectList.get(i);
                         if (localMedia.isCut()) {
-                            paths.add(localMedia.getCutPath());
+                            // 因为这个lib中gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (localMedia.getAndroidQToPath().endsWith(".gif")){
+                                    paths.add(localMedia.getAndroidQToPath());
+                                }else{
+                                    paths.add(localMedia.getCutPath());
+                                }
+                            } else {
+                                if (localMedia.getPath().endsWith(".gif")){
+                                    paths.add(localMedia.getPath());
+                                }else{
+                                    paths.add(localMedia.getCutPath());
+                                }
+                            }
                         } else {
                             if (Build.VERSION.SDK_INT >= 29) {
                                 paths.add(localMedia.getAndroidQToPath());
@@ -156,8 +170,6 @@ public class SelectPicsActivity extends BaseActivity {
                     break;
                 case WRITE_SDCARD:
 
-                    UIColor uiColorBean = switchTheme();
-
                     PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
 
                     //添加图片
@@ -183,6 +195,7 @@ public class SelectPicsActivity extends BaseActivity {
 
                             .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
                             .isCamera(showCamera)
+                            .isGif(true)
                             .maxSelectNum(selectCount.intValue())
                             .withAspectRatio(width.intValue(), height.intValue())
                             .imageSpanCount(4)// 每行显示个数 int
@@ -199,36 +212,6 @@ public class SelectPicsActivity extends BaseActivity {
         } else {
             finish();
         }
-    }
-
-    private UIColor switchTheme() {
-        UIColor uiColorBean = new UIColor();
-        if ("UITheme.white".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_white_style);
-            uiColorBean.setColorId(R.color.white);
-        }else if("UITheme.black".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_black_style);
-            uiColorBean.setColorId(R.color.bar_grey);
-        }else if("UITheme.grey".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_grey_style);
-            uiColorBean.setColorId(R.color.grey);
-        }else if("UITheme.green".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_green_style);
-            uiColorBean.setColorId(R.color.green);
-        }else if("UITheme.red".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_red_style);
-            uiColorBean.setColorId(R.color.red);
-        }else if("UITheme.orange".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_orange_style);
-            uiColorBean.setColorId(R.color.orange);
-        }else if("UITheme.blue".equals(uiColor)){
-            uiColorBean.setStyleId(R.style.picture_blue_style);
-            uiColorBean.setColorId(R.color.blue);
-        }else{
-            uiColorBean.setStyleId(R.style.picture_white_style);
-            uiColorBean.setColorId(R.color.white);
-        }
-        return uiColorBean;
     }
 
 
@@ -256,6 +239,12 @@ public class SelectPicsActivity extends BaseActivity {
                 .load(paths)
                 .ignoreBy(compressSize.intValue())
                 .setTargetDir(getPath())
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !path.endsWith(".gif");
+                    }
+                })
                 .setRenameListener(new OnRenameListener() {
                     @Override
                     public String rename(String filePath) {

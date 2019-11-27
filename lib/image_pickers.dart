@@ -87,7 +87,7 @@ class ImagePickers {
   ///
   ///galleryMode 选择图片或者选择视频 枚举 Select an image or select a video to enumerate
   ///
-  /// uiConfig 选择图片或选择视频页面的主题 默认 0xfffefefe Select an image or select the theme of the video page Default UITheme.white
+  /// uiConfig 选择图片或选择视频页面的主题 默认 0xfffefefe Select an image or select the theme of the video page Default 0xfffefefe
   ///
   ///selectCount 要选择的图片数量 Number of images to select
   ///
