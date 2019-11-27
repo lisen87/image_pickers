@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
           galleryMode: _galleryMode,
           selectCount: 11,
           showCamera: true,
+           corpConfig :CorpConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
           uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
 //          corpConfig: CorpConfig(enableCrop: true, width: 230, height: 320)

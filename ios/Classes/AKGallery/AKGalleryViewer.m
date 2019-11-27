@@ -9,6 +9,8 @@
 #import "AKGalleryViewer.h"
 #import "UIImageView+WebCache.h"
 #import "Masonry.h"
+#import <ImageIO/ImageIO.h>
+
 
 @interface AKGalleryViewer()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UIViewControllerTransitioningDelegate,UIActionSheetDelegate>
 {
@@ -28,25 +30,68 @@
     return self;
 }
 
-
+//CGImageRef MyCreateCGImageFromFile(NSString *path)
+//{
+//
+//
+//    if (imageSource == NULL) {
+//        return NULL;
+//    }
+//    //图片获取，index=0
+//    image = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+//
+//    return image;
+//}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-
+    
     [self updateColor];
     if ([self.gallery itemForRow:self.index].img) {
         self.imgView.image= [self.gallery itemForRow:self.index].img;
     }
-    if ([self.gallery itemForRow:self.index].url) {
-        //self.imgView.image= [self.gallery itemForRow:self.index].img;
-        [self.imgView sd_setImageWithURL:(NSURL*)[self.gallery itemForRow:self.index].url  placeholderImage:[UIImage imageNamed:@"error.png"] options:SDWebImageProgressiveLoad completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if(error){
-                self.imgView.image=[UIImage imageNamed:@"error.png"];
-            }
-        }];    }
     
-   
-//    AKLog(@"viewer %p did appear %ld",self,self.index);
+    if ([self.gallery itemForRow:self.index].url) {
+//
+        if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]){
+//            NSURL *fileUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];//加载GIF图片
+            NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
+              CGImageSourceRef gifSource;
+            
+            gifSource =  CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
+            
+            size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
+            
+            NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
+            
+            for (size_t i=0; i<frameCout;i++){
+                
+                CGImageRef imageRef=CGImageSourceCreateImageAtIndex(gifSource, i, NULL);//从GIF图片中取出源图片
+                UIImage* imageName=[UIImage imageWithCGImage:imageRef];//将图片源转换成UIimageView能使用的图片源
+                [frames addObject:imageName];//将图片加入数组中
+                CGImageRelease(imageRef);
+            }
+            
+            self.imgView.animationImages=frames;//将图片数组加入UIImageView动画数组中
+            self.imgView.animationDuration=frameCout/16;//每次动画时长
+            [self.imgView startAnimating];//开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
+        }else{
+            [self.imgView sd_setImageWithURL:(NSURL*)[self.gallery itemForRow:self.index].url  placeholderImage:[UIImage imageNamed:@"error.png"] options:SDWebImageProgressiveLoad completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                if(error){
+                    self.imgView.image=[UIImage imageNamed:@"error.png"];
+                }
+            }];
+            
+        }
+        
+        
+        
+        //self.imgView.image= [self.gallery itemForRow:self.index].img;
+        
+    }
+    
+    
+    //    AKLog(@"viewer %p did appear %ld",self,self.index);
     
     
     if (self.gallery.choose) {
@@ -122,7 +167,7 @@
     
     [sv addGestureRecognizer:longPressReger];
     
-
+    
     
 }
 
@@ -134,16 +179,12 @@
     
     AKGalleryViewerContainer *containerVC= self.gallery.viewControllers[1];
     [containerVC.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-    
-    if (isBlack) {
-        
+    if (isBlack){
         self.gallery.navigationBarHidden=YES;
         containerVC.toolBar.hidden=YES;
         self.view.backgroundColor=[UIColor blackColor];
         containerVC.pageVC.view.backgroundColor=[UIColor blackColor];
-    }
-    else{
-        
+    }else{
         self.gallery.navigationBarHidden=NO;
         containerVC.toolBar.hidden=NO;
         self.view.backgroundColor=[UIColor whiteColor];
@@ -156,8 +197,6 @@
     AKGalleryViewerContainer *containerVC= self.navigationController.viewControllers[1];
     
     [UIView animateWithDuration:0.25 animations:^{
-        
-        
         
         if (curColor==[UIColor whiteColor]) {
             self.navigationController.navigationBarHidden=YES;
@@ -187,7 +226,7 @@
     
     CGPoint  point =  [tap locationInView:tap.view];
     
-//    AKLog(@"double tap %@",NSStringFromCGPoint(point));
+    //    AKLog(@"double tap %@",NSStringFromCGPoint(point));
     
     if(self.scrollView.zoomScale!=1){
         
@@ -211,7 +250,7 @@
     
 }
 -(void)collectionThePhoto{
-  
+    
     
 }
 
@@ -254,7 +293,7 @@
 
 
 -(void)userPinch:(UIPinchGestureRecognizer*)pinch{
-//    AKLog(@"userPinch scale:%f  velocity:%f",pinch.scale,pinch.velocity);
+    //    AKLog(@"userPinch scale:%f  velocity:%f",pinch.scale,pinch.velocity);
     float scale = pinch.scale;
     UIGestureRecognizerState state= pinch.state;
     
@@ -296,7 +335,7 @@
         }
             break;
         case UIGestureRecognizerStateEnded:{
-//            AKLog(@"end");
+            //            AKLog(@"end");
             //todo: shake navi title when end
             
             
@@ -322,7 +361,7 @@
             
             break;
         case UIGestureRecognizerStateCancelled:{
-//            AKLog(@"cancel");
+            //            AKLog(@"cancel");
             if (self.interativeDismiss) {
                 //poping
                 [self.interativeDismiss cancelInteractiveTransition];
@@ -332,7 +371,7 @@
             }
             userPan.enabled=NO;
             
-//            AKLog(@"self.interativeDismiss=nil;");
+            //            AKLog(@"self.interativeDismiss=nil;");
         }break;
             
         default:
@@ -342,7 +381,7 @@
 }
 
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView{
-//    AKLog(@"zoom");
+    //    AKLog(@"zoom");
     
     if(scrollView.zoomScale<1){
         
@@ -390,15 +429,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     self.edgesForExtendedLayout=UIRectEdgeAll;
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.extendedLayoutIncludesOpaqueBars=YES;
     
     //back bar button
     UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:[self reSizeImage:[UIImage  imageNamed:@"fanhuiheise_btn"] toSize:CGSizeMake(45, 45)] style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
-//    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
-
+    //    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
+    
     self.navigationItem.leftBarButtonItem=backBarBtn;
     
     
@@ -436,8 +475,8 @@
     
     
     UIPageViewController* pvc= [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{
-                                                                                                                                                                                                                  UIPageViewControllerOptionInterPageSpacingKey:@(self.gallery.custUI.spaceBetweenViewer)
-                                                                                                                                                                                                                  } ];
+        UIPageViewControllerOptionInterPageSpacingKey:@(self.gallery.custUI.spaceBetweenViewer)
+    } ];
     
     if (self.gallery.custUI.viewerBackgroundBlack) {
         pvc.view.backgroundColor=[UIColor blackColor];
@@ -575,7 +614,7 @@
         
         AKGalleryViewer* viewer = [[AKGalleryViewer alloc]initWithContainer:self index:idx];
         
-//        AKLog(@"before %p idx:%ld",viewer,self.index);
+        //        AKLog(@"before %p idx:%ld",viewer,self.index);
         
         return viewer;
     }
@@ -592,7 +631,7 @@
         
         AKGalleryViewer* viewer = [[AKGalleryViewer alloc]initWithContainer:self index:idx];
         
-//        AKLog(@"after %p idx:%ld selectedIdx:%ld",viewer,idx,self.index);
+        //        AKLog(@"after %p idx:%ld selectedIdx:%ld",viewer,idx,self.index);
         
         
         return viewer;
@@ -622,7 +661,7 @@
     [self updateUI];
     //    AKLog(@"didFinishAnimating  finished:%@ viewer:%p  %ld previousViewControllers:%p  completed:%@",@(finished),viewer,self.index,previousViewControllers.firstObject,@(completed));
     
-//    AKLog(@"didFinishAnimating idx:%ld",viewer.index);
+    //    AKLog(@"didFinishAnimating idx:%ld",viewer.index);
     
     if (completed) {
         //
@@ -644,7 +683,7 @@
     //    return  [AKInterativeDismissToList new];
     AKGalleryViewer* viewer= self.pageVC.viewControllers.firstObject;
     
-//    AKLog(@"inter :%@",viewer.interativeDismiss);
+    //    AKLog(@"inter :%@",viewer.interativeDismiss);
     return viewer.interativeDismiss;
     
 }
@@ -662,7 +701,7 @@
         
         //        AKGalleryViewerContainer* container = (AKGalleryViewerContainer*)fromVC;
         //        AKGalleryViewer* viewer= self.pageVC.viewControllers.firstObject;
-//        AKLog(@"animate %@", AKInterativeDismissToList.new);
+        //        AKLog(@"animate %@", AKInterativeDismissToList.new);
         //        return viewer.interativeDismiss;
         return AKInterativeDismissToList.new;
     }

@@ -35,7 +35,6 @@ NSString* identifier  = @"AKGalleryListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor=[UIColor whiteColor];
     self.title=self.gallery.custUI.listTitle;
     
     
@@ -47,14 +46,14 @@ NSString* identifier  = @"AKGalleryListCell";
     
     
     //添加返回按钮
-    UIButton *  returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    returnBtn.frame = CGRectMake(5, 20, 44, 44);
-    //    [returnBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 10,6, 90)];    //    returnBtn.backgroundColor = [UIColor cyanColor];
-    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
-    [returnBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [topImageView addSubview:returnBtn];
-    
+//    UIButton *  returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    returnBtn.frame = CGRectMake(5, 20, 44, 44);
+//    //    [returnBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 10,6, 90)];    //    returnBtn.backgroundColor = [UIColor cyanColor];
+//    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
+//    [returnBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    [topImageView addSubview:returnBtn];
+//
 
     //登录标签
     UILabel *navTitle =[[UILabel alloc] initWithFrame:CGRectMake(55, 20, 210, 44)];
