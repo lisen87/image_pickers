@@ -15,7 +15,6 @@
         <activity android:name=".activitys.SelectPicsActivity" android:theme="@style/TransTheme"/>
         <activity android:name=".activitys.PhotosActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activitys.VideoActivity" android:configChanges="orientation|screenSize"/>
-        <activity android:name=".activitys.SaveImageToGalleryActivity" android:theme="@style/TransTheme" />
 
         <!--        <provider-->
         <!--            android:name=".provides.MyProvide"-->

@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.leeson.image_pickers.AppPath;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,31 +20,31 @@ import io.flutter.plugin.common.MethodChannel;
  *
  * @author lisen < 453354858@qq.com >
  */
-public class VideoSaver {
-    private String videoUrl;
+public class Saver {
+    private String saveUrl;
+    private String saveDir;
     private Context context;
     private MethodChannel.Result result;
 
     private MediaScannerConnection mediaScannerConnection;
 
-    public VideoSaver(Context context, String videoUrl, MethodChannel.Result result) {
-        this.videoUrl = videoUrl;
+    public Saver(Context context, String saveUrl,String saveDir, MethodChannel.Result result) {
         this.context = context;
+        this.saveUrl = saveUrl;
+        this.saveDir = saveDir;
         this.result = result;
     }
     public void download(){
-        if (TextUtils.isEmpty(videoUrl)){
+        if (TextUtils.isEmpty(saveUrl)){
             return;
         }
-
-        AppPath appPath = new AppPath(context);
-        String videoDirPath = appPath.getVideoPath();
-        File dir = new File(videoDirPath);
+        File dir = new File(saveDir);
         if (!dir.exists()){
             dir.mkdirs();
         }
-        String fileName = videoUrl.substring(videoUrl.lastIndexOf("/")+1);
-        final File videoFile = new File(dir,fileName);
+
+        String fileName = saveUrl.substring(saveUrl.lastIndexOf("/")+1);
+        final File videoFile = new File(saveDir,fileName);
 
         new Thread(new Runnable() {
             InputStream inputStream = null;
@@ -54,7 +52,7 @@ public class VideoSaver {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(videoUrl);
+                    URL url = new URL(saveUrl);
                     final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
@@ -102,7 +100,7 @@ public class VideoSaver {
                         });
                     }
 
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                     try {
                         if (fileOutputStream != null){

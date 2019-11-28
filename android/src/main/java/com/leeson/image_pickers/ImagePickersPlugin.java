@@ -6,10 +6,9 @@ import android.content.Intent;
 
 import com.leeson.image_pickers.activitys.PermissionActivity;
 import com.leeson.image_pickers.activitys.PhotosActivity;
-import com.leeson.image_pickers.activitys.SaveImageToGalleryActivity;
 import com.leeson.image_pickers.activitys.SelectPicsActivity;
 import com.leeson.image_pickers.activitys.VideoActivity;
-import com.leeson.image_pickers.utils.VideoSaver;
+import com.leeson.image_pickers.utils.Saver;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,13 +48,18 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
           return true;
         }else if (requestCode == SAVE_IMAGE){
           if (resultCode == Activity.RESULT_OK){
-            String path = intent.getStringExtra(SaveImageToGalleryActivity.PATH);
-            result.success(path);
+            String imageUrl = intent.getStringExtra("imageUrl");
+            AppPath appPath = new AppPath(registrar.context());
+            String imageDirPath = appPath.getShowedImgPath();
+            Saver imageSaver = new Saver(registrar.context(),imageUrl,imageDirPath,result);
+            imageSaver.download();
           }
         }else if(requestCode == WRITE_SDCARD){
           if (resultCode == Activity.RESULT_OK){
             String videoUrl = intent.getStringExtra("videoUrl");
-            VideoSaver videoSaver = new VideoSaver(registrar.context(),videoUrl,result);
+            AppPath appPath = new AppPath(registrar.context());
+            String videoDirPath = appPath.getVideoPath();
+            Saver videoSaver = new Saver(registrar.context(),videoUrl,videoDirPath,result);
             videoSaver.download();
           }
         }else{
@@ -121,8 +125,10 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       intent.putExtra(VideoActivity.THUMB_PATH, String.valueOf(methodCall.argument("thumbPath")));
       (registrar.activity()).startActivity(intent);
     } else if("saveImageToGallery".equals(methodCall.method)) {
-      Intent intent = new Intent(registrar.context(), SaveImageToGalleryActivity.class);
-      intent.putExtra(SaveImageToGalleryActivity.PATH, String.valueOf(methodCall.argument("path")));
+      Intent intent = new Intent(registrar.context(), PermissionActivity.class);
+      intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+              ,Manifest.permission.READ_EXTERNAL_STORAGE});
+      intent.putExtra("imageUrl",String.valueOf(methodCall.argument("path")));
       (registrar.activity()).startActivityForResult(intent,SAVE_IMAGE);
     } else if("saveVideoToGallery".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), PermissionActivity.class);
