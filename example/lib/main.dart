@@ -91,6 +91,13 @@ class _MyAppState extends State<MyApp> {
 //                        });
 //
 //                        ImagePickers.previewImages(paths,index);
+
+                        Map imageDetail = {'thumbPath': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif', 'path': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif'};
+                        
+                        
+                        
+
+
                       ImagePickers.previewImagesByMedia(_listImagePaths,index);
                       },
                       child: Image.file(

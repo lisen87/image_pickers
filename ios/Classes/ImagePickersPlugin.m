@@ -173,9 +173,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
                     
-                    
-                    
-                    
                     NSDictionary *photoDic = @{
                         @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
                         @"path":[NSString stringWithFormat:@"%@",subString],
@@ -459,26 +456,30 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
     }else if([@"saveImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
-        
-        UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]]]]];
-        
-        __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-        [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
-         {
-            NSString *str =assetURL.absoluteString;
-            NSString *string =@"://";
-            NSRange range = [str rangeOfString:string];//匹配得到的下标
-            if(range.location+range.length<str.length){
-                str = [str substringFromIndex:range.location+range.length];
-                //NSLog(@"%@",str);
-                if (error) {
-                    
-                }else{
-                    result([NSString stringWithFormat:@"/%@",str]);
+        NSString *url =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
+        if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
+            [self saveGifImage:url];
+        }else{
+            UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+            __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+            [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+             {
+                NSString *str =assetURL.absoluteString;
+                NSString *string =@"://";
+                NSRange range = [str rangeOfString:string];//匹配得到的下标
+                if(range.location+range.length<str.length){
+                    str = [str substringFromIndex:range.location+range.length];
+                    //NSLog(@"%@",str);
+                    if (error) {
+                        
+                    }else{
+                        result([NSString stringWithFormat:@"/%@",str]);
+                    }
                 }
-            }
-            
-        }];
+                
+            }];
+        }
+        
         
     }else if([@"saveVideoToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
@@ -486,6 +487,40 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         [self  playerDownload :urlString];
     }
 }
+#pragma mark //保存gif
+
+- (void)saveGifImage:(NSString*)urlString {
+
+    NSURL *fileUrl = [NSURL URLWithString:urlString];
+    
+    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+
+        NSLog(@"%@", location);
+
+        NSData *data = [NSData dataWithContentsOfFile:location.path];
+
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+
+            [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
+
+        }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+
+            if(success && !error) {
+
+                NSLog(@"下载成功");
+
+            }else{
+
+                NSLog(@"下载失败");
+
+            }
+
+        }];
+
+    }]resume];
+
+}
+
 #pragma //mark 通过视频的URL，获得视频缩略图
 -(UIImage *)getImage:(NSString *)videoURL
 {
@@ -510,6 +545,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     
     return thumb;
 }
+
 - (void)playerDownload:(NSString *)url{
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

@@ -72,14 +72,21 @@
         AKGalleryViewer* viewerVC=  containerVC.pageVC.viewControllers.firstObject;
         imgDataIdx=viewerVC.index;
         UIImage*img=viewerVC.imgView.image;
-        UIImageView* imgV= [[UIImageView alloc]init];
-        //从imageView把image的大小计算出来
-        CGRect imgFrame= AVMakeRectWithAspectRatioInsideRect(img.size, viewerVC.imgView.bounds);
-        imgV.frame=imgFrame;
-        imgV.image=img;
-        imgV.contentMode=UIViewContentModeScaleAspectFill;
-        [container addSubview:imgV];
-        self.imgView=imgV;
+        if (viewerVC.imgView.image) {
+            UIImageView* imgV= [[UIImageView alloc]init];
+                   //从imageView把image的大小计算出来
+                   CGRect imgFrame= AVMakeRectWithAspectRatioInsideRect(img.size, viewerVC.imgView.bounds);
+                   
+                   
+                   imgV.frame=imgFrame;
+                   imgV.image=img;
+                   imgV.contentMode=UIViewContentModeScaleAspectFill;
+                   [container addSubview:imgV];
+                   self.imgView=imgV;
+        }else{
+            self.imgView =viewerVC.imgView;
+        }
+       
     }
     
     

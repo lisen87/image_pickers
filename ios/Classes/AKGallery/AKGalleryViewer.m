@@ -29,19 +29,28 @@
     self.index=index;
     return self;
 }
+//获取GIF图片每帧的时长
+- (NSTimeInterval)gifImageDeleyTime:(CGImageSourceRef)imageSource index:(NSInteger)index {
+    NSTimeInterval duration = 0;
+    CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, index, NULL);
+    if (imageProperties) {
+        CFDictionaryRef gifProperties;
+        BOOL result = CFDictionaryGetValueIfPresent(imageProperties, kCGImagePropertyGIFDictionary, (const void **)&gifProperties);
+        if (result) {
+            const void *durationValue;
+            if (CFDictionaryGetValueIfPresent(gifProperties, kCGImagePropertyGIFUnclampedDelayTime, &durationValue)) {
+                duration = [(__bridge NSNumber *)durationValue doubleValue];
+                if (duration < 0) {
+                    if (CFDictionaryGetValueIfPresent(gifProperties, kCGImagePropertyGIFDelayTime, &durationValue)) {
+                        duration = [(__bridge NSNumber *)durationValue doubleValue];
+                    }
+                }
+            }
+        }
+    }
 
-//CGImageRef MyCreateCGImageFromFile(NSString *path)
-//{
-//
-//
-//    if (imageSource == NULL) {
-//        return NULL;
-//    }
-//    //图片获取，index=0
-//    image = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
-//
-//    return image;
-//}
+    return duration;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -54,7 +63,6 @@
     if ([self.gallery itemForRow:self.index].url) {
 //
         if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]){
-//            NSURL *fileUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];//加载GIF图片
             NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
               CGImageSourceRef gifSource;
             
@@ -63,17 +71,18 @@
             size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
             
             NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
-            
+            double timeLong =0;
             for (size_t i=0; i<frameCout;i++){
                 
                 CGImageRef imageRef=CGImageSourceCreateImageAtIndex(gifSource, i, NULL);//从GIF图片中取出源图片
                 UIImage* imageName=[UIImage imageWithCGImage:imageRef];//将图片源转换成UIimageView能使用的图片源
                 [frames addObject:imageName];//将图片加入数组中
                 CGImageRelease(imageRef);
+                timeLong =timeLong+[self gifImageDeleyTime:gifSource index:i];
             }
             
             self.imgView.animationImages=frames;//将图片数组加入UIImageView动画数组中
-            self.imgView.animationDuration=frameCout/16;//每次动画时长
+            self.imgView.animationDuration=timeLong;//每次动画时长
             [self.imgView startAnimating];//开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
         }else{
             [self.imgView sd_setImageWithURL:(NSURL*)[self.gallery itemForRow:self.index].url  placeholderImage:[UIImage imageNamed:@"error.png"] options:SDWebImageProgressiveLoad completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -630,13 +639,8 @@
         idx++;
         
         AKGalleryViewer* viewer = [[AKGalleryViewer alloc]initWithContainer:self index:idx];
-        
         //        AKLog(@"after %p idx:%ld selectedIdx:%ld",viewer,idx,self.index);
-        
-        
         return viewer;
-        
-        
     }
     return nil;
 }

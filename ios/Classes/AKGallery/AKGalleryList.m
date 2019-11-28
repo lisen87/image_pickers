@@ -141,11 +141,11 @@ NSString* identifier  = @"AKGalleryListCell";
     AKGalleryItem* item = [self.gallery itemForRow:indexPath.row];
 //
 //    AKLog(@"didselect %@ row:%ld",item.title,(long)indexPath.row);
-    
     AKGalleryViewerContainer* viewer =AKGalleryViewerContainer.new;
     
     [self.navigationController pushViewController:viewer animated:YES];
     
 }
+
 
 @end
