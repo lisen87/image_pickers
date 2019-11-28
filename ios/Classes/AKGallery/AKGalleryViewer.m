@@ -444,12 +444,11 @@
     self.extendedLayoutIncludesOpaqueBars=YES;
     
     //back bar button
-    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:[self reSizeImage:[UIImage  imageNamed:@"fanhuiheise_btn"] toSize:CGSizeMake(45, 45)] style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
-    //    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
+//    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:[self reSizeImage:[UIImage  imageNamed:@"fanhuiheise_btn"] toSize:CGSizeMake(45, 45)] style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
+       
+    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
     
     self.navigationItem.leftBarButtonItem=backBarBtn;
-    
-    
     
     //toolBar
     UIToolbar* tBar = UIToolbar.new;
