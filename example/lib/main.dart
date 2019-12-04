@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
           showCamera: true,
            corpConfig :CorpConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
+//          uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
 //          corpConfig: CorpConfig(enableCrop: true, width: 230, height: 320)
       );
       print(_listImagePaths.toString());
@@ -63,9 +63,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        backgroundColor: Colors.white,
+        primaryColor: Colors.white,
+      ),
+
       home: Scaffold(
         appBar: AppBar(
           title: const Text('多图选择'),
+          elevation: 1,
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
