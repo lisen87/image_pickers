@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
           showCamera: true,
            corpConfig :CorpConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
-//          uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
 //          corpConfig: CorpConfig(enableCrop: true, width: 230, height: 320)
       );
       print(_listImagePaths.toString());
@@ -71,7 +71,6 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('多图选择'),
-          elevation: 1,
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -97,6 +96,8 @@ class _MyAppState extends State<MyApp> {
 //                        });
 //
 //                        ImagePickers.previewImages(paths,index);
+
+                        Map imageDetail = {'thumbPath': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif', 'path': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif'};
 
                       ImagePickers.previewImagesByMedia(_listImagePaths,index);
                       },

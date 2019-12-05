@@ -117,10 +117,6 @@
 
 -(void)viewDidLoad{
     
-    
-    
-    
-    
     UIScrollView *sv = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     sv.delegate=self;
     sv.userInteractionEnabled=YES;

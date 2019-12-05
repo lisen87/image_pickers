@@ -41,7 +41,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 }
 -(void)colorChange:(NSDictionary*)colorString configuration:(ZLPhotoConfiguration*)configuration {
     UIColor* colorType =[self stringChangeColor:colorString];
-    int light =[colorString objectForKey:@"l"];
+    int light =[[colorString objectForKey:@"l"] intValue];
     
     if(light<=179){
         configuration. bottomBtnsDisableBgColor =[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];//未选中按钮
@@ -93,7 +93,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                         @"value1":[NSNumber numberWithInt:width],//第一个是宽
                                         @"value2":[NSNumber numberWithInt:height],//第二个是高
         }];
-                
+        
         if(cameraMimeType) {
             
             //            cameraMimeType//type   photo video
@@ -154,7 +154,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         
                     };
                     
-                    [[UIApplication      sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
+                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
                     }];
                     
                 }else{
@@ -182,7 +182,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 }
                 
             };
-            
+            camera.modalPresentationStyle =UIModalPresentationFullScreen;
             [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:camera sender:nil];
             
         }else{
@@ -211,7 +211,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             }else{
                 ac.configuration. allowSelectImage =NO;
                 ac.configuration.allowSelectVideo =YES;
-                
             }
             //        ac.configuration.shouldAnialysisAsset = YES;
             //框架语言
@@ -272,7 +271,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         for (int i=0; i<assets.count; i++) {
                             PHAsset *asset  =assets[i];
                             [manage requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-                                
                                 UIImage *im =[UIImage imageWithData:imageData];
                                 //NSLog(@"info==%@",info);
                                 NSURL * path = [info objectForKey:@"PHImageFileURLKey"];
@@ -303,37 +301,37 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                         
                                         if([arr[i] containsString:@"GIF"]||[arr[i] containsString:@"gif"]){
                                             NSDictionary *photoDic =@{
-                                                                                                             @"thumbPath":[NSString stringWithFormat:@"%@",arr[i]],
-                                                                                                             @"path":[NSString stringWithFormat:@"%@",arr[i]],
-                                                                                                         };
-                                                                                                         //取出路径
-                                                                                                         [urlArr addObject:photoDic];
+                                                @"thumbPath":[NSString stringWithFormat:@"%@",arr[i]],
+                                                @"path":[NSString stringWithFormat:@"%@",arr[i]],
+                                            };
+                                            //取出路径
+                                            [urlArr addObject:photoDic];
                                         }else{
                                             UIImage *imag =[UIImage imageWithContentsOfFile:arr[i]];
-                                                                                  NSData *data2=UIImageJPEGRepresentation(imag , 1.0);
-                                                                                  if (data2.length>compressSize) {
-                                                                                      //压缩
-                                                                                      data2=UIImageJPEGRepresentation(imag, (float)(data2.length/compressSize));
-                                                                                  }
-                                                                                  NSLog(@"_______%ld",data2.length);
-                                                                                  UIImage *image =[UIImage imageWithData:data2];
-                                                                                  //重命名并且保存
-                                                                                  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                                                                  formatter.dateFormat = @"yyyyMMddHHmmss";
-                                                                                  NSString*urlString =arr[i];
-                                                                                  NSString *name = [NSString stringWithFormat:@"%@01%@",[formatter stringFromDate:[NSDate date]],[urlString lastPathComponent]];
-                                                                                  NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                                                                                  //保存到沙盒
-                                                                                  [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                                                                                  NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                                                                                  NSDictionary *photoDic =@{
-                                                                                      @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                                                                                      @"path":[NSString stringWithFormat:@"%@",aPath3],
-                                                                                  };
-                                                                                  //取出路径
-                                                                                  [urlArr addObject:photoDic];
+                                            NSData *data2=UIImageJPEGRepresentation(imag , 1.0);
+                                            if (data2.length>compressSize) {
+                                                //压缩
+                                                data2=UIImageJPEGRepresentation(imag, (float)(data2.length/compressSize));
+                                            }
+                                            NSLog(@"_______%ld",data2.length);
+                                            UIImage *image =[UIImage imageWithData:data2];
+                                            //重命名并且保存
+                                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                                            formatter.dateFormat = @"yyyyMMddHHmmss";
+                                            NSString*urlString =arr[i];
+                                            NSString *name = [NSString stringWithFormat:@"%@01%@",[formatter stringFromDate:[NSDate date]],[urlString lastPathComponent]];
+                                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                                            //保存到沙盒
+                                            [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+                                            NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                                            NSDictionary *photoDic =@{
+                                                @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
+                                                @"path":[NSString stringWithFormat:@"%@",aPath3],
+                                            };
+                                            //取出路径
+                                            [urlArr addObject:photoDic];
                                         }
-                                      
+                                        
                                     }
                                     result(urlArr);
                                 }
@@ -356,36 +354,15 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         NSArray *imageArr =[dic objectForKey:@"paths"];
         NSInteger initIndex =[[dic objectForKey:@"initIndex"] intValue];
-//        for (int i=0; i<imageArr.count; i++){
-//            NSString *imgString  =imageArr[i];
-//
-//            ZLPhotoModel *model =[[ZLPhotoModel alloc]init];
-////            model.image =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imgString]]];
-//            model.url =[NSURL URLWithString:imgString];
-//            model.type =ZLAssetMediaTypeGif;
-//            [arr addObject:model];
-//
-//        }
-//
-//        ZLShowBigImgViewController *svc = [[ZLShowBigImgViewController alloc] init];
-//        ZLImageNavigationController *nav = [[ZLImageNavigationController alloc] initWithRootViewController:svc];
-//        svc.selectIndex = initIndex;
-//        svc.models = arr;
-//        svc.isPush = NO;
-//        [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:nav sender:nil];
-//
-//
-        
-        
         
         for (int i=0; i<imageArr.count; i++) {
             NSString *imgString  =imageArr[i];
             if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]) {
                 AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:[NSString stringWithFormat:@"%@",imgString] img:nil];
                 [arr addObject:item];
-            
-            }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]){
-
+                
+            }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"CoreSimulator/"]){
+                
                 UIImage *image =[UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",imgString]]];
                 AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:nil img:image];
                 [arr addObject:item];
@@ -400,10 +377,12 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     //NSLog(@"completion gallery");
                 };
                 //show gallery
+                gallery.modalPresentationStyle =UIModalPresentationFullScreen;
+                
                 [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
             }
-
-
+            
+            
         }
         
         
@@ -427,8 +406,13 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 //NSLog(@"completion gallery");
             };
             //show gallery
+            gallery.modalPresentationStyle =UIModalPresentationFullScreen;
+            
             [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
-        }else if ([[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"var/"]){
+            
+            
+            
+        }else if ([[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"CoreSimulator/"]){
             UIImage *image =[UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]]]];
             
             AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:nil img:image];
@@ -442,6 +426,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 //NSLog(@"completion gallery");
             };
             //show gallery
+            gallery.modalPresentationStyle =UIModalPresentationFullScreen;
+            
             [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
         }
         
@@ -451,6 +437,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         vc.modalPresentationStyle=0;
         //vc.videoUrl =[NSString stringWithFormat:@"%@",@"http://apis.beboy.me/static/video/2019/07/20190730160222392332.mp4"];
         vc.videoUrl =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
+        vc.modalPresentationStyle =UIModalPresentationFullScreen;
+        
         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:vc animated:YES completion:^{
         }];
         
@@ -490,35 +478,35 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 #pragma mark //保存gif
 
 - (void)saveGifImage:(NSString*)urlString {
-
-    NSURL *fileUrl = [NSURL URLWithString:urlString];
     
-    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-
-        NSLog(@"%@", location);
-
-        NSData *data = [NSData dataWithContentsOfFile:location.path];
-
-        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-
-            [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
-
-        }completionHandler:^(BOOL success,NSError*_Nullableerror) {
-
-            if(success && !error) {
-
-                NSLog(@"下载成功");
-
-            }else{
-
-                NSLog(@"下载失败");
-
-            }
-
-        }];
-
-    }]resume];
-
+        NSURL *fileUrl = [NSURL URLWithString:urlString];
+    
+        [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+                NSLog(@"%@", location);
+        
+                NSData *data = [NSData dataWithContentsOfFile:location.path];
+        
+                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            
+                        [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
+            
+                    }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+                
+                            if(success && !error) {
+                    
+                                    NSLog(@"下载成功");
+                    
+                                }else{
+                        
+                                        NSLog(@"下载失败");
+                        
+                                    }
+                
+                        }];
+        
+            }]resume];
+    
 }
 
 #pragma //mark 通过视频的URL，获得视频缩略图

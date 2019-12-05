@@ -73,12 +73,12 @@
     
     
 //    //添加返回按钮
-    UIButton *  returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    returnBtn.frame = CGRectMake(0,[AKGallery isPhoneX]?40:20, 44, 44);
-    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
-    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [returnBtn addTarget:self action:@selector(returnBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:returnBtn];
+//    UIButton *  returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    returnBtn.frame = CGRectMake(0,[AKGallery isPhoneX]?40:20, 44, 44);
+//    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
+//    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [returnBtn addTarget:self action:@selector(returnBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:returnBtn];
 //
     
     
@@ -140,7 +140,7 @@
     }
     
     
-   NSAssert(_items!=nil, @"setItems设置内容有错误");
+//   NSAssert(_items!=nil, @"setItems设置内容有错误");
 }
 
 @end
