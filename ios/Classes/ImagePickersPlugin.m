@@ -250,7 +250,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             //保存到沙盒
                             [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
                             NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                            
+
                             //取出路径
                             [arr addObject:@{
                                 @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
@@ -279,12 +279,14 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                 NSString *imageLast = [str lastPathComponent];
                                 if (!path) {
 //                                    NSData * imageData = [info objectForKey:@"PHImageFileURLKey"];
-                                    imageLast =[NSString stringWithFormat:@"%ld",imageData.length];
+                                    imageLast =[NSString stringWithFormat:@"%ld.%@",imageData.length,[dataUTI pathExtension]];
+                                    ;
                                 }
                                 
                                 NSString *subString = [str substringFromIndex:7];
-                                
-                                if(enableCrop==YES&&(![subString containsString:@"gif"])&&(![subString containsString:@"GIF"])){
+                                if((![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
+
+//                                if(enableCrop==YES&&(![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
                                     //若裁剪需要裁剪后的图片，需要保存一下
                                     //重命名
                                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -338,7 +340,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                             //取出路径
                                             [urlArr addObject:photoDic];
                                         }
-                                        
+                
                                     }
                                     result(urlArr);
                                     return ;

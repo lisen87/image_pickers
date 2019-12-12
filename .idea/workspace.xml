@@ -10,8 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -55,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+            <state relative-caret-position="552">
+              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -134,7 +134,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="269" />
+    <option name="x" value="171" />
     <option name="y" value="23" />
     <option name="width" value="1651" />
     <option name="height" value="991" />
@@ -384,11 +384,18 @@
       <option name="project" value="LOCAL" />
       <updated>1575536578968</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="ios13 present浏览显示不到顶部，ios13相册选择路径问题">
+      <created>1576128561248</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1576128561248</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="269" y="23" width="1651" height="991" extended-state="1" />
+    <frame x="198" y="50" width="1651" height="991" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.19577377" />
@@ -401,7 +408,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" sideWeight="0.5021834" side_tool="true" weight="0.18856065" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.17153284" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49968573" visible="true" weight="0.48714954" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49968573" visible="true" weight="0.19158879" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.486618" />
@@ -436,7 +443,8 @@
     <MESSAGE value="通过flutter端设置颜色，来改变原生图片选择页面颜色" />
     <MESSAGE value="多图预览" />
     <MESSAGE value="ios13 present浏览显示不到顶部" />
-    <option name="LAST_COMMIT_MESSAGE" value="ios13 present浏览显示不到顶部" />
+    <MESSAGE value="ios13 present浏览显示不到顶部，ios13相册选择路径问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="ios13 present浏览显示不到顶部，ios13相册选择路径问题" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/AppPath.java">
@@ -593,8 +601,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+        <state relative-caret-position="552">
+          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
