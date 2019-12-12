@@ -131,7 +131,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             //压缩
                             data2=UIImageJPEGRepresentation(imageE, (float)(data2.length/compressSize));
                         }
-                        NSLog(@"_______%ld",data2.length);
+                        NSLog(@"_____方法__%ld",data2.length);
                         UIImage *image =[UIImage imageWithData:data2];
                         //重命名并且保存
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -150,7 +150,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         };
                         //取出路径
                         result(@[photoDic]);
-                        
+                        return ;
+
                         
                     };
                     
@@ -178,7 +179,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         @"path":[NSString stringWithFormat:@"%@",subString],
                     };
                     result(@[photoDic]);
-                    
+                    return ;
+
                 }
                 
             };
@@ -222,10 +224,11 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
                 //your codes
                 NSMutableArray *arr =[[NSMutableArray alloc]init];
-                
                 for (NSInteger i = 0; i < assets.count; i++) {
                     // 获取一个资源（PHAsset）
                     PHAsset *phAsset = assets[i];
+                    PHImageManager *manage =[[PHImageManager alloc]init];
+                    PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
                     //视频
                     if (phAsset.mediaType == PHAssetMediaTypeVideo) {
                         PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
@@ -256,7 +259,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             //NSLog(@"%@",arr);
                             if (arr.count==assets.count) {
                                 result(arr);
-                                
+                                return ;
+
                             }
                             
                             
@@ -264,17 +268,20 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         }];
                     }else{
                         
-                        PHImageManager *manage =[[PHImageManager alloc]init];
-                        PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
-                        NSMutableArray *arr =[[NSMutableArray alloc]init];
+               
                         
-                        for (int i=0; i<assets.count; i++) {
                             PHAsset *asset  =assets[i];
                             [manage requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
                                 UIImage *im =[UIImage imageWithData:imageData];
                                 //NSLog(@"info==%@",info);
                                 NSURL * path = [info objectForKey:@"PHImageFileURLKey"];
                                 NSString *str =path.absoluteString;
+                                NSString *imageLast = [str lastPathComponent];
+                                if (!path) {
+//                                    NSData * imageData = [info objectForKey:@"PHImageFileURLKey"];
+                                    imageLast =[NSString stringWithFormat:@"%ld",imageData.length];
+                                }
+                                
                                 NSString *subString = [str substringFromIndex:7];
                                 
                                 if(enableCrop==YES&&(![subString containsString:@"gif"])&&(![subString containsString:@"GIF"])){
@@ -282,7 +289,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                     //重命名
                                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                                     formatter.dateFormat = @"yyyyMMddHHmmss";
-                                    NSString *name = [NSString stringWithFormat:@"%@%@",[formatter stringFromDate:[NSDate date]],[str lastPathComponent]];
+                                    NSString *name = [NSString stringWithFormat:@"%@%@",[formatter stringFromDate:[NSDate date]],imageLast];
                                     NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
                                     //保存到沙盒
                                     [UIImageJPEGRepresentation(im,1.0) writeToFile:jpgPath atomically:YES];
@@ -334,9 +341,10 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                         
                                     }
                                     result(urlArr);
+                                    return ;
+                                    
                                 }
                             }];
-                        }
                     }
                 }
                 //        [self zhuanhuanTupian];
