@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -55,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="246">
+              <caret line="40" column="40" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -391,12 +389,18 @@
       <option name="project" value="LOCAL" />
       <updated>1576128561248</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="1.处理部分机型不显示图片问题">
+      <created>1576146015859</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1576146015859</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="198" y="50" width="1651" height="991" extended-state="0" />
-    <editor active="true" />
+    <frame x="171" y="23" width="1651" height="991" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.19577377" />
       <window_info id="Captures" order="1" side_tool="true" />
@@ -408,17 +412,17 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" sideWeight="0.5021834" side_tool="true" weight="0.18856065" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.17153284" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49968573" visible="true" weight="0.19158879" />
+      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49968573" weight="0.19158879" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.486618" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Terminal" order="6" weight="0.19099757" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5003143" side_tool="true" weight="0.31025958" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5009323" side_tool="true" visible="true" weight="0.14135514" />
       <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.12773722" />
       <window_info anchor="bottom" id="Find" order="10" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.1421508" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49906775" visible="true" weight="0.14135514" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
@@ -444,7 +448,8 @@
     <MESSAGE value="多图预览" />
     <MESSAGE value="ios13 present浏览显示不到顶部" />
     <MESSAGE value="ios13 present浏览显示不到顶部，ios13相册选择路径问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="ios13 present浏览显示不到顶部，ios13相册选择路径问题" />
+    <MESSAGE value="1.处理部分机型不显示图片问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.处理部分机型不显示图片问题" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/AppPath.java">
@@ -601,8 +606,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="246">
+          <caret line="40" column="40" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
