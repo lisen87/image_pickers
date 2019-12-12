@@ -1,3 +1,8 @@
+## 1.0.6+1
+* ios修复ios13获取相册路径错误问题
+* iOS fix iOS13 getting album path error problem
+* android优化预览多图片时内存问题
+* Android optimization memory issues when previewing multiple pictures
 ## 1.0.6
 * 添加预览多图功能
 * Add preview multi-picture function
