@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -8,6 +10,8 @@ import 'package:image_pickers/image_pickers.dart';
 import 'package:image_pickers/CropConfig.dart';
 import 'package:image_pickers/Media.dart';
 import 'package:image_pickers/UIConfig.dart';
+import 'dart:ui' as ui;
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -17,10 +21,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GalleryMode _galleryMode = GalleryMode.image;
-
+  GlobalKey globalKey;
   @override
   void initState() {
     super.initState();
+    globalKey = GlobalKey();
   }
 
   List<Media> _listImagePaths = List();
@@ -180,7 +185,25 @@ class _MyAppState extends State<MyApp> {
                     print("保存图片路径："+ path);
                   });
                 },
-                child: Text("保存图片"),
+                child: Text("保存网络图片"),
+              ),
+              InkWell(
+                onTap: (){
+                  ImagePickers.previewImage("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
+                },
+                  child: Image.network("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg",fit: BoxFit.cover,width: 100,height: 100,)),
+              RaisedButton(
+                onPressed: () async {
+
+                  RenderRepaintBoundary boundary =
+                  this.globalKey.currentContext.findRenderObject();
+                  ui.Image image = await boundary.toImage(pixelRatio: 1);
+                  ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+                  Uint8List data = byteData.buffer.asUint8List();
+                  String path = await ImagePickers.saveByteDataImageToGallery(data,);
+                  print("保存截屏图片 = "+ path);
+                },
+                child: Text("保存截屏图片"),
               ),
 
               RaisedButton(
