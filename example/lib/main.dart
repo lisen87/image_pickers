@@ -33,9 +33,9 @@ class _MyAppState extends State<MyApp> {
           galleryMode: _galleryMode,
           selectCount: 8,
           showCamera: true,
-          cropConfig :CropConfig(enableCrop: true,height: 2,width: 1),
+          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Colors.teal),
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
       );
       _listImagePaths.forEach((media){
         print(media.path.toString());
@@ -98,9 +98,7 @@ class _MyAppState extends State<MyApp> {
 //
 //                        ImagePickers.previewImages(paths,index);
 
-                        Map imageDetail = {'thumbPath': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif', 'path': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif'};
-
-                      ImagePickers.previewImagesByMedia(_listImagePaths,index);
+                        ImagePickers.previewImagesByMedia(_listImagePaths,index);
                       },
                       child: Image.file(
                         File(
