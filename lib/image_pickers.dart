@@ -23,13 +23,6 @@ enum CameraMimeType {
   video,
 }
 
-enum ImageMimeType {
-  png,
-  jpg,
-  jpeg,
-  gif,
-}
-
 class ImagePickers {
   static const MethodChannel _channel =
       const MethodChannel('flutter/image_pickers');
@@ -211,23 +204,10 @@ class ImagePickers {
   ///
   /// data 图片字节数据 Picture byte data
   ///
-  /// imageMimeType 图片后缀名，默认png  Picture suffix Default png
-  ///
 
-  static Future<String> saveByteDataImageToGallery(Uint8List data,{ImageMimeType imageMimeType : ImageMimeType.png}) async {
-    String mimeType = "png";
-    if(imageMimeType == ImageMimeType.png){
-      mimeType = "png";
-    }else if(imageMimeType == ImageMimeType.jpg){
-      mimeType = "jpg";
-    }else if(imageMimeType == ImageMimeType.jpeg){
-      mimeType = "jpeg";
-    }else if(imageMimeType == ImageMimeType.gif){
-      mimeType = "gif";
-    }
+  static Future<String> saveByteDataImageToGallery(Uint8List data,) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'uint8List': data,
-      'imageMimeType': mimeType,
     };
     String path = await _channel.invokeMethod('saveByteDataImageToGallery', params);
     return path;

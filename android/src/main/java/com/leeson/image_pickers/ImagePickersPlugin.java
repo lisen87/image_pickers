@@ -8,6 +8,7 @@ import com.leeson.image_pickers.activitys.PermissionActivity;
 import com.leeson.image_pickers.activitys.PhotosActivity;
 import com.leeson.image_pickers.activitys.SelectPicsActivity;
 import com.leeson.image_pickers.activitys.VideoActivity;
+import com.leeson.image_pickers.utils.ImageByteDataSaver;
 import com.leeson.image_pickers.utils.Saver;
 
 import java.io.Serializable;
@@ -31,9 +32,12 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
   private static final int SELECT = 102;
   private static final int SAVE_IMAGE = 103;
   private static final int WRITE_SDCARD = 104;
+  private static final int SAVE_IMAGE_DATA = 105;
 
   private PluginRegistry.Registrar registrar;
   private MethodChannel.Result result;
+
+  private byte[] data;
 
   public ImagePickersPlugin(final PluginRegistry.Registrar registrar) {
     this.registrar = registrar;
@@ -61,6 +65,13 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
             String videoDirPath = appPath.getVideoPath();
             Saver videoSaver = new Saver(registrar.context(),videoUrl,videoDirPath,result);
             videoSaver.download();
+          }
+        }else if(requestCode == SAVE_IMAGE_DATA){
+          if (resultCode == Activity.RESULT_OK && data != null){
+            AppPath appPath = new AppPath(registrar.context());
+            ImageByteDataSaver saver = new ImageByteDataSaver(registrar.context(),data,appPath.getShowedImgPath(),result);
+            saver.save();
+            data = null;
           }
         }
         return false;
@@ -134,7 +145,13 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
               ,Manifest.permission.READ_EXTERNAL_STORAGE});
       intent.putExtra("videoUrl",String.valueOf(methodCall.argument("path")));
       (registrar.activity()).startActivityForResult(intent, WRITE_SDCARD);
-    } else {
+    } else if("saveByteDataImageToGallery".equals(methodCall.method)){
+      Intent intent = new Intent(registrar.context(), PermissionActivity.class);
+      intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+              ,Manifest.permission.READ_EXTERNAL_STORAGE});
+      data = (byte[])methodCall.argument("uint8List");
+      (registrar.activity()).startActivityForResult(intent, SAVE_IMAGE_DATA);
+    }else {
       result.notImplemented();
     }
   }
