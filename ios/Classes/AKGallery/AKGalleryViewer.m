@@ -64,15 +64,10 @@
 //
         if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]||[[self.gallery itemForRow:self.index].url containsString:@"gif"]){
             NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
-      
            [self.imgView setImage:[UIImage sd_imageWithGIFData:data]];
-            
 //              CGImageSourceRef gifSource;
-//
 //            gifSource =  CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
-//
 //            size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
-//
 //            NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
 //            double timeLong =0;
 //            for (size_t i=0; i<frameCout;i++){
