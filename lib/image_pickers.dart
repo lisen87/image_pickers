@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:image_pickers/CorpConfig.dart';
+import 'package:image_pickers/CropConfig.dart';
 import 'package:image_pickers/Media.dart';
 import 'package:image_pickers/UIConfig.dart';
 
@@ -31,13 +31,13 @@ class ImagePickers {
   ///
   /// cameraMimeType CameraMimeType.photo为拍照，CameraMimeType.video 为录制视频 CameraMimeType.photo is a photo, CameraMimeType.video is a video
   ///
-  ///corpConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
+  ///cropConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
   ///
   ///compressSize 拍照后（录制视频时此参数无效）的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
   static Future<Media> openCamera({
     CameraMimeType cameraMimeType : CameraMimeType.photo,
-    CorpConfig corpConfig,
+    CropConfig cropConfig,
     int compressSize: 500,
   }) async {
     String mimeType = "photo";
@@ -48,10 +48,10 @@ class ImagePickers {
     bool enableCrop = false;
     int width = 1;
     int height = 1;
-    if (corpConfig != null) {
-      enableCrop = corpConfig.enableCrop;
-      width = corpConfig.width <= 0 ? 1 : corpConfig.width;
-      height = corpConfig.height <= 0 ? 1 : corpConfig.height;
+    if (cropConfig != null) {
+      enableCrop = cropConfig.enableCrop;
+      width = cropConfig.width <= 0 ? 1 : cropConfig.width;
+      height = cropConfig.height <= 0 ? 1 : cropConfig.height;
     }
 
     Color uiColor = UIConfig.defUiThemeColor;
@@ -93,7 +93,7 @@ class ImagePickers {
   ///
   ///showCamera 是否显示相机按钮 Whether to display the camera button
   ///
-  ///corpConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
+  ///cropConfig 裁剪配置（视频不支持裁剪和压缩，当选择视频时此参数无效） Crop configuration (video does not support cropping and compression, this parameter is not available when selecting video)
   ///
   ///compressSize 选择图片（选择视频时此参数无效）后的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
@@ -103,7 +103,7 @@ class ImagePickers {
     UIConfig uiConfig ,
     int selectCount: 1,
     bool showCamera: false,
-    CorpConfig corpConfig,
+    CropConfig cropConfig,
     int compressSize: 500,
   }) async {
     String gMode = "image";
@@ -120,10 +120,10 @@ class ImagePickers {
     bool enableCrop = false;
     int width = 1;
     int height = 1;
-    if (corpConfig != null) {
-      enableCrop = corpConfig.enableCrop;
-      width = corpConfig.width <= 0 ? 1 : corpConfig.width;
-      height = corpConfig.height <= 0 ? 1 : corpConfig.height;
+    if (cropConfig != null) {
+      enableCrop = cropConfig.enableCrop;
+      width = cropConfig.width <= 0 ? 1 : cropConfig.width;
+      height = cropConfig.height <= 0 ? 1 : cropConfig.height;
     }
 
     final Map<String, dynamic> params = <String, dynamic>{

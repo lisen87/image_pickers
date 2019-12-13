@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:image_pickers/image_pickers.dart';
-import 'package:image_pickers/CorpConfig.dart';
+import 'package:image_pickers/CropConfig.dart';
 import 'package:image_pickers/Media.dart';
 import 'package:image_pickers/UIConfig.dart';
 void main() => runApp(MyApp());
@@ -31,14 +31,15 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 11,
+          selectCount: 8,
           showCamera: true,
-           corpConfig :CorpConfig(enableCrop: false,height: 1,width: 1),
+          cropConfig :CropConfig(enableCrop: true,height: 2,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
-//          corpConfig: CorpConfig(enableCrop: true, width: 230, height: 320)
+          uiConfig: UIConfig(uiThemeColor: Colors.teal),
       );
-      print(_listImagePaths.toString());
+      _listImagePaths.forEach((media){
+        print(media.path.toString());
+      });
       setState(() {
 
       });
@@ -118,7 +119,7 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 onPressed: () {
                   
-                  ImagePickers.openCamera(corpConfig: CorpConfig(enableCrop: true, width: 2, height: 3)).then((Media media){
+                  ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 3)).then((Media media){
                     _listImagePaths.clear();
                     _listImagePaths.add(media);
                     setState(() {

@@ -104,6 +104,7 @@ public class PictureStyleUtil {
             parameterStyle.pictureTitleTextColor = ContextCompat.getColor(context, R.color.bar_grey);
             // 相册右侧取消按钮字体颜色
             parameterStyle.pictureCancelTextColor = ContextCompat.getColor(context, R.color.bar_grey);
+            parameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.bar_grey);
             // 相册列表底下预览文字色值(预览按钮可点击时的色值)
             parameterStyle.picturePreviewTextColor = R.color.bar_grey;
             // 相册列表已完成色值(已完成 可点击色值)
@@ -119,6 +120,7 @@ public class PictureStyleUtil {
             parameterStyle.pictureTitleTextColor = ContextCompat.getColor(context, R.color.white);
             // 相册右侧取消按钮字体颜色
             parameterStyle.pictureCancelTextColor = ContextCompat.getColor(context, R.color.white);
+            parameterStyle.pictureRightDefaultTextColor = ContextCompat.getColor(context, R.color.white);
             // 相册列表底下预览文字色值(预览按钮可点击时的色值)
             parameterStyle.picturePreviewTextColor = argb;
             // 相册列表已完成色值(已完成 可点击色值)
@@ -133,7 +135,7 @@ public class PictureStyleUtil {
      * @param uiColor
      * @return
      */
-    public PictureCropParameterStyle getCorpStyle(Map<String, Number> uiColor) {
+    public PictureCropParameterStyle getCropStyle(Map<String, Number> uiColor) {
         int a = 255;
         int r = 255;
         int g = 255;

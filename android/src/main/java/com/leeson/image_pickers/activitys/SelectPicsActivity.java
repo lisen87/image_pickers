@@ -2,12 +2,12 @@ package com.leeson.image_pickers.activitys;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
@@ -190,8 +190,9 @@ public class SelectPicsActivity extends BaseActivity {
                             .isOpenStyleNumComplete(true)
                             .isOpenStyleCheckNumMode(true)
 
+                            .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                             .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
-                            .setPictureCropStyle(pictureStyleUtil.getCorpStyle(uiColor))
+                            .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
 
                             .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
                             .isCamera(showCamera)
@@ -203,6 +204,13 @@ public class SelectPicsActivity extends BaseActivity {
                             .isSingleDirectReturn(true)// 单选模式下是否直接返回
                             .previewImage(true)// 是否可预览图片 true or false
                             .enableCrop(enableCrop)// 是否裁剪 true or false
+
+                            .circleDimmedLayer(false)
+                            .showCropFrame(true)
+                            .showCropGrid(true)
+                            .hideBottomControls(true)
+                            .freeStyleCropEnabled(false)
+
                             .compress(false)// 是否压缩 true or false
                             .minimumCompressSize(Integer.MAX_VALUE)// 小于100kb的图片不压缩
                             .compressSavePath(getPath())//压缩图片保存地址

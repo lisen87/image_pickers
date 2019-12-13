@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.leeson.image_pickers.R;
 import com.luck.picture.lib.engine.ImageEngine;
 
 import androidx.annotation.NonNull;
@@ -27,15 +28,14 @@ public class GlideEngine implements ImageEngine {
     }
 
     @Override
-    public void loadFolderAsBitmapImage(@NonNull final Context context, @NonNull String url,
-                                        @NonNull final ImageView imageView, int placeholderId) {
+    public void loadFolderImage(@NonNull final Context context, @NonNull String url, @NonNull final ImageView imageView) {
         Glide.with(context)
                 .asBitmap()
                 .override(180, 180)
                 .centerCrop()
                 .sizeMultiplier(0.5f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(placeholderId)
+                .placeholder(R.drawable.picture_icon_placeholder)
                 .load(url)
                 .into(new BitmapImageViewTarget(imageView) {
                     @Override
@@ -49,7 +49,6 @@ public class GlideEngine implements ImageEngine {
                 });
     }
 
-
     @Override
     public void loadAsGifImage(@NonNull Context context, @NonNull String url,
                                @NonNull ImageView imageView) {
@@ -62,18 +61,15 @@ public class GlideEngine implements ImageEngine {
     }
 
     @Override
-    public void loadAsBitmapGridImage(@NonNull Context context, @NonNull String url,
-                                      @NonNull ImageView imageView, int placeholderId) {
+    public void loadGridImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView) {
         Glide.with(context)
-                .asBitmap()
+                .load(url)
                 .override(200, 200)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(placeholderId)
-                .load(url)
+                .placeholder(R.drawable.picture_image_placeholder)
                 .into(imageView);
     }
-
 
     private GlideEngine() {
     }

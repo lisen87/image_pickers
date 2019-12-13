@@ -62,8 +62,6 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
             Saver videoSaver = new Saver(registrar.context(),videoUrl,videoDirPath,result);
             videoSaver.download();
           }
-        }else{
-          result.notImplemented();
         }
         return false;
       }

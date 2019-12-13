@@ -1,3 +1,11 @@
+## 1.0.6+2
+* 修复flutter回调异常
+* Fix flutter callback exception
+* `CorpConfig` 类 改为 `CropConfig` 类，参数中的 `corpConfig` 改为 `cropConfig`
+* `CorpConfig` class changed to` CropConfig` class, and `corpConfig` in the parameter was changed to` cropConfig`
+* ios修复ios13获取图片路径没有后缀名问题，修复没有设置裁剪获取图片路径为null的问题
+* ios fix ios 13 get image path without suffix, fix the problem that crop path is null
+
 ## 1.0.6+1
 * ios修复ios13获取相册路径错误问题
 * iOS fix iOS13 getting album path error problem

@@ -1,6 +1,6 @@
 ///裁剪配置
 ///Crop configuration
-class CorpConfig {
+class CropConfig {
   ///是否可裁剪
   bool enableCrop = false;
 
@@ -12,5 +12,5 @@ class CorpConfig {
   ///Crop height ratio
   int height = 1;
 
-  CorpConfig({this.enableCrop: false, this.width: 1, this.height: 1});
+  CropConfig({this.enableCrop: false, this.width: 1, this.height: 1});
 }

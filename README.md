@@ -7,20 +7,26 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 > * Android
 > * iOS
 
+## 注意
+
+从1.0.6+2开始 `CorpConfig` 类 改为 `CropConfig` 类，参数中的 `corpConfig` 改为 `cropConfig`.
+From 1.0.6 + 2, the `CorpConfig` class is changed to `CropConfig` class, and the `corpConfig` in the parameters is changed to `cropConfig`.
+
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.6+1
+image_pickers: ^1.0.6+2
 ```
 
 ```dart
 import 'package:image_pickers/image_pickers.dart';
-import 'package:image_pickers/CorpConfig.dart';
+import 'package:image_pickers/CropConfig.dart';
 import 'package:image_pickers/Media.dart';
 import 'package:image_pickers/UIConfig.dart';
 ```
 ```dart
+
 
 ///选择多张图片 Select multiple images
 Future<void> selectImages() async {
@@ -30,7 +36,7 @@ Future<void> selectImages() async {
               showCamera: true,
               compressSize: 500,
               uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
-              corpConfig: CorpConfig(enableCrop: true, width: 2, height: 1));
+              cropConfig: CropConfig(enableCrop: true, width: 2, height: 1));
   }
 
 /// 或者 or
