@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,13 @@ enum CameraMimeType {
 
   ///拍视频
   video,
+}
+
+enum ImageMimeType {
+  png,
+  jpg,
+  jpeg,
+  gif,
 }
 
 class ImagePickers {
@@ -197,6 +205,32 @@ class ImagePickers {
       'thumbPath': thumbPath,
     };
     _channel.invokeMethod('previewVideo', params);
+  }
+
+  ///保存图片字节到相册中 Save picture bytes to album
+  ///
+  /// data 图片字节数据 Picture byte data
+  ///
+  /// imageMimeType 图片后缀名，默认png  Picture suffix Default png
+  ///
+
+  static Future<String> saveByteDataImageToGallery(Uint8List data,{ImageMimeType imageMimeType : ImageMimeType.png}) async {
+    String mimeType = "png";
+    if(imageMimeType == ImageMimeType.png){
+      mimeType = "png";
+    }else if(imageMimeType == ImageMimeType.jpg){
+      mimeType = "jpg";
+    }else if(imageMimeType == ImageMimeType.jpeg){
+      mimeType = "jpeg";
+    }else if(imageMimeType == ImageMimeType.gif){
+      mimeType = "gif";
+    }
+    final Map<String, dynamic> params = <String, dynamic>{
+      'uint8List': data,
+      'imageMimeType': mimeType,
+    };
+    String path = await _channel.invokeMethod('saveByteDataImageToGallery', params);
+    return path;
   }
 
   ///保存图片到相册中 Save image to album

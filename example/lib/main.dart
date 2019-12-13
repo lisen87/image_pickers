@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -8,6 +10,8 @@ import 'package:image_pickers/image_pickers.dart';
 import 'package:image_pickers/CropConfig.dart';
 import 'package:image_pickers/Media.dart';
 import 'package:image_pickers/UIConfig.dart';
+import 'dart:ui' as ui;
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -17,10 +21,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GalleryMode _galleryMode = GalleryMode.image;
-
+  GlobalKey globalKey;
   @override
   void initState() {
     super.initState();
+    globalKey = GlobalKey();
   }
 
   List<Media> _listImagePaths = List();
@@ -33,9 +38,9 @@ class _MyAppState extends State<MyApp> {
           galleryMode: _galleryMode,
           selectCount: 8,
           showCamera: true,
-          cropConfig :CropConfig(enableCrop: true,height: 2,width: 1),
+          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Colors.teal),
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
       );
       _listImagePaths.forEach((media){
         print(media.path.toString());
@@ -98,9 +103,7 @@ class _MyAppState extends State<MyApp> {
 //
 //                        ImagePickers.previewImages(paths,index);
 
-                        Map imageDetail = {'thumbPath': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif', 'path': 'http://47.110.55.133:8080/uploads/gif/20191128/1574901770193.gif'};
-
-                      ImagePickers.previewImagesByMedia(_listImagePaths,index);
+                        ImagePickers.previewImagesByMedia(_listImagePaths,index);
                       },
                       child: Image.file(
                         File(
@@ -182,7 +185,25 @@ class _MyAppState extends State<MyApp> {
                     print("保存图片路径："+ path);
                   });
                 },
-                child: Text("保存图片"),
+                child: Text("保存网络图片"),
+              ),
+              InkWell(
+                onTap: (){
+                  ImagePickers.previewImage("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
+                },
+                  child: Image.network("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg",fit: BoxFit.cover,width: 100,height: 100,)),
+              RaisedButton(
+                onPressed: () async {
+
+                  RenderRepaintBoundary boundary =
+                  this.globalKey.currentContext.findRenderObject();
+                  ui.Image image = await boundary.toImage(pixelRatio: 1);
+                  ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+                  Uint8List data = byteData.buffer.asUint8List();
+                  String path = await ImagePickers.saveByteDataImageToGallery(data,);
+                  print("保存截屏图片 = "+ path);
+                },
+                child: Text("保存截屏图片"),
               ),
 
               RaisedButton(
