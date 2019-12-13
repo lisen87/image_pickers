@@ -10,7 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "Masonry.h"
 #import <ImageIO/ImageIO.h>
-
+#import <SDWebImage/UIImage+GIF.h>
 
 @interface AKGalleryViewer()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UIViewControllerTransitioningDelegate,UIActionSheetDelegate>
 {
@@ -62,28 +62,31 @@
     
     if ([self.gallery itemForRow:self.index].url) {
 //
-        if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]){
+        if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]||[[self.gallery itemForRow:self.index].url containsString:@"gif"]){
             NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
-              CGImageSourceRef gifSource;
+      
+           [self.imgView setImage:[UIImage sd_imageWithGIFData:data]];
             
-            gifSource =  CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
-            
-            size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
-            
-            NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
-            double timeLong =0;
-            for (size_t i=0; i<frameCout;i++){
-                
-                CGImageRef imageRef=CGImageSourceCreateImageAtIndex(gifSource, i, NULL);//从GIF图片中取出源图片
-                UIImage* imageName=[UIImage imageWithCGImage:imageRef];//将图片源转换成UIimageView能使用的图片源
-                [frames addObject:imageName];//将图片加入数组中
-                CGImageRelease(imageRef);
-                timeLong =timeLong+[self gifImageDeleyTime:gifSource index:i];
-            }
-            
-            self.imgView.animationImages=frames;//将图片数组加入UIImageView动画数组中
-            self.imgView.animationDuration=timeLong;//每次动画时长
-            [self.imgView startAnimating];//开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
+//              CGImageSourceRef gifSource;
+//
+//            gifSource =  CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
+//
+//            size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
+//
+//            NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
+//            double timeLong =0;
+//            for (size_t i=0; i<frameCout;i++){
+//
+//                CGImageRef imageRef=CGImageSourceCreateImageAtIndex(gifSource, i, NULL);//从GIF图片中取出源图片
+//                UIImage* imageName=[UIImage imageWithCGImage:imageRef];//将图片源转换成UIimageView能使用的图片源
+//                [frames addObject:imageName];//将图片加入数组中
+//                CGImageRelease(imageRef);
+//                timeLong =timeLong+[self gifImageDeleyTime:gifSource index:i];
+//            }
+//
+//            self.imgView.animationImages=frames;//将图片数组加入UIImageView动画数组中
+//            self.imgView.animationDuration=timeLong;//每次动画时长
+//            [self.imgView startAnimating];//开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
         }else{
             [self.imgView sd_setImageWithURL:(NSURL*)[self.gallery itemForRow:self.index].url  placeholderImage:[UIImage imageNamed:@"error.png"] options:SDWebImageProgressiveLoad completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 if(error){

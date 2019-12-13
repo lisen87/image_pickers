@@ -151,7 +151,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         //取出路径
                         result(@[photoDic]);
                         return ;
-
+                        
                         
                     };
                     
@@ -180,7 +180,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     };
                     result(@[photoDic]);
                     return ;
-
+                    
                 }
                 
             };
@@ -221,16 +221,17 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             ac.sender = [UIApplication sharedApplication].delegate.window.rootViewController;
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:ac.configuration];
             
+            NSMutableArray *arr =[[NSMutableArray alloc]init];
+
             [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
                 //your codes
-                NSMutableArray *arr =[[NSMutableArray alloc]init];
-                for (NSInteger i = 0; i < assets.count; i++) {
-                    // 获取一个资源（PHAsset）
-                    PHAsset *phAsset = assets[i];
-                    PHImageManager *manage =[[PHImageManager alloc]init];
-                    PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
-                    //视频
-                    if (phAsset.mediaType == PHAssetMediaTypeVideo) {
+                if (![galleryMode isEqualToString:@"image"]) {
+                    for (NSInteger i = 0; i < assets.count; i++) {
+                        // 获取一个资源（PHAsset）
+                        PHAsset *phAsset = assets[i];
+                        PHImageManager *manage =[[PHImageManager alloc]init];
+                        PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
+                        //视频
                         PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
                         options.version = PHImageRequestOptionsVersionCurrent;
                         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
@@ -250,7 +251,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             //保存到沙盒
                             [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
                             NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-
+                            
                             //取出路径
                             [arr addObject:@{
                                 @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
@@ -260,95 +261,25 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             if (arr.count==assets.count) {
                                 result(arr);
                                 return ;
-
+                                
                             }
                             
                             
                             
                         }];
-                    }else{
-                        
-               
-                        
-                            PHAsset *asset  =assets[i];
-                            [manage requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-                                UIImage *im =[UIImage imageWithData:imageData];
-                                //NSLog(@"info==%@",info);
-                                NSURL * path = [info objectForKey:@"PHImageFileURLKey"];
-                                NSString *str =path.absoluteString;
-                                NSString *imageLast = [str lastPathComponent];
-                                if (!path) {
-//                                    NSData * imageData = [info objectForKey:@"PHImageFileURLKey"];
-                                    imageLast =[NSString stringWithFormat:@"%ld.%@",imageData.length,[dataUTI pathExtension]];
-                                    ;
-                                }
-                                
-                                NSString *subString = [str substringFromIndex:7];
-                                if((![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
-
-//                                if(enableCrop==YES&&(![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
-                                    //若裁剪需要裁剪后的图片，需要保存一下
-                                    //重命名
-                                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                                    NSString *name = [NSString stringWithFormat:@"%@%@",[formatter stringFromDate:[NSDate date]],imageLast];
-                                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                                    //保存到沙盒
-                                    [UIImageJPEGRepresentation(im,1.0) writeToFile:jpgPath atomically:YES];
-                                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                                    //取出路径
-                                    [arr addObject:[NSString stringWithFormat:@"%@",aPath3]];
-                                    
-                                }else{
-                                    [arr addObject:[NSString stringWithFormat:@"%@",subString]];
-                                }
-                                
-                                if (arr.count==assets.count) {
-                                    NSMutableArray *urlArr =[[NSMutableArray alloc]init];
-                                    
-                                    for (int i=0; i<arr.count; i++) {
-                                        
-                                        if([arr[i] containsString:@"GIF"]||[arr[i] containsString:@"gif"]){
-                                            NSDictionary *photoDic =@{
-                                                @"thumbPath":[NSString stringWithFormat:@"%@",arr[i]],
-                                                @"path":[NSString stringWithFormat:@"%@",arr[i]],
-                                            };
-                                            //取出路径
-                                            [urlArr addObject:photoDic];
-                                        }else{
-                                            UIImage *imag =[UIImage imageWithContentsOfFile:arr[i]];
-                                            NSData *data2=UIImageJPEGRepresentation(imag , 1.0);
-                                            if (data2.length>compressSize) {
-                                                //压缩
-                                                data2=UIImageJPEGRepresentation(imag, (float)(data2.length/compressSize));
-                                            }
-                                            NSLog(@"_______%ld",data2.length);
-                                            UIImage *image =[UIImage imageWithData:data2];
-                                            //重命名并且保存
-                                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                            formatter.dateFormat = @"yyyyMMddHHmmss";
-                                            NSString*urlString =arr[i];
-                                            NSString *name = [NSString stringWithFormat:@"%@01%@",[formatter stringFromDate:[NSDate date]],[urlString lastPathComponent]];
-                                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                                            //保存到沙盒
-                                            [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                                            NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                                            NSDictionary *photoDic =@{
-                                                @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                                                @"path":[NSString stringWithFormat:@"%@",aPath3],
-                                            };
-                                            //取出路径
-                                            [urlArr addObject:photoDic];
-                                        }
-                
-                                    }
-                                    result(urlArr);
-                                    return ;
-                                    
-                                }
-                            }];
                     }
+                }else{
+                    
+                    if (assets.count>0) {
+                        [self saveImageView:0 imagePHAsset:assets arr:arr  compressSize:compressSize result:(FlutterResult)result];
+                        
+                    }
+                    
                 }
+                
+                
+                
+                
                 //        [self zhuanhuanTupian];
                 
             }];
@@ -367,7 +298,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         for (int i=0; i<imageArr.count; i++) {
             NSString *imgString  =imageArr[i];
-            if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]) {
+            if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
                 AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:[NSString stringWithFormat:@"%@",imgString] img:nil];
                 [arr addObject:item];
                 
@@ -485,6 +416,107 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         [self  playerDownload :urlString];
     }
 }
+
+-(void)saveImageView:(NSInteger)index imagePHAsset:(NSArray*)assets arr:(NSMutableArray*)arr compressSize:(NSInteger)compressSize result:(FlutterResult)result{
+    PHImageManager *manage =[[PHImageManager alloc]init];
+    PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
+    
+    
+    if (index==assets.count) {
+        
+        NSMutableArray *urlArr =[[NSMutableArray alloc]init];
+        
+        for (int i=0; i<arr.count; i++) {
+            
+            if([arr[i] containsString:@"GIF"]||[arr[i] containsString:@"gif"]){
+                NSDictionary *photoDic =@{
+                    @"thumbPath":[NSString stringWithFormat:@"%@",arr[i]],
+                    @"path":[NSString stringWithFormat:@"%@",arr[i]],
+                };
+                //取出路径
+                [urlArr addObject:photoDic];
+            }else{
+                UIImage *imag =[UIImage imageWithContentsOfFile:arr[i]];
+                NSData *data2=UIImageJPEGRepresentation(imag , 1.0);
+                if (data2.length>compressSize) {
+                    //压缩
+                    data2=UIImageJPEGRepresentation(imag, (float)(data2.length/compressSize));
+                }
+                NSLog(@"_______%ld",data2.length);
+                UIImage *image =[UIImage imageWithData:data2];
+                //重命名并且保存
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"yyyyMMddHHmmss";
+                NSString*urlString =arr[i];
+                NSString *name = [NSString stringWithFormat:@"%@01%@",[formatter stringFromDate:[NSDate date]],[urlString lastPathComponent]];
+                NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                //保存到沙盒
+                [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+                NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                NSDictionary *photoDic =@{
+                    @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
+                    @"path":[NSString stringWithFormat:@"%@",aPath3],
+                };
+                //取出路径
+                [urlArr addObject:photoDic];
+            }
+            
+        }
+        result(urlArr);
+        return ;
+        
+    }
+    PHAsset *asset  =assets[index];
+    index++;
+    [manage requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        UIImage *im =[UIImage imageWithData:imageData];
+        //NSLog(@"info==%@",info);
+        NSURL * path = [info objectForKey:@"PHImageFileURLKey"];
+        NSString *str =path.absoluteString;
+        NSString *imageLast = [str lastPathComponent];
+        if (!path) {
+            //                                    NSData * imageData = [info objectForKey:@"PHImageFileURLKey"];
+            imageLast =[NSString stringWithFormat:@"%ld.%@",imageData.length,[dataUTI pathExtension]];
+            ;
+        }
+        
+        NSString *subString = [str substringFromIndex:7];
+        if((![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
+            
+            //若裁剪需要裁剪后的图片，需要保存一下
+            //重命名
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *name = [NSString stringWithFormat:@"%@%@",[formatter stringFromDate:[NSDate date]],imageLast];
+            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+            //保存到沙盒
+            [UIImageJPEGRepresentation(im,1.0) writeToFile:jpgPath atomically:YES];
+            NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+            //取出路径
+            [arr addObject:[NSString stringWithFormat:@"%@",aPath3]];
+
+            [self saveImageView:index imagePHAsset:assets arr:arr  compressSize:compressSize result:result];
+        }else{
+            
+            NSData *gifData = imageData;
+        NSString *str =    [ImagePickersPlugin createFile:gifData suffix:@".gif"];
+        [arr addObject:[NSString stringWithFormat:@"%@",str]];
+       [self saveImageView:index imagePHAsset:assets arr:arr  compressSize:compressSize result:result];
+
+        }
+        
+        if (arr.count==assets.count) {
+            
+        }
+    }];
+  
+    
+}
+
+
+
+
+
 #pragma mark //保存gif
 
 - (void)saveGifImage:(NSString*)urlString {
@@ -589,5 +621,27 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         resultBack(@"success");
         
     }
+}
+
++ (NSString *)createFile:(NSData *)data suffix:(NSString *)suffix {
+  NSString *tmpPath = [self temporaryFilePath:suffix];
+  if ([[NSFileManager defaultManager] createFileAtPath:tmpPath contents:data attributes:nil]) {
+    return tmpPath;
+  } else {
+    nil;
+  }
+  return tmpPath;
+}
++ (NSString *)temporaryFilePath:(NSString *)suffix {
+  NSString *fileExtension = [@"image_picker_%@" stringByAppendingString:suffix];
+    
+    
+//    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+
+  NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+  NSString *tmpFile = [NSString stringWithFormat:fileExtension, guid];
+  NSString *tmpDirectory = NSTemporaryDirectory();
+  NSString *tmpPath = [tmpDirectory stringByAppendingPathComponent:tmpFile];
+  return tmpPath;
 }
 @end
