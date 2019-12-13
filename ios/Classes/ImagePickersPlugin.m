@@ -62,7 +62,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 -(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result
 {
     resultBack =result;
-    
     if([@"getPickerPaths" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSInteger selectCount =[[dic objectForKey:@"selectCount"] integerValue];//最多多少个
@@ -222,7 +221,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:ac.configuration];
             
             NSMutableArray *arr =[[NSMutableArray alloc]init];
-
+            
             [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
                 //your codes
                 if (![galleryMode isEqualToString:@"image"]) {
@@ -383,7 +382,66 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:vc animated:YES completion:^{
         }];
         
-    }else if([@"saveImageToGallery" isEqualToString:call.method]){
+    }else if ([@"saveByteDataImageToGallery" isEqualToString:call.method]){
+        NSDictionary *dic = call.arguments;
+        FlutterStandardTypedData *data =[dic objectForKey:@"uint8List"];
+        UIImage *image=[UIImage imageWithData:data.data];
+        __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+            [lib writeImageToSavedPhotosAlbum:image.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+             {
+                NSString *str =assetURL.absoluteString;
+                NSString *string =@"://";
+                NSRange range = [str rangeOfString:string];//匹配得到的下标
+                if(range.location+range.length<str.length){
+                    str = [str substringFromIndex:range.location+range.length];
+                    //NSLog(@"%@",str);
+                    if (error) {
+                        
+                    }else{
+                                
+                        
+                        
+                        
+                        
+                        
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        formatter.dateFormat = @"yyyyMMddHHmmss";
+                        
+                        NSString *string;
+                        NSString *subStr = @"&ext=";//指定字符串
+                        if ([str containsString:subStr])
+                        {//先做安全判断
+                        NSRange subStrRange = [str rangeOfString:subStr];//找出指定字符串的range
+                        NSInteger index = subStrRange.location + subStrRange.length;//获得“指定的字符以后的所有字符”的起始点
+                        NSString *restStr = [str substringFromIndex:index];
+                            string =restStr;
+                        }else{
+                            string =@"png";
+                        }
+                        NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
+
+                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                        //保存到沙盒
+                        
+                        
+                        
+                        
+                        
+                        
+                        [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+                        NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                        
+                        result(aPath3);
+                    }
+                }
+                
+            }];
+        
+    }
+    
+    
+    
+    else if([@"saveImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSString *url =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
         if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
@@ -494,22 +552,22 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
             //取出路径
             [arr addObject:[NSString stringWithFormat:@"%@",aPath3]];
-
+            
             [self saveImageView:index imagePHAsset:assets arr:arr  compressSize:compressSize result:result];
         }else{
             
             NSData *gifData = imageData;
-        NSString *str =    [ImagePickersPlugin createFile:gifData suffix:@".gif"];
-        [arr addObject:[NSString stringWithFormat:@"%@",str]];
-       [self saveImageView:index imagePHAsset:assets arr:arr  compressSize:compressSize result:result];
-
+            NSString *str =    [ImagePickersPlugin createFile:gifData suffix:@".gif"];
+            [arr addObject:[NSString stringWithFormat:@"%@",str]];
+            [self saveImageView:index imagePHAsset:assets arr:arr  compressSize:compressSize result:result];
+            
         }
         
         if (arr.count==assets.count) {
             
         }
     }];
-  
+    
     
 }
 
@@ -518,7 +576,30 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 
 
 #pragma mark //保存gif
-
+- (void)saveGifDataImage:(NSData*)data {
+    
+    //    [[NSURLSession sharedSession] downloadTaskWithResumeData:data completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    //
+      [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        
+                    [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
+        
+                }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+            
+                        if(success && !_Nullableerror) {
+                
+                                NSLog(@"下载成功");
+                
+                            }else{
+                    
+                                    NSLog(@"下载失败");
+                    
+                                }
+            
+                    }];
+    //    }];
+    
+}
 - (void)saveGifImage:(NSString*)urlString {
     
         NSURL *fileUrl = [NSURL URLWithString:urlString];
@@ -624,24 +705,24 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 }
 
 + (NSString *)createFile:(NSData *)data suffix:(NSString *)suffix {
-  NSString *tmpPath = [self temporaryFilePath:suffix];
-  if ([[NSFileManager defaultManager] createFileAtPath:tmpPath contents:data attributes:nil]) {
+    NSString *tmpPath = [self temporaryFilePath:suffix];
+    if ([[NSFileManager defaultManager] createFileAtPath:tmpPath contents:data attributes:nil]) {
+        return tmpPath;
+    } else {
+        nil;
+    }
     return tmpPath;
-  } else {
-    nil;
-  }
-  return tmpPath;
 }
 + (NSString *)temporaryFilePath:(NSString *)suffix {
-  NSString *fileExtension = [@"image_picker_%@" stringByAppendingString:suffix];
+    NSString *fileExtension = [@"image_picker_%@" stringByAppendingString:suffix];
     
     
-//    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-
-  NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
-  NSString *tmpFile = [NSString stringWithFormat:fileExtension, guid];
-  NSString *tmpDirectory = NSTemporaryDirectory();
-  NSString *tmpPath = [tmpDirectory stringByAppendingPathComponent:tmpFile];
-  return tmpPath;
+    //    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+    
+    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSString *tmpFile = [NSString stringWithFormat:fileExtension, guid];
+    NSString *tmpDirectory = NSTemporaryDirectory();
+    NSString *tmpPath = [tmpDirectory stringByAppendingPathComponent:tmpFile];
+    return tmpPath;
 }
 @end
