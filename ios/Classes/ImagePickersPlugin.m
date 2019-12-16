@@ -128,7 +128,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
                         if (data2.length>compressSize) {
                             //压缩
-                            data2=UIImageJPEGRepresentation(imageE, (float)(data2.length/compressSize));
+                            data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
                         }
                         NSLog(@"_____方法__%ld",data2.length);
                         UIImage *image =[UIImage imageWithData:data2];
@@ -498,7 +498,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 NSData *data2=UIImageJPEGRepresentation(imag , 1.0);
                 if (data2.length>compressSize) {
                     //压缩
-                    data2=UIImageJPEGRepresentation(imag, (float)(data2.length/compressSize));
+                    data2=UIImageJPEGRepresentation(imag, (float)(compressSize/data2.length));
                 }
                 NSLog(@"_______%ld",data2.length);
                 UIImage *image =[UIImage imageWithData:data2];

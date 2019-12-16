@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           selectCount: 8,
           showCamera: true,
           cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
-          compressSize: 500,
+          compressSize: 30,
           uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
       );
       _listImagePaths.forEach((media){
