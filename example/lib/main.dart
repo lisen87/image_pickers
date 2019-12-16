@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
 
   List<Media> _listImagePaths = List();
   List<Media> _listVideoPaths = List();
+  String dataImagePath = "";
 
   Future<void> selectImages() async {
     try {
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
           selectCount: 8,
           showCamera: true,
           cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
-          compressSize: 30,
+          compressSize: 500,
           uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
       );
       _listImagePaths.forEach((media){
@@ -189,22 +190,21 @@ class _MyAppState extends State<MyApp> {
                   },
                   child: Text("保存网络图片"),
                 ),
-                InkWell(
-                  onTap: (){
-                    ImagePickers.previewImage("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
-                  },
-                    child: Image.network("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg",fit: BoxFit.cover,width: 100,height: 100,)),
+                dataImagePath == "" ? Container():Image.file(File(dataImagePath),fit: BoxFit.cover,width: 100,height: 100,),
                 RaisedButton(
                   onPressed: () async {
 
                     RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
-                    ui.Image image = await boundary.toImage(pixelRatio: 10);
+                    ui.Image image = await boundary.toImage(pixelRatio: 3);
                     ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
                     Uint8List data = byteData.buffer.asUint8List();
 
-                    print(data);
-                    String path = await ImagePickers.saveByteDataImageToGallery(data,);
-                    print("保存截屏图片 = "+ path);
+                    dataImagePath = await ImagePickers.saveByteDataImageToGallery(data,);
+
+                    print("保存截屏图片 = "+ dataImagePath);
+                    setState(() {
+
+                    });
                   },
                   child: Text("保存截屏图片"),
                 ),

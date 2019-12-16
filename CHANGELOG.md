@@ -1,10 +1,16 @@
+## 1.0.7
+* 新增保存图片ByteData数据
+* Added Byte Data for saving pictures
+* 修复iOS压缩图片异常
+* Fix iOS compressed picture abnormal
+
 ## 1.0.6+2
 * 修复flutter回调异常
 * Fix flutter callback exception
 * `CorpConfig` 类 改为 `CropConfig` 类，参数中的 `corpConfig` 改为 `cropConfig`
 * `CorpConfig` class changed to` CropConfig` class, and `corpConfig` in the parameter was changed to` cropConfig`
 * ios修复ios13获取图片路径没有后缀名问题，修复没有设置裁剪获取图片路径为null的问题
-* ios fix ios 13 get image path without suffix, fix the problem that crop path is null
+* ios fix ios 13 get image path without suffix
 
 ## 1.0.6+1
 * ios修复ios13获取相册路径错误问题

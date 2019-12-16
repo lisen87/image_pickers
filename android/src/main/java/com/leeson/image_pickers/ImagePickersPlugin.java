@@ -8,7 +8,6 @@ import com.leeson.image_pickers.activitys.PermissionActivity;
 import com.leeson.image_pickers.activitys.PhotosActivity;
 import com.leeson.image_pickers.activitys.SelectPicsActivity;
 import com.leeson.image_pickers.activitys.VideoActivity;
-import com.leeson.image_pickers.utils.ImageByteDataSaver;
 import com.leeson.image_pickers.utils.Saver;
 
 import java.io.Serializable;
@@ -55,22 +54,22 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
             String imageUrl = intent.getStringExtra("imageUrl");
             AppPath appPath = new AppPath(registrar.context());
             String imageDirPath = appPath.getShowedImgPath();
-            Saver imageSaver = new Saver(registrar.context(),imageUrl,imageDirPath,result);
-            imageSaver.download();
+            Saver imageSaver = new Saver(registrar.context(),imageDirPath,result);
+            imageSaver.download(imageUrl);
           }
         }else if(requestCode == WRITE_SDCARD){
           if (resultCode == Activity.RESULT_OK){
             String videoUrl = intent.getStringExtra("videoUrl");
             AppPath appPath = new AppPath(registrar.context());
             String videoDirPath = appPath.getVideoPath();
-            Saver videoSaver = new Saver(registrar.context(),videoUrl,videoDirPath,result);
-            videoSaver.download();
+            Saver videoSaver = new Saver(registrar.context(),videoDirPath,result);
+            videoSaver.download(videoUrl);
           }
         }else if(requestCode == SAVE_IMAGE_DATA){
           if (resultCode == Activity.RESULT_OK && data != null){
             AppPath appPath = new AppPath(registrar.context());
-            ImageByteDataSaver saver = new ImageByteDataSaver(registrar.context(),data,appPath.getShowedImgPath(),result);
-            saver.save();
+            Saver saver = new Saver(registrar.context(),appPath.getShowedImgPath(),result);
+            saver.saveByteData(data);
             data = null;
           }
         }

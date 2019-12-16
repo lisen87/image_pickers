@@ -1,6 +1,6 @@
 # [image_pickers](https://github.com/lisen87/image_pickers)
 
-image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，支持主题颜色设置
+image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持截图保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，支持主题颜色设置
 
 image pickers support multi-selection of local pictures, multi-selection of local videos, support for saving network pictures to albums, support for saving network videos to albums, support for preview videos and preview pictures, and support for theme color settings
 > Supported  Platforms
@@ -16,7 +16,7 @@ From 1.0.6 + 2, the `CorpConfig` class is changed to `CropConfig` class, and the
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.6+2
+image_pickers: ^1.0.7
 ```
 
 ```dart
@@ -85,6 +85,19 @@ ImagePickers.previewVideo(_listVideoPaths[index].path);
 ///保存图片到图库 Save image to gallery
 ImagePickers.saveImageToGallery("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
 ```
+
+```dart
+/// 保存截图图片 ByteData 到图库 Save screenshot image ByteData to gallery
+RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+ui.Image image = await boundary.toImage(pixelRatio: 3);
+ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+Uint8List data = byteData.buffer.asUint8List();
+
+String dataImagePath = await ImagePickers.saveByteDataImageToGallery(data,);
+
+```
+
+
 ```dart
 ///保存视频到图库 Save video to gallery
 ImagePickers.saveVideoToGallery("http://xxxx/xx/xx.mp4");
