@@ -132,13 +132,13 @@ public class SelectPicsActivity extends BaseActivity {
                         if (localMedia.isCut()) {
                             // 因为这个lib中gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
                             if (Build.VERSION.SDK_INT >= 29) {
-                                if (localMedia.getAndroidQToPath().endsWith(".gif")){
+                                if (localMedia.getAndroidQToPath() != null && localMedia.getAndroidQToPath().endsWith(".gif")){
                                     paths.add(localMedia.getAndroidQToPath());
                                 }else{
                                     paths.add(localMedia.getCutPath());
                                 }
                             } else {
-                                if (localMedia.getPath().endsWith(".gif")){
+                                if (localMedia.getPath() != null && localMedia.getPath().endsWith(".gif")){
                                     paths.add(localMedia.getPath());
                                 }else{
                                     paths.add(localMedia.getCutPath());
