@@ -1,3 +1,6 @@
+## 1.0.7+1
+* 安卓修复安卓Q .gif 图片裁剪后无法播放的问题
+* Android fix the problem that Android Q .gif picture cannot be played after cropping
 ## 1.0.7
 * 新增保存图片ByteData数据
 * Added Byte Data for saving pictures

@@ -2,7 +2,8 @@
 
 image_pickers支持本地图片多选，本地视频多选，支持将网络图片保存到相册，支持截图保存到相册，支持将网络视频保存到相册，支持预览视频和预览图片功能，支持主题颜色设置
 
-image pickers support multi-selection of local pictures, multi-selection of local videos, support for saving network pictures to albums, support for saving network videos to albums, support for preview videos and preview pictures, and support for theme color settings
+image pickers support multi-selection of local pictures, multi-selection of local videos, support for saving network pictures to albums, support for saving screenshots to albums, support for saving network videos to albums, support for preview videos and preview images, and support for theme color settings
+
 > Supported  Platforms
 > * Android
 > * iOS
@@ -16,7 +17,7 @@ From 1.0.6 + 2, the `CorpConfig` class is changed to `CropConfig` class, and the
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.7
+image_pickers: ^1.0.7+1
 ```
 
 ```dart

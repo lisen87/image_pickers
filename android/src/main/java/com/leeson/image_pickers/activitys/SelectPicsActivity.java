@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +20,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.PictureFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -129,22 +131,25 @@ public class SelectPicsActivity extends BaseActivity {
                     List<String> paths = new ArrayList<>();
                     for (int i = 0; i < selectList.size(); i++) {
                         LocalMedia localMedia = selectList.get(i);
+
                         if (localMedia.isCut()) {
-                            // 因为这个lib中gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
+                            // 因为这个lib中 gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
                             if (Build.VERSION.SDK_INT >= 29) {
-                                if (localMedia.getAndroidQToPath().endsWith(".gif")){
-                                    paths.add(localMedia.getAndroidQToPath());
+                                if (localMedia.getPath() != null && localMedia.getAndroidQToPath() != null && localMedia.getAndroidQToPath().endsWith(".gif")){
+                                    String path = PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath()));
+                                    paths.add(path);
                                 }else{
                                     paths.add(localMedia.getCutPath());
                                 }
                             } else {
-                                if (localMedia.getPath().endsWith(".gif")){
+                                if (localMedia.getPath() != null && localMedia.getPath().endsWith(".gif")){
                                     paths.add(localMedia.getPath());
                                 }else{
                                     paths.add(localMedia.getCutPath());
                                 }
                             }
                         } else {
+
                             if (Build.VERSION.SDK_INT >= 29) {
                                 paths.add(localMedia.getAndroidQToPath());
                             } else {
@@ -212,7 +217,7 @@ public class SelectPicsActivity extends BaseActivity {
                             .freeStyleCropEnabled(false)
 
                             .compress(false)// 是否压缩 true or false
-                            .minimumCompressSize(Integer.MAX_VALUE)// 小于100kb的图片不压缩
+                            .minimumCompressSize(Integer.MAX_VALUE)
                             .compressSavePath(getPath())//压缩图片保存地址
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                     break;
