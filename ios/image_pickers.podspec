@@ -17,6 +17,7 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'ZLPhotoBrowser'
   s.dependency 'AFNetworking'
+  s.dependency  'Masonry', '~> 0.6.4'
   s.ios.deployment_target = '8.0'
 end
 
