@@ -93,7 +93,7 @@ public class SelectPicsActivity extends BaseActivity {
     }
 
     private String getPath() {
-        String path = new AppPath(this).getImgPath();
+        String path = new AppPath(this).getAppImgDirPath(false);
         File file = new File(path);
         if (file.mkdirs()) {
             createNomedia(path);
@@ -234,7 +234,7 @@ public class SelectPicsActivity extends BaseActivity {
         for (int i = 0; i < paths.size(); i++) {
             String path = paths.get(i);
             Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-            String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getImgPath(), bitmap);
+            String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getAppImgDirPath(false), bitmap);
             Map<String, String> map = new HashMap<>();
             map.put("thumbPath", thumbPath);
             map.put("path", path);

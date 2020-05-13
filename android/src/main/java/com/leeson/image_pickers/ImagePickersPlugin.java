@@ -52,25 +52,53 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
         }else if (requestCode == SAVE_IMAGE){
           if (resultCode == Activity.RESULT_OK){
             String imageUrl = intent.getStringExtra("imageUrl");
-            AppPath appPath = new AppPath(registrar.context());
-            String imageDirPath = appPath.getShowedImgPath();
-            Saver imageSaver = new Saver(registrar.context(),imageDirPath,result);
-            imageSaver.download(imageUrl);
+            Saver imageSaver = new Saver(registrar.context());
+            imageSaver.saveImgToGallery(imageUrl, new Saver.IFinishListener() {
+              @Override
+              public void onSuccess(Saver.FileInfo fileInfo) {
+                result.success(fileInfo.getPath());
+              }
+
+              @Override
+              public void onFailed(String errorMsg) {
+                result.error("-1",errorMsg,errorMsg);
+              }
+            });
           }
         }else if(requestCode == WRITE_SDCARD){
           if (resultCode == Activity.RESULT_OK){
             String videoUrl = intent.getStringExtra("videoUrl");
-            AppPath appPath = new AppPath(registrar.context());
-            String videoDirPath = appPath.getVideoPath();
-            Saver videoSaver = new Saver(registrar.context(),videoDirPath,result);
-            videoSaver.download(videoUrl);
+            Saver videoSaver = new Saver(registrar.context());
+            videoSaver.saveVideoToGallery(videoUrl, new Saver.IFinishListener() {
+              @Override
+              public void onSuccess(Saver.FileInfo fileInfo) {
+                result.success(fileInfo.getPath());
+              }
+
+              @Override
+              public void onFailed(String errorMsg) {
+                result.error("-1",errorMsg,errorMsg);
+              }
+            });
           }
         }else if(requestCode == SAVE_IMAGE_DATA){
           if (resultCode == Activity.RESULT_OK && data != null){
             AppPath appPath = new AppPath(registrar.context());
-            Saver saver = new Saver(registrar.context(),appPath.getShowedImgPath(),result);
-            saver.saveByteData(data);
-            data = null;
+            Saver saver = new Saver(registrar.context());
+            saver.saveByteDataToGallery(data, new Saver.IFinishListener() {
+              @Override
+              public void onSuccess(Saver.FileInfo fileInfo) {
+                result.success(fileInfo.getPath());
+                data = null;
+              }
+
+              @Override
+              public void onFailed(String errorMsg) {
+                result.error("-1",errorMsg,errorMsg);
+                data = null;
+              }
+            });
+
           }
         }
         return false;
@@ -117,7 +145,7 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
     } else if ("previewImage".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), PhotosActivity.class);
       List<String> images = new ArrayList<>();
-      images.add(String.valueOf(methodCall.argument("path")));
+      images.add(methodCall.argument("path").toString());
       intent.putExtra(PhotosActivity.IMAGES, (Serializable) images);
       (registrar.activity()).startActivity(intent);
     } else if ("previewImages".equals(methodCall.method)) {
@@ -129,20 +157,20 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       (registrar.activity()).startActivity(intent);
     } else if ("previewVideo".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), VideoActivity.class);
-      intent.putExtra(VideoActivity.VIDEO_PATH, String.valueOf(methodCall.argument("path")));
-      intent.putExtra(VideoActivity.THUMB_PATH, String.valueOf(methodCall.argument("thumbPath")));
+      intent.putExtra(VideoActivity.VIDEO_PATH, methodCall.argument("path").toString());
+      intent.putExtra(VideoActivity.THUMB_PATH, methodCall.argument("thumbPath").toString());
       (registrar.activity()).startActivity(intent);
     } else if("saveImageToGallery".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), PermissionActivity.class);
       intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
               ,Manifest.permission.READ_EXTERNAL_STORAGE});
-      intent.putExtra("imageUrl",String.valueOf(methodCall.argument("path")));
+      intent.putExtra("imageUrl",methodCall.argument("path").toString());
       (registrar.activity()).startActivityForResult(intent,SAVE_IMAGE);
     } else if("saveVideoToGallery".equals(methodCall.method)) {
       Intent intent = new Intent(registrar.context(), PermissionActivity.class);
       intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
               ,Manifest.permission.READ_EXTERNAL_STORAGE});
-      intent.putExtra("videoUrl",String.valueOf(methodCall.argument("path")));
+      intent.putExtra("videoUrl",methodCall.argument("path").toString());
       (registrar.activity()).startActivityForResult(intent, WRITE_SDCARD);
     } else if("saveByteDataImageToGallery".equals(methodCall.method)){
       Intent intent = new Intent(registrar.context(), PermissionActivity.class);

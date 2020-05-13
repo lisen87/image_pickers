@@ -1,3 +1,8 @@
+## 1.0.7+2
+* 使用了sdk29，适配Android Q
+* Used sdk29, adapted to Android Q
+* 安卓修复小米Android Q 问题
+* Android fixes Xiaomi Android Q issue
 ## 1.0.7+1
 * 安卓修复安卓Q .gif 图片裁剪后无法播放的问题
 * Android fix the problem that Android Q .gif picture cannot be played after cropping

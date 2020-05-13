@@ -35,6 +35,57 @@ public class GlideEngine implements ImageEngine {
         Glide.with(context).load(url).into(imageView);
     }
 
+//    @Override
+//    public void loadImage(@NonNull Context context, @NonNull String url, @NonNull final ImageView imageView, final SubsamplingScaleImageView longImageView, final OnImageCompleteCallback callback) {
+//        Glide.with(context)
+//                .asBitmap()
+//                .load(url)
+//                .into(new ImageViewTarget<Bitmap>(imageView) {
+//                    @Override
+//                    public void onLoadStarted(@Nullable Drawable placeholder) {
+//                        super.onLoadStarted(placeholder);
+//                        if (callback != null) {
+//                            callback.onShowLoading();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+//                        super.onLoadFailed(errorDrawable);
+//                        if (callback != null) {
+//                            callback.onHideLoading();
+//                        }
+//                    }
+//
+//                    @Override
+//                    protected void setResource(@Nullable Bitmap resource) {
+//                        if (callback != null) {
+//                            callback.onHideLoading();
+//                        }
+//                        if (resource != null) {
+//                            boolean eqLongImage = MediaUtils.isLongImg(resource.getWidth(),
+//                                    resource.getHeight());
+//                            longImageView.setVisibility(eqLongImage ? View.VISIBLE : View.GONE);
+//                            imageView.setVisibility(eqLongImage ? View.GONE : View.VISIBLE);
+//                            if (eqLongImage) {
+//                                // 加载长图
+//                                longImageView.setQuickScaleEnabled(true);
+//                                longImageView.setZoomEnabled(true);
+//                                longImageView.setPanEnabled(true);
+//                                longImageView.setDoubleTapZoomDuration(100);
+//                                longImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
+//                                longImageView.setDoubleTapZoomDpi(SubsamplingScaleImageView.ZOOM_FOCUS_CENTER);
+//                                longImageView.setImage(ImageSource.bitmap(resource),
+//                                        new ImageViewState(0, new PointF(0, 0), 0));
+//                            } else {
+//                                // 普通图片
+//                                imageView.setImageBitmap(resource);
+//                            }
+//                        }
+//                    }
+//                });
+//    }
+
     @Override
     public void loadImage(@NonNull Context context, @NonNull String url, @NonNull final ImageView imageView, final SubsamplingScaleImageView longImageView) {
         Glide.with(context)

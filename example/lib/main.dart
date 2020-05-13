@@ -190,7 +190,9 @@ class _MyAppState extends State<MyApp> {
                   },
                   child: Text("保存网络图片"),
                 ),
-                dataImagePath == "" ? Container():Image.file(File(dataImagePath),fit: BoxFit.cover,width: 100,height: 100,),
+                dataImagePath == "" ? Container():GestureDetector(onTap: (){
+                  ImagePickers.previewImage(dataImagePath);
+                },child: Image.file(File(dataImagePath),fit: BoxFit.cover,width: 100,height: 100,)),
                 RaisedButton(
                   onPressed: () async {
 
