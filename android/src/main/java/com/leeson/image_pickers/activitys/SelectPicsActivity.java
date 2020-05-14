@@ -151,7 +151,7 @@ public class SelectPicsActivity extends BaseActivity {
                         } else {
 
                             if (Build.VERSION.SDK_INT >= 29) {
-								paths.add(PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath())))
+								paths.add(PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath())));
                                 // paths.add(localMedia.getAndroidQToPath());
                             } else {
                                 paths.add(localMedia.getPath());
