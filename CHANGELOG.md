@@ -1,3 +1,6 @@
+## 1.0.7+3
+* 临时修复 MethodChannel.Result 为 null 崩溃问题
+* Temporarily fix crash when MethodChannel.Result is null
 ## 1.0.7+2
 * 使用了sdk29，适配Android Q
 * Used sdk29, adapted to Android Q

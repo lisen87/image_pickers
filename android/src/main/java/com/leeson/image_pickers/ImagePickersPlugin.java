@@ -46,7 +46,9 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
         if (requestCode == SELECT ) {
           if (resultCode == Activity.RESULT_OK){
             List<Map<String,String>> paths = (List<Map<String,String>>) intent.getSerializableExtra(SelectPicsActivity.COMPRESS_PATHS);
-            result.success(paths);
+            if (result != null){
+              result.success(paths);
+            }
           }
           return true;
         }else if (requestCode == SAVE_IMAGE){
@@ -56,12 +58,16 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
             imageSaver.saveImgToGallery(imageUrl, new Saver.IFinishListener() {
               @Override
               public void onSuccess(Saver.FileInfo fileInfo) {
-                result.success(fileInfo.getPath());
+                if (result != null){
+                  result.success(fileInfo.getPath());
+                }
               }
 
               @Override
               public void onFailed(String errorMsg) {
-                result.error("-1",errorMsg,errorMsg);
+                if (result != null){
+                  result.error("-1",errorMsg,errorMsg);
+                }
               }
             });
           }
@@ -72,12 +78,16 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
             videoSaver.saveVideoToGallery(videoUrl, new Saver.IFinishListener() {
               @Override
               public void onSuccess(Saver.FileInfo fileInfo) {
-                result.success(fileInfo.getPath());
+                if (result != null){
+                  result.success(fileInfo.getPath());
+                }
               }
 
               @Override
               public void onFailed(String errorMsg) {
-                result.error("-1",errorMsg,errorMsg);
+                if (result != null){
+                  result.error("-1",errorMsg,errorMsg);
+                }
               }
             });
           }
@@ -88,13 +98,17 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
             saver.saveByteDataToGallery(data, new Saver.IFinishListener() {
               @Override
               public void onSuccess(Saver.FileInfo fileInfo) {
-                result.success(fileInfo.getPath());
+                if (result != null){
+                  result.success(fileInfo.getPath());
+                }
                 data = null;
               }
 
               @Override
               public void onFailed(String errorMsg) {
-                result.error("-1",errorMsg,errorMsg);
+                if (result != null){
+                  result.error("-1",errorMsg,errorMsg);
+                }
                 data = null;
               }
             });
