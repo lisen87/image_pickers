@@ -35,6 +35,7 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 import top.zibin.luban.OnRenameListener;
 
+import android.util.Log;
 
 /**
  * Created by lisen on 2018-09-11.
@@ -151,9 +152,11 @@ public class SelectPicsActivity extends BaseActivity {
                         } else {
 
                             if (Build.VERSION.SDK_INT >= 29) {
+                                // Log.i("图片选择", "-----android10:----- " + PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath())));
 								paths.add(PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath())));
                                 // paths.add(localMedia.getAndroidQToPath());
                             } else {
+                                // Log.i("图片选择", "---低于android10:----- " + localMedia.getPath());
                                 paths.add(localMedia.getPath());
                             }
                         }
@@ -256,7 +259,8 @@ public class SelectPicsActivity extends BaseActivity {
                 .filter(new CompressionPredicate() {
                     @Override
                     public boolean apply(String path) {
-                        return !path.endsWith(".gif");
+                        // Log.i("图片--鲁班压缩---", "---是否要压缩图片-----gif?= " + !path.endsWith(".gif") + "  GIF?= " + !path.endsWith(".GIF"));
+                        return !path.endsWith(".gif") && !path.endsWith(".GIF");
                     }
                 })
                 .setRenameListener(new OnRenameListener() {
@@ -278,6 +282,7 @@ public class SelectPicsActivity extends BaseActivity {
                         map.put("path", file.getAbsolutePath());
                         lubanCompressPaths.add(map);
                         compressCount++;
+                        // Log.i("图片--鲁班压缩---", "---压缩图片:----- " + file.getAbsolutePath());
                         compressFinish(paths, lubanCompressPaths);
                     }
 
