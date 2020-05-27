@@ -154,11 +154,18 @@
     //todo:defaults
     
     
-    [self presentViewController:gallery animated:flag completion:completion];
+    [[self topMostController] presentViewController:gallery animated:flag completion:completion];
     
     
     
 }
 
+-(UIViewController *) topMostController {
+    UIViewController*topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while(topController.presentedViewController){
+        topController=topController.presentedViewController;
+    }
+    return topController;
+}
 @end
 

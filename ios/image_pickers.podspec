@@ -12,11 +12,12 @@ A new flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'Classes/**/*.{swift,h,m}'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'ZLPhotoBrowser'
   s.dependency 'AFNetworking'
+  s.dependency  'Masonry', '~> 0.6.4'
   s.ios.deployment_target = '8.0'
 end
 
