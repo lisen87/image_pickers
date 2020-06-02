@@ -1,6 +1,6 @@
 name: image_pickers
 description: image_pickers Support local picture or video multiple selection, support to save network pictures or vidoe to albums, support preview video or picture
-version: 1.0.7+3
+version: 1.0.7+4
 homepage: https://github.com/lisen87/image_pickers
 
 environment:

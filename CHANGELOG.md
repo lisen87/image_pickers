@@ -1,3 +1,6 @@
+## 1.0.7+4
+* 修复 iOS 因为图片（right_arrow.png、left_arrow.png、error.png）导致的各种问题
+* Fix various problems caused by pictures (right_arrow.png, left_arrow.png, error.png) on ​​iOS
 ## 1.0.7+3
 * 临时修复 MethodChannel.Result 为 null 崩溃问题
 * Temporarily fix crash when MethodChannel.Result is null
