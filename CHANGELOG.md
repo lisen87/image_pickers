@@ -1,3 +1,6 @@
+## 1.0.7+5
+* Android 修复保存屏幕截图到相册时，因文件后缀名造成的崩溃问题。
+* Android fixes the crash caused by the file extension when saving screenshots to albums.
 ## 1.0.7+4
 * 修复 iOS 因为图片（right_arrow.png、left_arrow.png、error.png）导致的各种问题
 * Fix various problems caused by pictures (right_arrow.png, left_arrow.png, error.png) on ​​iOS

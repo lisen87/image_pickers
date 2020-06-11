@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -373,50 +372,53 @@ public class Saver {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 10;
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-                File dir = new File(appPath.getAppImgDirPath(true));
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
+                try{
+                    File dir = new File(appPath.getAppImgDirPath(true));
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    String suffix = ".png";
+                    final String fileName = System.currentTimeMillis() + suffix;
+                    final File imageFile = new File(dir, fileName);
 
-                String suffix = bitmap.hasAlpha() ? ".png" : ".jpg";
-                final String fileName = System.currentTimeMillis() + suffix;
-                final File imageFile = new File(dir, fileName);
-
-                FileOutputStream out = null;
-                try {
+                    FileOutputStream out = null;
                     out = new FileOutputStream(imageFile, false);
                     out.write(data, 0, data.length);
                     out.flush();
                     out.close();
-                    bitmap = null;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-                new Handler(context.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileInfo fileInfo = new FileInfo();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                            fileInfo = copyImgToPicture(imageFile.getAbsolutePath(),fileName);
-                        }else{
-                            fileInfo.setBeforeDownload(false);
-                            fileInfo.setUri(null);
+                    new Handler(context.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            FileInfo fileInfo = new FileInfo();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                                fileInfo = copyImgToPicture(imageFile.getAbsolutePath(),fileName);
+                            }else{
+                                fileInfo.setBeforeDownload(false);
+                                fileInfo.setUri(null);
+                                fileInfo.setPath(imageFile.getAbsolutePath());
+                                fileInfo.setSize(imageFile.length());
+                            }
+                            notifyGallery(fileInfo.getPath());
+                            //这里是为了点击查看大图，android q 无法访问其他目录
                             fileInfo.setPath(imageFile.getAbsolutePath());
-                            fileInfo.setSize(imageFile.length());
+                            if (iFinishListener != null){
+                                iFinishListener.onSuccess(fileInfo);
+                            }
                         }
-                        notifyGallery(fileInfo.getPath());
-                        //这里是为了点击查看大图，android q 无法访问其他目录
-                        fileInfo.setPath(imageFile.getAbsolutePath());
-                        if (iFinishListener != null){
-                            iFinishListener.onSuccess(fileInfo);
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                    new Handler(context.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (iFinishListener != null){
+                                iFinishListener.onFailed(e.getMessage());
+                            }
                         }
-                    }
-                });
+                    });
 
+                }
             }
         }).start();
 

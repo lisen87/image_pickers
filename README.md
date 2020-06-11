@@ -17,7 +17,7 @@ From 1.0.6 + 2, the `CorpConfig` class is changed to `CropConfig` class, and the
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.7+4
+image_pickers: ^1.0.7+5
 ```
 
 ```dart
