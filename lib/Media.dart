@@ -8,5 +8,6 @@ class Media {
   ///视频路径或图片路径
   ///Video path or image path
   String path;
+  String duration;
   GalleryMode galleryMode;
 }

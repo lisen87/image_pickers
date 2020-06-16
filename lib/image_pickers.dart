@@ -13,6 +13,7 @@ enum GalleryMode {
 
   ///选择视频
   video,
+  all,
 }
 
 enum CameraMimeType {
@@ -112,6 +113,8 @@ class ImagePickers {
       gMode = "image";
     } else if (galleryMode == GalleryMode.video) {
       gMode = "video";
+    } else if (galleryMode == GalleryMode.all) {
+      gMode = "all";
     }
     Color uiColor = UIConfig.defUiThemeColor ;
     if(uiConfig != null){
@@ -145,6 +148,7 @@ class ImagePickers {
       media.thumbPath = data["thumbPath"];
       media.path = data["path"];
       media.galleryMode = galleryMode;
+      media.duration = data["duration"];
       medias.add(media);
     });
     return medias;

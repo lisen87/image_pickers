@@ -36,6 +36,7 @@ import top.zibin.luban.OnCompressListener;
 import top.zibin.luban.OnRenameListener;
 
 import android.util.Log;
+import android.content.Context;
 
 /**
  * Created by lisen on 2018-09-11.
@@ -70,6 +71,7 @@ public class SelectPicsActivity extends BaseActivity {
     private Number width;
     private Number height;
     private String mimeType;
+    private List<VideoItem> videoList;
 
     @Override
     public void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
@@ -123,6 +125,7 @@ public class SelectPicsActivity extends BaseActivity {
                 case PictureConfig.CHOOSE_REQUEST:
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    videoList = new ArrayList<VideoItem>();
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
@@ -152,7 +155,7 @@ public class SelectPicsActivity extends BaseActivity {
                         } else {
 
                             if (Build.VERSION.SDK_INT >= 29) {
-                                // Log.i("图片选择", "-----android10:----- " + PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath())));
+                                // Log.i("图片选择", "-----android10:----- ");
 								paths.add(PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath())));
                                 // paths.add(localMedia.getAndroidQToPath());
                             } else {
@@ -160,6 +163,9 @@ public class SelectPicsActivity extends BaseActivity {
                                 paths.add(localMedia.getPath());
                             }
                         }
+                         if (paths.get(i).endsWith("mp4")) {
+                             videoList.add(new VideoItem(paths.get(i), localMedia.getDuration()));
+                         }
                     }
                     if (mimeType != null){
                         //直接调用拍照或拍视频时
@@ -171,6 +177,8 @@ public class SelectPicsActivity extends BaseActivity {
                     }else{
                         if ("image".equals(mode)) {
                             //如果选择的是图片就压缩
+                            lubanCompress(paths);
+                        } else if ("all".equals(mode)){
                             lubanCompress(paths);
                         } else {
                             resolveVideoPath(paths);
@@ -186,13 +194,14 @@ public class SelectPicsActivity extends BaseActivity {
                     PictureSelectionModel pictureSelectionModel = null;
                     if (mimeType != null){
                         //直接调用拍照或拍视频时
-                        if ("photo".equals(mimeType)) {
-                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
+                        if ("all".equals(mimeType)) {
+                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofAll());
                         } else {
                             pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
                         }
                     }else{
-                        pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
+                        pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : "all".equals(mode) ? PictureMimeType.ofAll(): PictureMimeType.ofVideo());
+                        // pictureSelectionModel = pictureSelector.openGallery( PictureMimeType.ofAll());
                     }
                     pictureSelectionModel
                             .loadImageEngine(GlideEngine.createGlideEngine())
@@ -242,6 +251,7 @@ public class SelectPicsActivity extends BaseActivity {
             Map<String, String> map = new HashMap<>();
             map.put("thumbPath", thumbPath);
             map.put("path", path);
+            map.put("duration", String.valueOf(videoList.get(i).getDuration()));
             thumbPaths.add(map);
         }
         Intent intent = new Intent();
@@ -252,6 +262,7 @@ public class SelectPicsActivity extends BaseActivity {
 
     private void lubanCompress(final List<String> paths) {
         final List<Map<String, String>> lubanCompressPaths = new ArrayList<>();
+        Context that = this;
         Luban.with(this)
                 .load(paths)
                 .ignoreBy(compressSize.intValue())
@@ -259,8 +270,22 @@ public class SelectPicsActivity extends BaseActivity {
                 .filter(new CompressionPredicate() {
                     @Override
                     public boolean apply(String path) {
-                        // Log.i("图片--鲁班压缩---", "---是否要压缩图片-----gif?= " + !path.endsWith(".gif") + "  GIF?= " + !path.endsWith(".GIF"));
-                        return !path.endsWith(".gif") && !path.endsWith(".GIF");
+                        if (path.endsWith("mp4") || path.endsWith("MP4")) {
+                            Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                            String thumbPath = CommonUtils.saveBitmap(that, new AppPath(that).getAppImgDirPath(false), bitmap);
+                            Map<String, String> map = new HashMap<>();
+                            map.put("thumbPath", thumbPath);
+                            map.put("path", path);
+                            for (int i = 0; i < videoList.size(); i ++ ) {
+                                if (path.equals(videoList.get(i).getPath())) {
+                                    map.put("duration", String.valueOf(videoList.get(i).getDuration()));
+                                    lubanCompressPaths.add(map);
+                                    compressCount++;
+                                    compressFinish(paths, lubanCompressPaths);
+                                }
+                            }
+                        }
+                        return !path.endsWith(".gif") && !path.endsWith(".GIF") && !path.endsWith("mp4") && !path.endsWith("MP4");
                     }
                 })
                 .setRenameListener(new OnRenameListener() {
@@ -277,6 +302,9 @@ public class SelectPicsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(File file) {
                         // 压缩成功后调用，返回压缩后的图片文件
+                        if (file.getAbsolutePath().endsWith("mp4")) {
+                            return;
+                        }
                         Map<String, String> map = new HashMap<>();
                         map.put("thumbPath", file.getAbsolutePath());
                         map.put("path", file.getAbsolutePath());
@@ -301,6 +329,22 @@ public class SelectPicsActivity extends BaseActivity {
             intent.putExtra(COMPRESS_PATHS, (Serializable) compressPaths);
             setResult(RESULT_OK, intent);
             finish();
+        }
+    }
+
+    class VideoItem {
+        String path;
+        long duration;
+        public VideoItem(String path, long duration) {
+            this.path = path;
+            this.duration = duration;
+        };
+
+        public long getDuration() {
+            return duration;
+        }
+        public String getPath() {
+            return path; 
         }
     }
 }
