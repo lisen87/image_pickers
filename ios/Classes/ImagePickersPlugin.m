@@ -210,8 +210,12 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 ac.configuration. allowSelectImage =YES;
                 ac.configuration.allowSelectVideo =NO;
             }else{
-                ac.configuration. allowSelectImage =NO;
-                ac.configuration.allowSelectVideo =YES;
+//                ac.configuration. allowSelectImage =NO;
+//                ac.configuration.allowSelectVideo =YES;
+
+                configuration.allowSelectImage = YES;
+                configuration.allowSelectGif = YES;
+                configuration.allowMixSelect = YES;
             }
             //        ac.configuration.shouldAnialysisAsset = YES;
             //框架语言
@@ -219,9 +223,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             //如调用的方法无sender参数，则该参数必传
             ac.sender = [UIApplication sharedApplication].delegate.window.rootViewController;
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:ac.configuration];
-            
+
             NSMutableArray *arr =[[NSMutableArray alloc]init];
-            
+
             [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
                 //your codes
                 if (![galleryMode isEqualToString:@"image"]) {
@@ -235,37 +239,45 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         options.version = PHImageRequestOptionsVersionCurrent;
                         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
                         PHImageManager *manager = [PHImageManager defaultManager];
-                        [manager requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-                            
-                            AVURLAsset *urlAsset = (AVURLAsset *)asset;
-                            NSURL *url = urlAsset.URL;
-                            NSString *subString = [url.absoluteString substringFromIndex:7];
-                            
-                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            formatter.dateFormat = @"yyyyMMddHHmmss";
-                            int  x = arc4random() % 10000;
-                            NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                            UIImage *img = [self getImage:subString]  ;
-                            //保存到沙盒
-                            [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
-                            NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                            
-                            //取出路径
-                            [arr addObject:@{
-                                @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                                @"path":[NSString stringWithFormat:@"%@",subString],
+
+                        if (phAsset.mediaType == PHAssetMediaTypeImage) {
+                            [self saveImageView:0 imagePHAsset:assets arr:arr  compressSize:compressSize result:(FlutterResult)result];
+                            break;
+                        } else if (phAsset.mediaType == PHAssetMediaTypeVideo) {
+                            [manager requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+
+                                AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                                NSURL *url = urlAsset.URL;
+                                NSString *subString = [url.absoluteString substringFromIndex:7];
+
+                                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                                formatter.dateFormat = @"yyyyMMddHHmmss";
+                                int  x = arc4random() % 10000;
+                                NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+                                NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.jpg",name]];
+                                UIImage *img = [self getImage:subString]  ;
+                                //保存到沙盒
+                                [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
+                                NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                                CGFloat duration = CMTimeGetSeconds(urlAsset.duration)*1000;
+                                //取出路径
+                                [arr addObject:@{
+                                    @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
+                                    @"path":[NSString stringWithFormat:@"%@",subString],
+                                    @"duration":[NSString stringWithFormat:@"%d",(int)duration]
+                                }];
+                                //NSLog(@"%@",arr);
+                                if (arr.count==assets.count) {
+                                    result(arr);
+                                    return ;
+
+                                }
+
+
+
                             }];
-                            //NSLog(@"%@",arr);
-                            if (arr.count==assets.count) {
-                                result(arr);
-                                return ;
-                                
-                            }
-                            
-                            
-                            
-                        }];
+                        }
+
                     }
                 }else{
                     
