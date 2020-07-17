@@ -44,7 +44,7 @@ public class ImagePickersPlugin implements MethodChannel.MethodCallHandler {
       @Override
       public boolean onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == SELECT ) {
-          if (resultCode == Activity.RESULT_OK){
+          if (resultCode == Activity.RESULT_OK && result != null){
             List<Map<String,String>> paths = (List<Map<String,String>>) intent.getSerializableExtra(SelectPicsActivity.COMPRESS_PATHS);
             if (result != null){
               result.success(paths);
