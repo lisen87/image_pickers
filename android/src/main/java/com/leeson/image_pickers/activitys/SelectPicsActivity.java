@@ -87,7 +87,7 @@ public class SelectPicsActivity extends BaseActivity {
 
         Intent intent = new Intent(this, PermissionActivity.class);
         intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
+                , Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA});
         startActivityForResult(intent, WRITE_SDCARD);
     }
