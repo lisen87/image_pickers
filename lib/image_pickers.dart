@@ -39,6 +39,7 @@ class ImagePickers {
   static Future<Media> openCamera({
     CameraMimeType cameraMimeType : CameraMimeType.photo,
     CropConfig cropConfig,
+    bool showPreview: false,
     int compressSize: 500,
   }) async {
     String mimeType = "photo";
@@ -61,6 +62,7 @@ class ImagePickers {
       'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
       'selectCount': 1,
       'showCamera': false,
+      'showPreview': false,
       'enableCrop': enableCrop,
       'width': width,
       'height': height,
@@ -104,6 +106,7 @@ class ImagePickers {
     UIConfig uiConfig ,
     int selectCount: 1,
     bool showCamera: false,
+    bool showPreview: false,
     CropConfig cropConfig,
     int compressSize: 500,
   }) async {
@@ -132,6 +135,7 @@ class ImagePickers {
       'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
       'selectCount': selectCount,
       'showCamera': showCamera,
+      'showPreview': showPreview,
       'enableCrop': enableCrop,
       'width': width,
       'height': height,
