@@ -77,6 +77,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
+        BOOL showPreview =[[dic objectForKey:@"showPreview"] boolValue];//
         
         NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];//type   photo video 若不存在则为带相册的，若存在则直接打开相册相机
         

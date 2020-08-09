@@ -50,6 +50,7 @@ public class SelectPicsActivity extends BaseActivity {
     public static final String GALLERY_MODE = "GALLERY_MODE";
     public static final String UI_COLOR = "UI_COLOR";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
+    public static final String SHOW_PREVIEW = "SHOW_PREVIEW";
     public static final String ENABLE_CROP = "ENABLE_CROP";
     public static final String WIDTH = "WIDTH";
     public static final String HEIGHT = "HEIGHT";
@@ -65,6 +66,7 @@ public class SelectPicsActivity extends BaseActivity {
     private Map<String,Number> uiColor;
     private Number selectCount;
     private boolean showCamera;
+    private boolean showPreview;
     private boolean enableCrop;
     private Number width;
     private Number height;
@@ -79,6 +81,7 @@ public class SelectPicsActivity extends BaseActivity {
 
         selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
         showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
+        showPreview = getIntent().getBooleanExtra(SHOW_PREVIEW, false);
         enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
         width = getIntent().getIntExtra(WIDTH, 1);
         height = getIntent().getIntExtra(HEIGHT, 1);
@@ -207,7 +210,7 @@ public class SelectPicsActivity extends BaseActivity {
                             .imageSpanCount(4)// 每行显示个数 int
                             .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                             .isSingleDirectReturn(true)// 单选模式下是否直接返回
-                            .previewImage(true)// 是否可预览图片 true or false
+                            .previewImage(showPreview)// 是否可预览图片 true or false
                             .enableCrop(enableCrop)// 是否裁剪 true or false
 
                             .circleDimmedLayer(false)
