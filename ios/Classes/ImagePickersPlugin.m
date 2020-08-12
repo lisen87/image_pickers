@@ -121,41 +121,21 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 
                 if (image) {
                     
-                    BigImageViewController *big =[[BigImageViewController alloc]init];
-                    big.configuration =configuration ;
-                    big.image =image;
-                    big.doneEditImageBlock = ^(UIImage * imageE) {
-                        NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
-                        if (data2.length>compressSize) {
-                            //压缩
-                            data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
-                        }
-                        NSLog(@"_____方法__%ld",data2.length);
-                        UIImage *image =[UIImage imageWithData:data2];
-                        //重命名并且保存
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        formatter.dateFormat = @"yyyyMMddHHmmss";
-                        int  x = arc4random() % 10000;
-                        
-                        NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                        
-                        //保存到沙盒
-                        [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                        NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                        NSDictionary *photoDic =@{
-                            @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                            @"path":[NSString stringWithFormat:@"%@",aPath3],
-                        };
-                        //取出路径
-                        result(@[photoDic]);
-                        return ;
-                        
-                        
-                    };
+                    if (enableCrop) {
                     
-                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
-                    }];
+                        BigImageViewController *big =[[BigImageViewController alloc]init];
+                        big.configuration =configuration ;
+                        big.image =image;
+                        big.doneEditImageBlock = ^(UIImage * imageE) {
+                            [self imagePostProcessing:imageE compressSize:compressSize result:result];
+                            return;
+                        };
+                        
+                        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
+                        }];
+                    } else{
+                        [self imagePostProcessing:image compressSize:compressSize result:result];
+                    }
                     
                 }else{
                     
@@ -725,4 +705,32 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     NSString *tmpPath = [tmpDirectory stringByAppendingPathComponent:tmpFile];
     return tmpPath;
 }
+
+- (void)imagePostProcessing:(UIImage *)imageE compressSize:(NSInteger)compressSize result:(FlutterResult)result {
+    NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
+    if (data2.length>compressSize) {
+        //压缩
+        data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
+    }
+    NSLog(@"_____方法__%ld",data2.length);
+    UIImage *image =[UIImage imageWithData:data2];
+    //重命名并且保存
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    int  x = arc4random() % 10000;
+    
+    NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+    
+    //保存到沙盒
+    [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+    NSDictionary *photoDic =@{
+        @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
+        @"path":[NSString stringWithFormat:@"%@",aPath3],
+    };
+    //取出路径
+    result(@[photoDic]);
+}
+
 @end
