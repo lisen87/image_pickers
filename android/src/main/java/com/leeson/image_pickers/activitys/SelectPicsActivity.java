@@ -48,6 +48,8 @@ public class SelectPicsActivity extends BaseActivity {
     private static final int WRITE_SDCARD = 101;
 
     public static final String GALLERY_MODE = "GALLERY_MODE";
+    public static final String GALLERY_MODE_IMAGE = "image";
+    public static final String GALLERY_MODE_VIDEO = "video";
     public static final String UI_COLOR = "UI_COLOR";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
     public static final String ENABLE_CROP = "ENABLE_CROP";
@@ -59,6 +61,8 @@ public class SelectPicsActivity extends BaseActivity {
 
     public static final String COMPRESS_PATHS = "COMPRESS_PATHS";//压缩的画
     public static final String CAMERA_MIME_TYPE = "CAMERA_MIME_TYPE";//直接调用拍照或拍视频时有效
+    public static final String CAMERA_MIME_TYPE_VIDEO = "video";
+    public static final String CAMERA_MIME_TYPE_PHOTO = "photo";
     private Number compressSize;
     private int compressCount = 0;
     private String mode;
@@ -86,9 +90,31 @@ public class SelectPicsActivity extends BaseActivity {
         mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
 
         Intent intent = new Intent(this, PermissionActivity.class);
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.CAMERA});
+
+        String[] permissions;
+        if (mimeType != null){
+            if ("photo".equals(mimeType)) {
+                permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+            } else {
+                permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA};
+            }
+        } else {
+            if ("image".equals(mode)) {
+                if (showCamera){
+                    permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                } else {
+                    permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+                }
+            } else {
+                if (showCamera){
+                    permissions  = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA};
+                } else {
+                    permissions  = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+                }
+            }
+        }
+
+        intent.putExtra(PermissionActivity.PERMISSIONS, permissions);
         startActivityForResult(intent, WRITE_SDCARD);
     }
 
