@@ -1,11 +1,11 @@
 #import "ImagePickersPlugin.h"
-#import <ZLPhotoBrowser/ZLPhotoActionSheet.h>
+#import <ZLPhotoBrowser_objc/ZLPhotoActionSheet.h>
 #import <Photos/Photos.h>
-#import <ZLPhotoBrowser/ZLShowBigImgViewController.h>
-#import <ZLPhotoBrowser/ZLCustomCamera.h>
-#import <ZLPhotoBrowser/ZLAlbumListController.h>
-#import <ZLPhotoBrowser/ZLImageEditTool.h>
-#import <ZLPhotoBrowser/ZLPhotoModel.h>
+#import <ZLPhotoBrowser_objc/ZLShowBigImgViewController.h>
+#import <ZLPhotoBrowser_objc/ZLCustomCamera.h>
+#import <ZLPhotoBrowser_objc/ZLAlbumListController.h>
+#import <ZLPhotoBrowser_objc/ZLImageEditTool.h>
+#import <ZLPhotoBrowser_objc/ZLPhotoModel.h>
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -17,7 +17,9 @@
 #define Frame_NavAndStatus (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
 #define CXCHeightX   ( ([UIScreen mainScreen].bounds.size.height>=812.00)?([[UIScreen mainScreen] bounds].size.height-34):([[UIScreen mainScreen] bounds].size.height)/1.000)
 #define CXCWeight   ( ([[UIScreen mainScreen] bounds].size.width)/1.000)
-@interface ImagePickersPlugin ()
+@interface ImagePickersPlugin (){
+    BOOL isShowGif;
+}
 @property(nonatomic, retain) FlutterMethodChannel *channel;
 @end
 
@@ -77,12 +79,13 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
-        
+        isShowGif =[[dic objectForKey:@"showGif"] boolValue];//是否选择gif
+
         NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];//type   photo video 若不存在则为带相册的，若存在则直接打开相册相机
         
         ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration defaultPhotoConfiguration];
         configuration.maxSelectCount = selectCount;//最多选择多少张图
-        configuration.allowMixSelect = NO;//不允许混合选择
+        configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
         configuration.allowEditImage =enableCrop;
@@ -94,11 +97,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         }];
         
         if(cameraMimeType) {
-            
             //            cameraMimeType//type   photo video
-            
+
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configuration];
-            
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
             
             if ([cameraMimeType isEqualToString:@"photo"]) {
@@ -150,8 +151,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         //取出路径
                         result(@[photoDic]);
                         return ;
-                        
-                        
                     };
                     
                     [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
@@ -187,16 +186,10 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:camera sender:nil];
             
         }else{
-            //测试的
-            //               showCamera =YES;
-            //                NSInteger selectCount =9;//最多多少个
-            //                BOOL enableCrop =1;//是否裁剪
-            //                float height = 1;//宽高比例
-            //                float width = 10;//宽高比例
-            //                NSString *galleryMode =@"video";
+        
             ZLPhotoActionSheet *ac = [[ZLPhotoActionSheet alloc] init];
             ac.configuration.maxSelectCount = selectCount;//最多选择多少张图
-            ac.configuration.allowMixSelect = NO;//不允许混合选择
+            ac.configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
             ac.configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
             ac.configuration.allowSelectOriginal =NO;//不选择原图
             ac.configuration.allowEditImage =enableCrop;
@@ -205,7 +198,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                                @"value1":[NSNumber numberWithInt:width],//第一个是宽
                                                @"value2":[NSNumber numberWithInt:height],//第二个是高
             }];
-            
+            ac.configuration.allowSelectGif = isShowGif;
+
             if ([galleryMode isEqualToString:@"image"]) {
                 ac.configuration. allowSelectImage =YES;
                 ac.configuration.allowSelectVideo =NO;
@@ -213,6 +207,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 ac.configuration. allowSelectImage =NO;
                 ac.configuration.allowSelectVideo =YES;
             }
+            
             //        ac.configuration.shouldAnialysisAsset = YES;
             //框架语言
             //        ac.configuration.languageType = YES;
@@ -225,6 +220,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {
                 //your codes
                 if (![galleryMode isEqualToString:@"image"]) {
+                    
                     for (NSInteger i = 0; i < assets.count; i++) {
                         // 获取一个资源（PHAsset）
                         PHAsset *phAsset = assets[i];
@@ -263,8 +259,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                 
                             }
                             
-                            
-                            
                         }];
                     }
                 }else{
@@ -276,16 +270,11 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     
                 }
                 
-                
-                
-                
                 //        [self zhuanhuanTupian];
                 
             }];
             [ac showPhotoLibrary];
         }
-        
-        
         
     } else if ([@"previewImages" isEqualToString:call.method]){
         
@@ -445,6 +434,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSDictionary *dic = call.arguments;
         NSString *url =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
         if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
+            
             [self saveGifImage:url];
         }else{
             UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
@@ -486,7 +476,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         for (int i=0; i<arr.count; i++) {
             
-            if([arr[i] containsString:@"GIF"]||[arr[i] containsString:@"gif"]){
+            if(([arr[i] containsString:@"GIF"]||[arr[i] containsString:@"gif"])&&isShowGif){
                 NSDictionary *photoDic =@{
                     @"thumbPath":[NSString stringWithFormat:@"%@",arr[i]],
                     @"path":[NSString stringWithFormat:@"%@",arr[i]],

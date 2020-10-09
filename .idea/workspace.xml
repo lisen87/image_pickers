@@ -11,12 +11,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/CropConfig.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Media.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/UIConfig.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/image_pickers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/image_pickers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,26 +43,11 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>flutter</find>
-      <find>flutter/pickers</find>
-      <find>cameraMimeType</find>
-      <find>unreachable</find>
-      <find>image_pickers</find>
-      <find>uiColor</find>
-      <find>previewImages</find>
-      <find>Corp</find>
-      <find>corp</find>
-      <find>cropConfig</find>
-      <find>MethodCallImpl</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1iaRkFtcIXgSbFWDcgtnXNmS9OY" />
+  <component name="ProjectId" id="1icY4FiACRA5Vv3GHM762GLTUt7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -65,24 +57,25 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\flutter_package\image_pickers\example\image" />
+      <recent name="F:\flutter_package\image_pickers\example" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\flutter_package\image_pickers\android" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example\image\3.0x" />
       <recent name="F:\flutter_package\image_pickers\example\image\2.0x" />
       <recent name="F:\flutter_package\image_pickers" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\flutter_package\image_pickers\example\image" />
-      <recent name="F:\flutter_package\image_pickers\example" />
+      <recent name="F:\flutter_package\image_pickers\images\3.0x" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -306,21 +299,7 @@
       <option name="project" value="LOCAL" />
       <updated>1591867369201</updated>
     </task>
-    <task id="LOCAL-00031" summary="固定ios使用图片选择库的版本3.1.2">
-      <created>1592210263402</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1592210263402</updated>
-    </task>
-    <task id="LOCAL-00032" summary="使用最新sdk，优化权限控制">
-      <created>1602221728733</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1602221728733</updated>
-    </task>
-    <option name="localTasksCounter" value="33" />
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -381,50 +360,40 @@
     <MESSAGE value="适配安卓Q文件存储，修复小米手机崩溃问题" />
     <MESSAGE value="修复 iOS 因为图片（right_arrow.png、left_arrow.png、error.png）导致的各种问题" />
     <MESSAGE value="修复 因使用bitmap获取后缀名造成的崩溃" />
-    <MESSAGE value="固定ios使用图片选择库的版本3.1.2" />
-    <MESSAGE value="使用最新sdk，优化权限控制" />
-    <option name="LAST_COMMIT_MESSAGE" value="使用最新sdk，优化权限控制" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复 因使用bitmap获取后缀名造成的崩溃" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602221805787">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="521" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602206714626">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602221805787" />
-    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1602221725239">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="521" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.977@0.23.1920.977" timestamp="1602206714626" />
+    <state x="794" y="244" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1602206700953">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602221725239" />
-    <state x="572" y="283" key="FileChooserDialogImpl" timestamp="1602147415445">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="794" y="244" key="#com.intellij.ide.util.TreeFileChooserDialog/0.23.1920.977@0.23.1920.977" timestamp="1602206700953" />
+    <state width="1661" height="318" key="GridCell.Tab.0.bottom" timestamp="1602214114007">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="572" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602147415445" />
-    <state width="1577" height="305" key="GridCell.Tab.0.bottom" timestamp="1602221954401">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1661" height="318" key="GridCell.Tab.0.bottom/0.23.1920.977@0.23.1920.977" timestamp="1602214114007" />
+    <state width="1661" height="318" key="GridCell.Tab.0.center" timestamp="1602214114007">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state width="1577" height="305" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954401" />
-    <state width="1577" height="305" key="GridCell.Tab.0.center" timestamp="1602221954400">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1661" height="318" key="GridCell.Tab.0.center/0.23.1920.977@0.23.1920.977" timestamp="1602214114007" />
+    <state width="1661" height="318" key="GridCell.Tab.0.left" timestamp="1602214114006">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state width="1577" height="305" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954400" />
-    <state width="1577" height="305" key="GridCell.Tab.0.left" timestamp="1602221954400">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1661" height="318" key="GridCell.Tab.0.left/0.23.1920.977@0.23.1920.977" timestamp="1602214114006" />
+    <state width="1661" height="318" key="GridCell.Tab.0.right" timestamp="1602214114007">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state width="1577" height="305" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954400" />
-    <state width="1577" height="305" key="GridCell.Tab.0.right" timestamp="1602221954401">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1661" height="318" key="GridCell.Tab.0.right/0.23.1920.977@0.23.1920.977" timestamp="1602214114007" />
+    <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602206540625">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state width="1577" height="305" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954401" />
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1602221730489">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.977@0.23.1920.977" timestamp="1602206540625" />
+    <state x="712" y="260" width="712" height="518" key="find.popup" timestamp="1602210820737">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602221730489" />
-    <state x="34" y="167" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602220286744">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="34" y="167" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602220286744" />
-    <state width="642" height="205" key="javadoc.popup.new" timestamp="1602148421209">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="642" height="205" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1602148421209" />
+    <state x="712" y="260" width="712" height="518" key="find.popup/0.23.1920.977@0.23.1920.977" timestamp="1602210820737" />
   </component>
 </project>
