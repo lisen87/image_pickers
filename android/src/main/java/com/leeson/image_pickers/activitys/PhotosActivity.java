@@ -1,7 +1,5 @@
 package com.leeson.image_pickers.activitys;
 
-import android.Manifest;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -45,7 +43,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PhotosActivity extends BaseActivity {
 
-    private static final int READ_SDCARD = 101;
 
     public static final String IMAGES = "IMAGES";
     public static final String CURRENT_POSITION = "CURRENT_POSITION";
@@ -87,9 +84,9 @@ public class PhotosActivity extends BaseActivity {
                     return true;
                 }
             });
-            attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            attacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                 @Override
-                public void onPhotoTap(View view, float x, float y) {
+                public void onViewTap(View view, float x, float y) {
                     finish();
                 }
             });
@@ -209,22 +206,8 @@ public class PhotosActivity extends BaseActivity {
             }
         });
 
-        Intent intent = new Intent(this, PermissionActivity.class);
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE});
-        startActivityForResult(intent, READ_SDCARD);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == READ_SDCARD) {
-                viewPager.setAdapter(new Adapter());
-                viewPager.setCurrentItem(currentPosition.intValue());
-            }
-        } else {
-            finish();
-        }
+        viewPager.setAdapter(new Adapter());
+        viewPager.setCurrentItem(currentPosition.intValue());
     }
 
     private void reset(int pos) {

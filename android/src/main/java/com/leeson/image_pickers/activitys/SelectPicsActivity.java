@@ -1,6 +1,5 @@
 package com.leeson.image_pickers.activitys;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -49,6 +48,7 @@ public class SelectPicsActivity extends BaseActivity {
 
     public static final String GALLERY_MODE = "GALLERY_MODE";
     public static final String UI_COLOR = "UI_COLOR";
+    public static final String SHOW_GIF = "SHOW_GIF";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
     public static final String ENABLE_CROP = "ENABLE_CROP";
     public static final String WIDTH = "WIDTH";
@@ -64,6 +64,7 @@ public class SelectPicsActivity extends BaseActivity {
     private String mode;
     private Map<String,Number> uiColor;
     private Number selectCount;
+    private boolean showGif;
     private boolean showCamera;
     private boolean enableCrop;
     private Number width;
@@ -78,6 +79,7 @@ public class SelectPicsActivity extends BaseActivity {
         uiColor = (Map<String, Number>) getIntent().getSerializableExtra(UI_COLOR);
 
         selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
+        showGif = getIntent().getBooleanExtra(SHOW_GIF, true);
         showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
         enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
         width = getIntent().getIntExtra(WIDTH, 1);
@@ -85,13 +87,56 @@ public class SelectPicsActivity extends BaseActivity {
         compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
         mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
 
-        Intent intent = new Intent(this, PermissionActivity.class);
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.CAMERA});
-        startActivityForResult(intent, WRITE_SDCARD);
+        startSel();
     }
 
+    private void startSel(){
+        PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
+
+        //添加图片
+        PictureSelector pictureSelector = PictureSelector.create(this);
+        PictureSelectionModel pictureSelectionModel = null;
+        if (mimeType != null){
+            //直接调用拍照或拍视频时
+            if ("photo".equals(mimeType)) {
+                pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
+            } else {
+                pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
+            }
+        }else{
+            pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
+        }
+        pictureSelectionModel
+                .loadImageEngine(GlideEngine.createGlideEngine())
+                .isOpenStyleNumComplete(true)
+                .isOpenStyleCheckNumMode(true)
+
+                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
+                .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
+
+                .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
+                .isCamera(showCamera)
+                .isGif(showGif)
+                .maxSelectNum(enableCrop?1:selectCount.intValue())
+                .withAspectRatio(width.intValue(), height.intValue())
+                .imageSpanCount(4)// 每行显示个数 int
+                .selectionMode(enableCrop || selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                .isSingleDirectReturn(true)// 单选模式下是否直接返回
+                .previewImage(true)// 是否可预览图片 true or false
+                .enableCrop(enableCrop)// 是否裁剪 true or false
+
+                .circleDimmedLayer(false)
+                .showCropFrame(true)
+                .showCropGrid(true)
+                .hideBottomControls(true)
+                .freeStyleCropEnabled(false)
+
+                .compress(false)// 是否压缩 true or false
+                .minimumCompressSize(Integer.MAX_VALUE)
+                .compressSavePath(getPath())//压缩图片保存地址
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
     private String getPath() {
         String path = new AppPath(this).getAppImgDirPath(false);
         File file = new File(path);
@@ -175,51 +220,7 @@ public class SelectPicsActivity extends BaseActivity {
                     break;
                 case WRITE_SDCARD:
 
-                    PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
 
-                    //添加图片
-                    PictureSelector pictureSelector = PictureSelector.create(this);
-                    PictureSelectionModel pictureSelectionModel = null;
-                    if (mimeType != null){
-                        //直接调用拍照或拍视频时
-                        if ("photo".equals(mimeType)) {
-                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
-                        } else {
-                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
-                        }
-                    }else{
-                        pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
-                    }
-                    pictureSelectionModel
-                            .loadImageEngine(GlideEngine.createGlideEngine())
-                            .isOpenStyleNumComplete(true)
-                            .isOpenStyleCheckNumMode(true)
-
-                            .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                            .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
-                            .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
-
-                            .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
-                            .isCamera(showCamera)
-                            .isGif(true)
-                            .maxSelectNum(selectCount.intValue())
-                            .withAspectRatio(width.intValue(), height.intValue())
-                            .imageSpanCount(4)// 每行显示个数 int
-                            .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                            .isSingleDirectReturn(true)// 单选模式下是否直接返回
-                            .previewImage(true)// 是否可预览图片 true or false
-                            .enableCrop(enableCrop)// 是否裁剪 true or false
-
-                            .circleDimmedLayer(false)
-                            .showCropFrame(true)
-                            .showCropGrid(true)
-                            .hideBottomControls(true)
-                            .freeStyleCropEnabled(false)
-
-                            .compress(false)// 是否压缩 true or false
-                            .minimumCompressSize(Integer.MAX_VALUE)
-                            .compressSavePath(getPath())//压缩图片保存地址
-                            .forResult(PictureConfig.CHOOSE_REQUEST);
                     break;
             }
         } else {

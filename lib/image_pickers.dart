@@ -58,6 +58,7 @@ class ImagePickers {
     Color uiColor = UIConfig.defUiThemeColor;
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': "image",
+      'showGif': true,
       'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
       'selectCount': 1,
       'showCamera': false,
@@ -104,6 +105,7 @@ class ImagePickers {
     UIConfig uiConfig ,
     int selectCount: 1,
     bool showCamera: false,
+    bool showGif: true,
     CropConfig cropConfig,
     int compressSize: 500,
   }) async {
@@ -129,6 +131,7 @@ class ImagePickers {
 
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': gMode,
+      'showGif': showGif,
       'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
       'selectCount': selectCount,
       'showCamera': showCamera,

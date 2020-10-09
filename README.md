@@ -8,16 +8,37 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 > * Android
 > * iOS
 
-## 注意
+## Android minSdkVersion 19
 
-从1.0.6+2开始 `CorpConfig` 类 改为 `CropConfig` 类，参数中的 `corpConfig` 改为 `cropConfig`.
-From 1.0.6 + 2, the `CorpConfig` class is changed to `CropConfig` class, and the `corpConfig` in the parameters is changed to `cropConfig`.
+## Android 开启混淆后，需添加混淆配置 proguard-rules.pro文件
+
+-keep class com.luck.picture.lib.** { *; }
+
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+## Android 打包如何关闭混淆
+buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+## 裁剪状态下图片selectCount 字段无效，将变为单选 In the cropped state, the selectCount field of the picture is invalid and will become single selection
 
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.7+6
+image_pickers: ^1.0.7+7
 ```
 
 ```dart
@@ -37,7 +58,7 @@ Future<void> selectImages() async {
               showCamera: true,
               compressSize: 500,
               uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
-              cropConfig: CropConfig(enableCrop: true, width: 2, height: 1));
+              cropConfig: CropConfig(enableCrop: false, width: 2, height: 1));
   }
 
 /// 或者 or

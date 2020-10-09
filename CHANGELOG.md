@@ -1,3 +1,11 @@
+## 1.0.7+7
+* 添加是否显示gif图片字段
+* Add whether to display the gif image field
+* android 更新权限申请流程，不再一次性申请不相关权限
+* android Update the permission application process and no longer apply for irrelevant permissions all at once
+* iOS14 修复图片预览无法显示问题
+* iOS14 fixes the problem that picture preview cannot be displayed
+
 ## 1.0.7+6
 * iOS 固定ZLPhotoBrowser为3.1.2 
 * iOS fixed ZLPhotoBrowser to 3.1.2

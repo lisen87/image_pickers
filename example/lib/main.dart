@@ -37,11 +37,12 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 8,
+          showGif: true,
+          selectCount: 5,
           showCamera: true,
-          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
+          cropConfig :CropConfig(enableCrop: false,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
+          uiConfig: UIConfig(uiThemeColor: Color(0xff00f000)),
       );
       _listImagePaths.forEach((media){
         print(media.path.toString());
