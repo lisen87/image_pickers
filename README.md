@@ -38,14 +38,11 @@ buildTypes {
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.7+7
+image_pickers: ^1.0.8
 ```
 
 ```dart
 import 'package:image_pickers/image_pickers.dart';
-import 'package:image_pickers/CropConfig.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
 ```
 ```dart
 

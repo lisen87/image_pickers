@@ -3,9 +3,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:image_pickers/CropConfig.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
 
 enum GalleryMode {
   ///选择图片
@@ -244,4 +241,48 @@ class ImagePickers {
     String path = await _channel.invokeMethod('saveVideoToGallery', params);
     return path;
   }
+}
+///裁剪配置
+///Crop configuration
+class CropConfig {
+  ///是否可裁剪
+  bool enableCrop = false;
+
+  ///裁剪的宽度比例
+  ///Cropped width ratio
+  int width = 1;
+
+  ///裁剪的高度比例
+  ///Crop height ratio
+  int height = 1;
+
+  CropConfig({this.enableCrop: false, this.width: 1, this.height: 1});
+}
+
+
+class Media {
+  ///视频缩略图图片路径
+  ///Video thumbnail image path
+  String thumbPath;
+
+  ///视频路径或图片路径
+  ///Video path or image path
+  String path;
+  GalleryMode galleryMode;
+}
+
+/// Created by liSen on 2019/11/15 10:51.
+///
+/// @author liSen < 453354858@qq.com >
+///
+/// 选择图片页面颜色配置
+///
+/// Select image page color configuration
+///
+class UIConfig {
+  static const Color defUiThemeColor = Color(0xfffefefe);
+  Color uiThemeColor;
+
+  /// uiThemeColor
+  UIConfig({this.uiThemeColor : defUiThemeColor});
 }

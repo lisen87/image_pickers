@@ -7,9 +7,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:image_pickers/image_pickers.dart';
-import 'package:image_pickers/CropConfig.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
 import 'dart:ui' as ui;
 
 void main() => runApp(MyApp());
@@ -42,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           showCamera: true,
           cropConfig :CropConfig(enableCrop: false,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xff00f000)),
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
       );
       _listImagePaths.forEach((media){
         print(media.path.toString());

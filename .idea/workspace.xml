@@ -11,29 +11,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/proguard-rules.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/PhotosActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/PhotosActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/GlideEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/GlideEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/PictureStyleUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/PictureStyleUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/res/layout/activity_select_pics.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/layout/activity_select_pics.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CropConfig.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Media.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/UIConfig.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/image_pickers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/image_pickers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592210263402</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="使用最新sdk，优化权限控制">
+      <created>1602221728733</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1602221728733</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -392,33 +382,42 @@
     <MESSAGE value="修复 iOS 因为图片（right_arrow.png、left_arrow.png、error.png）导致的各种问题" />
     <MESSAGE value="修复 因使用bitmap获取后缀名造成的崩溃" />
     <MESSAGE value="固定ios使用图片选择库的版本3.1.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="固定ios使用图片选择库的版本3.1.2" />
+    <MESSAGE value="使用最新sdk，优化权限控制" />
+    <option name="LAST_COMMIT_MESSAGE" value="使用最新sdk，优化权限控制" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1602221566178">
+    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602221805787">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602221566178" />
+    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602221805787" />
+    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1602221725239">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602221725239" />
     <state x="572" y="283" key="FileChooserDialogImpl" timestamp="1602147415445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="572" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602147415445" />
-    <state width="1524" height="115" key="GridCell.Tab.0.bottom" timestamp="1602152297189">
+    <state width="1577" height="305" key="GridCell.Tab.0.bottom" timestamp="1602221954401">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1524" height="115" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602152297189" />
-    <state width="1524" height="115" key="GridCell.Tab.0.center" timestamp="1602152297189">
+    <state width="1577" height="305" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954401" />
+    <state width="1577" height="305" key="GridCell.Tab.0.center" timestamp="1602221954400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1524" height="115" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602152297189" />
-    <state width="1524" height="115" key="GridCell.Tab.0.left" timestamp="1602152297188">
+    <state width="1577" height="305" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954400" />
+    <state width="1577" height="305" key="GridCell.Tab.0.left" timestamp="1602221954400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1524" height="115" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602152297188" />
-    <state width="1524" height="115" key="GridCell.Tab.0.right" timestamp="1602152297189">
+    <state width="1577" height="305" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954400" />
+    <state width="1577" height="305" key="GridCell.Tab.0.right" timestamp="1602221954401">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1524" height="115" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602152297189" />
+    <state width="1577" height="305" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602221954401" />
+    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1602221730489">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602221730489" />
     <state x="34" y="167" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602220286744">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
