@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
                 RaisedButton(
                   onPressed: () {
 
-                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 3)).then((Media media){
+                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: false, width: 2, height: 3)).then((Media media){
                       _listImagePaths.clear();
                       _listImagePaths.add(media);
                       setState(() {

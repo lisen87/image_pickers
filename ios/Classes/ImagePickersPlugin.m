@@ -109,6 +109,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 camera.allowTakePhoto = NO;
                 camera.allowRecordVideo = YES;
             }
+
             camera.videoType = ZLExportVideoTypeMp4;
             camera.circleProgressColor = [UIColor redColor];
             camera.maxRecordDuration = 15;
@@ -121,40 +122,70 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 NSLog(@"%@",image);
                 
                 if (image) {
-                    
-                    BigImageViewController *big =[[BigImageViewController alloc]init];
-                    big.configuration =configuration ;
-                    big.image =image;
-                    big.doneEditImageBlock = ^(UIImage * imageE) {
-                        NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
+                    if(enableCrop){
+                        BigImageViewController *big =[[BigImageViewController alloc]init];
+                        big.configuration =configuration ;
+                        big.image =image;
+                        big.doneEditImageBlock = ^(UIImage * imageE) {
+                            NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
+                            if (data2.length>compressSize) {
+                                //压缩
+                                data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
+                            }
+                            NSLog(@"_____方法__%ld",data2.length);
+                            UIImage *image =[UIImage imageWithData:data2];
+                            //重命名并且保存
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            formatter.dateFormat = @"yyyyMMddHHmmss";
+                            int  x = arc4random() % 10000;
+                            
+                            NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
+                            
+                            //保存到沙盒
+                            [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+                            NSDictionary *photoDic =@{
+                                @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
+                                @"path":[NSString stringWithFormat:@"%@",jpgPath],
+                            };
+                            //取出路径
+                            result(@[photoDic]);
+                            return ;
+                            
+                        };
+                        big.modalPresentationStyle =UIModalPresentationFullScreen;
+
+                        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
+                        }];
+                    }else{
+                        NSData *data2=UIImageJPEGRepresentation(image , 1.0);
                         if (data2.length>compressSize) {
                             //压缩
-                            data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
+                            data2=UIImageJPEGRepresentation(image, (float)(compressSize/data2.length));
                         }
                         NSLog(@"_____方法__%ld",data2.length);
-                        UIImage *image =[UIImage imageWithData:data2];
+                        UIImage *imageFF =[UIImage imageWithData:data2];
                         //重命名并且保存
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                         formatter.dateFormat = @"yyyyMMddHHmmss";
                         int  x = arc4random() % 10000;
                         
                         NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
                         
                         //保存到沙盒
-                        [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                        NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                        [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
                         NSDictionary *photoDic =@{
-                            @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                            @"path":[NSString stringWithFormat:@"%@",aPath3],
+                            @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
+                            @"path":[NSString stringWithFormat:@"%@",jpgPath],
                         };
                         //取出路径
                         result(@[photoDic]);
                         return ;
-                    };
-                    
-                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
-                    }];
+                        
+                    }
+                  
+                   
                     
                 }else{
                     
@@ -496,11 +527,17 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 formatter.dateFormat = @"yyyyMMddHHmmss";
                 NSString*urlString =arr[i];
-                NSString *name = [NSString stringWithFormat:@"%@01%@",[formatter stringFromDate:[NSDate date]],[urlString lastPathComponent]];
+                NSString *endString =[urlString lastPathComponent];
+                
+                if([endString containsString:@"gif"]||[endString containsString:@"GIF"]){
+                    endString =@".png";
+                }
+                NSString *name = [NSString stringWithFormat:@"%@01%@",[formatter stringFromDate:[NSDate date]],endString];
                 NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
                 //保存到沙盒
                 [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
                 NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                
                 NSDictionary *photoDic =@{
                     @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
                     @"path":[NSString stringWithFormat:@"%@",aPath3],
@@ -706,7 +743,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 + (NSString *)temporaryFilePath:(NSString *)suffix {
     NSString *fileExtension = [@"image_picker_%@" stringByAppendingString:suffix];
     
-    
     //    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
     
     NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
@@ -714,5 +750,30 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     NSString *tmpDirectory = NSTemporaryDirectory();
     NSString *tmpPath = [tmpDirectory stringByAppendingPathComponent:tmpFile];
     return tmpPath;
+}
+-(NSString*)imageType:(NSData*)data{
+    uint8_t c;
+        [data getBytes:&c length:1];
+        switch (c) {
+            case 0xFF:
+                return @"JPEG";
+            case 0x89:
+                return @"PNG";
+            case 0x47:
+                return @"GIF";
+            case 0x49:
+            case 0x4D:
+                return @"PNG";
+            case 0x52: {
+                return @"PNG";
+            }
+            case 0x00: {
+                if (data.length >= 12) {
+                    return @"PNG";
+                    }
+                }
+                break;
+            }
+    return @"";
 }
 @end
