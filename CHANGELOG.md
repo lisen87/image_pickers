@@ -1,4 +1,4 @@
-## 1.0.8+1
+## 1.0.8+2
 * 添加是否显示gif图片字段
 * Add whether to display the gif image field
 * android 更新权限申请流程，不再一次性申请不相关权限

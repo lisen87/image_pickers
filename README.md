@@ -8,6 +8,9 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 > * Android
 > * iOS
 
+## iOS : platform :ios, '10.0'
+
+
 ## Android: minSdkVersion 19 targetSdkVersion 29 compileSdkVersion 29
 ![](https://github.com/lisen87/image_pickers/blob/master/screenshots/1.png)
 
@@ -18,7 +21,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.8+1
+image_pickers: ^1.0.8+2
 ```
 
 ```dart

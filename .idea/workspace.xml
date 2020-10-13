@@ -11,13 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/image_pickers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/image_pickers.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,16 +75,17 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\flutter_package\image_pickers\screenshots" />
+      <recent name="F:\flutter_package\image_pickers\example\image" />
+      <recent name="F:\flutter_package\image_pickers\example" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\flutter_package\image_pickers\android" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example\image\3.0x" />
       <recent name="F:\flutter_package\image_pickers\example\image\2.0x" />
       <recent name="F:\flutter_package\image_pickers" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\flutter_package\image_pickers\example\image" />
-      <recent name="F:\flutter_package\image_pickers\example" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -336,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602557594091</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="使用最新sdk，优化权限控制">
+      <created>1602564301541</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1602564301541</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -406,30 +414,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602221805787" />
-    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1602557592204">
+    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1602564299779">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602557592204" />
+    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602564299779" />
+    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog" timestamp="1602565197482">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602565197482" />
     <state x="572" y="283" key="FileChooserDialogImpl" timestamp="1602556940064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="572" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602556940064" />
-    <state width="1577" height="163" key="GridCell.Tab.0.bottom" timestamp="1602563726794">
+    <state width="1577" height="124" key="GridCell.Tab.0.bottom" timestamp="1602567027191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1577" height="163" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602563726794" />
-    <state width="1577" height="163" key="GridCell.Tab.0.center" timestamp="1602563726793">
+    <state width="1577" height="124" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602567027191" />
+    <state width="1577" height="124" key="GridCell.Tab.0.center" timestamp="1602567027191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1577" height="163" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602563726793" />
-    <state width="1577" height="163" key="GridCell.Tab.0.left" timestamp="1602563726793">
+    <state width="1577" height="124" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602567027191" />
+    <state width="1577" height="124" key="GridCell.Tab.0.left" timestamp="1602567027191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1577" height="163" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602563726793" />
-    <state width="1577" height="163" key="GridCell.Tab.0.right" timestamp="1602563726794">
+    <state width="1577" height="124" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602567027191" />
+    <state width="1577" height="124" key="GridCell.Tab.0.right" timestamp="1602567027191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1577" height="163" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602563726794" />
+    <state width="1577" height="124" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602567027191" />
     <state x="127" y="71" key="MergeDialog" timestamp="1602233663490">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -438,14 +450,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="603" y="211" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602556584920" />
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1602557596307">
+    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1602564540403">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602557596307" />
-    <state x="34" y="167" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602220286744">
+    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602564540403" />
+    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602574864091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="34" y="167" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602220286744" />
+    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602574864091" />
     <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602556415025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
