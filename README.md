@@ -8,29 +8,9 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 > * Android
 > * iOS
 
-## Android minSdkVersion 19
+## Android: minSdkVersion 19 targetSdkVersion 29 compileSdkVersion 29
+![](https://github.com/lisen87/image_pickers/blob/master/screenshots/1.png)
 
-## Android 开启混淆后，需添加混淆配置 proguard-rules.pro文件
-
--keep class com.luck.picture.lib.** { *; }
-
--dontwarn com.yalantis.ucrop**
--keep class com.yalantis.ucrop** { *; }
--keep interface com.yalantis.ucrop** { *; }
-
--dontwarn org.codehaus.mojo.animal_sniffer.*
-
-## Android 打包如何关闭混淆
-buildTypes {
-        release {
-            minifyEnabled false
-            shrinkResources false
-        }
-        debug {
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
 
 ## 裁剪状态下图片selectCount 字段无效，将变为单选 In the cropped state, the selectCount field of the picture is invalid and will become single selection
 
@@ -38,7 +18,7 @@ buildTypes {
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.8
+image_pickers: ^1.0.8+1
 ```
 
 ```dart
