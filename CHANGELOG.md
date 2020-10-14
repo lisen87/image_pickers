@@ -1,3 +1,5 @@
+## 1.0.8+3
+* 更新AFNetworking 到4.0 删除UIWebview ，处理iOS上架失败问题
 ## 1.0.8+2
 * 添加是否显示gif图片字段
 * Add whether to display the gif image field

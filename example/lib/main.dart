@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           showCamera: true,
           cropConfig :CropConfig(enableCrop: false,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0x00000000),
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),
           ),
 
       );
