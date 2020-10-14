@@ -1,11 +1,18 @@
 #import "ImagePickersPlugin.h"
-#import <ZLPhotoBrowser-objc/ZLPhotoActionSheet.h>
 #import <Photos/Photos.h>
+#import <ZLPhotoBrowser-objc/ZLPhotoActionSheet.h>
 #import <ZLPhotoBrowser-objc/ZLShowBigImgViewController.h>
 #import <ZLPhotoBrowser-objc/ZLCustomCamera.h>
 #import <ZLPhotoBrowser-objc/ZLAlbumListController.h>
 #import <ZLPhotoBrowser-objc/ZLImageEditTool.h>
 #import <ZLPhotoBrowser-objc/ZLPhotoModel.h>
+
+//#import <ZLPhotoBrowser_objc/ZLPhotoActionSheet.h>
+//#import <ZLPhotoBrowser_objc/ZLShowBigImgViewController.h>
+//#import <ZLPhotoBrowser_objc/ZLCustomCamera.h>
+//#import <ZLPhotoBrowser_objc/ZLAlbumListController.h>
+//#import <ZLPhotoBrowser_objc/ZLImageEditTool.h>
+//#import <ZLPhotoBrowser_objc/ZLPhotoModel.h>
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -80,7 +87,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
         isShowGif =[[dic objectForKey:@"showGif"] boolValue];//是否选择gif
-
+        
         NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];//type   photo video 若不存在则为带相册的，若存在则直接打开相册相机
         
         ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration defaultPhotoConfiguration];
@@ -98,7 +105,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         if(cameraMimeType) {
             //            cameraMimeType//type   photo video
-
+            
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configuration];
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
             
@@ -109,7 +116,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 camera.allowTakePhoto = NO;
                 camera.allowRecordVideo = YES;
             }
-
+            
             camera.videoType = ZLExportVideoTypeMp4;
             camera.circleProgressColor = [UIColor redColor];
             camera.maxRecordDuration = 15;
@@ -154,7 +161,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             
                         };
                         big.modalPresentationStyle =UIModalPresentationFullScreen;
-
+                        
                         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
                         }];
                     }else{
@@ -184,8 +191,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         return ;
                         
                     }
-                  
-                   
+                    
+                    
                     
                 }else{
                     
@@ -217,7 +224,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:camera sender:nil];
             
         }else{
-        
+            
             ZLPhotoActionSheet *ac = [[ZLPhotoActionSheet alloc] init];
             ac.configuration.maxSelectCount = selectCount;//最多选择多少张图
             ac.configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
@@ -230,7 +237,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                                                @"value2":[NSNumber numberWithInt:height],//第二个是高
             }];
             ac.configuration.allowSelectGif = isShowGif;
-
+            
             if ([galleryMode isEqualToString:@"image"]) {
                 ac.configuration. allowSelectImage =YES;
                 ac.configuration.allowSelectVideo =NO;
@@ -407,55 +414,55 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         FlutterStandardTypedData *data =[dic objectForKey:@"uint8List"];
         UIImage *image=[UIImage imageWithData:data.data];
         __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-            [lib writeImageToSavedPhotosAlbum:image.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
-             {
-                NSString *str =assetURL.absoluteString;
-                NSString *string =@"://";
-                NSRange range = [str rangeOfString:string];//匹配得到的下标
-                if(range.location+range.length<str.length){
-                    str = [str substringFromIndex:range.location+range.length];
-                    //NSLog(@"%@",str);
-                    if (error) {
-                        
-                    }else{
-                                
-                        
-                        
-                        
-                        
-                        
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        formatter.dateFormat = @"yyyyMMddHHmmss";
-                        
-                        NSString *string;
-                        NSString *subStr = @"&ext=";//指定字符串
-                        if ([str containsString:subStr])
-                        {//先做安全判断
+        [lib writeImageToSavedPhotosAlbum:image.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+         {
+            NSString *str =assetURL.absoluteString;
+            NSString *string =@"://";
+            NSRange range = [str rangeOfString:string];//匹配得到的下标
+            if(range.location+range.length<str.length){
+                str = [str substringFromIndex:range.location+range.length];
+                //NSLog(@"%@",str);
+                if (error) {
+                    
+                }else{
+                    
+                    
+                    
+                    
+                    
+                    
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyyMMddHHmmss";
+                    
+                    NSString *string;
+                    NSString *subStr = @"&ext=";//指定字符串
+                    if ([str containsString:subStr])
+                    {//先做安全判断
                         NSRange subStrRange = [str rangeOfString:subStr];//找出指定字符串的range
                         NSInteger index = subStrRange.location + subStrRange.length;//获得“指定的字符以后的所有字符”的起始点
                         NSString *restStr = [str substringFromIndex:index];
-                            string =restStr;
-                        }else{
-                            string =@"png";
-                        }
-                        NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
-
-                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                        //保存到沙盒
-                        
-                        
-                        
-                        
-                        
-                        
-                        [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                        NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                        
-                        result(aPath3);
+                        string =restStr;
+                    }else{
+                        string =@"png";
                     }
+                    NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
+                    
+                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                    //保存到沙盒
+                    
+                    
+                    
+                    
+                    
+                    
+                    [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                    
+                    result(aPath3);
                 }
-                
-            }];
+            }
+            
+        }];
         
     }
     
@@ -607,55 +614,55 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     
     //    [[NSURLSession sharedSession] downloadTaskWithResumeData:data completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     //
-      [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
         
-                    [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
+        [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
         
-                }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+    }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+        
+        if(success && !_Nullableerror) {
             
-                        if(success && !_Nullableerror) {
-                
-                                NSLog(@"下载成功");
-                
-                            }else{
-                    
-                                    NSLog(@"下载失败");
-                    
-                                }
+            NSLog(@"下载成功");
             
-                    }];
+        }else{
+            
+            NSLog(@"下载失败");
+            
+        }
+        
+    }];
     //    }];
     
 }
 - (void)saveGifImage:(NSString*)urlString {
     
-        NSURL *fileUrl = [NSURL URLWithString:urlString];
+    NSURL *fileUrl = [NSURL URLWithString:urlString];
     
-        [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-                NSLog(@"%@", location);
+        NSLog(@"%@", location);
         
-                NSData *data = [NSData dataWithContentsOfFile:location.path];
+        NSData *data = [NSData dataWithContentsOfFile:location.path];
         
-                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
             
-                        [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
+            [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
             
-                    }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+        }completionHandler:^(BOOL success,NSError*_Nullableerror) {
+            
+            if(success && !error) {
                 
-                            if(success && !error) {
-                    
-                                    NSLog(@"下载成功");
-                    
-                                }else{
-                        
-                                        NSLog(@"下载失败");
-                        
-                                    }
+                NSLog(@"下载成功");
                 
-                        }];
+            }else{
+                
+                NSLog(@"下载失败");
+                
+            }
+            
+        }];
         
-            }]resume];
+    }]resume];
     
 }
 
@@ -753,27 +760,27 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 }
 -(NSString*)imageType:(NSData*)data{
     uint8_t c;
-        [data getBytes:&c length:1];
-        switch (c) {
-            case 0xFF:
-                return @"JPEG";
-            case 0x89:
-                return @"PNG";
-            case 0x47:
-                return @"GIF";
-            case 0x49:
-            case 0x4D:
-                return @"PNG";
-            case 0x52: {
+    [data getBytes:&c length:1];
+    switch (c) {
+        case 0xFF:
+            return @"JPEG";
+        case 0x89:
+            return @"PNG";
+        case 0x47:
+            return @"GIF";
+        case 0x49:
+        case 0x4D:
+            return @"PNG";
+        case 0x52: {
+            return @"PNG";
+        }
+        case 0x00: {
+            if (data.length >= 12) {
                 return @"PNG";
             }
-            case 0x00: {
-                if (data.length >= 12) {
-                    return @"PNG";
-                    }
-                }
-                break;
-            }
+        }
+            break;
+    }
     return @"";
 }
 @end
