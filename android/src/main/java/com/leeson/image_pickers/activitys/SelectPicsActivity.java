@@ -19,7 +19,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.AndroidQTransformUtils;
 import com.luck.picture.lib.tools.PictureFileUtils;
+import com.luck.picture.lib.tools.SdkVersionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -111,11 +113,16 @@ public class SelectPicsActivity extends BaseActivity {
                 .isOpenStyleNumComplete(true)
                 .isOpenStyleCheckNumMode(true)
 
+                .imageFormat(
+                        SdkVersionUtils.checkedAndroid_Q()
+                        ? ("video".equals(mimeType)  ? PictureMimeType.MIME_TYPE_VIDEO  : PictureMimeType.PNG_Q.toLowerCase() )
+                        : ("video".equals(mimeType) ? PictureMimeType.MIME_TYPE_VIDEO : PictureMimeType.PNG.toLowerCase()))
+
                 .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
                 .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
 
-                .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
+//                .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
                 .isCamera(showCamera)
                 .isGif(showGif)
                 .maxSelectNum(enableCrop?1:selectCount.intValue())
@@ -167,17 +174,11 @@ public class SelectPicsActivity extends BaseActivity {
                 case PictureConfig.CHOOSE_REQUEST:
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
 
                     List<String> paths = new ArrayList<>();
                     for (int i = 0; i < selectList.size(); i++) {
                         LocalMedia localMedia = selectList.get(i);
-
-                        if (localMedia.isCut()) {
+                        if (localMedia.isCut()) {//2.5.9 android Q 裁剪没问题
                             // 因为这个lib中 gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (localMedia.getPath() != null && localMedia.getAndroidQToPath() != null && localMedia.getAndroidQToPath().endsWith(".gif")){
@@ -196,12 +197,18 @@ public class SelectPicsActivity extends BaseActivity {
                         } else {
 
                             if (Build.VERSION.SDK_INT >= 29) {
+                                //图片选择库 2.5.9 有bug，要这样处理
+                                String AndroidQToPath = AndroidQTransformUtils.copyPathToAndroidQ(SelectPicsActivity.this,
+                                        localMedia.getPath(), localMedia.getWidth(), localMedia.getHeight(), localMedia.getMimeType(), localMedia.getRealPath().substring(localMedia.getRealPath().lastIndexOf("/")+1));
+                                localMedia.setAndroidQToPath(AndroidQToPath);
+
                                 paths.add(localMedia.getAndroidQToPath());
                             } else {
                                 paths.add(localMedia.getPath());
                             }
                         }
                     }
+
                     if (mimeType != null){
                         //直接调用拍照或拍视频时
                         if ("photo".equals(mimeType)) {
