@@ -1,18 +1,19 @@
 #import "ImagePickersPlugin.h"
 #import <Photos/Photos.h>
-#import <ZLPhotoBrowser-objc/ZLPhotoActionSheet.h>
-#import <ZLPhotoBrowser-objc/ZLShowBigImgViewController.h>
-#import <ZLPhotoBrowser-objc/ZLCustomCamera.h>
-#import <ZLPhotoBrowser-objc/ZLAlbumListController.h>
-#import <ZLPhotoBrowser-objc/ZLImageEditTool.h>
-#import <ZLPhotoBrowser-objc/ZLPhotoModel.h>
-
+//#import <ZLPhotoBrowser-objc/ZLPhotoActionSheet.h>
+//#import <ZLPhotoBrowser-objc/ZLShowBigImgViewController.h>
+//#import <ZLPhotoBrowser-objc/ZLCustomCamera.h>
+//#import <ZLPhotoBrowser-objc/ZLAlbumListController.h>
+//#import <ZLPhotoBrowser-objc/ZLImageEditTool.h>
+//#import <ZLPhotoBrowser-objc/ZLPhotoModel.h>
+#import "ZLPhotoBrowser.h"
 //#import <ZLPhotoBrowser_objc/ZLPhotoActionSheet.h>
 //#import <ZLPhotoBrowser_objc/ZLShowBigImgViewController.h>
 //#import <ZLPhotoBrowser_objc/ZLCustomCamera.h>
 //#import <ZLPhotoBrowser_objc/ZLAlbumListController.h>
 //#import <ZLPhotoBrowser_objc/ZLImageEditTool.h>
 //#import <ZLPhotoBrowser_objc/ZLPhotoModel.h>
+
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>

@@ -18,12 +18,10 @@ PODS:
   - image_pickers (0.0.1):
     - AFNetworking
     - Flutter
-    - ZLPhotoBrowser-objc (~> 1.0.1)
+    - SDWebImage
   - SDWebImage (5.9.2):
     - SDWebImage/Core (= 5.9.2)
   - SDWebImage/Core (5.9.2)
-  - ZLPhotoBrowser-objc (1.0.1):
-    - SDWebImage
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -33,7 +31,6 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - SDWebImage
-    - ZLPhotoBrowser-objc
 
 EXTERNAL SOURCES:
   Flutter:
@@ -44,10 +41,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  image_pickers: 884ac5c509f6a2dd77c12ebae2bbb2a939c456d2
+  image_pickers: e078b2c6d5a5318b6e44f18fa7704243c258d1a2
   SDWebImage: 0b42b8719ab0c5257177d5894306e8a336b21cbb
-  ZLPhotoBrowser-objc: a19ef57b8bb0ffc272a7a64d43157a087b49be2e
 
-PODFILE CHECKSUM: cf36705f8dc6ad58534ce167c3556b8d9f365924
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.9.3
