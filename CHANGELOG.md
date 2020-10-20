@@ -1,3 +1,8 @@
+## 1.0.8+4
+* 安卓修复安卓Q出现的问题等
+* Android fixes problems with Android Q, etc.
+* iOS处理包名错误问题等
+* iOS handles package name errors, etc.
 ## 1.0.8+3
 * 更新AFNetworking 到4.0 删除UIWebview ，处理iOS上架失败问题
 ## 1.0.8+2

@@ -21,7 +21,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.8+3
+image_pickers: ^1.0.8+4
 ```
 
 ```dart
@@ -35,6 +35,7 @@ Future<void> selectImages() async {
     List<Media> _listImagePaths = await ImagePickers.pickerPaths(
               galleryMode: GalleryMode.image,
               selectCount: 2,
+              showGif: false,
               showCamera: true,
               compressSize: 500,
               uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
