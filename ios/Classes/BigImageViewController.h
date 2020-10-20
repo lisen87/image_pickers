@@ -6,12 +6,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZLPhotoBrowser.h"
 //#import <Flutter/Flutter.h>
-#import "ZLPhotoActionSheet.h"
-//#import <ZLPhotoBrowser_objc/ZLPhotoActionSheet.h>
-
 //#import <ZLPhotoBrowser-objc/ZLPhotoActionSheet.h>
-
+//ZLPhotoBrowser.bundle
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BigImageViewController : UIViewController

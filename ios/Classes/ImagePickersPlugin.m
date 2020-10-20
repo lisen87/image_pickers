@@ -1,18 +1,8 @@
 #import "ImagePickersPlugin.h"
 #import <Photos/Photos.h>
-//#import <ZLPhotoBrowser-objc/ZLPhotoActionSheet.h>
-//#import <ZLPhotoBrowser-objc/ZLShowBigImgViewController.h>
-//#import <ZLPhotoBrowser-objc/ZLCustomCamera.h>
-//#import <ZLPhotoBrowser-objc/ZLAlbumListController.h>
-//#import <ZLPhotoBrowser-objc/ZLImageEditTool.h>
-//#import <ZLPhotoBrowser-objc/ZLPhotoModel.h>
-#import "ZLPhotoBrowser.h"
+
 //#import <ZLPhotoBrowser_objc/ZLPhotoActionSheet.h>
-//#import <ZLPhotoBrowser_objc/ZLShowBigImgViewController.h>
-//#import <ZLPhotoBrowser_objc/ZLCustomCamera.h>
-//#import <ZLPhotoBrowser_objc/ZLAlbumListController.h>
-//#import <ZLPhotoBrowser_objc/ZLImageEditTool.h>
-//#import <ZLPhotoBrowser_objc/ZLPhotoModel.h>
+#import "ZLPhotoBrowser.h"
 
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
@@ -359,10 +349,10 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     }
     //
     else if ([@"previewImage" isEqualToString:call.method]){
-        
+
         NSDictionary *dic = call.arguments;
         NSMutableArray *arr =[[NSMutableArray alloc]init];
-        
+
         if ([[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"http"]) {
             AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] img:nil];
             [arr addObject:item];
@@ -375,14 +365,14 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             };
             //show gallery
             gallery.modalPresentationStyle =UIModalPresentationFullScreen;
-            
+
             [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
-            
-            
-            
+
+
+
         }else if ([[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"CoreSimulator/"]){
             UIImage *image =[UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]]]];
-            
+
             AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:nil img:image];
             [arr addObject:item];
             AKGallery* gallery = AKGallery.new;
@@ -395,7 +385,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             };
             //show gallery
             gallery.modalPresentationStyle =UIModalPresentationFullScreen;
-            
+
             [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
         }
         

@@ -1,6 +1,7 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
+#  s.resource = 'Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle'
+
 Pod::Spec.new do |s|
   s.name             = 'image_pickers'
   s.version          = '0.0.1'
@@ -18,6 +19,7 @@ A new flutter plugin project.
   s.dependency 'AFNetworking'
   s.dependency 'SDWebImage'
   s.ios.deployment_target = '10.0'
+  s.resource = 'Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle'
 
 end
 
