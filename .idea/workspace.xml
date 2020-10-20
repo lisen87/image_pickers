@@ -12,76 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLAnimateTransition.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLAnimateTransition.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLInteractiveAnimateProtocol.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLInteractiveTrasition.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLInteractiveTrasition.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLPullDownInteractiveTransition.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/Animation/ZLPullDownInteractiveTransition.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/NSBundle+ZLPhotoBrowser.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/NSBundle+ZLPhotoBrowser.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ToastUtils.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ToastUtils.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/UIControl+EnlargeTouchArea.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/UIControl+EnlargeTouchArea.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/UIImage+ZLPhotoBrowser.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/UIImage+ZLPhotoBrowser.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLAlbumListController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLAlbumListController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLBigImageCell.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLBigImageCell.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLCollectionCell.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLCollectionCell.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLCustomCamera.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLCustomCamera.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLDefine.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLEditVideoController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLEditVideoController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLEditViewController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLEditViewController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLForceTouchPreviewController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLForceTouchPreviewController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLBrushBoardImageView.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLBrushBoardImageView.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLClipItem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLClipItem.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLDrawItem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLDrawItem.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLImageEditTool.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLImageEditTools/ZLImageEditTool.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLNoAuthorityViewController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLNoAuthorityViewController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoActionSheet.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoActionSheet.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoBrowser.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoBrowserCell.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoBrowserCell.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoConfiguration.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoConfiguration.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoManager.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoManager.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoModel.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPhotoModel.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPlayer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLPlayer.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLProgressHUD.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLProgressHUD.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLProgressView.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLProgressView.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLShowBigImgViewController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLShowBigImgViewController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLThumbnailViewController.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLThumbnailViewController.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLVideoPlayerControl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLVideoPlayerControl.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoActionSheet.xib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowserCell.xib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -406,7 +336,21 @@
       <option name="project" value="LOCAL" />
       <updated>1602651911266</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="IOS图片、文字资源">
+      <created>1603154474099</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1603154474099</updated>
+    </task>
+    <task id="LOCAL-00039" summary="IOS图片、文字资源">
+      <created>1603154482583</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1603154482583</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -469,7 +413,8 @@
     <MESSAGE value="修复 因使用bitmap获取后缀名造成的崩溃" />
     <MESSAGE value="修复  拍照无后缀 拍照裁剪设置为false失效" />
     <MESSAGE value="更新AFNetworking 到4.0 删除UIWebview" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新AFNetworking 到4.0 删除UIWebview" />
+    <MESSAGE value="IOS图片、文字资源" />
+    <option name="LAST_COMMIT_MESSAGE" value="IOS图片、文字资源" />
   </component>
   <component name="WindowStateProjectService">
     <state x="521" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602206714626">
@@ -484,13 +429,13 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="794" y="244" key="#com.intellij.ide.util.TreeFileChooserDialog/0.23.1920.977@0.23.1920.977" timestamp="1602206700953" />
-    <state x="954" y="23" key="CommitChangelistDialog2" timestamp="1603154473628">
-      <screen x="0" y="23" width="1920" height="984" />
+    <state x="954" y="23" key="CommitChangelistDialog2" timestamp="1603154716602">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
     <state x="484" y="24" key="CommitChangelistDialog2/0.23.1920.977@0.23.1920.977" timestamp="1602487440864" />
     <state x="484" y="24" key="CommitChangelistDialog2/0.23.1920.978@0.23.1920.978" timestamp="1602490625312" />
-    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.982@0.23.1920.982" timestamp="1602651910863" />
-    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.984@0.23.1920.984" timestamp="1603154473628" />
+    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.982@0.23.1920.982" timestamp="1603154716602" />
+    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.984@0.23.1920.984" timestamp="1603154482286" />
     <state width="1824" height="264" key="GridCell.Tab.0.bottom" timestamp="1603106084357">
       <screen x="0" y="23" width="1920" height="986" />
     </state>
@@ -521,12 +466,13 @@
     </state>
     <state x="928" y="230" key="MultipleFileMergeDialog/0.23.1920.982@0.23.1920.982" timestamp="1602648743793" />
     <state x="928" y="230" key="MultipleFileMergeDialog/0.23.1920.986@0.23.1920.986" timestamp="1603100215880" />
-    <state x="505" y="290" key="Vcs.Push.Dialog.v2" timestamp="1602651918206">
-      <screen x="0" y="23" width="1920" height="982" />
+    <state x="505" y="291" key="Vcs.Push.Dialog.v2" timestamp="1603154497531">
+      <screen x="0" y="23" width="1920" height="984" />
     </state>
     <state x="505" y="289" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1602473922063" />
     <state x="505" y="289" key="Vcs.Push.Dialog.v2/0.23.1920.978@0.23.1920.978" timestamp="1602490628912" />
     <state x="505" y="290" key="Vcs.Push.Dialog.v2/0.23.1920.982@0.23.1920.982" timestamp="1602651918206" />
+    <state x="505" y="291" key="Vcs.Push.Dialog.v2/0.23.1920.984@0.23.1920.984" timestamp="1603154497531" />
     <state x="835" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603154424217">
       <screen x="0" y="23" width="1920" height="984" />
     </state>
