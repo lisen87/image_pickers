@@ -247,7 +247,9 @@
     //right nav btn
     _navRightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _navRightBtn.frame = CGRectMake(0, 0, 25, 25);
-    UIImage *normalImg = GetImageWithName(@"zl_btn_circle");
+//    UIImage *normalImg = GetImageWithName(@"zl_btn_circle");
+    UIImage *normalImg = [UIImage imageNamed:@"zl_btn_circle"];
+
     UIImage *selImg = GetImageWithName(@"zl_btn_selected");
     [_navRightBtn setBackgroundImage:normalImg forState:UIControlStateNormal];
     [_navRightBtn setBackgroundImage:selImg forState:UIControlStateSelected];

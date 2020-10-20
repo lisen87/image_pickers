@@ -10,8 +10,77 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
+    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="IOS图片、文字资源">
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/en.lproj/Localizable.strings" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/ja-US.lproj/Localizable.strings" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zh-Hans.lproj/Localizable.strings" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zh-Hant.lproj/Localizable.strings" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_arrow_down@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_arrow_down@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_circle@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_circle@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_original_circle@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_original_circle@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_original_selected@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_original_selected@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_rotate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_selected@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_selected@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_unselected@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_btn_unselected@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_clip@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_clip@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_defaultphoto.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_draw@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_draw@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_filter@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_filter@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_focus@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_focus@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_ic_left@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_ic_left@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_ic_right@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_ic_right@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_livePhoto@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_livePhoto@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_lock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_navBack@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_navBack@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_pauseButtonWhite@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_pauseButtonWhite@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_playButtonWhite@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_playButtonWhite@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_playVideo@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_playVideo@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_retake@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_retake@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_revoke@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_revoke@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_rotateimage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_rotateimage@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_rotateimage@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_takePhoto@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_takePhoto@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_takeok@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_takeok@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_toggle_camera@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_toggle_camera@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_video@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_video@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_videoLoadFailed@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_videoLoadFailed@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_videoView@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle/zl_videoView@3x.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_pickers.iml" beforeDir="false" afterPath="$PROJECT_DIR$/image_pickers.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLDefine.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLDefine.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLShowBigImgViewController.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/PhotoBrowser/ZLShowBigImgViewController.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,7 +419,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603154482583</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="IOS图片、文字资源">
+      <created>1603154832386</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1603154832386</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -429,33 +505,45 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="794" y="244" key="#com.intellij.ide.util.TreeFileChooserDialog/0.23.1920.977@0.23.1920.977" timestamp="1602206700953" />
-    <state x="954" y="23" key="CommitChangelistDialog2" timestamp="1603154716602">
+    <state x="1193" y="278" key="AndroidProcessChooserDialog" timestamp="1603160077413">
       <screen x="0" y="23" width="1920" height="982" />
+    </state>
+    <state x="1193" y="278" key="AndroidProcessChooserDialog/0.23.1920.982@0.23.1920.982" timestamp="1603160077413" />
+    <state x="954" y="23" key="CommitChangelistDialog2" timestamp="1603163752127">
+      <screen x="0" y="23" width="1920" height="984" />
     </state>
     <state x="484" y="24" key="CommitChangelistDialog2/0.23.1920.977@0.23.1920.977" timestamp="1602487440864" />
     <state x="484" y="24" key="CommitChangelistDialog2/0.23.1920.978@0.23.1920.978" timestamp="1602490625312" />
-    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.982@0.23.1920.982" timestamp="1603154716602" />
-    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.984@0.23.1920.984" timestamp="1603154482286" />
-    <state width="1824" height="264" key="GridCell.Tab.0.bottom" timestamp="1603106084357">
-      <screen x="0" y="23" width="1920" height="986" />
+    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.982@0.23.1920.982" timestamp="1603154832147" />
+    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.984@0.23.1920.984" timestamp="1603163752127" />
+    <state width="912" height="648" key="GridCell.Tab.0.bottom" timestamp="1603170943171">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
     <state width="1824" height="108" key="GridCell.Tab.0.bottom/0.23.1920.978@0.23.1920.978" timestamp="1602490893368" />
-    <state width="1824" height="264" key="GridCell.Tab.0.bottom/0.23.1920.986@0.23.1920.986" timestamp="1603106084357" />
-    <state width="1824" height="264" key="GridCell.Tab.0.center" timestamp="1603106084357">
-      <screen x="0" y="23" width="1920" height="986" />
+    <state width="912" height="467" key="GridCell.Tab.0.bottom/0.23.1920.980@0.23.1920.980" timestamp="1603164652772" />
+    <state width="912" height="648" key="GridCell.Tab.0.bottom/0.23.1920.982@0.23.1920.982" timestamp="1603170943171" />
+    <state width="1824" height="517" key="GridCell.Tab.0.bottom/0.23.1920.986@0.23.1920.986" timestamp="1603162535896" />
+    <state width="912" height="648" key="GridCell.Tab.0.center" timestamp="1603170943171">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
     <state width="1824" height="108" key="GridCell.Tab.0.center/0.23.1920.978@0.23.1920.978" timestamp="1602490893368" />
-    <state width="1824" height="264" key="GridCell.Tab.0.center/0.23.1920.986@0.23.1920.986" timestamp="1603106084357" />
-    <state width="1824" height="264" key="GridCell.Tab.0.left" timestamp="1603106084356">
-      <screen x="0" y="23" width="1920" height="986" />
+    <state width="912" height="467" key="GridCell.Tab.0.center/0.23.1920.980@0.23.1920.980" timestamp="1603164652771" />
+    <state width="912" height="648" key="GridCell.Tab.0.center/0.23.1920.982@0.23.1920.982" timestamp="1603170943171" />
+    <state width="1824" height="517" key="GridCell.Tab.0.center/0.23.1920.986@0.23.1920.986" timestamp="1603162535896" />
+    <state width="912" height="648" key="GridCell.Tab.0.left" timestamp="1603170943170">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
     <state width="1824" height="108" key="GridCell.Tab.0.left/0.23.1920.978@0.23.1920.978" timestamp="1602490893367" />
-    <state width="1824" height="264" key="GridCell.Tab.0.left/0.23.1920.986@0.23.1920.986" timestamp="1603106084356" />
-    <state width="1824" height="264" key="GridCell.Tab.0.right" timestamp="1603106084357">
-      <screen x="0" y="23" width="1920" height="986" />
+    <state width="912" height="467" key="GridCell.Tab.0.left/0.23.1920.980@0.23.1920.980" timestamp="1603164652770" />
+    <state width="912" height="648" key="GridCell.Tab.0.left/0.23.1920.982@0.23.1920.982" timestamp="1603170943170" />
+    <state width="1824" height="517" key="GridCell.Tab.0.left/0.23.1920.986@0.23.1920.986" timestamp="1603162535895" />
+    <state width="912" height="648" key="GridCell.Tab.0.right" timestamp="1603170943171">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
     <state width="1824" height="108" key="GridCell.Tab.0.right/0.23.1920.978@0.23.1920.978" timestamp="1602490893368" />
-    <state width="1824" height="264" key="GridCell.Tab.0.right/0.23.1920.986@0.23.1920.986" timestamp="1603106084357" />
+    <state width="912" height="467" key="GridCell.Tab.0.right/0.23.1920.980@0.23.1920.980" timestamp="1603164652772" />
+    <state width="912" height="648" key="GridCell.Tab.0.right/0.23.1920.982@0.23.1920.982" timestamp="1603170943171" />
+    <state width="1824" height="517" key="GridCell.Tab.0.right/0.23.1920.986@0.23.1920.986" timestamp="1603162535896" />
     <state x="260" y="100" key="MergeDialog" timestamp="1603100215806">
       <screen x="0" y="23" width="1920" height="986" />
     </state>
@@ -466,18 +554,19 @@
     </state>
     <state x="928" y="230" key="MultipleFileMergeDialog/0.23.1920.982@0.23.1920.982" timestamp="1602648743793" />
     <state x="928" y="230" key="MultipleFileMergeDialog/0.23.1920.986@0.23.1920.986" timestamp="1603100215880" />
-    <state x="505" y="291" key="Vcs.Push.Dialog.v2" timestamp="1603154497531">
-      <screen x="0" y="23" width="1920" height="984" />
+    <state x="505" y="290" key="Vcs.Push.Dialog.v2" timestamp="1603154835185">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
     <state x="505" y="289" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1602473922063" />
     <state x="505" y="289" key="Vcs.Push.Dialog.v2/0.23.1920.978@0.23.1920.978" timestamp="1602490628912" />
-    <state x="505" y="290" key="Vcs.Push.Dialog.v2/0.23.1920.982@0.23.1920.982" timestamp="1602651918206" />
+    <state x="505" y="290" key="Vcs.Push.Dialog.v2/0.23.1920.982@0.23.1920.982" timestamp="1603154835185" />
     <state x="505" y="291" key="Vcs.Push.Dialog.v2/0.23.1920.984@0.23.1920.984" timestamp="1603154497531" />
-    <state x="835" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603154424217">
-      <screen x="0" y="23" width="1920" height="984" />
+    <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603164561662">
+      <screen x="0" y="23" width="1920" height="980" />
     </state>
     <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.977@0.23.1920.977" timestamp="1602487427598" />
     <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.978@0.23.1920.978" timestamp="1602490607686" />
+    <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.980@0.23.1920.980" timestamp="1603164561662" />
     <state x="835" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.982@0.23.1920.982" timestamp="1602648727216" />
     <state x="835" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.984@0.23.1920.984" timestamp="1603154424217" />
     <state x="835" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.986@0.23.1920.986" timestamp="1603100114364" />
@@ -487,5 +576,13 @@
     <state x="712" y="260" width="712" height="518" key="find.popup/0.23.1920.977@0.23.1920.977" timestamp="1602482153607" />
     <state x="712" y="260" width="712" height="518" key="find.popup/0.23.1920.978@0.23.1920.978" timestamp="1602480650602" />
     <state x="712" y="261" width="712" height="520" key="find.popup/0.23.1920.980@0.23.1920.980" timestamp="1602641088312" />
+    <state x="1020" y="239" width="670" height="676" key="search.everywhere.popup" timestamp="1603158306310">
+      <screen x="0" y="23" width="1920" height="982" />
+    </state>
+    <state x="1020" y="239" width="670" height="676" key="search.everywhere.popup/0.23.1920.982@0.23.1920.982" timestamp="1603158306310" />
+    <state x="840" y="352" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1603165055817">
+      <screen x="0" y="23" width="1920" height="982" />
+    </state>
+    <state x="840" y="352" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.23.1920.982@0.23.1920.982" timestamp="1603165055817" />
   </component>
 </project>

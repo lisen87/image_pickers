@@ -17,6 +17,9 @@
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/image_pickers/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/image_pickers/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/image_pickers/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/image_pickers/example/ios/.symlinks/plugins/image_pickers/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/image_pickers/example/ios/.symlinks/plugins/image_pickers/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/image_pickers/example/ios/.symlinks/plugins/image_pickers/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

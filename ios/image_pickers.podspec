@@ -1,5 +1,7 @@
-#
+#  s.resources = ['Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle','Classes/AKGallery/*.png']
+
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
+
 #  s.resource = 'Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle'
 
 Pod::Spec.new do |s|

@@ -1,5 +1,6 @@
 #import "ImagePickersPlugin.h"
 #import <Photos/Photos.h>
+#import <Flutter/Flutter.h>
 
 //#import <ZLPhotoBrowser_objc/ZLPhotoActionSheet.h>
 #import "ZLPhotoBrowser.h"
