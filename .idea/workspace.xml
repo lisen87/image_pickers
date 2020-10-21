@@ -12,11 +12,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/BigImageViewController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +40,7 @@
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1iaRkFtcIXgSbFWDcgtnXNmS9OY" />
+  <component name="ProjectId" id="1icY4FiACRA5Vv3GHM762GLTUt7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -50,6 +50,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
@@ -59,16 +60,15 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\flutter_package\image_pickers\screenshots" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\flutter_package\image_pickers\android" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example\image\3.0x" />
       <recent name="F:\flutter_package\image_pickers\example\image\2.0x" />
       <recent name="F:\flutter_package\image_pickers" />
+      <recent name="F:\flutter_package\image_pickers\images\3.0x" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -292,63 +292,56 @@
       <option name="project" value="LOCAL" />
       <updated>1591867369201</updated>
     </task>
-    <task id="LOCAL-00031" summary="固定ios使用图片选择库的版本3.1.2">
-      <created>1592210263402</created>
+    <task id="LOCAL-00031" summary="修复 因使用bitmap获取后缀名造成的崩溃">
+      <created>1602233458938</created>
       <option name="number" value="00031" />
       <option name="presentableId" value="LOCAL-00031" />
       <option name="project" value="LOCAL" />
-      <updated>1592210263402</updated>
+      <updated>1602233458938</updated>
     </task>
-    <task id="LOCAL-00032" summary="使用最新sdk，优化权限控制">
-      <created>1602221728733</created>
+    <task id="LOCAL-00032" summary="修复  拍照无后缀 拍照裁剪设置为false失效">
+      <created>1602473911782</created>
       <option name="number" value="00032" />
       <option name="presentableId" value="LOCAL-00032" />
       <option name="project" value="LOCAL" />
-      <updated>1602221728733</updated>
+      <updated>1602473911782</updated>
     </task>
-    <task id="LOCAL-00033" summary="使用最新sdk，优化权限控制">
-      <created>1602222133558</created>
+    <task id="LOCAL-00033" summary="修复  拍照无后缀 拍照裁剪设置为false失效">
+      <created>1602473919925</created>
       <option name="number" value="00033" />
       <option name="presentableId" value="LOCAL-00033" />
       <option name="project" value="LOCAL" />
-      <updated>1602222133558</updated>
+      <updated>1602473919925</updated>
     </task>
-    <task id="LOCAL-00034" summary="使用最新sdk，优化权限控制">
-      <created>1602557594091</created>
+    <task id="LOCAL-00034" summary="修复  拍照无后缀 拍照裁剪设置为false失效">
+      <created>1602487441367</created>
       <option name="number" value="00034" />
       <option name="presentableId" value="LOCAL-00034" />
       <option name="project" value="LOCAL" />
-      <updated>1602557594091</updated>
+      <updated>1602487441368</updated>
     </task>
-    <task id="LOCAL-00035" summary="使用最新sdk，优化权限控制">
-      <created>1602564301541</created>
+    <task id="LOCAL-00035" summary="修复  拍照无后缀 拍照裁剪设置为false失效">
+      <created>1602490619204</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1602564301541</updated>
+      <updated>1602490619204</updated>
     </task>
-    <task id="LOCAL-00036" summary="使用最新sdk，优化权限控制">
-      <created>1602575734590</created>
+    <task id="LOCAL-00036" summary="修复  拍照无后缀 拍照裁剪设置为false失效">
+      <created>1602490625652</created>
       <option name="number" value="00036" />
       <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1602575734590</updated>
+      <updated>1602490625652</updated>
     </task>
-    <task id="LOCAL-00037" summary="处理ios上架问题">
-      <created>1602658635696</created>
+    <task id="LOCAL-00037" summary="更新AFNetworking 到4.0 删除UIWebview">
+      <created>1602651911265</created>
       <option name="number" value="00037" />
       <option name="presentableId" value="LOCAL-00037" />
       <option name="project" value="LOCAL" />
-      <updated>1602658635696</updated>
+      <updated>1602651911266</updated>
     </task>
-    <task id="LOCAL-00038" summary="处理ios上架问题">
-      <created>1602900926545</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1602900926545</updated>
-    </task>
-    <option name="localTasksCounter" value="39" />
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -409,67 +402,74 @@
     <MESSAGE value="适配安卓Q文件存储，修复小米手机崩溃问题" />
     <MESSAGE value="修复 iOS 因为图片（right_arrow.png、left_arrow.png、error.png）导致的各种问题" />
     <MESSAGE value="修复 因使用bitmap获取后缀名造成的崩溃" />
-    <MESSAGE value="固定ios使用图片选择库的版本3.1.2" />
-    <MESSAGE value="使用最新sdk，优化权限控制" />
-    <MESSAGE value="处理ios上架问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="处理ios上架问题" />
+    <MESSAGE value="修复  拍照无后缀 拍照裁剪设置为false失效" />
+    <MESSAGE value="更新AFNetworking 到4.0 删除UIWebview" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新AFNetworking 到4.0 删除UIWebview" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602221805787">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="521" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602206714626">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602221805787" />
-    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1602900924848">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="521" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.977@0.23.1920.977" timestamp="1602206714626" />
+    <state x="794" y="244" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1602206700953">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602900924848" />
-    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog" timestamp="1603154851059">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="794" y="244" key="#com.intellij.ide.util.TreeFileChooserDialog/0.23.1920.977@0.23.1920.977" timestamp="1602206700953" />
+    <state x="954" y="23" key="CommitChangelistDialog2" timestamp="1603263373002">
+      <screen x="0" y="23" width="1920" height="986" />
     </state>
-    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603154851059" />
-    <state x="572" y="283" key="FileChooserDialogImpl" timestamp="1602841373950">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="484" y="24" key="CommitChangelistDialog2/0.23.1920.977@0.23.1920.977" timestamp="1602487440864" />
+    <state x="484" y="24" key="CommitChangelistDialog2/0.23.1920.978@0.23.1920.978" timestamp="1602490625312" />
+    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.982@0.23.1920.982" timestamp="1602651910863" />
+    <state x="954" y="23" key="CommitChangelistDialog2/0.23.1920.986@0.23.1920.986" timestamp="1603263373002" />
+    <state width="912" height="509" key="GridCell.Tab.0.bottom" timestamp="1603262279842">
+      <screen x="0" y="23" width="1920" height="984" />
     </state>
-    <state x="572" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602841373950" />
-    <state width="1577" height="116" key="GridCell.Tab.0.bottom" timestamp="1602848752138">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1824" height="108" key="GridCell.Tab.0.bottom/0.23.1920.978@0.23.1920.978" timestamp="1602490893368" />
+    <state width="912" height="509" key="GridCell.Tab.0.bottom/0.23.1920.984@0.23.1920.984" timestamp="1603262279842" />
+    <state width="912" height="509" key="GridCell.Tab.0.center" timestamp="1603262279841">
+      <screen x="0" y="23" width="1920" height="984" />
     </state>
-    <state width="1577" height="116" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602848752138" />
-    <state width="1577" height="116" key="GridCell.Tab.0.center" timestamp="1602848752138">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1824" height="108" key="GridCell.Tab.0.center/0.23.1920.978@0.23.1920.978" timestamp="1602490893368" />
+    <state width="912" height="509" key="GridCell.Tab.0.center/0.23.1920.984@0.23.1920.984" timestamp="1603262279841" />
+    <state width="912" height="509" key="GridCell.Tab.0.left" timestamp="1603262279841">
+      <screen x="0" y="23" width="1920" height="984" />
     </state>
-    <state width="1577" height="116" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602848752138" />
-    <state width="1577" height="116" key="GridCell.Tab.0.left" timestamp="1602848752137">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1824" height="108" key="GridCell.Tab.0.left/0.23.1920.978@0.23.1920.978" timestamp="1602490893367" />
+    <state width="912" height="509" key="GridCell.Tab.0.left/0.23.1920.984@0.23.1920.984" timestamp="1603262279841" />
+    <state width="912" height="509" key="GridCell.Tab.0.right" timestamp="1603262279842">
+      <screen x="0" y="23" width="1920" height="984" />
     </state>
-    <state width="1577" height="116" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602848752137" />
-    <state width="1577" height="116" key="GridCell.Tab.0.right" timestamp="1602848752138">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1824" height="108" key="GridCell.Tab.0.right/0.23.1920.978@0.23.1920.978" timestamp="1602490893368" />
+    <state width="912" height="509" key="GridCell.Tab.0.right/0.23.1920.984@0.23.1920.984" timestamp="1603262279842" />
+    <state x="263" y="87" key="MergeDialog" timestamp="1603263358682">
+      <screen x="0" y="23" width="1920" height="986" />
     </state>
-    <state width="1577" height="116" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602848752138" />
-    <state x="127" y="71" key="MergeDialog" timestamp="1602233663490">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="384" y="113" key="MergeDialog/0.23.1920.982@0.23.1920.982" timestamp="1602648739492" />
+    <state x="263" y="87" key="MergeDialog/0.23.1920.986@0.23.1920.986" timestamp="1603263358682" />
+    <state x="928" y="231" key="MultipleFileMergeDialog" timestamp="1603263358755">
+      <screen x="0" y="23" width="1920" height="986" />
     </state>
-    <state x="127" y="71" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602233663490" />
-    <state x="603" y="211" key="MultipleFileMergeDialog" timestamp="1603176626749">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="928" y="230" key="MultipleFileMergeDialog/0.23.1920.982@0.23.1920.982" timestamp="1602648743793" />
+    <state x="928" y="231" key="MultipleFileMergeDialog/0.23.1920.986@0.23.1920.986" timestamp="1603263358755" />
+    <state x="505" y="290" key="Vcs.Push.Dialog.v2" timestamp="1602651918206">
+      <screen x="0" y="23" width="1920" height="982" />
     </state>
-    <state x="603" y="211" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603176626749" />
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1602900929118">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="505" y="289" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1602473922063" />
+    <state x="505" y="289" key="Vcs.Push.Dialog.v2/0.23.1920.978@0.23.1920.978" timestamp="1602490628912" />
+    <state x="505" y="290" key="Vcs.Push.Dialog.v2/0.23.1920.982@0.23.1920.982" timestamp="1602651918206" />
+    <state x="835" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603263135432">
+      <screen x="0" y="23" width="1920" height="986" />
     </state>
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602900929118" />
-    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602574864091">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.977@0.23.1920.977" timestamp="1602487427598" />
+    <state x="835" y="366" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.978@0.23.1920.978" timestamp="1602490607686" />
+    <state x="835" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.982@0.23.1920.982" timestamp="1602648727216" />
+    <state x="835" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.986@0.23.1920.986" timestamp="1603263135432" />
+    <state x="712" y="261" width="712" height="520" key="find.popup" timestamp="1602641088312">
+      <screen x="0" y="23" width="1920" height="980" />
     </state>
-    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602574864091" />
-    <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603176444829">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603176444829" />
-    <state width="642" height="205" key="javadoc.popup.new" timestamp="1602848486503">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="642" height="205" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1602848486503" />
+    <state x="712" y="260" width="712" height="518" key="find.popup/0.23.1920.977@0.23.1920.977" timestamp="1602482153607" />
+    <state x="712" y="260" width="712" height="518" key="find.popup/0.23.1920.978@0.23.1920.978" timestamp="1602480650602" />
+    <state x="712" y="261" width="712" height="520" key="find.popup/0.23.1920.980@0.23.1920.980" timestamp="1602641088312" />
   </component>
 </project>
