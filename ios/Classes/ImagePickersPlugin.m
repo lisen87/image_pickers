@@ -754,6 +754,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 -(NSString*)imageType:(NSData*)data{
     uint8_t c;
     [data getBytes:&c length:1];
+
+
     switch (c) {
         case 0xFF:
             return @"JPEG";
@@ -768,12 +770,11 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             return @"PNG";
         }
         case 0x00: {
-            if (data.length >= 12) {
-                return @"PNG";
-            }
+            return @"PNG";
         }
-            break;
+        default:
+            return @"PNG";
     }
-    return @"";
+    return @"PNG";
 }
 @end
