@@ -75,7 +75,7 @@
     }
     
     [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [returnBtn setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [returnBtn setImage:[UIImage imageNamed:@"IMG_4343.jpg"] forState:UIControlStateNormal];
     [returnBtn setTitle:@"<" forState:UIControlStateNormal];
     [returnBtn addTarget:self action:@selector(returnBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:returnBtn];

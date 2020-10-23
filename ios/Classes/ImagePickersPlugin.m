@@ -1,12 +1,6 @@
 #import "ImagePickersPlugin.h"
 #import <Photos/Photos.h>
-
-#if __has_include(<ZLPhotoBrowser_objc/ZLPhotoBrowser.h>)
-#import <ZLPhotoBrowser_objc/ZLPhotoBrowser.h>
-#else
-#import "ZLPhotoBrowser.h"
-#endif
-
+#import <ZLPhotoBrowser/ZLPhotoBrowser-Swift.h>
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -32,6 +26,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     ImagePickersPlugin *instance = [[ImagePickersPlugin alloc] init];
     instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
+    
+   
 }
 -(UIColor*)stringChangeColor:(NSDictionary*)colorString{
     int alph =[[colorString objectForKey:@"a"] intValue];
@@ -42,24 +38,77 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     return [UIColor colorWithRed:red/255.00 green:green/255.00 blue:blue/255.00 alpha:alph/255.00];
 }
 -(void)colorChange:(NSDictionary*)colorString configuration:(ZLPhotoConfiguration*)configuration {
+    
+    
+    
     UIColor* colorType =[self stringChangeColor:colorString];
     int light =[[colorString objectForKey:@"l"] intValue];
+    [ZLPhotoConfiguration default].themeColorDeploy.albumListBgColor =[UIColor whiteColor];
+    /// 相册列表界面背景色
+    [ZLPhotoConfiguration default].themeColorDeploy.albumListBgColor =[UIColor whiteColor];
+    /// 分割线颜色
+    [ZLPhotoConfiguration default].themeColorDeploy.separatorColor =[UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:0.98];
+    /// 小图界面背景色
+    [ZLPhotoConfiguration default].themeColorDeploy.thumbnailBgColor =[UIColor whiteColor];
+    
+    /// 预览快速选择模式下 拍照/相册/取消 的背景颜色
+    [ZLPhotoConfiguration default].themeColorDeploy.previewBtnBgColor =[UIColor whiteColor];
+    
     
     if(light<=179){
-        configuration. bottomBtnsDisableBgColor =[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];//未选中按钮
-        configuration.bottomBtnsNormalBgColor =colorType;//选中
-        configuration.indexLabelBgColor =colorType;//数字背景
-        configuration.cameraProgressColor =colorType;//进度
-        configuration.navBarColor =colorType;//导航栏
-        configuration.navTitleColor =[UIColor whiteColor];//导航元素
+        /// 导航条颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.navBarColor = colorType;
+        /// 导航标题颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.navTitleColor = [UIColor whiteColor];
+ 
+        
+        ///  底部工具栏按钮 可交互 状态标题颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBtnNormalTitleColor = [UIColor whiteColor];
+        /// 底部工具栏按钮 可交互 状态背景颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBtnNormalBgColor =colorType;
+        /// 底部工具栏按钮 不可交互 状态背景颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBtnDisableBgColor =colorType;
+        
+        /// 自定义相机录制视频时，进度条颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.cameraRecodeProgressColor =colorType;
+        /// 选中图片右上角index background color
+        [ZLPhotoConfiguration default].themeColorDeploy.indexLabelBgColor =colorType;
+        /// 底部工具条底色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBgColor = colorType;
+        //首页上部颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.navEmbedTitleViewBgColor = colorType;
     }else{
-        configuration. bottomBtnsDisableBgColor =[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
-        configuration.bottomBtnsNormalBgColor =[UIColor blackColor];
-        configuration.indexLabelBgColor =[UIColor blackColor];
-        configuration.cameraProgressColor =[UIColor blackColor];
-        configuration.navBarColor =[UIColor whiteColor];
-        configuration.navTitleColor =[UIColor blackColor];
+        
+        /// 导航条颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.navBarColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+        /// 导航标题颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.navTitleColor = [UIColor blackColor];
+//        /// 相册列表界面 相册title颜色
+//        [ZLPhotoConfiguration default].themeColorDeploy.albumListTitleColor = [UIColor blackColor];
+        
+
+        /// 底部工具栏按钮 可交互 状态背景颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBtnNormalBgColor =[UIColor blackColor];
+        /// 底部工具栏按钮 不可交互 状态背景颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBtnDisableBgColor =[UIColor blackColor];
+        /// 自定义相机录制视频时，进度条颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.cameraRecodeProgressColor =[UIColor blackColor];
+        /// 选中图片右上角index background color
+        [ZLPhotoConfiguration default].themeColorDeploy.indexLabelBgColor =[UIColor blackColor];
+        /// 底部工具条底色
+        [ZLPhotoConfiguration default].themeColorDeploy.bottomToolViewBgColor = [UIColor whiteColor];
+        ///首页上部颜色
+        [ZLPhotoConfiguration default].themeColorDeploy.navEmbedTitleViewBgColor = [UIColor whiteColor];
     }
+    /// 相册列表界面 相册title颜色
+    [ZLPhotoConfiguration default].themeColorDeploy.albumListTitleColor = [UIColor blackColor];
+    [ZLPhotoConfiguration default].bottomToolViewBlurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    
+    [ZLPhotoConfiguration default].navViewBlurEffect=[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+
+    
+    
+    
 }
 -(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result
 {
@@ -69,7 +118,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSInteger selectCount =[[dic objectForKey:@"selectCount"] integerValue];//最多多少个
         NSInteger compressSize =[[dic objectForKey:@"compressSize"] integerValue]*1024;//大小
         
-        NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//图片还是视频image video
+        NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//选择图库中图片还是视频image video
         
         BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
         
@@ -83,111 +132,94 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         
         NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];//type   photo video 若不存在则为带相册的，若存在则直接打开相册相机
         
-        ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration defaultPhotoConfiguration];
+        ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration default];
         configuration.maxSelectCount = selectCount;//最多选择多少张图
-        configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
+        configuration.allowSelectOriginal = selectCount;//最多选择多少张图
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
+        configuration.cellCornerRadio =5;
+        configuration.allowMixSelect =NO;
         configuration.allowEditImage =enableCrop;
-        configuration.hideClipRatiosToolBar =enableCrop;
-        configuration.cellCornerRadio =30;
-        configuration.clipRatios =@[@{
-                                        @"value1":[NSNumber numberWithInt:width],//第一个是宽
-                                        @"value2":[NSNumber numberWithInt:height],//第二个是高
-        }];
+        configuration.allowPreviewSelectedPhotos =NO;
+        configuration.editImageClipRatios = @[[[ZLImageClipRatio alloc] initWithTitle:[NSString stringWithFormat:@"%ld:%ld",(long)width,(long)height] whRatio: (width/1.000) / (height/1.000)]];
+        configuration.allowSelectGif = isShowGif;
         
-        if(cameraMimeType) {
-            //            cameraMimeType//type   photo video
+        if([cameraMimeType isEqualToString:@"photo"]){
+            configuration.allowRecordVideo = false;
+            configuration.allowTakePhoto= true;
+            configuration.allowSelectImage = true;
+            configuration.allowSelectVideo = false;
+
             
-            [self colorChange:[dic objectForKey:@"uiColor"] configuration:configuration];
-            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
-            
-            if ([cameraMimeType isEqualToString:@"photo"]) {
-                camera.allowTakePhoto = YES;
-                camera.allowRecordVideo = NO;
-            }else{
-                camera.allowTakePhoto = NO;
-                camera.allowRecordVideo = YES;
+        }else if([cameraMimeType isEqualToString:@"video"]){
+            configuration.allowTakePhoto = false;
+            configuration.allowRecordVideo = true;
+            configuration.allowSelectVideo = true;///这里又一个bug必须allowSelectVideo
+            configuration.allowSelectImage = false;
+
+
+        }else{
+            if ([galleryMode isEqualToString:@"image"])
+            {
+                configuration.allowSelectVideo = false;
+                configuration.allowSelectImage= true;
+                configuration.allowTakePhoto = true;
+                configuration.allowRecordVideo = false;
+
+            }else if([galleryMode isEqualToString:@"video"]){
+                configuration.allowSelectImage = false;
+                configuration.allowSelectVideo = true;
+                configuration.videoExportType =VideoExportTypeMp4;
+                configuration.allowTakePhoto = false;
+                configuration.allowRecordVideo = true;
             }
+        }
+
+       
+        [self colorChange:[dic objectForKey:@"uiColor"] configuration:configuration];
+
+        if(cameraMimeType) {
+            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
+            camera.view.frame =CGRectMake(0, -100, CXCWeight, CXCHeightX);
+            configuration.maxRecordDuration  =60;
             
-            camera.videoType = ZLExportVideoTypeMp4;
-            camera.circleProgressColor = [UIColor redColor];
-            camera.maxRecordDuration = 15;
-            @zl_weakify(self);
+            NSLog(@"%@",configuration.editImageClipRatios);
+
+          
             
-            camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
-                
+            
+            camera.takeDoneBlock = ^(UIImage * image, NSURL * videoUrl) {
                 NSLog(@"%@",videoUrl);
-                
                 NSLog(@"%@",image);
                 
                 if (image) {
-                    if(enableCrop){
-                        BigImageViewController *big =[[BigImageViewController alloc]init];
-                        big.configuration =configuration ;
-                        big.image =image;
-                        big.doneEditImageBlock = ^(UIImage * imageE) {
-                            NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
-                            if (data2.length>compressSize) {
-                                //压缩
-                                data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
-                            }
-                            NSLog(@"_____方法__%ld",data2.length);
-                            UIImage *image =[UIImage imageWithData:data2];
-                            //重命名并且保存
-                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            formatter.dateFormat = @"yyyyMMddHHmmss";
-                            int  x = arc4random() % 10000;
-                            
-                            NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
-                            
-                            //保存到沙盒
-                            [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                            NSDictionary *photoDic =@{
-                                @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
-                                @"path":[NSString stringWithFormat:@"%@",jpgPath],
-                            };
-                            //取出路径
-                            result(@[photoDic]);
-                            return ;
-                            
-                        };
-                        big.modalPresentationStyle =UIModalPresentationFullScreen;
-                        
-                        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
-                        }];
-                    }else{
-                        NSData *data2=UIImageJPEGRepresentation(image , 1.0);
-                        if (data2.length>compressSize) {
-                            //压缩
-                            data2=UIImageJPEGRepresentation(image, (float)(compressSize/data2.length));
-                        }
-                        NSLog(@"_____方法__%ld",data2.length);
-                        UIImage *imageFF =[UIImage imageWithData:data2];
-                        //重命名并且保存
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        formatter.dateFormat = @"yyyyMMddHHmmss";
-                        int  x = arc4random() % 10000;
-                        
-                        NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
-                        
-                        //保存到沙盒
-                        [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
-                        NSDictionary *photoDic =@{
-                            @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
-                            @"path":[NSString stringWithFormat:@"%@",jpgPath],
-                        };
-                        //取出路径
-                        result(@[photoDic]);
-                        return ;
-                        
+                    NSData *data2=UIImageJPEGRepresentation(image , 1.0);
+                    if (data2.length>compressSize) {
+                        //压缩
+                        data2=UIImageJPEGRepresentation(image, (float)(compressSize/data2.length));
                     }
-                    
-                    
-                    
-                }else{
+                    NSLog(@"_____方法__%ld",data2.length);
+                    UIImage *imageFF =[UIImage imageWithData:data2];
+                    //重命名并且保存
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyyMMddHHmmss";
+                    int  x = arc4random() % 10000;
+
+                    NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
+
+                    //保存到沙盒
+                    [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
+                    NSDictionary *photoDic =@{
+                        @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
+                        @"path":[NSString stringWithFormat:@"%@",jpgPath],
+                    };
+                    //取出路径
+                    result(@[photoDic]);
+                    return ;
+
+                }else
+                {
                     
                     
                     NSURL *url =videoUrl;
@@ -197,15 +229,17 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     formatter.dateFormat = @"yyyyMMddHHmmss";
                     int  x = arc4random() % 10000;
                     NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
                     UIImage *img = [self getImage:subString]  ;
+                    
+                    NSData *imageData = UIImageJPEGRepresentation(image,1.0f);//第二个参数为压缩倍数
+
+                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:imageData]]];
                     //保存到沙盒
                     [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
-                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
                     
                     NSDictionary *photoDic = @{
-                        @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                        @"path":[NSString stringWithFormat:@"%@",subString],
+                        @"thumbPath":jpgPath,
+                        @"path":jpgPath,
                     };
                     result(@[photoDic]);
                     return ;
@@ -213,38 +247,25 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 }
                 
             };
-            camera.modalPresentationStyle =UIModalPresentationFullScreen;
+            
+          
+//            camera.modalPresentationStyle =UIModalPresentationOverFullScreen;
             [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:camera sender:nil];
-            
+
         }else{
+                
             
-            ZLPhotoActionSheet *ac = [[ZLPhotoActionSheet alloc] init];
-            ac.configuration.maxSelectCount = selectCount;//最多选择多少张图
-            ac.configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
-            ac.configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
-            ac.configuration.allowSelectOriginal =NO;//不选择原图
-            ac.configuration.allowEditImage =enableCrop;
-            ac.configuration.hideClipRatiosToolBar =enableCrop;
-            ac.configuration.clipRatios =@[@{
-                                               @"value1":[NSNumber numberWithInt:width],//第一个是宽
-                                               @"value2":[NSNumber numberWithInt:height],//第二个是高
-            }];
-            ac.configuration.allowSelectGif = isShowGif;
             
-            if ([galleryMode isEqualToString:@"image"]) {
-                ac.configuration. allowSelectImage =YES;
-                ac.configuration.allowSelectVideo =NO;
-            }else{
-                ac.configuration. allowSelectImage =NO;
-                ac.configuration.allowSelectVideo =YES;
-            }
             
-            //        ac.configuration.shouldAnialysisAsset = YES;
-            //框架语言
-            //        ac.configuration.languageType = YES;
+            
+            
+            
+            
+            
+            ZLPhotoPreviewSheet *ac = [[ZLPhotoPreviewSheet alloc] initWithSelectedAssets:@[]];
+            
             //如调用的方法无sender参数，则该参数必传
-            ac.sender = [UIApplication sharedApplication].delegate.window.rootViewController;
-            [self colorChange:[dic objectForKey:@"uiColor"] configuration:ac.configuration];
+            //ac.sender = [UIApplication sharedApplication].delegate.window.rootViewController;
             
             NSMutableArray *arr =[[NSMutableArray alloc]init];
             
@@ -304,7 +325,17 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 //        [self zhuanhuanTupian];
                 
             }];
-            [ac showPhotoLibrary];
+            
+            [ac showPhotoLibraryWithSender:[UIApplication sharedApplication].delegate.window.rootViewController ];
+            
+//            [ac showPreviewWithAnimate:YES sender:[UIApplication sharedApplication].delegate.window.rootViewController];
+  
+        
+//            PHPhotoLibrary.shared().unregisterChangeObserver(self)
+
+//            ac.animate = false;
+//            ac.showThumbnailViewController()
+            
         }
         
     } else if ([@"previewImages" isEqualToString:call.method]){
@@ -754,8 +785,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 -(NSString*)imageType:(NSData*)data{
     uint8_t c;
     [data getBytes:&c length:1];
-
-
     switch (c) {
         case 0xFF:
             return @"JPEG";
@@ -770,11 +799,12 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             return @"PNG";
         }
         case 0x00: {
-            return @"PNG";
+            if (data.length >= 12) {
+                return @"PNG";
+            }
         }
-        default:
-            return @"PNG";
+            break;
     }
-    return @"PNG";
+    return @"";
 }
 @end
