@@ -447,27 +447,27 @@
     //toolBar
     UIToolbar* tBar = UIToolbar.new;
     tBar.tintColor=self.gallery.custUI.viewerBarTint;
-    [self.view addSubview:tBar];
+//    [self.view addSubview:tBar];
     self.toolBar=tBar;
     
     
     
-    [tBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@44);
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-    }];
+//    [tBar mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@44);
+//        make.left.right.equalTo(self.view);
+//        make.bottom.equalTo(self.view.mas_bottom);
+//    }];
     
     UIBarButtonItem*left =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     left.width=[UIScreen mainScreen].bounds.size.width/2-50;
     
     UIBarButtonItem*mid =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    UIBarButtonItem* pBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(previous)];
+//
+    UIBarButtonItem* nBtn =[[UIBarButtonItem alloc]initWithTitle:@">"  style:UIBarButtonItemStylePlain target:self action:@selector(next)];
+//    self.toolBar.items=@[left,pBtn,mid,nBtn];
     mid.width=30;
     
-    UIBarButtonItem* pBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(previous)];
-    
-    UIBarButtonItem* nBtn =[[UIBarButtonItem alloc]initWithTitle:@">"  style:UIBarButtonItemStylePlain target:self action:@selector(next)];
-    self.toolBar.items=@[left,pBtn,mid,nBtn];
     previousBarBtn = pBtn;
     nextBarBtn=nBtn;
     

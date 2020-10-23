@@ -8,7 +8,7 @@
 
 #import "PlayTheVideoVC.h"
 #import <AVFoundation/AVFoundation.h> //需要导入框架
-#import "ZLPhotoActionSheet.h"
+#import <ZLPhotoBrowser/ZLPhotoBrowser.h>
 #define Frame_rectStatus ([[UIApplication sharedApplication] statusBarFrame].size.height)
 #define Frame_rectNav (self.navigationController.navigationBar.frame.size.height)
 #define Frame_NavAndStatus (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
