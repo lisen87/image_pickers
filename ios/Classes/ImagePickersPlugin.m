@@ -34,7 +34,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     int red =[[colorString objectForKey:@"r"] intValue];
     int green =[[colorString objectForKey:@"g"] intValue];
     int blue =[[colorString objectForKey:@"b"] intValue];
-    int light =[[colorString objectForKey:@"l"] intValue];
+//    int light =[[colorString objectForKey:@"l"] intValue];
     return [UIColor colorWithRed:red/255.00 green:green/255.00 blue:blue/255.00 alpha:alph/255.00];
 }
 -(void)colorChange:(NSDictionary*)colorString configuration:(ZLPhotoConfiguration*)configuration {
