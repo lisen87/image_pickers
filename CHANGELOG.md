@@ -1,6 +1,6 @@
-## 1.0.8+5
-*iOS 修复build失败问题
-*iOS fixes build failure
+## 1.0.8+6
+* iOS 尝试修复最近的各种问题
+* iOS Try to fix various recent problems
 ## 1.0.8+4
 * 安卓修复安卓Q出现的问题等
 * Android fixes problems with Android Q, etc.
