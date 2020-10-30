@@ -102,21 +102,39 @@ public class SelectPicsActivity extends BaseActivity {
             //直接调用拍照或拍视频时
             if ("photo".equals(mimeType)) {
                 pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
+                if (SdkVersionUtils.checkedAndroid_Q()){
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG_Q);
+                }else{
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG);
+                }
             } else {
                 pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
+                pictureSelectionModel.imageFormat(PictureMimeType.MIME_TYPE_VIDEO);
             }
         }else{
+            //从相册中选择
             pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
+            if ("image".equals(mode)){
+                if (SdkVersionUtils.checkedAndroid_Q()){
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG_Q);
+                }else{
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG);
+                }
+
+            }else{
+                pictureSelectionModel.imageFormat(PictureMimeType.MIME_TYPE_VIDEO);
+            }
         }
+
         pictureSelectionModel
                 .loadImageEngine(GlideEngine.createGlideEngine())
                 .isOpenStyleNumComplete(true)
                 .isOpenStyleCheckNumMode(true)
 
-                .imageFormat(
-                        SdkVersionUtils.checkedAndroid_Q()
-                        ? ("video".equals(mimeType)  ? PictureMimeType.MIME_TYPE_VIDEO  : PictureMimeType.PNG_Q.toLowerCase() )
-                        : ("video".equals(mimeType) ? PictureMimeType.MIME_TYPE_VIDEO : PictureMimeType.PNG.toLowerCase()))
+//                .imageFormat(
+//                        SdkVersionUtils.checkedAndroid_Q()
+//                        ? ("video".equals(mimeType)  ? PictureMimeType.MIME_TYPE_VIDEO  : PictureMimeType.PNG_Q.toLowerCase() )
+//                        : ("video".equals(mimeType) ? PictureMimeType.MIME_TYPE_VIDEO : PictureMimeType.PNG.toLowerCase()))
 
                 .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
@@ -143,6 +161,7 @@ public class SelectPicsActivity extends BaseActivity {
                 .minimumCompressSize(Integer.MAX_VALUE)
                 .compressSavePath(getPath())//压缩图片保存地址
                 .forResult(PictureConfig.CHOOSE_REQUEST);
+
     }
     private String getPath() {
         String path = new AppPath(this).getAppImgDirPath(false);

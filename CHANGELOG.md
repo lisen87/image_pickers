@@ -1,3 +1,6 @@
+## 1.0.8+7
+* Android 修复打开相册时，无法录制视频问题
+* Android fixes the problem that the video cannot be recorded when opening the gallery
 ## 1.0.8+6
 * iOS 尝试修复最近的各种问题
 * iOS Try to fix various recent problems
