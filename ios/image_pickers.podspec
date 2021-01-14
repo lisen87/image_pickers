@@ -1,6 +1,9 @@
-#
+#  s.resources = ['Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle','Classes/AKGallery/*.png']
+
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
+
+#  s.resource = 'Classes/PhotoBrowser/resource/ZLPhotoBrowser.bundle'
+
 Pod::Spec.new do |s|
   s.name             = 'image_pickers'
   s.version          = '0.0.1'
@@ -16,8 +19,9 @@ A new flutter plugin project.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'AFNetworking'
-  s.dependency 'ZLPhotoBrowser','~> 3.1.2'
-  s.ios.deployment_target = '8.0'
+  s.dependency 'ZLPhotoBrowser-objc','1.0.2'
+  s.ios.deployment_target = '10.0'
+
 
 end
 

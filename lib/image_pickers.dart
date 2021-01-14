@@ -3,9 +3,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:image_pickers/CropConfig.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
 
 enum GalleryMode {
   ///选择图片
@@ -27,7 +24,6 @@ class ImagePickers {
   static const MethodChannel _channel =
       const MethodChannel('flutter/image_pickers');
 
-
   /// 返回拍摄的图片或视频的信息 Return information of the selected picture or video
   ///
   /// cameraMimeType CameraMimeType.photo为拍照，CameraMimeType.video 为录制视频 CameraMimeType.photo is a photo, CameraMimeType.video is a video
@@ -37,12 +33,12 @@ class ImagePickers {
   ///compressSize 拍照后（录制视频时此参数无效）的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
   static Future<Media> openCamera({
-    CameraMimeType cameraMimeType : CameraMimeType.photo,
+    CameraMimeType cameraMimeType: CameraMimeType.photo,
     CropConfig cropConfig,
     int compressSize: 500,
   }) async {
     String mimeType = "photo";
-    if(cameraMimeType == CameraMimeType.video){
+    if (cameraMimeType == CameraMimeType.video) {
       mimeType = "video";
     }
 
@@ -58,7 +54,14 @@ class ImagePickers {
     Color uiColor = UIConfig.defUiThemeColor;
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': "image",
-      'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
+      'showGif': true,
+      'uiColor': {
+        "a": 255,
+        "r": uiColor.red,
+        "g": uiColor.green,
+        "b": uiColor.blue,
+        "l": (uiColor.computeLuminance() * 255).toInt()
+      },
       'selectCount': 1,
       'showCamera': false,
       'enableCrop': enableCrop,
@@ -68,9 +71,9 @@ class ImagePickers {
       'cameraMimeType': mimeType,
     };
     final List<dynamic> paths =
-    await _channel.invokeMethod('getPickerPaths', params);
+        await _channel.invokeMethod('getPickerPaths', params);
 
-    if(paths != null && paths.length > 0){
+    if (paths != null && paths.length > 0) {
       Media media = Media();
       media.thumbPath = paths[0]["thumbPath"];
       media.path = paths[0]["path"];
@@ -101,9 +104,10 @@ class ImagePickers {
 
   static Future<List<Media>> pickerPaths({
     GalleryMode galleryMode: GalleryMode.image,
-    UIConfig uiConfig ,
+    UIConfig uiConfig,
     int selectCount: 1,
     bool showCamera: false,
+    bool showGif: true,
     CropConfig cropConfig,
     int compressSize: 500,
   }) async {
@@ -113,9 +117,9 @@ class ImagePickers {
     } else if (galleryMode == GalleryMode.video) {
       gMode = "video";
     }
-    Color uiColor = UIConfig.defUiThemeColor ;
-    if(uiConfig != null){
-      uiColor = uiConfig.uiThemeColor ;
+    Color uiColor = UIConfig.defUiThemeColor;
+    if (uiConfig != null) {
+      uiColor = uiConfig.uiThemeColor;
     }
 
     bool enableCrop = false;
@@ -129,7 +133,14 @@ class ImagePickers {
 
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': gMode,
-      'uiColor': {"a" : 255,"r" : uiColor.red,"g" : uiColor.green,"b" : uiColor.blue,"l" : (uiColor.computeLuminance() * 255).toInt()},
+      'showGif': showGif,
+      'uiColor': {
+        "a": 255,
+        "r": uiColor.red,
+        "g": uiColor.green,
+        "b": uiColor.blue,
+        "l": (uiColor.computeLuminance() * 255).toInt()
+      },
       'selectCount': selectCount,
       'showCamera': showCamera,
       'enableCrop': enableCrop,
@@ -165,7 +176,7 @@ class ImagePickers {
   ///
   ///imagePaths 图片本地路径集合或者网络url集合 Image local path collection or network url collection
 
-  static previewImages(List<String> imagePaths,int initIndex) {
+  static previewImages(List<String> imagePaths, int initIndex) {
     final Map<String, dynamic> params = <String, dynamic>{
       'paths': imagePaths,
       'initIndex': initIndex,
@@ -179,10 +190,11 @@ class ImagePickers {
   ///
   ///Media中真正有效使用的数据是 Media.path The really effectively used data in Media is Media.path
   ///
-  static previewImagesByMedia(List<Media> imageMedias,int initIndex) {
-    if(imageMedias != null && imageMedias.length > 0){
-      List<String> paths = imageMedias.map((Media media) => media.path).toList();
-      previewImages(paths,initIndex);
+  static previewImagesByMedia(List<Media> imageMedias, int initIndex) {
+    if (imageMedias != null && imageMedias.length > 0) {
+      List<String> paths =
+          imageMedias.map((Media media) => media.path).toList();
+      previewImages(paths, initIndex);
     }
   }
 
@@ -205,11 +217,14 @@ class ImagePickers {
   /// data 图片字节数据 Picture byte data
   ///
 
-  static Future<String> saveByteDataImageToGallery(Uint8List data,) async {
+  static Future<String> saveByteDataImageToGallery(
+    Uint8List data,
+  ) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'uint8List': data,
     };
-    String path = await _channel.invokeMethod('saveByteDataImageToGallery', params);
+    String path =
+        await _channel.invokeMethod('saveByteDataImageToGallery', params);
     return path;
   }
 
@@ -241,4 +256,48 @@ class ImagePickers {
     String path = await _channel.invokeMethod('saveVideoToGallery', params);
     return path;
   }
+}
+
+///裁剪配置
+///Crop configuration
+class CropConfig {
+  ///是否可裁剪
+  bool enableCrop = false;
+
+  ///裁剪的宽度比例
+  ///Cropped width ratio
+  int width = 1;
+
+  ///裁剪的高度比例
+  ///Crop height ratio
+  int height = 1;
+
+  CropConfig({this.enableCrop: false, this.width: 1, this.height: 1});
+}
+
+class Media {
+  ///视频缩略图图片路径
+  ///Video thumbnail image path
+  String thumbPath;
+
+  ///视频路径或图片路径
+  ///Video path or image path
+  String path;
+  GalleryMode galleryMode;
+}
+
+/// Created by liSen on 2019/11/15 10:51.
+///
+/// @author liSen < 453354858@qq.com >
+///
+/// 选择图片页面颜色配置
+///
+/// Select image page color configuration
+///
+class UIConfig {
+  static const Color defUiThemeColor = Color(0xfffefefe);
+  Color uiThemeColor;
+
+  /// uiThemeColor
+  UIConfig({this.uiThemeColor: defUiThemeColor});
 }

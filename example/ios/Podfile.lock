@@ -1,28 +1,28 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - Flutter (1.0.0)
   - image_pickers (0.0.1):
     - AFNetworking
     - Flutter
-    - ZLPhotoBrowser (~> 3.1.2)
-  - SDWebImage (5.4.1):
-    - SDWebImage/Core (= 5.4.1)
-  - SDWebImage/Core (5.4.1)
-  - ZLPhotoBrowser (3.1.2):
+    - ZLPhotoBrowser-objc (= 1.0.2)
+  - SDWebImage (5.9.4):
+    - SDWebImage/Core (= 5.9.4)
+  - SDWebImage/Core (5.9.4)
+  - ZLPhotoBrowser-objc (1.0.2):
     - SDWebImage
 
 DEPENDENCIES:
@@ -30,10 +30,10 @@ DEPENDENCIES:
   - image_pickers (from `.symlinks/plugins/image_pickers/ios`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - AFNetworking
     - SDWebImage
-    - ZLPhotoBrowser
+    - ZLPhotoBrowser-objc
 
 EXTERNAL SOURCES:
   Flutter:
@@ -42,12 +42,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_pickers/ios"
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  image_pickers: 42e1a69c6ef9ea90e3d8dc5e0d7665e8d799f6fa
-  SDWebImage: 29c340dbdcef342bb13125553f4e19ce056b07a7
-  ZLPhotoBrowser: 7e88434918366af98f8ebbaf5b94206985812ed6
+  image_pickers: 4a20d713c9029a75582e28482271e92d72d334fd
+  SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
+  ZLPhotoBrowser-objc: c7684215bbde0ee990ad7bd1008e13bc3e6f6a32
 
-PODFILE CHECKSUM: 7fee85a1c10f9d9c7642bb65ea326e6c9334d0d7
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0

@@ -5,15 +5,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application android:theme="@style/AppTheme"
+    <application
         android:networkSecurityConfig="@xml/net_sec" >
         <!--适配9.0的系统-->
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <!--适配9.0的系统-->
         <activity android:name=".activitys.PermissionActivity" android:theme="@style/TransTheme"/>
         <activity android:name=".activitys.SelectPicsActivity" android:theme="@style/TransTheme"/>
-        <activity android:name=".activitys.PhotosActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activitys.VideoActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name=".activitys.PhotosActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme"/>
+        <activity android:name=".activitys.VideoActivity" android:configChanges="orientation|screenSize" android:theme="@style/AppTheme"/>
 
         <!--        <provider-->
         <!--            android:name=".provides.MyProvide"-->

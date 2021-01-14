@@ -1,6 +1,5 @@
 package com.leeson.image_pickers.activitys;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -20,7 +19,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.AndroidQTransformUtils;
 import com.luck.picture.lib.tools.PictureFileUtils;
+import com.luck.picture.lib.tools.SdkVersionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class SelectPicsActivity extends BaseActivity {
 
     public static final String GALLERY_MODE = "GALLERY_MODE";
     public static final String UI_COLOR = "UI_COLOR";
+    public static final String SHOW_GIF = "SHOW_GIF";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
     public static final String ENABLE_CROP = "ENABLE_CROP";
     public static final String WIDTH = "WIDTH";
@@ -64,6 +66,7 @@ public class SelectPicsActivity extends BaseActivity {
     private String mode;
     private Map<String,Number> uiColor;
     private Number selectCount;
+    private boolean showGif;
     private boolean showCamera;
     private boolean enableCrop;
     private Number width;
@@ -78,6 +81,7 @@ public class SelectPicsActivity extends BaseActivity {
         uiColor = (Map<String, Number>) getIntent().getSerializableExtra(UI_COLOR);
 
         selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
+        showGif = getIntent().getBooleanExtra(SHOW_GIF, true);
         showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
         enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
         width = getIntent().getIntExtra(WIDTH, 1);
@@ -85,13 +89,80 @@ public class SelectPicsActivity extends BaseActivity {
         compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
         mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
 
-        Intent intent = new Intent(this, PermissionActivity.class);
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA});
-        startActivityForResult(intent, WRITE_SDCARD);
+        startSel();
     }
 
+    private void startSel(){
+        PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
+
+        //添加图片
+        PictureSelector pictureSelector = PictureSelector.create(this);
+        PictureSelectionModel pictureSelectionModel = null;
+        if (mimeType != null){
+            //直接调用拍照或拍视频时
+            if ("photo".equals(mimeType)) {
+                pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
+                if (SdkVersionUtils.checkedAndroid_Q()){
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG_Q);
+                }else{
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG);
+                }
+            } else {
+                pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
+                pictureSelectionModel.imageFormat(PictureMimeType.MIME_TYPE_VIDEO);
+            }
+        }else{
+            //从相册中选择
+            pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
+            if ("image".equals(mode)){
+                if (SdkVersionUtils.checkedAndroid_Q()){
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG_Q);
+                }else{
+                    pictureSelectionModel.imageFormat(PictureMimeType.PNG);
+                }
+
+            }else{
+                pictureSelectionModel.imageFormat(PictureMimeType.MIME_TYPE_VIDEO);
+            }
+        }
+
+        pictureSelectionModel
+                .loadImageEngine(GlideEngine.createGlideEngine())
+                .isOpenStyleNumComplete(true)
+                .isOpenStyleCheckNumMode(true)
+
+//                .imageFormat(
+//                        SdkVersionUtils.checkedAndroid_Q()
+//                        ? ("video".equals(mimeType)  ? PictureMimeType.MIME_TYPE_VIDEO  : PictureMimeType.PNG_Q.toLowerCase() )
+//                        : ("video".equals(mimeType) ? PictureMimeType.MIME_TYPE_VIDEO : PictureMimeType.PNG.toLowerCase()))
+
+                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
+                .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
+
+//                .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
+                .isCamera(showCamera)
+                .isGif(showGif)
+                .maxSelectNum(enableCrop?1:selectCount.intValue())
+                .withAspectRatio(width.intValue(), height.intValue())
+                .imageSpanCount(4)// 每行显示个数 int
+                .selectionMode(enableCrop || selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                .isSingleDirectReturn(true)// 单选模式下是否直接返回
+                .previewImage(true)// 是否可预览图片 true or false
+                .enableCrop(enableCrop)// 是否裁剪 true or false
+
+                .circleDimmedLayer(false)
+                .showCropFrame(true)
+                .showCropGrid(true)
+                .hideBottomControls(true)
+                .freeStyleCropEnabled(false)
+
+                .compress(false)// 是否压缩 true or false
+                .minimumCompressSize(Integer.MAX_VALUE)
+                .compressSavePath(getPath())//压缩图片保存地址
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+
+    }
     private String getPath() {
         String path = new AppPath(this).getAppImgDirPath(false);
         File file = new File(path);
@@ -122,17 +193,11 @@ public class SelectPicsActivity extends BaseActivity {
                 case PictureConfig.CHOOSE_REQUEST:
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
 
                     List<String> paths = new ArrayList<>();
                     for (int i = 0; i < selectList.size(); i++) {
                         LocalMedia localMedia = selectList.get(i);
-
-                        if (localMedia.isCut()) {
+                        if (localMedia.isCut()) {//2.5.9 android Q 裁剪没问题
                             // 因为这个lib中 gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (localMedia.getPath() != null && localMedia.getAndroidQToPath() != null && localMedia.getAndroidQToPath().endsWith(".gif")){
@@ -151,12 +216,18 @@ public class SelectPicsActivity extends BaseActivity {
                         } else {
 
                             if (Build.VERSION.SDK_INT >= 29) {
+                                //图片选择库 2.5.9 有bug，要这样处理
+                                String AndroidQToPath = AndroidQTransformUtils.copyPathToAndroidQ(SelectPicsActivity.this,
+                                        localMedia.getPath(), localMedia.getWidth(), localMedia.getHeight(), localMedia.getMimeType(), localMedia.getRealPath().substring(localMedia.getRealPath().lastIndexOf("/")+1));
+                                localMedia.setAndroidQToPath(AndroidQToPath);
+
                                 paths.add(localMedia.getAndroidQToPath());
                             } else {
                                 paths.add(localMedia.getPath());
                             }
                         }
                     }
+
                     if (mimeType != null){
                         //直接调用拍照或拍视频时
                         if ("photo".equals(mimeType)) {
@@ -175,51 +246,7 @@ public class SelectPicsActivity extends BaseActivity {
                     break;
                 case WRITE_SDCARD:
 
-                    PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
 
-                    //添加图片
-                    PictureSelector pictureSelector = PictureSelector.create(this);
-                    PictureSelectionModel pictureSelectionModel = null;
-                    if (mimeType != null){
-                        //直接调用拍照或拍视频时
-                        if ("photo".equals(mimeType)) {
-                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
-                        } else {
-                            pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
-                        }
-                    }else{
-                        pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
-                    }
-                    pictureSelectionModel
-                            .loadImageEngine(GlideEngine.createGlideEngine())
-                            .isOpenStyleNumComplete(true)
-                            .isOpenStyleCheckNumMode(true)
-
-                            .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                            .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
-                            .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
-
-                            .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
-                            .isCamera(showCamera)
-                            .isGif(true)
-                            .maxSelectNum(selectCount.intValue())
-                            .withAspectRatio(width.intValue(), height.intValue())
-                            .imageSpanCount(4)// 每行显示个数 int
-                            .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                            .isSingleDirectReturn(true)// 单选模式下是否直接返回
-                            .previewImage(true)// 是否可预览图片 true or false
-                            .enableCrop(enableCrop)// 是否裁剪 true or false
-
-                            .circleDimmedLayer(false)
-                            .showCropFrame(true)
-                            .showCropGrid(true)
-                            .hideBottomControls(true)
-                            .freeStyleCropEnabled(false)
-
-                            .compress(false)// 是否压缩 true or false
-                            .minimumCompressSize(Integer.MAX_VALUE)
-                            .compressSavePath(getPath())//压缩图片保存地址
-                            .forResult(PictureConfig.CHOOSE_REQUEST);
                     break;
             }
         } else {

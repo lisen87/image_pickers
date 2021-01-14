@@ -18,23 +18,23 @@
     self.view.backgroundColor =[UIColor blackColor];
     
     ZLImageEditTool*editTool = [[ZLImageEditTool alloc] initWithEditType:ZLImageEditTypeClip image:_image configuration:_configuration];
-    
+
     editTool.cancelEditBlock = ^{
-        
+
     };
-    
+
     
     editTool.doneEditBlock = ^(UIImage *image) {
-        
-        
+
+
         [self dismissViewControllerAnimated:YES completion:^{
             self.doneEditImageBlock(image);
-            
+
         }];
-        
-        
+
+
     };
-    
+
     [self.view addSubview:editTool];
     
 }

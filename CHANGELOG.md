@@ -1,3 +1,24 @@
+## 1.0.8+7
+* Android 修复打开相册时，无法录制视频问题
+* Android fixes the problem that the video cannot be recorded when opening the gallery
+## 1.0.8+6
+* iOS 尝试修复最近的各种问题
+* iOS Try to fix various recent problems
+## 1.0.8+4
+* 安卓修复安卓Q出现的问题等
+* Android fixes problems with Android Q, etc.
+* iOS处理包名错误问题等
+* iOS handles package name errors, etc.
+## 1.0.8+3
+* 更新AFNetworking 到4.0 删除UIWebview ，处理iOS上架失败问题
+## 1.0.8+2
+* 添加是否显示gif图片字段
+* Add whether to display the gif image field
+* android 更新权限申请流程，不再一次性申请不相关权限
+* android Update the permission application process and no longer apply for irrelevant permissions all at once
+* iOS14 修复图片预览无法显示问题/修复无法关闭裁剪问题
+* iOS14 fixes the problem that picture preview cannot be displayed/Fix the problem that cropping cannot be turned off
+
 ## 1.0.7+6
 * iOS 固定ZLPhotoBrowser为3.1.2 
 * iOS fixed ZLPhotoBrowser to 3.1.2

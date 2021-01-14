@@ -7,9 +7,14 @@
 
 #import <UIKit/UIKit.h>
 //#import <Flutter/Flutter.h>
-#import <ZLPhotoBrowser/ZLPhotoActionSheet.h>
-#import <ZLPhotoBrowser/ZLImageEditTool.h>
+#if __has_include(<ZLPhotoBrowser_objc/ZLPhotoBrowser.h>)
 
+#import <ZLPhotoBrowser_objc/ZLPhotoBrowser.h>
+#else
+#import "ZLPhotoBrowser.h"
+#endif
+
+//#import "ZLPhotoBrowser.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BigImageViewController : UIViewController

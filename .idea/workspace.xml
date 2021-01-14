@@ -10,20 +10,17 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
+    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="处理安卓10问题">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.dart_tool/" />
-    <ignored path="$PROJECT_DIR$/.idea/" />
-    <ignored path="$PROJECT_DIR$/.pub/" />
-    <ignored path="$PROJECT_DIR$/build/" />
-    <ignored path="$PROJECT_DIR$/example/.pub/" />
-    <ignored path="$PROJECT_DIR$/example/build/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,64 +29,8 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="emulator-5554" />
   <component name="FavoritesManager">
     <favorites_list name="image_pickers" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="190" column="40" lean-forward="true" selection-start-line="190" selection-start-column="40" selection-end-line="190" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="13" column="139" lean-forward="true" selection-start-line="13" selection-start-column="139" selection-end-line="13" selection-end-column="139" />
-              <folding>
-                <element signature="e#0#50#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ios/image_pickers.podspec">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="18" column="30" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -98,143 +39,40 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>flutter</find>
-      <find>flutter/pickers</find>
-      <find>cameraMimeType</find>
-      <find>unreachable</find>
-      <find>image_pickers</find>
-      <find>uiColor</find>
-      <find>previewImages</find>
-      <find>Corp</find>
-      <find>corp</find>
-      <find>cropConfig</find>
-      <find>MethodCallImpl</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/LICENSE" />
-        <option value="$PROJECT_DIR$/lib/CorpConfig.dart" />
-        <option value="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java" />
-        <option value="$PROJECT_DIR$/lib/Media.dart" />
-        <option value="F:/company/qingxinyigou/qingxinyigou/app/src/main/java/com/qiaotongtianxia/qingxinyigou/MainActivity.java" />
-        <option value="$PROJECT_DIR$/lib/UIConfig.dart" />
-        <option value="$PROJECT_DIR$/lib/CropConfig.dart" />
-        <option value="$PROJECT_DIR$/example/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/example/android/app/build.gradle" />
-        <option value="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" />
-        <option value="$PROJECT_DIR$/lib/image_pickers.dart" />
-        <option value="$PROJECT_DIR$/example/lib/main.dart" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="158" />
-    <option name="y" value="18" />
-    <option name="width" value="1651" />
-    <option name="height" value="991" />
-  </component>
+  <component name="ProjectId" id="1iaRkFtcIXgSbFWDcgtnXNmS9OY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="image_pickers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="image_pickers" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/example/android" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\flutter_package\image_pickers\screenshots" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\flutter_package\image_pickers\android" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example\image\3.0x" />
       <recent name="F:\flutter_package\image_pickers\example\image\2.0x" />
       <recent name="F:\flutter_package\image_pickers" />
-      <recent name="F:\flutter_package\image_pickers\images\3.0x" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -457,42 +295,85 @@
       <option name="project" value="LOCAL" />
       <updated>1591867369201</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="固定ios使用图片选择库的版本3.1.2">
+      <created>1592210263402</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1592210263402</updated>
+    </task>
+    <task id="LOCAL-00032" summary="使用最新sdk，优化权限控制">
+      <created>1602221728733</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1602221728733</updated>
+    </task>
+    <task id="LOCAL-00033" summary="使用最新sdk，优化权限控制">
+      <created>1602222133558</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1602222133558</updated>
+    </task>
+    <task id="LOCAL-00034" summary="使用最新sdk，优化权限控制">
+      <created>1602557594091</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1602557594091</updated>
+    </task>
+    <task id="LOCAL-00035" summary="使用最新sdk，优化权限控制">
+      <created>1602564301541</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1602564301541</updated>
+    </task>
+    <task id="LOCAL-00036" summary="使用最新sdk，优化权限控制">
+      <created>1602575734590</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1602575734590</updated>
+    </task>
+    <task id="LOCAL-00037" summary="处理ios上架问题">
+      <created>1602658635696</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1602658635696</updated>
+    </task>
+    <task id="LOCAL-00038" summary="处理ios上架问题">
+      <created>1602900926545</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1602900926545</updated>
+    </task>
+    <task id="LOCAL-00039" summary="处理安卓10问题">
+      <created>1603179066602</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1603179066602</updated>
+    </task>
+    <task id="LOCAL-00040" summary="ios打包问题，更新图片选择的框架">
+      <created>1603672537130</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1603672537130</updated>
+    </task>
+    <task id="LOCAL-00041" summary="处理安卓10问题">
+      <created>1603796236146</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1603796236146</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="158" y="18" width="1651" height="991" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4978166" visible="true" weight="0.15901949" />
-      <window_info id="Captures" order="1" side_tool="true" />
-      <window_info id="Structure" order="2" side_tool="true" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Designer" order="4" />
-      <window_info id="Build Variants" order="5" side_tool="true" />
-      <window_info id="Resources Explorer" order="6" />
-      <window_info id="Capture Tool" order="7" />
-      <window_info id="Favorites" order="8" sideWeight="0.5021834" side_tool="true" weight="0.18856065" />
-      <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.17153284" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49968573" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Logcat" order="4" weight="0.15049751" />
-      <window_info anchor="bottom" id="Debug" order="5" />
-      <window_info anchor="bottom" id="Terminal" order="6" visible="true" weight="0.19402985" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5003143" side_tool="true" weight="0.31025958" />
-      <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.43781096" />
-      <window_info anchor="bottom" id="Find" order="10" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.13432837" />
-      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Theme Preview" order="2" />
-      <window_info anchor="right" id="Flutter Inspector" order="3" />
-      <window_info anchor="right" id="Word Book" order="4" side_tool="true" />
-      <window_info anchor="right" id="Flutter Outline" order="5" />
-      <window_info anchor="right" id="Palette&#9;" order="6" />
-    </layout>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -510,20 +391,7 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -565,327 +433,77 @@
     <MESSAGE value="适配安卓Q文件存储，修复小米手机崩溃问题" />
     <MESSAGE value="修复 iOS 因为图片（right_arrow.png、left_arrow.png、error.png）导致的各种问题" />
     <MESSAGE value="修复 因使用bitmap获取后缀名造成的崩溃" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复 因使用bitmap获取后缀名造成的崩溃" />
+    <MESSAGE value="固定ios使用图片选择库的版本3.1.2" />
+    <MESSAGE value="使用最新sdk，优化权限控制" />
+    <MESSAGE value="处理ios上架问题" />
+    <MESSAGE value="ios打包问题，更新图片选择的框架" />
+    <MESSAGE value="处理安卓10问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="处理安卓10问题" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ios/Classes/AKGallery/AKGallery.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-726" />
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/material.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#5073#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/widgets/single_child_scroll_view.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="195" column="36" lean-forward="true" selection-start-line="195" selection-start-column="36" selection-end-line="195" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/bin/cache/pkg/sky_engine/lib/async/stream.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="713" column="12" selection-start-line="713" selection-start-column="12" selection-end-line="713" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/bin/cache/pkg/sky_engine/lib/_http/http.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3241">
-          <caret line="2166" column="23" lean-forward="true" selection-start-line="2166" selection-start-column="23" selection-end-line="2166" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/services/asset_bundle.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="50" column="15" selection-start-line="50" selection-start-column="15" selection-end-line="50" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/PictureStyleUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="135" column="40" selection-start-line="135" selection-start-column="40" selection-end-line="135" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pickers/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/bin/cache/pkg/sky_engine/lib/io/file_system_entity.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="282" column="15" selection-start-line="282" selection-start-column="15" selection-end-line="282" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/painting/image_provider.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="511" column="8" selection-start-line="511" selection-start-column="8" selection-end-line="511" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/image/weixin.png" />
-    <entry file="file://$PROJECT_DIR$/example/image/2.0x/weixin.png" />
-    <entry file="file://$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="60" column="1" lean-forward="true" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/widgets/image.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="369" column="10" selection-start-line="369" selection-start-column="10" selection-end-line="369" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/widgets/framework.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="1890" column="15" selection-start-line="1890" selection-start-column="15" selection-end-line="1890" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/widgets/basic.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="5920" column="31" selection-start-line="5920" selection-start-column="31" selection-end-line="5920" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/packages/flutter/lib/src/rendering/proxy_box.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="2856" column="32" selection-start-line="2856" selection-start-column="17" selection-end-line="2856" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/CropConfig.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Media.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/UIConfig.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/bin/cache/pkg/sky_engine/lib/ui/painting.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="1561" column="19" selection-start-line="1561" selection-start-column="19" selection-end-line="1561" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/bin/cache/pkg/sky_engine/lib/io/file.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3036">
-          <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/settings_aar.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/.flutter-plugins">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/.flutter-plugins-dependencies">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-198" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/ImagePickersPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1232">
-          <caret line="74" column="48" lean-forward="true" selection-start-line="74" selection-start-column="48" selection-end-line="74" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/flutter/bin/cache/pkg/sky_engine/lib/typed_data/typed_data.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-453">
-          <caret line="814" column="15" selection-start-line="814" selection-start-column="15" selection-end-line="814" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_pickers.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/MethodCallImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/image_pickers.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="210" column="6" selection-start-line="210" selection-start-column="6" selection-end-line="210" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/ios/Podfile.lock">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/ios/Podfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1570" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ios/image_pickers.podspec">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="30" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="13" column="139" lean-forward="true" selection-start-line="13" selection-start-column="139" selection-end-line="13" selection-end-column="139" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/Saver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="381" column="34" lean-forward="true" selection-start-line="381" selection-start-column="34" selection-end-line="381" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="190" column="40" lean-forward="true" selection-start-line="190" selection-start-column="40" selection-end-line="190" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+  <component name="WindowStateProjectService">
+    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602221805787">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602221805787" />
+    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1603796235063">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1603796235063" />
+    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog" timestamp="1603796220629">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603796220629" />
+    <state x="572" y="283" key="FileChooserDialogImpl" timestamp="1604037610212">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="572" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604037610212" />
+    <state width="1622" height="135" key="GridCell.Tab.0.bottom" timestamp="1603445616588">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1622" height="135" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
+    <state width="1622" height="135" key="GridCell.Tab.0.center" timestamp="1603445616588">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1622" height="135" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
+    <state width="1622" height="135" key="GridCell.Tab.0.left" timestamp="1603445616588">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1622" height="135" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
+    <state width="1622" height="135" key="GridCell.Tab.0.right" timestamp="1603445616588">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1622" height="135" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
+    <state x="127" y="71" key="MergeDialog" timestamp="1603672010772">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="127" y="71" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603672010772" />
+    <state x="603" y="211" key="MultipleFileMergeDialog" timestamp="1603795675666">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="603" y="211" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603795675666" />
+    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1603796264225">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603796264225" />
+    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1603795771668">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603795771668" />
+    <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604044775946">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1604044775946" />
+    <state x="739" y="237" width="667" height="566" key="find.popup" timestamp="1603703091504">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="739" y="237" width="667" height="566" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603703091504" />
+    <state width="642" height="205" key="javadoc.popup.new" timestamp="1602848486503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="642" height="205" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1602848486503" />
+    <state x="551" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1603703077892">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="551" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603703077892" />
   </component>
 </project>

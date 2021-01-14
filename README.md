@@ -8,23 +8,24 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 > * Android
 > * iOS
 
-## 注意
+## iOS : platform :ios, '10.0'
 
-从1.0.6+2开始 `CorpConfig` 类 改为 `CropConfig` 类，参数中的 `corpConfig` 改为 `cropConfig`.
-From 1.0.6 + 2, the `CorpConfig` class is changed to `CropConfig` class, and the `corpConfig` in the parameters is changed to `cropConfig`.
+
+## Android: minSdkVersion 19 targetSdkVersion 29 compileSdkVersion 29
+![](https://github.com/lisen87/image_pickers/blob/master/screenshots/1.png)
+
+
+## 裁剪状态下图片selectCount 字段无效，将变为单选 In the cropped state, the selectCount field of the picture is invalid and will become single selection
 
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.7+6
+image_pickers: ^1.0.8+7
 ```
 
 ```dart
 import 'package:image_pickers/image_pickers.dart';
-import 'package:image_pickers/CropConfig.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
 ```
 ```dart
 
@@ -34,10 +35,11 @@ Future<void> selectImages() async {
     List<Media> _listImagePaths = await ImagePickers.pickerPaths(
               galleryMode: GalleryMode.image,
               selectCount: 2,
+              showGif: false,
               showCamera: true,
               compressSize: 500,
               uiConfig: UIConfig(uiThemeColor: Color(0xffff0f50)),
-              cropConfig: CropConfig(enableCrop: true, width: 2, height: 1));
+              cropConfig: CropConfig(enableCrop: false, width: 2, height: 1));
   }
 
 /// 或者 or

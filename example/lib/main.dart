@@ -7,9 +7,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:image_pickers/image_pickers.dart';
-import 'package:image_pickers/CropConfig.dart';
-import 'package:image_pickers/Media.dart';
-import 'package:image_pickers/UIConfig.dart';
 import 'dart:ui' as ui;
 
 void main() => runApp(MyApp());
@@ -37,11 +34,14 @@ class _MyAppState extends State<MyApp> {
       _galleryMode = GalleryMode.image;
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
-          selectCount: 8,
+          showGif: true,
+          selectCount: 5,
           showCamera: true,
           cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000)),
+          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),
+          ),
+
       );
       _listImagePaths.forEach((media){
         print(media.path.toString());
@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
                 RaisedButton(
                   onPressed: () {
 
-                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 3)).then((Media media){
+                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: false, width: 2, height: 3)).then((Media media){
                       _listImagePaths.clear();
                       _listImagePaths.add(media);
                       setState(() {
