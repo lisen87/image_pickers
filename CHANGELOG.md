@@ -1,3 +1,5 @@
+## 1.0.9+8
+* Android 修复无法加载预览图问题
 ## 1.0.8+7
 * Android 修复打开相册时，无法录制视频问题
 * Android fixes the problem that the video cannot be recorded when opening the gallery

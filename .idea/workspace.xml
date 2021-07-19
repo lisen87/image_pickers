@@ -11,14 +11,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="处理安卓10问题">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/AppPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/AppPath.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/Saver.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/Saver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -372,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603796236146</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="处理安卓10问题">
+      <created>1604044844476</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1604044844476</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -441,69 +453,37 @@
     <option name="LAST_COMMIT_MESSAGE" value="处理安卓10问题" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602221805787">
+    <state x="115" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1626668362574">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="548" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602221805787" />
-    <state x="455" y="16" key="CommitChangelistDialog2" timestamp="1603796235063">
+    <state x="115" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626668362574" />
+    <state x="571" y="29" key="CommitChangelistDialog2" timestamp="1626672823964">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="455" y="16" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1603796235063" />
-    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog" timestamp="1603796220629">
+    <state x="571" y="29" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1626672823964" />
+    <state x="159" y="88" key="DiffContextDialog" timestamp="1626672819893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="228" y="116" width="1437" height="800" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603796220629" />
-    <state x="572" y="283" key="FileChooserDialogImpl" timestamp="1604037610212">
+    <state x="159" y="88" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626672819893" />
+    <state x="856" y="265" key="FileChooserDialogImpl" timestamp="1626503644147">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="572" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604037610212" />
-    <state width="1622" height="135" key="GridCell.Tab.0.bottom" timestamp="1603445616588">
+    <state x="856" y="265" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1626503644147" />
+    <state width="1622" height="299" key="GridCell.Tab.0.bottom" timestamp="1626311617303">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1622" height="135" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
-    <state width="1622" height="135" key="GridCell.Tab.0.center" timestamp="1603445616588">
+    <state width="1622" height="299" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="1622" height="299" key="GridCell.Tab.0.center" timestamp="1626311617303">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1622" height="135" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
-    <state width="1622" height="135" key="GridCell.Tab.0.left" timestamp="1603445616588">
+    <state width="1622" height="299" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="1622" height="299" key="GridCell.Tab.0.left" timestamp="1626311617303">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1622" height="135" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
-    <state width="1622" height="135" key="GridCell.Tab.0.right" timestamp="1603445616588">
+    <state width="1622" height="299" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="1622" height="299" key="GridCell.Tab.0.right" timestamp="1626311617303">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1622" height="135" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603445616588" />
-    <state x="127" y="71" key="MergeDialog" timestamp="1603672010772">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="127" y="71" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603672010772" />
-    <state x="603" y="211" key="MultipleFileMergeDialog" timestamp="1603795675666">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="603" y="211" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603795675666" />
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2" timestamp="1603796264225">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="410" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603796264225" />
-    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1603795771668">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="63" y="161" width="1384" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603795771668" />
-    <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604044775946">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="693" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1604044775946" />
-    <state x="739" y="237" width="667" height="566" key="find.popup" timestamp="1603703091504">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="739" y="237" width="667" height="566" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603703091504" />
-    <state width="642" height="205" key="javadoc.popup.new" timestamp="1602848486503">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="642" height="205" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1602848486503" />
-    <state x="551" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1603703077892">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="551" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603703077892" />
+    <state width="1622" height="299" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
   </component>
 </project>

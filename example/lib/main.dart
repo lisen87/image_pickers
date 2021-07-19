@@ -215,7 +215,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                       Future<String> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
                       future.then((path){
-                        print("视频保存成功");
+                        print("视频保存成功"+path);
                       });
                   },
                   child: Text("保存视频"),
