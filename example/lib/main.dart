@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
           showGif: true,
-          selectCount: 1,
+          selectCount: 2,
           showCamera: true,
           cropConfig :CropConfig(enableCrop: false,height: 1,width: 1),
           compressSize: 500,
