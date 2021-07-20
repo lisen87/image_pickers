@@ -165,9 +165,9 @@
 //    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
 //                                                    
 //                                                    initWithTarget:self action:@selector(LongPressGestureAction:)];
-//    
+//
 //    //        longPressReger.minimumPressDuration = 2.0;
-//    
+//
 //    [sv addGestureRecognizer:longPressReger];
     
     
