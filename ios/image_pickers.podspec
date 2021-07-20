@@ -19,7 +19,7 @@ A new flutter plugin project.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'AFNetworking'
-  s.dependency 'ZLPhotoBrowser-objc','1.0.2'
+  s.dependency 'ZLPhotoBrowser-objc','1.0.4'
   s.ios.deployment_target = '10.0'
 
 
