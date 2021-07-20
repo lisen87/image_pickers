@@ -72,6 +72,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//图片还是视频image video
         
         BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
+        if(selectCount>1){
+            enableCrop =NO;
+        }
         
         NSInteger height =[[dic objectForKey:@"height"] integerValue];//宽高比例
         

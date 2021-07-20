@@ -162,18 +162,36 @@
     pinch.delegate=self;
     [sv addGestureRecognizer:pinch];
     userPinch=pinch;
-    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
-                                                    
-                                                    initWithTarget:self action:@selector(niehe:)];
-    
-    //        longPressReger.minimumPressDuration = 2.0;
-    
-    [sv addGestureRecognizer:longPressReger];
+//    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
+//                                                    
+//                                                    initWithTarget:self action:@selector(LongPressGestureAction:)];
+//    
+//    //        longPressReger.minimumPressDuration = 2.0;
+//    
+//    [sv addGestureRecognizer:longPressReger];
     
     
     
 }
+-(void)LongPressGestureAction:(UILongPressGestureRecognizer*)longPressGesture{
+    //初始化一个UIAlertController的警告框
+       UIAlertController *alertController = [[UIAlertController alloc] init];
+       //初始化一个UIAlertController的警告框将要用到的UIAlertAction style cancle
+       UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+           NSLog(@"t提示框上的按钮 cancle 被点击了");
+       }];
+       //初始化一个UIAlertController的警告框将要用到的UIAlertAction style Default
+       UIAlertAction *save = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+           NSLog(@"提示框上的按钮保存 被点击了");
+       }];
+    
+       //将初始化好的UIAlertAction添加到UIAlertController中
+       [alertController addAction:cancle];
+       [alertController addAction:save];
+       //将初始化好的j提示框显示出来
+       [self presentViewController:alertController animated:true completion:nil];
 
+}
 
 
 -(void)updateColor{
@@ -255,9 +273,7 @@
     
     
 }
-- (void)niehe:(UILongPressGestureRecognizer*)longPressGesture{
-    
-}
+
 -(void)collectionThePhoto{
     
     

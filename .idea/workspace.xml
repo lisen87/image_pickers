@@ -10,16 +10,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="处理安卓10问题">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="IOS适配13.0以下以及 返回箭头问题现同安卓效果">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/.last_build_id" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/.last_build_id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -380,7 +376,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604044844476</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="IOS适配13.0以下以及 返回箭头问题现同安卓效果">
+      <created>1626771067611</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1626771067615</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -446,17 +449,19 @@
     <MESSAGE value="处理ios上架问题" />
     <MESSAGE value="ios打包问题，更新图片选择的框架" />
     <MESSAGE value="处理安卓10问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="处理安卓10问题" />
+    <MESSAGE value="IOS适配13.0以下以及 返回箭头问题现同安卓效果" />
+    <option name="LAST_COMMIT_MESSAGE" value="IOS适配13.0以下以及 返回箭头问题现同安卓效果" />
   </component>
   <component name="WindowStateProjectService">
     <state x="115" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1626668362574">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="115" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626668362574" />
-    <state x="571" y="29" key="CommitChangelistDialog2" timestamp="1626672823964">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="571" y="23" width="774" height="972" key="CommitChangelistDialog2" timestamp="1626771247748">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
     <state x="571" y="29" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1626672823964" />
+    <state x="571" y="23" width="774" height="972" key="CommitChangelistDialog2/0.23.1920.972@0.23.1920.972" timestamp="1626771247748" />
     <state x="159" y="88" key="DiffContextDialog" timestamp="1626672819893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -465,30 +470,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="856" y="265" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1626503644147" />
-    <state width="1622" height="299" key="GridCell.Tab.0.bottom" timestamp="1626311617303">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
     <state width="1622" height="299" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
-    <state width="1622" height="299" key="GridCell.Tab.0.center" timestamp="1626311617303">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
     <state width="1622" height="299" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
-    <state width="1622" height="299" key="GridCell.Tab.0.left" timestamp="1626311617303">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
     <state width="1622" height="299" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
-    <state width="1622" height="299" key="GridCell.Tab.0.right" timestamp="1626311617303">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
     <state width="1622" height="299" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state x="502" y="240" key="Vcs.Push.Dialog.v2" timestamp="1626771254492">
+      <screen x="0" y="23" width="1920" height="972" />
+    </state>
+    <state x="502" y="240" key="Vcs.Push.Dialog.v2/0.23.1920.972@0.23.1920.972" timestamp="1626771254492" />
     <state x="135" y="101" width="1555" height="763" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1626769945258">
       <screen x="0" y="23" width="1920" height="972" />
     </state>
     <state x="135" y="101" width="1555" height="763" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1920.972@0.23.1920.972" timestamp="1626769945258" />
-    <state x="1077" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1626771014151">
+    <state x="1077" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1626775237473">
       <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state x="1077" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.972@0.23.1920.972" timestamp="1626771014151" />
+    <state x="1077" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.972@0.23.1920.972" timestamp="1626775237473" />
     <state x="1208" y="245" width="712" height="518" key="find.popup" timestamp="1626768986165">
       <screen x="0" y="23" width="1920" height="975" />
     </state>
