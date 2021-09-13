@@ -34,6 +34,8 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.view.backgroundColor =[UIColor blackColor];
 //    //替代导航栏的imageview
 //    UIImageView *topImageView = [[UIImageView alloc]init];
 //    if(![PlayTheVideoVC isPhoneX]){
@@ -44,8 +46,9 @@
 //    topImageView.userInteractionEnabled = YES;
 //    topImageView.backgroundColor = [UIColor whiteColor];
 //    [self.view addSubview:topImageView];
-
- 
+    UITapGestureRecognizer * singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(returnBtnAction)];
+    singleTap.numberOfTapsRequired=1;
+    [self.view addGestureRecognizer:singleTap];
 
     if(_videoUrl){
         
@@ -71,21 +74,21 @@
         
     }
   
-    //添加返回按钮
-    UIButton *  returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    returnBtn.frame = CGRectMake(0, Frame_rectStatus, Frame_rectNav, Frame_rectNav);
-    if(![PlayTheVideoVC isPhoneX]){
-        returnBtn.frame = CGRectMake(0, 20, 44, 44);
-    }else{
-        returnBtn.frame = CGRectMake(0, 40, 44, 44);
-    }
-    
-    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [returnBtn setImage:[UIImage imageNamed:@"IMG_4343.jpg"] forState:UIControlStateNormal];
-    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
-    [returnBtn addTarget:self action:@selector(returnBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:returnBtn];
-   
+//    //添加返回按钮
+//    UIButton *  returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    returnBtn.frame = CGRectMake(0, Frame_rectStatus, Frame_rectNav, Frame_rectNav);
+//    if(![PlayTheVideoVC isPhoneX]){
+//        returnBtn.frame = CGRectMake(0, 20, 44, 44);
+//    }else{
+//        returnBtn.frame = CGRectMake(0, 40, 44, 44);
+//    }
+//
+//    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+////    [returnBtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+//    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
+//    [returnBtn addTarget:self action:@selector(returnBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:returnBtn];
+//
 }
 + (BOOL)isPhoneX {
     BOOL iPhoneX = NO;

@@ -72,11 +72,13 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//图片还是视频image video
         
         BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
+        if(selectCount>1){
+            enableCrop =NO;
+        }
         
         NSInteger height =[[dic objectForKey:@"height"] integerValue];//宽高比例
         
         NSInteger width =[[dic objectForKey:@"width"] integerValue];//宽高比例
-        
         
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
         isShowGif =[[dic objectForKey:@"showGif"] boolValue];//是否选择gif
@@ -114,7 +116,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             camera.circleProgressColor = [UIColor redColor];
             camera.maxRecordDuration = 15;
             @zl_weakify(self);
-            
+        
             camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
 
                 NSLog(@"%@",videoUrl);
@@ -257,6 +259,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         PHAsset *phAsset = assets[i];
                         PHImageManager *manage =[[PHImageManager alloc]init];
                         PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
+                        option.networkAccessAllowed =YES;
                         //视频
                         PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
                         options.version = PHImageRequestOptionsVersionCurrent;
@@ -499,8 +502,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 -(void)saveImageView:(NSInteger)index imagePHAsset:(NSArray*)assets arr:(NSMutableArray*)arr compressSize:(NSInteger)compressSize result:(FlutterResult)result{
     PHImageManager *manage =[[PHImageManager alloc]init];
     PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
-    
-    
+    option.networkAccessAllowed = YES;
     if (index==assets.count) {
         
         NSMutableArray *urlArr =[[NSMutableArray alloc]init];

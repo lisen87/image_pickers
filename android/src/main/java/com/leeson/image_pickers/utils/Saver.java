@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.leeson.image_pickers.AppPath;
+import com.luck.picture.lib.tools.PictureFileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,15 +58,14 @@ public class Saver {
      * @param iFinishListener
      */
     public void saveImg(final String saveUrl, final IFinishListener iFinishListener) {
-        saveToAppPrivate(saveUrl,appPath.getAppImgDirPath(false),iFinishListener);
+        saveToAppPrivate(saveUrl,appPath.getAppImgDirPath(),iFinishListener);
     }
     /**
-     * 无论是否是AndroidQ都保存在沙盒中
      * @param saveUrl
      * @param iFinishListener
      */
     public void saveVideo(final String saveUrl, final IFinishListener iFinishListener) {
-        saveToAppPrivate(saveUrl,appPath.getAppVideoDirPath(false),iFinishListener);
+        saveToAppPrivate(saveUrl,appPath.getAppVideoDirPath(),iFinishListener);
     }
 
     public void saveAudio(final String saveUrl, final IFinishListener iFinishListener) {
@@ -88,7 +89,7 @@ public class Saver {
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
         final File file = new File(destDir,fileName);
         //访问沙盒中的文件时，file.exists() 是准确的
-        if (!file.exists()){
+        if (!file.exists() || file.length() <= 0){
             download(saveUrl, destDir, new IDownload() {
                 @Override
                 public void onDownloadSuccess(String filePath, String fileName) {
@@ -130,50 +131,63 @@ public class Saver {
      */
 
     public void saveImgToGallery(final String saveUrl, final IFinishListener iFinishListener) {
-
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
-        String dirPath = appPath.getAppImgDirPath(true);
+        String dirPath = appPath.getAppImgDirPath();
+
+        String selection = MediaStore.Images.Media.DISPLAY_NAME + "='" + fileName + "'";
+        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String columnIdName = MediaStore.Images.Media._ID;
+        String size = MediaStore.Images.Media.SIZE;
+        String data = MediaStore.Images.Media.DATA;
+        String order = MediaStore.Images.Media.SIZE + " DESC";
+
+        FileInfo fileInfo = null;
+
+        //判断文件是否下载过
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            String selection = MediaStore.Images.Media.DISPLAY_NAME + "='" + fileName + "'";
-            Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            String columnIdName = MediaStore.Images.Media._ID;
-            String size = MediaStore.Images.Media.SIZE;
-            String data = MediaStore.Images.Media.DATA;
-            String order = MediaStore.Images.Media.SIZE + " DESC";
-
-            final FileInfo fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
-
-            //判断文件是否下载过
-            if (fileInfo != null && fileInfo.size > 0) {
-                if (iFinishListener != null) {
-                    iFinishListener.onSuccess(fileInfo);
-                }
-                notifyGallery(fileInfo.getPath());
-            } else {
-                download(saveUrl,dirPath , new IDownload() {
-                    @Override
-                    public void onDownloadSuccess(String filePath, String fileName) {
-                        //下载到私有目录成功并复制到公有目录
-                        FileInfo fileInfo  = copyImgToPicture(filePath, fileName);
-                        notifyGallery(fileInfo.getPath());
-                        File originFile = new File(filePath);
-                        originFile.delete();
-                        if (iFinishListener != null) {
-                            iFinishListener.onSuccess(fileInfo);
-                        }
-                    }
-
-                    @Override
-                    public void onDownloadFailed(String errorMsg) {
-                        if (iFinishListener != null) {
-                            iFinishListener.onFailed(errorMsg);
-                        }
-                    }
-                });
-            }
+            fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
         }else{
-            checkOrDownload(saveUrl,dirPath,fileName,iFinishListener);
+            //低于android q 数据库中存储的名称不同机型有差异
+            final File file = new File(dirPath,fileName);
+            if (file.exists() && file.length() > 0){
+                fileInfo = new FileInfo();
+                fileInfo.setBeforeDownload(true);
+                fileInfo.setUri(PictureFileUtils.parUri(context,file));
+                fileInfo.setPath(file.getAbsolutePath());
+                fileInfo.setSize(file.length());
+            }
         }
+
+        if (fileInfo != null && fileInfo.size > 0) {
+            if (iFinishListener != null) {
+                iFinishListener.onSuccess(fileInfo);
+            }
+            notifyGallery(fileInfo.getPath());
+        } else {
+            download(saveUrl,dirPath , new IDownload() {
+                @Override
+                public void onDownloadSuccess(String filePath, String fileName) {
+                    //下载到私有目录成功并复制到公有目录
+                    FileInfo fileInfo  = copyImgToPicture(filePath, fileName);
+                    notifyGallery(fileInfo.getPath());
+                        /*File originFile = new File(filePath);
+                        originFile.delete();*/
+                    if (iFinishListener != null) {
+                        iFinishListener.onSuccess(fileInfo);
+                    }
+                }
+
+                @Override
+                public void onDownloadFailed(String errorMsg) {
+                    if (iFinishListener != null) {
+                        iFinishListener.onFailed(errorMsg);
+                    }
+                }
+            });
+        }
+
+
+
     }
 
     /**
@@ -185,45 +199,56 @@ public class Saver {
      */
     public void saveVideoToGallery(final String saveUrl, final IFinishListener iFinishListener) {
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
-        String dirPath = appPath.getAppVideoDirPath(true);
+        String dirPath = appPath.getAppVideoDirPath();
+
+        String selection = MediaStore.Video.Media.DISPLAY_NAME + "='" + fileName + "'";
+        Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        String columnIdName = MediaStore.Video.Media._ID;
+        String size = MediaStore.Video.Media.SIZE;
+        String data = MediaStore.Video.Media.DATA;
+        String order = MediaStore.Video.Media.SIZE + " DESC";
+
+        FileInfo fileInfo = null;
+
+        //判断文件是否下载过
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-
-            String selection = MediaStore.Video.Media.DISPLAY_NAME + "='" + fileName + "'";
-            Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-            String columnIdName = MediaStore.Video.Media._ID;
-            String size = MediaStore.Video.Media.SIZE;
-            String data = MediaStore.Video.Media.DATA;
-            String order = MediaStore.Video.Media.SIZE + " DESC";
-
-            FileInfo fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
-            if (fileInfo != null && fileInfo.size > 0) {
-                if (iFinishListener != null) {
-                    iFinishListener.onSuccess(fileInfo);
-                }
-            }else{
-                download(saveUrl,dirPath , new IDownload() {
-                    @Override
-                    public void onDownloadSuccess(String filePath, String fileName) {
-
-                        //下载到私有目录成功并复制到公有目录
-                        FileInfo fileInfo = copyToMovies(filePath, fileName);
-                        notifyGallery(fileInfo.getPath());
-                        File originFile = new File(filePath);
-                        originFile.delete();
-                        if (iFinishListener != null){
-                            iFinishListener.onSuccess(fileInfo);
-                        }
-                    }
-                    @Override
-                    public void onDownloadFailed(String errorMsg) {
-                        if (iFinishListener != null) {
-                            iFinishListener.onFailed(errorMsg);
-                        }
-                    }
-                });
+            fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
+        }else{
+            //低于android q 数据库中存储的名称不同机型有差异
+            final File file = new File(dirPath,fileName);
+            if (file.exists() && file.length() > 0){
+                fileInfo = new FileInfo();
+                fileInfo.setBeforeDownload(true);
+                fileInfo.setUri(PictureFileUtils.parUri(context,file));
+                fileInfo.setPath(file.getAbsolutePath());
+                fileInfo.setSize(file.length());
+            }
+        }
+        if (fileInfo != null) {
+            if (iFinishListener != null) {
+                iFinishListener.onSuccess(fileInfo);
             }
         }else{
-            checkOrDownload(saveUrl,dirPath,fileName,iFinishListener);
+            download(saveUrl,dirPath , new IDownload() {
+                @Override
+                public void onDownloadSuccess(String filePath, String fileName) {
+
+                    //下载到私有目录成功并复制到公有目录
+                    FileInfo fileInfo = copyToMovies(filePath, fileName);
+                    notifyGallery(fileInfo.getPath());
+                    /*File originFile = new File(filePath);
+                    originFile.delete();*/
+                    if (iFinishListener != null){
+                        iFinishListener.onSuccess(fileInfo);
+                    }
+                }
+                @Override
+                public void onDownloadFailed(String errorMsg) {
+                    if (iFinishListener != null) {
+                        iFinishListener.onFailed(errorMsg);
+                    }
+                }
+            });
         }
     }
 
@@ -252,13 +277,17 @@ public class Saver {
                     iFinishListener.onSuccess(fileInfo);
                 }
             }else{
+                File dir = new File(dirPath);
+                if (!dir.exists()){
+                    dir.mkdirs();
+                }
                 download(saveUrl, dirPath, new IDownload() {
                     @Override
                     public void onDownloadSuccess(String filePath, String fileName) {
                         FileInfo fileInfo = copyToDownload(filePath, fileName);
                         notifyGallery(fileInfo.getPath());
-                        File originFile = new File(filePath);
-                        originFile.delete();
+                        /*File originFile = new File(filePath);
+                        originFile.delete();*/
                         if (iFinishListener != null){
                             iFinishListener.onSuccess(fileInfo);
                         }
@@ -273,13 +302,17 @@ public class Saver {
                 });
             }
         }else{
+            dirPath = Environment.getExternalStorageDirectory()+"/"+ appPath.getPackageName()+"/Download";
+            File dir = new File(dirPath);
+            if (!dir.exists()){
+                dir.mkdirs();
+            }
             checkOrDownload(saveUrl,dirPath,fileName,iFinishListener);
         }
 
     }
 
     /**
-     * androidQ 保存在 sd/Music，非 sd/packageName/Music
      * @param saveUrl
      * @param iFinishListener
      */
@@ -287,49 +320,63 @@ public class Saver {
 
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
         String dirPath = appPath.getAppMusicDirPath();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            String selection = MediaStore.Audio.Media.DISPLAY_NAME + "='" + fileName + "'";
-            Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            String columnIdName = MediaStore.Audio.Media._ID;
-            String size = MediaStore.Audio.Media.SIZE;
-            String data = MediaStore.Audio.Media.DATA;
-            String order = MediaStore.Audio.Media.SIZE + " DESC";
-            FileInfo fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
-            if (fileInfo != null && fileInfo.size > 0) {
-                if (iFinishListener != null) {
-                    iFinishListener.onSuccess(fileInfo);
-                }
-            }else{
-                download(saveUrl, dirPath, new IDownload() {
-                    @Override
-                    public void onDownloadSuccess(String filePath, String fileName) {
-                        //下载到私有目录成功并复制到公有目录
-                        FileInfo fileInfo = copyToMusic(filePath, fileName);
-                        notifyGallery(fileInfo.getPath());
-                        File originFile = new File(filePath);
-                        originFile.delete();
-                        if (iFinishListener != null){
-                            iFinishListener.onSuccess(fileInfo);
-                        }
-                    }
+        String selection = MediaStore.Audio.Media.DISPLAY_NAME + "='" + fileName + "'";
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String columnIdName = MediaStore.Audio.Media._ID;
+        String size = MediaStore.Audio.Media.SIZE;
+        String data = MediaStore.Audio.Media.DATA;
+        String order = MediaStore.Audio.Media.SIZE + " DESC";
 
-                    @Override
-                    public void onDownloadFailed(String errorMsg) {
-                        if (iFinishListener != null) {
-                            iFinishListener.onFailed(errorMsg);
-                        }
-                    }
-                });
+        FileInfo fileInfo = null;
+
+        //判断文件是否下载过
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
+        }else{
+            //低于android q 数据库中存储的名称不同机型有差异
+            final File file = new File(dirPath,fileName);
+            if (file.exists() && file.length() > 0){
+                fileInfo = new FileInfo();
+                fileInfo.setBeforeDownload(true);
+                fileInfo.setUri(PictureFileUtils.parUri(context,file));
+                fileInfo.setPath(file.getAbsolutePath());
+                fileInfo.setSize(file.length());
+            }
+        }
+
+
+        if (fileInfo != null && fileInfo.size > 0) {
+            if (iFinishListener != null) {
+                iFinishListener.onSuccess(fileInfo);
             }
         }else{
-            checkOrDownload(saveUrl,dirPath,fileName,iFinishListener);
+            download(saveUrl, dirPath, new IDownload() {
+                @Override
+                public void onDownloadSuccess(String filePath, String fileName) {
+                    //下载到私有目录成功并复制到公有目录
+                    FileInfo fileInfo = copyToMusic(filePath, fileName);
+                    notifyGallery(fileInfo.getPath());
+                    /*File originFile = new File(filePath);
+                    originFile.delete();*/
+                    if (iFinishListener != null){
+                        iFinishListener.onSuccess(fileInfo);
+                    }
+                }
+
+                @Override
+                public void onDownloadFailed(String errorMsg) {
+                    if (iFinishListener != null) {
+                        iFinishListener.onFailed(errorMsg);
+                    }
+                }
+            });
         }
     }
 
     private void checkOrDownload(String saveUrl, String dirPath, final String fileName,final IFinishListener iFinishListener){
         final FileInfo fileInfo = new FileInfo();
         final File file = new File(dirPath,fileName);
-        if (file.exists()){
+        if (file.exists() && file.length() > 0){
             fileInfo.setBeforeDownload(true);
             fileInfo.setUri(null);
             fileInfo.setPath(file.getAbsolutePath());
@@ -373,7 +420,7 @@ public class Saver {
             @Override
             public void run() {
                 try{
-                    File dir = new File(appPath.getAppImgDirPath(true));
+                    File dir = new File(appPath.getAppImgDirPath());
                     if (!dir.exists()) {
                         dir.mkdirs();
                     }
@@ -390,15 +437,7 @@ public class Saver {
                     new Handler(context.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            FileInfo fileInfo = new FileInfo();
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                                fileInfo = copyImgToPicture(imageFile.getAbsolutePath(),fileName);
-                            }else{
-                                fileInfo.setBeforeDownload(false);
-                                fileInfo.setUri(null);
-                                fileInfo.setPath(imageFile.getAbsolutePath());
-                                fileInfo.setSize(imageFile.length());
-                            }
+                            FileInfo fileInfo = copyImgToPicture(imageFile.getAbsolutePath(),fileName);
                             notifyGallery(fileInfo.getPath());
                             //这里是为了点击查看大图，android q 无法访问其他目录
                             fileInfo.setPath(imageFile.getAbsolutePath());
@@ -439,7 +478,7 @@ public class Saver {
         return bitmap;
     }
     public void saveBitmapToToGallery(Bitmap bitmap, final IFinishListener iFinishListener){
-        File dir = new File(appPath.getAppImgDirPath(true));
+        File dir = new File(appPath.getAppImgDirPath());
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -694,7 +733,6 @@ public class Saver {
             fileInfo.setUri(itemUri);
             fileInfo.setSize(cursor.getLong(cursor.getColumnIndex(columnSizeName)));
             fileInfo.setPath(cursor.getString(cursor.getColumnIndex(columnPathName)));
-
             cursor.close();
             return fileInfo;
         }

@@ -15,13 +15,13 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 ![](https://github.com/lisen87/image_pickers/blob/master/screenshots/1.png)
 
 
-## 裁剪状态下图片selectCount 字段无效，将变为单选 In the cropped state, the selectCount field of the picture is invalid and will become single selection
+## 多选图片时 cropConfig 字段无效 The cropConfig field is invalid when multiple images are selected
 
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^1.0.8+7
+image_pickers: ^1.1.0
 ```
 
 ```dart

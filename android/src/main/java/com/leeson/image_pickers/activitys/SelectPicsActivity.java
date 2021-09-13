@@ -143,13 +143,13 @@ public class SelectPicsActivity extends BaseActivity {
 //                .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
                 .isCamera(showCamera)
                 .isGif(showGif)
-                .maxSelectNum(enableCrop?1:selectCount.intValue())
+                .maxSelectNum(selectCount.intValue())
                 .withAspectRatio(width.intValue(), height.intValue())
                 .imageSpanCount(4)// 每行显示个数 int
-                .selectionMode(enableCrop || selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                 .isSingleDirectReturn(true)// 单选模式下是否直接返回
                 .previewImage(true)// 是否可预览图片 true or false
-                .enableCrop(enableCrop)// 是否裁剪 true or false
+                .enableCrop(selectCount.intValue() == 1 ? enableCrop : false)// 是否裁剪 true or false
 
                 .circleDimmedLayer(false)
                 .showCropFrame(true)
@@ -164,7 +164,7 @@ public class SelectPicsActivity extends BaseActivity {
 
     }
     private String getPath() {
-        String path = new AppPath(this).getAppImgDirPath(false);
+        String path = new AppPath(this).getAppImgDirPath();
         File file = new File(path);
         if (file.mkdirs()) {
             createNomedia(path);
@@ -261,7 +261,7 @@ public class SelectPicsActivity extends BaseActivity {
         for (int i = 0; i < paths.size(); i++) {
             String path = paths.get(i);
             Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-            String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getAppImgDirPath(false), bitmap);
+            String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getAppImgDirPath(), bitmap);
             Map<String, String> map = new HashMap<>();
             map.put("thumbPath", thumbPath);
             map.put("path", path);

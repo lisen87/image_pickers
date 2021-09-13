@@ -162,18 +162,36 @@
     pinch.delegate=self;
     [sv addGestureRecognizer:pinch];
     userPinch=pinch;
-    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
-                                                    
-                                                    initWithTarget:self action:@selector(niehe:)];
-    
-    //        longPressReger.minimumPressDuration = 2.0;
-    
-    [sv addGestureRecognizer:longPressReger];
+//    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
+//                                                    
+//                                                    initWithTarget:self action:@selector(LongPressGestureAction:)];
+//
+//    //        longPressReger.minimumPressDuration = 2.0;
+//
+//    [sv addGestureRecognizer:longPressReger];
     
     
     
 }
+-(void)LongPressGestureAction:(UILongPressGestureRecognizer*)longPressGesture{
+    //初始化一个UIAlertController的警告框
+       UIAlertController *alertController = [[UIAlertController alloc] init];
+       //初始化一个UIAlertController的警告框将要用到的UIAlertAction style cancle
+       UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+           NSLog(@"t提示框上的按钮 cancle 被点击了");
+       }];
+       //初始化一个UIAlertController的警告框将要用到的UIAlertAction style Default
+       UIAlertAction *save = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+           NSLog(@"提示框上的按钮保存 被点击了");
+       }];
+    
+       //将初始化好的UIAlertAction添加到UIAlertController中
+       [alertController addAction:cancle];
+       [alertController addAction:save];
+       //将初始化好的j提示框显示出来
+       [self presentViewController:alertController animated:true completion:nil];
 
+}
 
 
 -(void)updateColor{
@@ -188,33 +206,39 @@
         self.view.backgroundColor=[UIColor blackColor];
         containerVC.pageVC.view.backgroundColor=[UIColor blackColor];
     }else{
-        self.gallery.navigationBarHidden=NO;
-        containerVC.toolBar.hidden=NO;
-        self.view.backgroundColor=[UIColor whiteColor];
-        containerVC.pageVC.view.backgroundColor=[UIColor whiteColor];
+        self.gallery.navigationBarHidden=YES;
+        containerVC.toolBar.hidden=YES;
+        self.view.backgroundColor=[UIColor blackColor];
+        containerVC.pageVC.view.backgroundColor=[UIColor blackColor];
     }
 }
 -(void)switchBgColor{
     
-    UIColor* curColor=self.view.backgroundColor;
-    AKGalleryViewerContainer *containerVC= self.navigationController.viewControllers[1];
+    [self.navigationController popViewControllerAnimated:YES];
+
     
-    [UIView animateWithDuration:0.25 animations:^{
-        
-        if (curColor==[UIColor whiteColor]) {
-            self.navigationController.navigationBarHidden=YES;
-            containerVC.toolBar.hidden=YES;
-            self.view.backgroundColor=[UIColor blackColor];
-            self.gallery.custUI.viewerBackgroundBlack=YES;
-        }
-        if (curColor==[UIColor blackColor]) {
-            self.navigationController.navigationBarHidden=NO;
-            containerVC.toolBar.hidden=NO;
-            self.view.backgroundColor=[UIColor whiteColor];
-            
-            self.gallery.custUI.viewerBackgroundBlack=NO;
-        }
-    }];
+    
+    
+//
+//    UIColor* curColor=self.view.backgroundColor;
+//    AKGalleryViewerContainer *containerVC= self.navigationController.viewControllers[1];
+//
+//    [UIView animateWithDuration:0.25 animations:^{
+//
+//        if (curColor==[UIColor whiteColor]) {
+//            self.navigationController.navigationBarHidden=YES;
+//            containerVC.toolBar.hidden=YES;
+//            self.view.backgroundColor=[UIColor blackColor];
+//            self.gallery.custUI.viewerBackgroundBlack=YES;
+//        }
+//        if (curColor==[UIColor blackColor]) {
+//            self.navigationController.navigationBarHidden=NO;
+//            containerVC.toolBar.hidden=YES;
+//            self.view.backgroundColor=[UIColor blackColor];
+//
+//            self.gallery.custUI.viewerBackgroundBlack=YES;
+//        }
+//    }];
 }
 
 
@@ -249,9 +273,7 @@
     
     
 }
-- (void)niehe:(UILongPressGestureRecognizer*)longPressGesture{
-    
-}
+
 -(void)collectionThePhoto{
     
     
@@ -436,10 +458,17 @@
     self.edgesForExtendedLayout=UIRectEdgeAll;
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.extendedLayoutIncludesOpaqueBars=YES;
+
+
+//    NSString * path = [[NSBundle mainBundle]pathForResource:@"bigImage" ofType:@"bundle"];
+  //  UIImage *iconImage= [UIImage imageWithContentsOfFile:[path stringByAppendingPathComponent:@"back"]];
+    UIImage *iconImage= [UIImage imageNamed:@"backBlack.png"];
+//    UIImage *image = [iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithImage:iconImage style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
+
+    //back bar buttonios/Assets/backBlack.png
+//    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:iconImage style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
     
-    //back bar button
-//    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:[self reSizeImage:[UIImage  imageNamed:@"icon_back"] toSize:CGSizeMake(45, 45)] style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
-       
     UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
     
     self.navigationItem.leftBarButtonItem=backBarBtn;
@@ -483,7 +512,7 @@
     if (self.gallery.custUI.viewerBackgroundBlack) {
         pvc.view.backgroundColor=[UIColor blackColor];
     }else{
-        pvc.view.backgroundColor=[UIColor whiteColor];
+        pvc.view.backgroundColor=[UIColor blackColor];
     }
     
     AKGalleryViewer* vcMid=[[AKGalleryViewer alloc]initWithContainer:self index:self.index];

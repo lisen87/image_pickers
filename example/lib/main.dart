@@ -35,9 +35,9 @@ class _MyAppState extends State<MyApp> {
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
           showGif: true,
-          selectCount: 5,
+          selectCount: 2,
           showCamera: true,
-          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
+          cropConfig :CropConfig(enableCrop: false,height: 1,width: 1),
           compressSize: 500,
           uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),
           ),
@@ -215,7 +215,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                       Future<String> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
                       future.then((path){
-                        print("视频保存成功");
+                        print("视频保存成功"+path);
                       });
                   },
                   child: Text("保存视频"),
