@@ -18,15 +18,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GalleryMode _galleryMode = GalleryMode.image;
-  GlobalKey globalKey;
+  GlobalKey? globalKey;
   @override
   void initState() {
     super.initState();
     globalKey = GlobalKey();
   }
 
-  List<Media> _listImagePaths = List();
-  List<Media> _listVideoPaths = List();
+  List<Media> _listImagePaths = List.empty(growable: true);
+  List<Media> _listVideoPaths = List.empty(growable: true);
   String dataImagePath = "";
 
   Future<void> selectImages() async {
@@ -110,7 +110,7 @@ class _MyAppState extends State<MyApp> {
                         },
                         child: Image.file(
                           File(
-                            _listImagePaths[index].path,
+                            _listImagePaths[index].path!,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -159,11 +159,11 @@ class _MyAppState extends State<MyApp> {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: (){
-                          ImagePickers.previewVideo(_listVideoPaths[index].path,);
+                          ImagePickers.previewVideo(_listVideoPaths[index].path!,);
                         },
                         child: Image.file(
                           File(
-                            _listVideoPaths[index].thumbPath,
+                            _listVideoPaths[index].thumbPath!,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -196,9 +196,9 @@ class _MyAppState extends State<MyApp> {
                 RaisedButton(
                   onPressed: () async {
 
-                    RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+                    RenderRepaintBoundary boundary = globalKey!.currentContext!.findRenderObject() as RenderRepaintBoundary;
                     ui.Image image = await boundary.toImage(pixelRatio: 3);
-                    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+                    ByteData byteData = (await image.toByteData(format: ui.ImageByteFormat.png))!;
                     Uint8List data = byteData.buffer.asUint8List();
 
                     dataImagePath = await ImagePickers.saveByteDataImageToGallery(data,);
