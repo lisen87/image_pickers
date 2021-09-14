@@ -18,16 +18,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GalleryMode _galleryMode = GalleryMode.image;
-  GlobalKey globalKey;
+  GlobalKey? globalKey;
   @override
   void initState() {
     super.initState();
     globalKey = GlobalKey();
   }
 
-  List<Media> _listImagePaths = List();
-  List<Media> _listVideoPaths = List();
-  String dataImagePath = "";
+  List<Media> _listImagePaths = [];
+  List<Media> _listVideoPaths = [];
+  String? dataImagePath = "";
 
   Future<void> selectImages() async {
     try {
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           showGif: true,
           selectCount: 2,
           showCamera: true,
-          cropConfig :CropConfig(enableCrop: false,height: 1,width: 1),
+          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
           uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),
           ),
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: _listImagePaths == null ? 0 : _listImagePaths.length,
+                    itemCount: _listImagePaths.length,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
@@ -110,19 +110,19 @@ class _MyAppState extends State<MyApp> {
                         },
                         child: Image.file(
                           File(
-                            _listImagePaths[index].path,
+                            _listImagePaths[index].path!,
                           ),
                           fit: BoxFit.cover,
                         ),
                       );
                     }),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     selectImages();
                   },
                   child: Text("选择图片"),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
 
                     ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: false, width: 2, height: 3)).then((Media media){
@@ -135,7 +135,7 @@ class _MyAppState extends State<MyApp> {
                   },
                   child: Text("拍照"),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
                       _listVideoPaths.clear();
@@ -149,7 +149,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: _listVideoPaths == null ? 0 : _listVideoPaths.length,
+                    itemCount: _listVideoPaths.length,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
@@ -159,17 +159,17 @@ class _MyAppState extends State<MyApp> {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: (){
-                          ImagePickers.previewVideo(_listVideoPaths[index].path,);
+                          ImagePickers.previewVideo(_listVideoPaths[index].path!,);
                         },
                         child: Image.file(
                           File(
-                            _listVideoPaths[index].thumbPath,
+                            _listVideoPaths[index].thumbPath!,
                           ),
                           fit: BoxFit.cover,
                         ),
                       );
                     }),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     selectVideos();
                   },
@@ -181,29 +181,29 @@ class _MyAppState extends State<MyApp> {
                     ImagePickers.previewImage("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
                   },
                     child: Image.network("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg",fit: BoxFit.cover,width: 100,height: 100,)),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
-                    Future<String> future = ImagePickers.saveImageToGallery("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
+                    Future<String?> future = ImagePickers.saveImageToGallery("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
                     future.then((path){
-                      print("保存图片路径："+ path);
+                      print("保存图片路径："+ path!);
                     });
                   },
                   child: Text("保存网络图片"),
                 ),
                 dataImagePath == "" ? Container():GestureDetector(onTap: (){
-                  ImagePickers.previewImage(dataImagePath);
-                },child: Image.file(File(dataImagePath),fit: BoxFit.cover,width: 100,height: 100,)),
-                RaisedButton(
+                  ImagePickers.previewImage(dataImagePath!);
+                },child: Image.file(File(dataImagePath!),fit: BoxFit.cover,width: 100,height: 100,)),
+                ElevatedButton(
                   onPressed: () async {
 
-                    RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+                    RenderRepaintBoundary boundary = globalKey!.currentContext!.findRenderObject() as RenderRepaintBoundary;
                     ui.Image image = await boundary.toImage(pixelRatio: 3);
-                    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+                    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png) as ByteData;
                     Uint8List data = byteData.buffer.asUint8List();
 
                     dataImagePath = await ImagePickers.saveByteDataImageToGallery(data,);
 
-                    print("保存截屏图片 = "+ dataImagePath);
+                    print("保存截屏图片 = "+ dataImagePath!);
                     setState(() {
 
                     });
@@ -211,11 +211,11 @@ class _MyAppState extends State<MyApp> {
                   child: Text("保存截屏图片"),
                 ),
 
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
-                      Future<String> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
+                      Future<String?> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
                       future.then((path){
-                        print("视频保存成功"+path);
+                        print("视频保存成功"+path!);
                       });
                   },
                   child: Text("保存视频"),

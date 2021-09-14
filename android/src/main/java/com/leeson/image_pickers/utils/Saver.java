@@ -159,10 +159,11 @@ public class Saver {
         }
 
         if (fileInfo != null && fileInfo.size > 0) {
+            fileInfo = copyImgToPicture(fileInfo.getPath(), fileName);
+            notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
             }
-            notifyGallery(fileInfo.getPath());
         } else {
             download(saveUrl,dirPath , new IDownload() {
                 @Override
@@ -225,6 +226,8 @@ public class Saver {
             }
         }
         if (fileInfo != null) {
+            fileInfo = copyToMovies(fileInfo.getPath(), fileName);
+            notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
             }

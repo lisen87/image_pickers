@@ -19,7 +19,6 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.tools.AndroidQTransformUtils;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 
@@ -156,6 +155,7 @@ public class SelectPicsActivity extends BaseActivity {
                 .showCropGrid(true)
                 .hideBottomControls(true)
                 .freeStyleCropEnabled(false)
+                .isAndroidQTransform(true)
 
                 .compress(false)// 是否压缩 true or false
                 .minimumCompressSize(Integer.MAX_VALUE)
@@ -216,11 +216,6 @@ public class SelectPicsActivity extends BaseActivity {
                         } else {
 
                             if (Build.VERSION.SDK_INT >= 29) {
-                                //图片选择库 2.5.9 有bug，要这样处理
-                                String AndroidQToPath = AndroidQTransformUtils.copyPathToAndroidQ(SelectPicsActivity.this,
-                                        localMedia.getPath(), localMedia.getWidth(), localMedia.getHeight(), localMedia.getMimeType(), localMedia.getRealPath().substring(localMedia.getRealPath().lastIndexOf("/")+1));
-                                localMedia.setAndroidQToPath(AndroidQToPath);
-
                                 paths.add(localMedia.getAndroidQToPath());
                             } else {
                                 paths.add(localMedia.getPath());

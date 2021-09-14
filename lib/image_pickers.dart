@@ -34,7 +34,7 @@ class ImagePickers {
   ///
   static Future<Media> openCamera({
     CameraMimeType cameraMimeType: CameraMimeType.photo,
-    CropConfig cropConfig,
+    CropConfig? cropConfig,
     int compressSize: 500,
   }) async {
     String mimeType = "photo";
@@ -70,7 +70,7 @@ class ImagePickers {
       'compressSize': compressSize < 50 ? 50 : compressSize,
       'cameraMimeType': mimeType,
     };
-    final List<dynamic> paths =
+    final List<dynamic>? paths =
         await _channel.invokeMethod('getPickerPaths', params);
 
     if (paths != null && paths.length > 0) {
@@ -104,11 +104,11 @@ class ImagePickers {
 
   static Future<List<Media>> pickerPaths({
     GalleryMode galleryMode: GalleryMode.image,
-    UIConfig uiConfig,
+    UIConfig? uiConfig,
     int selectCount: 1,
     bool showCamera: false,
     bool showGif: true,
-    CropConfig cropConfig,
+    CropConfig? cropConfig,
     int compressSize: 500,
   }) async {
     String gMode = "image";
@@ -150,7 +150,7 @@ class ImagePickers {
     };
     final List<dynamic> paths =
         await _channel.invokeMethod('getPickerPaths', params);
-    List<Media> medias = List();
+    List<Media> medias = [];
     paths.forEach((data) {
       Media media = Media();
       media.thumbPath = data["thumbPath"];
@@ -176,7 +176,7 @@ class ImagePickers {
   ///
   ///imagePaths 图片本地路径集合或者网络url集合 Image local path collection or network url collection
 
-  static previewImages(List<String> imagePaths, int initIndex) {
+  static previewImages(List<String?> imagePaths, int initIndex) {
     final Map<String, dynamic> params = <String, dynamic>{
       'paths': imagePaths,
       'initIndex': initIndex,
@@ -191,8 +191,8 @@ class ImagePickers {
   ///Media中真正有效使用的数据是 Media.path The really effectively used data in Media is Media.path
   ///
   static previewImagesByMedia(List<Media> imageMedias, int initIndex) {
-    if (imageMedias != null && imageMedias.length > 0) {
-      List<String> paths =
+    if (imageMedias.length > 0) {
+      List<String?> paths =
           imageMedias.map((Media media) => media.path).toList();
       previewImages(paths, initIndex);
     }
@@ -217,13 +217,13 @@ class ImagePickers {
   /// data 图片字节数据 Picture byte data
   ///
 
-  static Future<String> saveByteDataImageToGallery(
+  static Future<String?> saveByteDataImageToGallery(
     Uint8List data,
   ) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'uint8List': data,
     };
-    String path =
+    String? path =
         await _channel.invokeMethod('saveByteDataImageToGallery', params);
     return path;
   }
@@ -234,11 +234,11 @@ class ImagePickers {
   ///
   /// imageUrl 网络图片url Web image url
 
-  static Future<String> saveImageToGallery(String imageUrl) async {
+  static Future<String?> saveImageToGallery(String imageUrl) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': imageUrl,
     };
-    String path = await _channel.invokeMethod('saveImageToGallery', params);
+    String? path = await _channel.invokeMethod('saveImageToGallery', params);
     return path;
   }
 
@@ -249,11 +249,11 @@ class ImagePickers {
   ///
   /// videoUrl 网络视频url Web video url
   ///
-  static Future<String> saveVideoToGallery(String videoUrl) async {
+  static Future<String?> saveVideoToGallery(String videoUrl) async {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': videoUrl,
     };
-    String path = await _channel.invokeMethod('saveVideoToGallery', params);
+    String? path = await _channel.invokeMethod('saveVideoToGallery', params);
     return path;
   }
 }
@@ -278,12 +278,12 @@ class CropConfig {
 class Media {
   ///视频缩略图图片路径
   ///Video thumbnail image path
-  String thumbPath;
+  String? thumbPath;
 
   ///视频路径或图片路径
   ///Video path or image path
-  String path;
-  GalleryMode galleryMode;
+  String? path;
+  GalleryMode? galleryMode;
 }
 
 /// Created by liSen on 2019/11/15 10:51.

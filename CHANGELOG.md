@@ -1,3 +1,6 @@
+## 2.0.0
+* 使用flutter 2.0 迁移至空安全
+* Use flutter 2.0 to migrate to null-safety
 ## 1.1.0
 * Android 修复无法加载预览图问题,修改多选图片问题
 * iOS 去除了返回箭头，iOS13 报错问题
