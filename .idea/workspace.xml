@@ -10,23 +10,18 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="处理安卓10问题 部分机型无法显示预览图">
+    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/Saver.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/utils/Saver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/test/widget_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/image_pickers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/image_pickers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/Flutter.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/Flutter.podspec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,25 +55,26 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/example/android" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\flutter_package\image_pickers\example" />
-      <recent name="F:\flutter_package\image_pickers\android" />
-      <recent name="F:\flutter_package\image_pickers\example\image" />
-      <recent name="F:\flutter_package\image_pickers\example\image\3.0x" />
-      <recent name="F:\flutter_package\image_pickers\example\image\2.0x" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\flutter_package\image_pickers\screenshots" />
       <recent name="F:\flutter_package\image_pickers\example\image" />
       <recent name="F:\flutter_package\image_pickers\example" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\flutter_package\image_pickers\android" />
+      <recent name="F:\flutter_package\image_pickers\example\image" />
+      <recent name="F:\flutter_package\image_pickers\example\image\3.0x" />
+      <recent name="F:\flutter_package\image_pickers\example\image\2.0x" />
+      <recent name="F:\flutter_package\image_pickers" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -386,21 +382,28 @@
       <option name="project" value="LOCAL" />
       <updated>1604044844476</updated>
     </task>
-    <task id="LOCAL-00043" summary="处理安卓10问题 部分机型无法显示预览图">
-      <created>1626673641223</created>
+    <task id="LOCAL-00043" summary="IOS适配13.0以下以及 返回箭头问题现同安卓效果">
+      <created>1626771067611</created>
       <option name="number" value="00043" />
       <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1626673641223</updated>
+      <updated>1626771067615</updated>
     </task>
-    <task id="LOCAL-00044" summary="处理安卓10问题 部分机型无法显示预览图">
-      <created>1626776597502</created>
+    <task id="LOCAL-00044" summary="IOS适配13.0以下以及 返回箭头问题现同安卓效果">
+      <created>1626775383033</created>
       <option name="number" value="00044" />
       <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1626776597502</updated>
+      <updated>1626775383033</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="IOS适配13.0以下以及 返回箭头问题现同安卓效果">
+      <created>1626776120974</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1626776120974</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -416,31 +419,6 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
-        <entry key="1">
-          <value>
-            <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="roots">
-                    <value>
-                      <list>
-                        <option value="$PROJECT_DIR$" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -449,11 +427,6 @@
           </value>
         </entry>
       </map>
-    </option>
-    <option name="OPEN_TABS">
-      <set>
-        <option value="1" />
-      </set>
     </option>
     <option name="RECENT_FILTERS">
       <map>
@@ -496,77 +469,89 @@
     <MESSAGE value="处理ios上架问题" />
     <MESSAGE value="ios打包问题，更新图片选择的框架" />
     <MESSAGE value="处理安卓10问题" />
-    <MESSAGE value="处理安卓10问题 部分机型无法显示预览图" />
-    <option name="LAST_COMMIT_MESSAGE" value="处理安卓10问题 部分机型无法显示预览图" />
+    <MESSAGE value="IOS适配13.0以下以及 返回箭头问题现同安卓效果" />
+    <option name="LAST_COMMIT_MESSAGE" value="IOS适配13.0以下以及 返回箭头问题现同安卓效果" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="115" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1626668362574">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="115" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1634864626260">
+      <screen x="0" y="25" width="1920" height="971" />
     </state>
     <state x="115" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626668362574" />
-    <state x="571" y="29" key="CommitChangelistDialog2" timestamp="1631612679485">
+    <state x="115" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.972@0.23.1920.972" timestamp="1626830308414" />
+    <state x="115" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1920.971@0.25.1920.971" timestamp="1634864626260" />
+    <state x="571" y="23" width="774" height="972" key="CommitChangelistDialog2" timestamp="1626776120622">
+      <screen x="0" y="23" width="1920" height="972" />
+    </state>
+    <state x="571" y="29" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1626672823964" />
+    <state x="571" y="23" width="774" height="972" key="CommitChangelistDialog2/0.23.1920.972@0.23.1920.972" timestamp="1626776120622" />
+    <state x="159" y="88" key="DiffContextDialog" timestamp="1626672819893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="571" y="29" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1631612679485" />
-    <state x="159" y="88" width="1536" height="860" key="DiffContextDialog" timestamp="1631612502064">
+    <state x="159" y="88" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626672819893" />
+    <state x="856" y="265" key="FileChooserDialogImpl" timestamp="1626503644147">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="159" y="88" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631612502064" />
-    <state x="715" y="319" key="FileChooserDialogImpl" timestamp="1631604448707">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="856" y="265" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1626503644147" />
+    <state width="856" height="289" key="GridCell.Tab.0.bottom" timestamp="1626856769057">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state x="715" y="319" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1631604448707" />
-    <state width="1622" height="396" key="GridCell.Tab.0.bottom" timestamp="1631613120015">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1622" height="299" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="856" height="289" key="GridCell.Tab.0.bottom/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
+    <state width="856" height="289" key="GridCell.Tab.0.center" timestamp="1626856769057">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state width="1622" height="396" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1631613120015" />
-    <state width="1622" height="396" key="GridCell.Tab.0.center" timestamp="1631613120015">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1622" height="299" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="856" height="289" key="GridCell.Tab.0.center/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
+    <state width="856" height="289" key="GridCell.Tab.0.left" timestamp="1626856769057">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state width="1622" height="396" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1631613120015" />
-    <state width="1622" height="396" key="GridCell.Tab.0.left" timestamp="1631613120015">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1622" height="299" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="856" height="289" key="GridCell.Tab.0.left/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
+    <state width="856" height="289" key="GridCell.Tab.0.right" timestamp="1626856769057">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state width="1622" height="396" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1631613120015" />
-    <state width="1622" height="396" key="GridCell.Tab.0.right" timestamp="1631613120015">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1622" height="299" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1626311617303" />
+    <state width="856" height="289" key="GridCell.Tab.0.right/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
+    <state x="275" y="104" key="MergeDialog" timestamp="1634864695579">
+      <screen x="0" y="25" width="1920" height="971" />
     </state>
-    <state width="1622" height="396" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1631613120015" />
-    <state x="267" y="94" key="MergeDialog" timestamp="1626776216274">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="275" y="104" key="MergeDialog/0.25.1920.971@0.25.1920.971" timestamp="1634864695579" />
+    <state x="747" y="217" key="MultipleFileMergeDialog" timestamp="1634864697002">
+      <screen x="0" y="25" width="1920" height="971" />
     </state>
-    <state x="267" y="94" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626776216274" />
-    <state x="743" y="234" key="MultipleFileMergeDialog" timestamp="1626776216280">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="747" y="217" key="MultipleFileMergeDialog/0.25.1920.971@0.25.1920.971" timestamp="1634864697002" />
+    <state x="152" y="163" key="SettingsEditor" timestamp="1634864614417">
+      <screen x="0" y="25" width="1920" height="968" />
     </state>
-    <state x="743" y="234" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626776216280" />
-    <state x="823" y="133" key="RollbackChangesDialog" timestamp="1631612676858">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="152" y="163" key="SettingsEditor/0.25.1920.968@0.25.1920.968" timestamp="1634864614417" />
+    <state x="502" y="240" key="Vcs.Push.Dialog.v2" timestamp="1626776122572">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state x="823" y="133" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631612676858" />
-    <state x="548" y="149" key="SettingsEditor" timestamp="1631601111956">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="502" y="240" key="Vcs.Push.Dialog.v2/0.23.1920.972@0.23.1920.972" timestamp="1626776122572" />
+    <state x="135" y="101" width="1555" height="763" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1626769945258">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state x="548" y="149" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631601111956" />
-    <state x="624" y="250" key="Vcs.Push.Dialog.v2" timestamp="1626776599553">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="135" y="101" width="1555" height="763" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1920.972@0.23.1920.972" timestamp="1626769945258" />
+    <state x="1077" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1634865660453">
+      <screen x="0" y="25" width="1920" height="971" />
     </state>
-    <state x="624" y="250" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1626776599553" />
-    <state x="143" y="129" width="1482" height="801" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1631611109678">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="1077" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.972@0.23.1920.972" timestamp="1626776755224" />
+    <state x="1077" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1920.971@0.25.1920.971" timestamp="1634865660453" />
+    <state x="1050" y="244" width="870" height="582" key="find.popup" timestamp="1626832718724">
+      <screen x="0" y="23" width="1920" height="972" />
     </state>
-    <state x="143" y="129" width="1482" height="801" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631611109678" />
-    <state x="816" y="429" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1627029141987">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="816" y="429" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1627029141987" />
-    <state x="713" y="224" width="667" height="566" key="find.popup" timestamp="1631600053454">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="713" y="224" width="667" height="566" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1631600053454" />
-    <state x="547" y="248" width="672" height="678" key="search.everywhere.popup" timestamp="1631611131260">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="547" y="248" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1631611131260" />
+    <state x="1050" y="244" width="870" height="582" key="find.popup/0.23.1920.972@0.23.1920.972" timestamp="1626832718724" />
+    <state x="1208" y="245" width="712" height="518" key="find.popup/0.23.1920.975@0.23.1920.975" timestamp="1626768986165" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m</url>
+          <line>113</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

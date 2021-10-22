@@ -17,6 +17,7 @@ A new flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
+  s.resources = ['Assets/*.png','Classes/AKGallery/image.bundle']
   s.dependency 'Flutter'
   s.dependency 'AFNetworking'
   s.dependency 'ZLPhotoBrowser-objc','1.0.4'
@@ -24,4 +25,5 @@ A new flutter plugin project.
 
 
 end
+
 

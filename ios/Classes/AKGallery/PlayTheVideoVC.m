@@ -82,10 +82,29 @@
 //    }else{
 //        returnBtn.frame = CGRectMake(0, 40, 44, 44);
 //    }
+//    UIImage *image =[[UIImage alloc]init];
+//    NSBundle *bundle5 =[NSBundle bundleForClass:[self class]];
+//
+//
+////    NSBundle *bundle2 =[NSBundle bundleForClass:[self class]];
+////    NSBundle *bundle3 =[NSBundle mainBundle];
+////    NSBundle *bundle =[NSBundle bundleWithPath:[bundle5 pathForResource:@"image" ofType:@"bundle"]];
+//
+//    if (@available(iOS 13.0, *)) {
+//        image =[UIImage imageNamed:@"btn_apply_for" inBundle:bundle5 withConfiguration:nil];
+//    } else {
+//        // Fallback on earlier versions
+//        image =[UIImage imageNamed:@"btn_apply_for" inBundle:bundle5 compatibleWithTraitCollection:nil];
+//    }
+//    NSArray *array = [NSBundle allFrameworks];
+//    NSLog(@"%@",array);
+//
+//
 //
 //    [returnBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-////    [returnBtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-//    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
+//    returnBtn.backgroundColor =[UIColor whiteColor];
+//    [returnBtn setImage:image forState:UIControlStateNormal];
+////    [returnBtn setTitle:@"<" forState:UIControlStateNormal];
 //    [returnBtn addTarget:self action:@selector(returnBtnAction) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:returnBtn];
 //
@@ -107,7 +126,7 @@
 -(void)returnBtnAction{
     
     [self dismissViewControllerAnimated:YES completion:^{
-        
+
     }];
     
 }
