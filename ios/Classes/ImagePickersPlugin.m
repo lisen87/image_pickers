@@ -94,13 +94,12 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.hideClipRatiosToolBar =enableCrop;
         configuration.cellCornerRadio =30;
         configuration.clipRatios =@[@{
-                                        @"value1":[NSNumber numberWithInt:width],//第一个是宽
-                                        @"value2":[NSNumber numberWithInt:height],//第二个是高
-        }];
+            @"value1":[NSNumber numberWithInteger:width],//第一个是宽
+            @"value2":[NSNumber numberWithInteger:height],//第二个是高
+                                    }];
 
         if(cameraMimeType) {
             //            cameraMimeType//type   photo video
-
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configuration];
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
             
@@ -116,7 +115,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             camera.circleProgressColor = [UIColor redColor];
             camera.maxRecordDuration = 15;
             @zl_weakify(self);
-        
+            camera.cancleBlock = ^(NSArray *arr) {
+                result(@[]);
+            };
             camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
 
                 NSLog(@"%@",videoUrl);
@@ -184,10 +185,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         //取出路径
                         result(@[photoDic]);
                         return ;
-
                     }
-                    
-                    
 
                 }else{
 
