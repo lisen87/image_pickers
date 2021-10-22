@@ -77,6 +77,10 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
           if (result != null){
             result.success(paths);
           }
+        }else{
+          if (result != null){
+            result.success(new ArrayList<>());
+          }
         }
         return true;
       }else if (requestCode == SAVE_IMAGE){

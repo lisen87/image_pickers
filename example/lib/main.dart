@@ -43,9 +43,12 @@ class _MyAppState extends State<MyApp> {
           ),
 
       );
-      _listImagePaths.forEach((media){
-        print(media.path.toString());
-      });
+      print(_listImagePaths.length);
+      if(_listImagePaths.length > 0){
+        _listImagePaths.forEach((media){
+          print(media.path.toString());
+        });
+      }
       setState(() {
 
       });
@@ -123,11 +126,12 @@ class _MyAppState extends State<MyApp> {
                   child: Text("选择图片"),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-
-                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: false, width: 2, height: 3)).then((Media media){
+                  onPressed: () async {
+                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: false, width: 2, height: 3)).then((Media? media){
                       _listImagePaths.clear();
-                      _listImagePaths.add(media);
+                      if(media != null){
+                        _listImagePaths.add(media);
+                      }
                       setState(() {
 
                       });
@@ -139,7 +143,9 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
                       _listVideoPaths.clear();
-                      _listVideoPaths.add(media);
+                      if(media != null){
+                        _listImagePaths.add(media);
+                      }
                       setState(() {
 
                       });

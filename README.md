@@ -21,7 +21,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^2.0.0
+image_pickers: ^2.0.0+1
 ```
 
 ```dart
@@ -59,8 +59,12 @@ Future<void> selectVideos() async {
 ```
 ```dart
 ///直接打开相机拍摄图片 Open the camera directly to take a picture
-ImagePickers.openCamera().then((Media media){
+ImagePickers.openCamera().then((Media? media){
     /// media 包含照片路径信息 Include photo path information
+    /// 未拍照返回 media = null
+    if(media != null){
+        
+    }
   });
 
 ```
@@ -69,6 +73,10 @@ ImagePickers.openCamera().then((Media media){
 ///直接打开相机拍摄视频 Open the camera directly to shoot the video
 ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
     /// media 包含视频路径信息 Contains video path information
+    /// 未拍摄视频返回 media = null
+    if(media != null){
+            
+    }
   });
 
 ```

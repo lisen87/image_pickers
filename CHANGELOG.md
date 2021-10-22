@@ -1,3 +1,6 @@
+## 2.0.0+1
+* 未选择图片将返回空数组，未拍照或者未拍摄视频将返回null
+* If no pictures are selected, an empty array will be returned, and if no pictures or videos are taken, null will be returned
 ## 2.0.0
 * 使用flutter 2.0 迁移至空安全
 * Use flutter 2.0 to migrate to null-safety

@@ -32,7 +32,7 @@ class ImagePickers {
   ///
   ///compressSize 拍照后（录制视频时此参数无效）的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
-  static Future<Media> openCamera({
+  static Future<Media?> openCamera({
     CameraMimeType cameraMimeType: CameraMimeType.photo,
     CropConfig? cropConfig,
     int compressSize: 500,
@@ -81,7 +81,7 @@ class ImagePickers {
       return media;
     }
 
-    return Media();
+    return null;
   }
 
   ///选择图片或视频 Choose an image or video
