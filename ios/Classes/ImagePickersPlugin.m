@@ -38,7 +38,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     int red =[[colorString objectForKey:@"r"] intValue];
     int green =[[colorString objectForKey:@"g"] intValue];
     int blue =[[colorString objectForKey:@"b"] intValue];
-    int light =[[colorString objectForKey:@"l"] intValue];
+//    int light =[[colorString objectForKey:@"l"] intValue];
     return [UIColor colorWithRed:red/255.00 green:green/255.00 blue:blue/255.00 alpha:alph/255.00];
 }
 -(void)colorChange:(NSDictionary*)colorString configuration:(ZLPhotoConfiguration*)configuration {
@@ -75,7 +75,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         if(selectCount>1){
             enableCrop =NO;
         }
-        
         NSInteger height =[[dic objectForKey:@"height"] integerValue];//宽高比例
         
         NSInteger width =[[dic objectForKey:@"width"] integerValue];//宽高比例
@@ -226,8 +225,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             ac.configuration.allowEditImage =enableCrop;
             ac.configuration.hideClipRatiosToolBar =enableCrop;
             ac.configuration.clipRatios =@[@{
-                                               @"value1":[NSNumber numberWithInt:width],//第一个是宽
-                                               @"value2":[NSNumber numberWithInt:height],//第二个是高
+                                               @"value1":[NSNumber numberWithInteger:width],//第一个是宽
+                                               @"value2":[NSNumber numberWithInteger:height],//第二个是高
             }];
             ac.configuration.allowSelectGif = isShowGif;
             
@@ -568,7 +567,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             ;
         }
         
-        NSString *subString = [str substringFromIndex:7];
         if((![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
             
             //若裁剪需要裁剪后的图片，需要保存一下
