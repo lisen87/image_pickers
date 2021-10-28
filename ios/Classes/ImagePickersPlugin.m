@@ -12,6 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AFNetworking/AFNetworking.h>
 #import "BigImageViewController.h"
+#import "TakePhotoViewController.h"
 #define Frame_rectStatus ([[UIApplication sharedApplication] statusBarFrame].size.height)
 #define Frame_rectNav (self.navigationController.navigationBar.frame.size.height)
 #define Frame_NavAndStatus (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
@@ -100,120 +101,126 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         if(cameraMimeType) {
             //            cameraMimeType//type   photo video
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configuration];
-            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
-            
-            if ([cameraMimeType isEqualToString:@"photo"]) {
-                camera.allowTakePhoto = YES;
-                camera.allowRecordVideo = NO;
-            }else{
-                camera.allowTakePhoto = NO;
-                camera.allowRecordVideo = YES;
-            }
-
-            camera.videoType = ZLExportVideoTypeMp4;
-            camera.circleProgressColor = [UIColor redColor];
-            camera.maxRecordDuration = 15;
-            @zl_weakify(self);
-            camera.cancleBlock = ^(NSArray *arr) {
-                result(@[]);
+            TakePhotoViewController *vc =[[TakePhotoViewController alloc]init];
+            vc.dic =dic;
+            vc.doneEditBlock = ^(NSArray *arr){
+                NSLog(@"%@",arr);
+                result(arr);
             };
-            camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
-
-                NSLog(@"%@",videoUrl);
-
-                NSLog(@"%@",image);
+            vc.modalPresentationStyle =UIModalPresentationFullScreen;
+            [[UIApplication sharedApplication].delegate.window.rootViewController  showDetailViewController:vc sender:nil];
                 
-                if (image) {
-                    if(enableCrop){
-                        BigImageViewController *big =[[BigImageViewController alloc]init];
-                        big.configuration =configuration ;
-                        big.image =image;
-                        big.doneEditImageBlock = ^(UIImage * imageE) {
-                            NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
-                            if (data2.length>compressSize) {
-                                //压缩
-                                data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
-                            }
-                            NSLog(@"_____方法__%ld",data2.length);
-                            UIImage *image =[UIImage imageWithData:data2];
-                            //重命名并且保存
-                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            formatter.dateFormat = @"yyyyMMddHHmmss";
-                            int  x = arc4random() % 10000;
-
-                            NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
-
-                            //保存到沙盒
-                            [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                            NSDictionary *photoDic =@{
-                                @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
-                                @"path":[NSString stringWithFormat:@"%@",jpgPath],
-                            };
-                            //取出路径
-                            result(@[photoDic]);
-                            return ;
-
-                        };
-                        big.modalPresentationStyle =UIModalPresentationFullScreen;
-
-                        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
-                        }];
-                    }else{
-                        NSData *data2=UIImageJPEGRepresentation(image , 1.0);
-                        if (data2.length>compressSize) {
-                            //压缩
-                            data2=UIImageJPEGRepresentation(image, (float)(compressSize/data2.length));
-                        }
-                        NSLog(@"_____方法__%ld",data2.length);
-                        UIImage *imageFF =[UIImage imageWithData:data2];
-                        //重命名并且保存
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        formatter.dateFormat = @"yyyyMMddHHmmss";
-                        int  x = arc4random() % 10000;
-
-                        NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
-
-                        //保存到沙盒
-                        [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
-                        NSDictionary *photoDic =@{
-                            @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
-                            @"path":[NSString stringWithFormat:@"%@",jpgPath],
-                        };
-                        //取出路径
-                        result(@[photoDic]);
-                        return ;
-                    }
-
-                }else{
-
-
-                    NSURL *url =videoUrl;
-                    NSString *subString = [url.absoluteString substringFromIndex:7];
-                    
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                    int  x = arc4random() % 10000;
-                    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                    UIImage *img = [self getImage:subString]  ;
-                    //保存到沙盒
-                    [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
-                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-
-                    NSDictionary *photoDic = @{
-                        @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                        @"path":[NSString stringWithFormat:@"%@",subString],
-                    };
-                    result(@[photoDic]);
-                    return ;
-                    
-                }
-                
-            };
-            camera.modalPresentationStyle =UIModalPresentationFullScreen;
-            [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:camera sender:nil];
+//            ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
+//            if ([cameraMimeType isEqualToString:@"photo"]) {
+//                camera.allowTakePhoto = YES;
+//                camera.allowRecordVideo = NO;
+//            }else{
+//                camera.allowTakePhoto = NO;
+//                camera.allowRecordVideo = YES;
+//            }
+//            camera.videoType = ZLExportVideoTypeMp4;
+//            camera.circleProgressColor = [UIColor redColor];
+//            camera.maxRecordDuration = 15;
+//            @zl_weakify(self);
+//            camera.cancleBlock = ^(NSArray *arr) {
+//                result(@[]);
+//            };
+//            camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
+//
+//                NSLog(@"%@",videoUrl);
+//
+//                NSLog(@"%@",image);
+//
+//                if (image) {
+//                    if(enableCrop){
+//                        BigImageViewController *big =[[BigImageViewController alloc]init];
+//                        big.configuration =configuration ;
+//                        big.image =image;
+//                        big.doneEditImageBlock = ^(UIImage * imageE) {
+//                            NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
+//                            if (data2.length>compressSize) {
+//                                //压缩
+//                                data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
+//                            }
+//                            NSLog(@"_____方法__%ld",data2.length);
+//                            UIImage *image =[UIImage imageWithData:data2];
+//                            //重命名并且保存
+//                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                            formatter.dateFormat = @"yyyyMMddHHmmss";
+//                            int  x = arc4random() % 10000;
+//
+//                            NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+//                            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
+//
+//                            //保存到沙盒
+//                            [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+//                            NSDictionary *photoDic =@{
+//                                @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
+//                                @"path":[NSString stringWithFormat:@"%@",jpgPath],
+//                            };
+//                            //取出路径
+//                            result(@[photoDic]);
+//                            return ;
+//
+//                        };
+//                        big.modalPresentationStyle =UIModalPresentationFullScreen;
+//
+//                        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
+//                        }];
+//                    }else{
+//                        NSData *data2=UIImageJPEGRepresentation(image , 1.0);
+//                        if (data2.length>compressSize) {
+//                            //压缩
+//                            data2=UIImageJPEGRepresentation(image, (float)(compressSize/data2.length));
+//                        }
+//                        NSLog(@"_____方法__%ld",data2.length);
+//                        UIImage *imageFF =[UIImage imageWithData:data2];
+//                        //重命名并且保存
+//                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                        formatter.dateFormat = @"yyyyMMddHHmmss";
+//                        int  x = arc4random() % 10000;
+//
+//                        NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+//                        NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
+//
+//                        //保存到沙盒
+//                        [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
+//                        NSDictionary *photoDic =@{
+//                            @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
+//                            @"path":[NSString stringWithFormat:@"%@",jpgPath],
+//                        };
+//                        //取出路径
+//                        result(@[photoDic]);
+//                        return ;
+//                    }
+//
+//                }else{
+//
+//
+//                    NSURL *url =videoUrl;
+//                    NSString *subString = [url.absoluteString substringFromIndex:15];
+//
+//                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                    formatter.dateFormat = @"yyyyMMddHHmmss";
+//                    int  x = arc4random() % 10000;
+//                    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+//                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+//                    UIImage *img = [self getImage:subString]  ;
+//                    //保存到沙盒
+//                BOOL isSuccess =[UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
+//
+//                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+//                    NSDictionary *photoDic = @{
+//                        @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
+//                        @"path":[NSString stringWithFormat:@"%@",subString],
+//                    };
+//                    result(@[photoDic]);
+//                    return ;
+//
+//                }
+//            };
+//            camera.modalPresentationStyle =UIModalPresentationFullScreen;
+//            [[UIApplication sharedApplication].delegate.window.rootViewController showDetailViewController:camera sender:nil];
 
         }else{
             
@@ -247,7 +254,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             
             NSMutableArray *arr =[[NSMutableArray alloc]init];
             [ac setCancleBlock:^{
-                result(@[]);
+                NSArray *arr =@[];
+                result(arr);
             }];
             
             [ac setSelectImageBlock:^(NSArray<UIImage *> * _Nonnull images, NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal) {

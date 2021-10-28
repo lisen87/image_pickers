@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:async';
@@ -144,7 +145,8 @@ class _MyAppState extends State<MyApp> {
                     ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
                       _listVideoPaths.clear();
                       if(media != null){
-                        _listImagePaths.add(media);
+                      print(media.path);
+                      _listVideoPaths.add(media);
                       }
                       setState(() {
 
