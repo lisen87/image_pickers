@@ -35,7 +35,7 @@
             if(arry.count>0){
 
             }else{
-                self.doneEditBlock(arry);
+//                self.doneEditBlock(arry);
             }
         }];
     }else if(isDismiss ==NO){
@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     isDismiss =NO;
-    
+
     self.view.backgroundColor =[UIColor whiteColor];
 //    UIButton*searchView  =[[UIButton alloc]initWithFrame:CGRectMake(0,0, 230, 100)];
 //    [self.view addSubview: searchView];
@@ -57,27 +57,27 @@
     RUN_AFTER(1, ^(){
         [self push];
     });
-    
+
 }
 -(void)push{
     NSDictionary *dic = self.dic;
     NSInteger selectCount =[[dic objectForKey:@"selectCount"] integerValue];//最多多少个
     NSInteger compressSize =[[dic objectForKey:@"compressSize"] integerValue]*1024;//大小
-    
+
     NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//图片还是视频image video
-    
+
     BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
     if(selectCount>1){
         enableCrop =NO;
     }
     NSInteger height =[[dic objectForKey:@"height"] integerValue];//宽高比例
-    
+
     NSInteger width =[[dic objectForKey:@"width"] integerValue];//宽高比例
-    
+
     BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
-    
+
     NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];//type   photo video 若不存在则为带相册的，若存在则直接打开相册相机
-    
+
     ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration defaultPhotoConfiguration];
     configuration.maxSelectCount = selectCount;//最多选择多少张图
     configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
@@ -93,7 +93,7 @@
 
     //            cameraMimeType//type   photo video
         ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
-        
+
         if ([cameraMimeType isEqualToString:@"photo"]) {
             camera.allowTakePhoto = YES;
             camera.allowRecordVideo = NO;
@@ -105,13 +105,13 @@
         camera.circleProgressColor = [UIColor redColor];
         camera.maxRecordDuration = 15;
         @zl_weakify(self);
-     
+
         camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
 
             NSLog(@"%@",videoUrl);
 
             NSLog(@"%@",image);
-            
+
             if (image) {
                 if(enableCrop){
                     BigImageViewController *big =[[BigImageViewController alloc]init];
@@ -119,10 +119,12 @@
                     big.image =image;
                     big.doneEditImageBlock = ^(UIImage * imageE) {
                         NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
-                        if (data2.length>compressSize) {
-                            //压缩
-                            data2=UIImageJPEGRepresentation(imageE, (float)(compressSize/data2.length));
+                        float size =(float)compressSize/data2.length;
+                        if(size>=1){
+                            size =0.8;
                         }
+                        data2=UIImageJPEGRepresentation(imageE, size);
+
                         NSLog(@"_____方法__%ld",data2.length);
                         UIImage *image =[UIImage imageWithData:data2];
                         //重命名并且保存
@@ -146,15 +148,19 @@
 
                     };
                     big.modalPresentationStyle =UIModalPresentationFullScreen;
+                    [self presentViewController:big animated:YES completion:nil];
 
-                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
-                    }];
+//                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
+//                    }];
                 }else{
                     NSData *data2=UIImageJPEGRepresentation(image , 1.0);
-                    if (data2.length>compressSize) {
-                        //压缩
-                        data2=UIImageJPEGRepresentation(image, (float)(compressSize/data2.length));
+                    float size =(float)compressSize/data2.length;
+                    if(size>=1){
+                        size =1;
                     }
+                    data2=UIImageJPEGRepresentation(image, size);
+
+
                     NSLog(@"_____方法__%ld",data2.length);
                     UIImage *imageFF =[UIImage imageWithData:data2];
                     //重命名并且保存
