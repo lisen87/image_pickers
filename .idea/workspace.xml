@@ -9,16 +9,15 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_pickers.iml" beforeDir="false" afterPath="$PROJECT_DIR$/image_pickers.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +27,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="FavoritesManager">
     <favorites_list name="image_pickers" />
   </component>
@@ -48,13 +48,13 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
@@ -74,6 +74,7 @@
       <recent name="F:\flutter_package\image_pickers" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -414,12 +415,12 @@
       <option name="project" value="LOCAL" />
       <updated>1634868113263</updated>
     </task>
-    <task id="LOCAL-00048" summary="未选择图片将返回空数组，未拍照或者未拍摄视频将返回null">
-      <created>1634884028752</created>
+    <task id="LOCAL-00048" summary="IOS 视频、拍照返回">
+      <created>1635389879857</created>
       <option name="number" value="00048" />
       <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1634884028752</updated>
+      <updated>1635389879857</updated>
     </task>
     <option name="localTasksCounter" value="49" />
     <servers />
@@ -439,9 +440,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -460,6 +459,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -488,86 +488,15 @@
     <MESSAGE value="ios打包问题，更新图片选择的框架" />
     <MESSAGE value="处理安卓10问题" />
     <MESSAGE value="IOS适配13.0以下以及 返回箭头问题现同安卓效果" />
-    <MESSAGE value="未选择图片将返回空数组，未拍照或者未拍摄视频将返回null" />
-    <option name="LAST_COMMIT_MESSAGE" value="未选择图片将返回空数组，未拍照或者未拍摄视频将返回null" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="115" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1634864626260">
-      <screen x="0" y="25" width="1920" height="971" />
-    </state>
-    <state x="115" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1920.971@0.25.1920.971" timestamp="1634864626260" />
-    <state x="571" y="29" width="774" height="971" key="CommitChangelistDialog2" timestamp="1634884027546">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="571" y="29" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1634884027546" />
-    <state x="571" y="25" width="774" height="971" key="CommitChangelistDialog2/0.25.1920.971@0.25.1920.971" timestamp="1634869353508" />
-    <state x="159" y="88" width="1536" height="860" key="DiffContextDialog" timestamp="1635474335617">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="159" y="88" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1635474335617" />
-    <state x="159" y="107" key="DiffContextDialog/0.25.1920.971@0.25.1920.971" timestamp="1634865704361" />
-    <state width="811" height="252" key="GridCell.Tab.0.bottom" timestamp="1635475897641">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="811" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1635475897641" />
-    <state width="856" height="289" key="GridCell.Tab.0.bottom/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
-    <state width="566" height="455" key="GridCell.Tab.0.bottom/0.25.1920.971@0.25.1920.971" timestamp="1634868695618" />
-    <state width="811" height="252" key="GridCell.Tab.0.center" timestamp="1635475897641">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="811" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1635475897641" />
-    <state width="856" height="289" key="GridCell.Tab.0.center/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
-    <state width="566" height="455" key="GridCell.Tab.0.center/0.25.1920.971@0.25.1920.971" timestamp="1634868695618" />
-    <state width="811" height="252" key="GridCell.Tab.0.left" timestamp="1635475897640">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="811" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1635475897640" />
-    <state width="856" height="289" key="GridCell.Tab.0.left/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
-    <state width="566" height="455" key="GridCell.Tab.0.left/0.25.1920.971@0.25.1920.971" timestamp="1634868695617" />
-    <state width="811" height="252" key="GridCell.Tab.0.right" timestamp="1635475897641">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="811" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1635475897641" />
-    <state width="856" height="289" key="GridCell.Tab.0.right/0.23.1920.972@0.23.1920.972" timestamp="1626856769057" />
-    <state width="566" height="455" key="GridCell.Tab.0.right/0.25.1920.971@0.25.1920.971" timestamp="1634868695618" />
-    <state x="275" y="104" key="MergeDialog" timestamp="1634864695579">
-      <screen x="0" y="25" width="1920" height="971" />
-    </state>
-    <state x="275" y="104" key="MergeDialog/0.25.1920.971@0.25.1920.971" timestamp="1634864695579" />
-    <state x="747" y="206" key="MultipleFileMergeDialog" timestamp="1635474249459">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="747" y="206" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1635474249459" />
-    <state x="747" y="217" key="MultipleFileMergeDialog/0.25.1920.971@0.25.1920.971" timestamp="1634864697002" />
-    <state x="807" y="160" key="RollbackChangesDialog" timestamp="1634881576384">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="807" y="160" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1634881576384" />
-    <state x="152" y="163" key="SettingsEditor" timestamp="1634864614417">
-      <screen x="0" y="25" width="1920" height="968" />
-    </state>
-    <state x="152" y="163" key="SettingsEditor/0.25.1920.968@0.25.1920.968" timestamp="1634864614417" />
-    <state x="502" y="232" key="Vcs.Push.Dialog.v2" timestamp="1634884030909">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="502" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1634884030909" />
-    <state x="502" y="242" key="Vcs.Push.Dialog.v2/0.25.1920.971@0.25.1920.971" timestamp="1634868841426" />
-    <state x="1077" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1635474225358">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1077" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1635474225358" />
-    <state x="1077" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1920.971@0.25.1920.971" timestamp="1634869444394" />
-    <state x="72" y="302" width="870" height="583" key="find.popup" timestamp="1634866770214">
-      <screen x="0" y="25" width="1920" height="971" />
-    </state>
-    <state x="72" y="302" width="870" height="583" key="find.popup/0.25.1920.971@0.25.1920.971" timestamp="1634866770214" />
+    <MESSAGE value="IOS 视频、拍照返回" />
+    <option name="LAST_COMMIT_MESSAGE" value="IOS 视频、拍照返回" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m</url>
-          <line>112</line>
+          <line>113</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
