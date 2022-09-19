@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: false, width: 2, height: 3)).then((Media? media){
+                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 3)).then((Media? media){
                       _listImagePaths.clear();
                       if(media != null){
                         _listImagePaths.add(media);
