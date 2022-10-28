@@ -36,11 +36,11 @@ class _MyAppState extends State<MyApp> {
       _listImagePaths = await ImagePickers.pickerPaths(
           galleryMode: _galleryMode,
           showGif: true,
-          selectCount: 2,
+          selectCount: 1,
           showCamera: true,
-          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
+          cropConfig :CropConfig(enableCrop: true,),
           compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),
+          uiConfig: UIConfig(uiThemeColor: Colors.orange,
           ),
 
       );
@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 3)).then((Media? media){
+                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 1)).then((Media? media){
                       _listImagePaths.clear();
                       if(media != null){
                         _listImagePaths.add(media);

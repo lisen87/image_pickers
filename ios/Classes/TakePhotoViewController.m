@@ -10,12 +10,17 @@
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AFNetworking/AFNetworking.h>
+#import <AVFoundation/AVAsset.h>
+#import <AVFoundation/AVAssetImageGenerator.h>
+#import "ZLPhotoBrowser/ZLPhotoBrowser.h"
+#import <ZLPhotoBrowser/ZLPhotoBrowser-umbrella.h>
+
 #import "BigImageViewController.h"
-#if __has_include(<ZLPhotoBrowser_objc/ZLPhotoBrowser.h>)
-#import <ZLPhotoBrowser_objc/ZLPhotoBrowser.h>
-#else
-#import "ZLPhotoBrowser.h"
-#endif
+//#if __has_include(<ZLPhotoBrowser_objc/ZLPhotoBrowser.h>)
+//#import <ZLPhotoBrowser_objc/ZLPhotoBrowser.h>
+//#else
+//#import "ZLPhotoBrowser.h"
+//#endif
 
 #define RUN_AFTER(s, b) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(s * NSEC_PER_SEC)), dispatch_get_main_queue(), b)
 
@@ -78,91 +83,50 @@
 
     NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];//type   photo video 若不存在则为带相册的，若存在则直接打开相册相机
 
-    ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration defaultPhotoConfiguration];
+    ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration default];
     configuration.maxSelectCount = selectCount;//最多选择多少张图
-    configuration.mutuallyExclusiveSelectInMix = NO;//不允许混合选择
+    configuration.allowMixSelect = NO;//不允许混合选择
     configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
     configuration.allowSelectOriginal =NO;//不选择原图
     configuration.allowEditImage =enableCrop;
-    configuration.hideClipRatiosToolBar =enableCrop;
-    configuration.cellCornerRadio =30;
-    configuration.clipRatios =@[@{
-        @"value1":[NSNumber numberWithInteger:width],//第一个是宽
-        @"value2":[NSNumber numberWithInteger:height],//第二个是高
-                                }];
+    configuration.cellCornerRadio =5;
+    configuration.editImageConfiguration.clipRatios=@[[[ZLImageClipRatio alloc]initWithTitle:@"" whRatio:((float)width/(float)height) isCircle:false]];
 
-    //            cameraMimeType//type   photo video
         ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
 
         if ([cameraMimeType isEqualToString:@"photo"]) {
-            camera.allowTakePhoto = YES;
-            camera.allowRecordVideo = NO;
+            configuration.allowTakePhoto =YES;
+            configuration.allowRecordVideo =NO;
+
         }else{
-            camera.allowTakePhoto = NO;
-            camera.allowRecordVideo = YES;
+            configuration.allowTakePhoto = NO;
+            configuration.allowRecordVideo = YES;
         }
-        camera.videoType = ZLExportVideoTypeMp4;
-        camera.circleProgressColor = [UIColor redColor];
-        camera.maxRecordDuration = 15;
-        @zl_weakify(self);
+//        camera.videoType = ZLExportVideoTypeMp4;
+//       circleProgressColor = [UIColor redColor];
+    configuration.maxRecordDuration = 15;
 
-        camera.doneBlock = ^(UIImage *image, NSURL *videoUrl) {
+    camera.takeDoneBlock = ^(UIImage *image, NSURL *videoUrl) {
+        
+        NSLog(@"%@",videoUrl);
 
-            NSLog(@"%@",videoUrl);
+        NSLog(@"%@",image);
 
-            NSLog(@"%@",image);
-
-            if (image) {
-                if(enableCrop){
-                    BigImageViewController *big =[[BigImageViewController alloc]init];
-                    big.configuration =configuration ;
-                    big.image =image;
-                    big.doneEditImageBlock = ^(UIImage * imageE) {
-                        NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
-                        float size =(float)compressSize/data2.length;
-                        if(size>=1){
-                            size =0.8;
-                        }
-                        data2=UIImageJPEGRepresentation(imageE, size);
-
-                        NSLog(@"_____方法__%ld",data2.length);
-                        UIImage *image =[UIImage imageWithData:data2];
-                        //重命名并且保存
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        formatter.dateFormat = @"yyyyMMddHHmmss";
-                        int  x = arc4random() % 10000;
-
-                        NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
-
-                        //保存到沙盒
-                        [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                        NSDictionary *photoDic =@{
-                            @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
-                            @"path":[NSString stringWithFormat:@"%@",jpgPath],
-                        };
-                        //取出路径
-                        arry =@[photoDic];
-                        self.doneEditBlock(arry);
-                        return ;
-
-                    };
-                    big.modalPresentationStyle =UIModalPresentationFullScreen;
-                    [self presentViewController:big animated:YES completion:nil];
-
-//                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
-//                    }];
-                }else{
-                    NSData *data2=UIImageJPEGRepresentation(image , 1.0);
+        if (image) {
+            if(enableCrop){
+                BigImageViewController *big =[[BigImageViewController alloc]init];
+                big.configuration =configuration ;
+                big.image =image;
+                big.doneEditImageBlock = ^(UIImage * imageE) {
+                    NSData *data2=UIImageJPEGRepresentation(imageE , 1.0);
                     float size =(float)compressSize/data2.length;
                     if(size>=1){
-                        size =1;
+                        size =0.8;
                     }
-                    data2=UIImageJPEGRepresentation(image, size);
-
+                    data2=UIImageJPEGRepresentation(imageE, size);
 
                     NSLog(@"_____方法__%ld",data2.length);
-                    UIImage *imageFF =[UIImage imageWithData:data2];
+                    UIImage *image =[UIImage imageWithData:data2];
                     //重命名并且保存
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -172,50 +136,89 @@
                     NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
 
                     //保存到沙盒
-                    [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
+                    [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
                     NSDictionary *photoDic =@{
                         @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
                         @"path":[NSString stringWithFormat:@"%@",jpgPath],
                     };
                     //取出路径
                     arry =@[photoDic];
-
-                    self. doneEditBlock(arry);
-                
+                    self.doneEditBlock(arry);
                     return ;
-                }
 
+                };
+                big.modalPresentationStyle =UIModalPresentationFullScreen;
+                [self presentViewController:big animated:YES completion:nil];
+
+//                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:big animated:YES completion:^{
+//                    }];
             }else{
-                NSURL *url =videoUrl;
-                NSString *subString = [url.absoluteString substringFromIndex:7];
+                NSData *data2=UIImageJPEGRepresentation(image , 1.0);
+                float size =(float)compressSize/data2.length;
+                if(size>=1){
+                    size =1;
+                }
+                data2=UIImageJPEGRepresentation(image, size);
+
+
+                NSLog(@"_____方法__%ld",data2.length);
+                UIImage *imageFF =[UIImage imageWithData:data2];
+                //重命名并且保存
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 formatter.dateFormat = @"yyyyMMddHHmmss";
                 int  x = arc4random() % 10000;
-                NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                UIImage *img = [self getImage:subString];
-                NSData *data2=UIImageJPEGRepresentation(img , 1.0);
-                NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
+
+                NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+                NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
 
                 //保存到沙盒
-                BOOL isSuccess=[UIImageJPEGRepresentation(img,1.0) writeToFile:aPath3 atomically:YES];
-        
-    
-
-                NSDictionary *photoDic = @{
-                    @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
-                    @"path":[NSString stringWithFormat:@"%@",subString],
+                [UIImageJPEGRepresentation(imageFF,1.0) writeToFile:jpgPath atomically:YES];
+                NSDictionary *photoDic =@{
+                    @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
+                    @"path":[NSString stringWithFormat:@"%@",jpgPath],
                 };
+                //取出路径
                 arry =@[photoDic];
 
-                self.doneEditBlock(arry);
-                return ;
-                
-            }
+                self. doneEditBlock(arry);
             
-        };
-        camera.modalPresentationStyle =UIModalPresentationFullScreen;
+                return ;
+            }
+
+        }else{
+            NSURL *url =videoUrl;
+            NSString *subString = [url.absoluteString substringFromIndex:7];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            int  x = arc4random() % 10000;
+            NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+            NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+            UIImage *img = [self getImage:subString];
+            NSData *data2=UIImageJPEGRepresentation(img , 1.0);
+            NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
+
+            //保存到沙盒
+            BOOL isSuccess=[UIImageJPEGRepresentation(img,1.0) writeToFile:aPath3 atomically:YES];
+    
+
+
+            NSDictionary *photoDic = @{
+                @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
+                @"path":[NSString stringWithFormat:@"%@",subString],
+            };
+            arry =@[photoDic];
+
+            self.doneEditBlock(arry);
+            return ;
+            
+        }
+        
+    };
+
+//        camera.modalPresentationStyle =UIModalPresentationFullScreen;
     [self presentViewController:camera animated:YES completion:nil];
+    
+    
     
 
 }
