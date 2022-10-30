@@ -143,6 +143,7 @@ public class SelectPicsActivity extends BaseActivity {
                 .isCamera(showCamera)
                 .isGif(showGif)
                 .maxSelectNum(selectCount.intValue())
+                .maxVideoSelectNum(selectCount.intValue())
                 .withAspectRatio(width.intValue(), height.intValue())
                 .imageSpanCount(4)// 每行显示个数 int
                 .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
