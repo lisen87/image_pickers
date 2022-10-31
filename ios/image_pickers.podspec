@@ -20,10 +20,11 @@ A new flutter plugin project.
   s.resources = ['Assets/*.png','Classes/AKGallery/image.bundle']
   s.dependency 'Flutter'
   s.dependency 'AFNetworking'
-  s.dependency 'ZLPhotoBrowser-objc','1.0.4'
+  s.dependency 'SDWebImage'
+  s.dependency 'ZLPhotoBrowser'
   s.ios.deployment_target = '10.0'
-
-
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  s.swift_version = '5.0'
 end
 
 
