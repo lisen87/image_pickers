@@ -21,7 +21,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.leeson.image_pickers.AppPath;
-import com.luck.picture.lib.tools.PictureFileUtils;
+import com.luck.picture.lib.utils.PictureFileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;

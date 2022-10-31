@@ -4,23 +4,31 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.leeson.image_pickers.AppPath;
 import com.leeson.image_pickers.R;
 import com.leeson.image_pickers.utils.CommonUtils;
 import com.leeson.image_pickers.utils.GlideEngine;
+import com.leeson.image_pickers.utils.ImageCompressEngine;
+import com.leeson.image_pickers.utils.ImageCropEngine;
+import com.leeson.image_pickers.utils.MeSandboxFileEngine;
 import com.leeson.image_pickers.utils.PictureStyleUtil;
-import com.luck.picture.lib.PictureSelectionModel;
-import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.basic.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.config.SelectMimeType;
+import com.luck.picture.lib.config.SelectModeConfig;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.tools.PictureFileUtils;
-import com.luck.picture.lib.tools.SdkVersionUtils;
+import com.luck.picture.lib.interfaces.OnResultCallbackListener;
+import com.luck.picture.lib.style.PictureSelectorStyle;
+import com.luck.picture.lib.style.SelectMainStyle;
+import com.luck.picture.lib.style.TitleBarStyle;
+import com.luck.picture.lib.utils.SdkVersionUtils;
+import com.luck.picture.lib.utils.StyleUtils;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import top.zibin.luban.CompressionPredicate;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
-import top.zibin.luban.OnRenameListener;
 
 
 /**
@@ -61,9 +64,8 @@ public class SelectPicsActivity extends BaseActivity {
     public static final String COMPRESS_PATHS = "COMPRESS_PATHS";//压缩的画
     public static final String CAMERA_MIME_TYPE = "CAMERA_MIME_TYPE";//直接调用拍照或拍视频时有效
     private Number compressSize;
-    private int compressCount = 0;
     private String mode;
-    private Map<String,Number> uiColor;
+    private Map<String, Number> uiColor;
     private Number selectCount;
     private boolean showGif;
     private boolean showCamera;
@@ -91,175 +93,145 @@ public class SelectPicsActivity extends BaseActivity {
         startSel();
     }
 
-    private void startSel(){
-        PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
+    private UCrop.Options buildOptions(PictureSelectorStyle selectorStyle) {
+        UCrop.Options options = new UCrop.Options();
+        if (selectorStyle != null && selectorStyle.getSelectMainStyle().getStatusBarColor() != 0) {
+            SelectMainStyle mainStyle = selectorStyle.getSelectMainStyle();
+            boolean isDarkStatusBarBlack = mainStyle.isDarkStatusBarBlack();
+            int statusBarColor = mainStyle.getStatusBarColor();
+            options.isDarkStatusBarBlack(isDarkStatusBarBlack);
+            options.setSkipCropMimeType(new String[]{PictureMimeType.ofGIF(), PictureMimeType.ofWEBP()});
+            if (StyleUtils.checkStyleValidity(statusBarColor)) {
+                options.setStatusBarColor(statusBarColor);
+                options.setToolbarColor(statusBarColor);
+            }
+            TitleBarStyle titleBarStyle = selectorStyle.getTitleBarStyle();
+            if (StyleUtils.checkStyleValidity(titleBarStyle.getTitleTextColor())) {
+                options.setToolbarWidgetColor(titleBarStyle.getTitleTextColor());
+            }
+        }
+        return options;
+    }
 
+    private void startSel() {
+        PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
+        pictureStyleUtil.setStyle(uiColor);
+        PictureSelectorStyle selectorStyle = pictureStyleUtil.getSelectorStyle();
         //添加图片
         PictureSelector pictureSelector = PictureSelector.create(this);
-        PictureSelectionModel pictureSelectionModel = null;
-        if (mimeType != null){
+        if (mimeType != null) {
+            //直接调用拍照或拍视频时
+            PictureSelector.create(this).openCamera("photo".equals(mimeType) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
+                    .setRecordVideoMaxSecond(60)
+                    .setRecordVideoMinSecond(1)
+                    .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
+                    .setCropEngine(enableCrop ?
+                            new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
+                    .setCompressEngine(new ImageCompressEngine(compressSize.intValue()))
+                    ./*setCameraInterceptListener(new OnCameraInterceptListener() {
+                @Override
+                public void openCamera(Fragment fragment, int cameraMode, int requestCode) {
+                    //自定义相机
+                    Log.e("TAG", "openCamera: 自定义相机" );
+                }
+            }).*/setSandboxFileEngine(new MeSandboxFileEngine()).forResult(new OnResultCallbackListener<LocalMedia>() {
+                @Override
+                public void onResult(ArrayList<LocalMedia> result) {
+                    handlerResult(result);
+                }
+
+                @Override
+                public void onCancel() {
+                    Intent intent = new Intent();
+                    intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
+        } else {
+
+            PictureSelector.create(this).openGallery("image".equals(mode) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
+                    .setImageEngine(GlideEngine.createGlideEngine())
+                    .setSelectorUIStyle(pictureStyleUtil.getSelectorStyle())
+                    .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                    .setRecordVideoMaxSecond(60)
+                    .setRecordVideoMinSecond(1)
+                    .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
+                    .setCropEngine(enableCrop ?
+                            new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
+                    .setCompressEngine(new ImageCompressEngine(compressSize.intValue()))
+                    .setSandboxFileEngine(new MeSandboxFileEngine())
+                    .isDisplayCamera(showCamera)
+                    .isGif(showGif)
+                    .setMaxSelectNum(selectCount.intValue())
+                    .setImageSpanCount(4)// 每行显示个数 int
+                    .setSelectionMode(selectCount.intValue() == 1 ? SelectModeConfig.SINGLE : SelectModeConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                    .isDirectReturnSingle(true)
+                    .setSkipCropMimeType(new String[]{PictureMimeType.ofGIF(), PictureMimeType.ofWEBP()})
+                    .isPreviewImage(true)
+                    .isPreviewVideo(true)
+                    .forResult(new OnResultCallbackListener<LocalMedia>() {
+                        @Override
+                        public void onResult(ArrayList<LocalMedia> result) {
+                            handlerResult(result);
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Intent intent = new Intent();
+                            intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    });
+        }
+
+    }
+
+
+    private void handlerResult(ArrayList<LocalMedia> selectList) {
+        List<String> paths = new ArrayList<>();
+        for (int i = 0; i < selectList.size(); i++) {
+            LocalMedia localMedia = selectList.get(i);
+            if (localMedia.isCut()) {
+                paths.add(localMedia.getCutPath());
+            } else {
+                paths.add(localMedia.getAvailablePath());
+            }
+        }
+
+
+        if (mimeType != null) {
             //直接调用拍照或拍视频时
             if ("photo".equals(mimeType)) {
-                pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofImage());
-                if (SdkVersionUtils.checkedAndroid_Q()){
-                    pictureSelectionModel.imageFormat(PictureMimeType.PNG_Q);
-                }else{
-                    pictureSelectionModel.imageFormat(PictureMimeType.PNG);
-                }
+                compressFinish(paths);
             } else {
-                pictureSelectionModel = pictureSelector.openCamera(PictureMimeType.ofVideo());
-                pictureSelectionModel.imageFormat(PictureMimeType.MIME_TYPE_VIDEO);
-            }
-        }else{
-            //从相册中选择
-            pictureSelectionModel = pictureSelector.openGallery("image".equals(mode) ? PictureMimeType.ofImage() : PictureMimeType.ofVideo());
-            if ("image".equals(mode)){
-                if (SdkVersionUtils.checkedAndroid_Q()){
-                    pictureSelectionModel.imageFormat(PictureMimeType.PNG_Q);
-                }else{
-                    pictureSelectionModel.imageFormat(PictureMimeType.PNG);
-                }
-
-            }else{
-                pictureSelectionModel.imageFormat(PictureMimeType.MIME_TYPE_VIDEO);
-            }
-        }
-
-        pictureSelectionModel
-                .loadImageEngine(GlideEngine.createGlideEngine())
-                .isOpenStyleNumComplete(true)
-                .isOpenStyleCheckNumMode(true)
-
-//                .imageFormat(
-//                        SdkVersionUtils.checkedAndroid_Q()
-//                        ? ("video".equals(mimeType)  ? PictureMimeType.MIME_TYPE_VIDEO  : PictureMimeType.PNG_Q.toLowerCase() )
-//                        : ("video".equals(mimeType) ? PictureMimeType.MIME_TYPE_VIDEO : PictureMimeType.PNG.toLowerCase()))
-
-                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                .setPictureStyle(pictureStyleUtil.getStyle(uiColor))
-                .setPictureCropStyle(pictureStyleUtil.getCropStyle(uiColor))
-
-//                .imageFormat(PictureMimeType.PNG.toLowerCase())// 拍照保存图片格式后缀,默认jpeg
-                .isCamera(showCamera)
-                .isGif(showGif)
-                .maxSelectNum(selectCount.intValue())
-                .withAspectRatio(width.intValue(), height.intValue())
-                .imageSpanCount(4)// 每行显示个数 int
-                .selectionMode(selectCount.intValue() == 1 ? PictureConfig.SINGLE : PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                .isSingleDirectReturn(true)// 单选模式下是否直接返回
-                .previewImage(true)// 是否可预览图片 true or false
-                .enableCrop(selectCount.intValue() == 1 ? enableCrop : false)// 是否裁剪 true or false
-
-                .circleDimmedLayer(false)
-                .showCropFrame(true)
-                .showCropGrid(true)
-                .hideBottomControls(true)
-                .freeStyleCropEnabled(false)
-                .isAndroidQTransform(true)
-
-                .compress(false)// 是否压缩 true or false
-                .minimumCompressSize(Integer.MAX_VALUE)
-                .compressSavePath(getPath())//压缩图片保存地址
-                .forResult(PictureConfig.CHOOSE_REQUEST);
-
-    }
-    private String getPath() {
-        String path = new AppPath(this).getAppImgDirPath();
-        File file = new File(path);
-        if (file.mkdirs()) {
-            createNomedia(path);
-            return path;
-        }
-        createNomedia(path);
-        return path;
-    }
-
-    private void createNomedia(String path) {
-        File nomedia = new File(path, ".nomedia");
-        if (!nomedia.exists()) {
-            try {
-                nomedia.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频、音频选择结果回调
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-
-                    List<String> paths = new ArrayList<>();
-                    for (int i = 0; i < selectList.size(); i++) {
-                        LocalMedia localMedia = selectList.get(i);
-                        if (localMedia.isCut()) {//2.5.9 android Q 裁剪没问题
-                            // 因为这个lib中 gif裁剪有问题，所以gif裁剪过就不使用裁剪地址，使用原gif地址
-                            if (Build.VERSION.SDK_INT >= 29) {
-                                if (localMedia.getPath() != null && localMedia.getAndroidQToPath() != null && localMedia.getAndroidQToPath().endsWith(".gif")){
-                                    String path = PictureFileUtils.getPath(getApplicationContext(), Uri.parse(localMedia.getPath()));
-                                    paths.add(path);
-                                }else{
-                                    paths.add(localMedia.getCutPath());
-                                }
-                            } else {
-                                if (localMedia.getPath() != null && localMedia.getPath().endsWith(".gif")){
-                                    paths.add(localMedia.getPath());
-                                }else{
-                                    paths.add(localMedia.getCutPath());
-                                }
-                            }
-                        } else {
-
-                            if (Build.VERSION.SDK_INT >= 29) {
-                                paths.add(localMedia.getAndroidQToPath());
-                            } else {
-                                paths.add(localMedia.getPath());
-                            }
-                        }
-                    }
-
-                    if (mimeType != null){
-                        //直接调用拍照或拍视频时
-                        if ("photo".equals(mimeType)) {
-                            lubanCompress(paths);
-                        }else{
-                            resolveVideoPath(paths);
-                        }
-                    }else{
-                        if ("image".equals(mode)) {
-                            //如果选择的是图片就压缩
-                            lubanCompress(paths);
-                        } else {
-                            resolveVideoPath(paths);
-                        }
-                    }
-                    break;
-                case WRITE_SDCARD:
-
-
-                    break;
+                resolveVideoPath(selectList);
             }
         } else {
-            finish();
+            if ("image".equals(mode)) {
+                //如果选择的是图片就压缩
+                compressFinish(paths);
+            } else {
+                resolveVideoPath(selectList);
+            }
         }
     }
 
-
-    private void resolveVideoPath(List<String> paths) {
+    private void resolveVideoPath(ArrayList<LocalMedia> selectList) {
 
         List<Map<String, String>> thumbPaths = new ArrayList<>();
-        for (int i = 0; i < paths.size(); i++) {
-            String path = paths.get(i);
-            Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+        for (int i = 0; i < selectList.size(); i++) {
+            LocalMedia localMedia = selectList.get(i);
+            if (localMedia.getAvailablePath() == null) {
+                break;
+            }
+            Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(localMedia.getAvailablePath(), MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+            Log.e("TAG", "resolveVideoPath: "+localMedia.getPath() +" == "+localMedia.getSandboxPath()+" == "+localMedia.getAvailablePath());
             String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getAppImgDirPath(), bitmap);
             Map<String, String> map = new HashMap<>();
             map.put("thumbPath", thumbPath);
-            map.put("path", path);
+            map.put("path", localMedia.getAvailablePath());
             thumbPaths.add(map);
         }
         Intent intent = new Intent();
@@ -268,55 +240,20 @@ public class SelectPicsActivity extends BaseActivity {
         finish();
     }
 
-    private void lubanCompress(final List<String> paths) {
-        final List<Map<String, String>> lubanCompressPaths = new ArrayList<>();
-        Luban.with(this)
-                .load(paths)
-                .ignoreBy(compressSize.intValue())
-                .setTargetDir(getPath())
-                .filter(new CompressionPredicate() {
-                    @Override
-                    public boolean apply(String path) {
-                        return !path.endsWith(".gif");
-                    }
-                })
-                .setRenameListener(new OnRenameListener() {
-                    @Override
-                    public String rename(String filePath) {
-                        return filePath.substring(filePath.lastIndexOf("/"));
-                    }
-                })
-                .setCompressListener(new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-                    }
 
-                    @Override
-                    public void onSuccess(File file) {
-                        // 压缩成功后调用，返回压缩后的图片文件
-                        Map<String, String> map = new HashMap<>();
-                        map.put("thumbPath", file.getAbsolutePath());
-                        map.put("path", file.getAbsolutePath());
-                        lubanCompressPaths.add(map);
-                        compressCount++;
-                        compressFinish(paths, lubanCompressPaths);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        // 当压缩过程出现问题时调用
-                        compressCount++;
-                        compressFinish(paths, lubanCompressPaths);
-                    }
-                }).launch();
-    }
-
-    private void compressFinish(List<String> paths, List<Map<String, String>> compressPaths) {
-        if (compressCount == paths.size()) {
-            Intent intent = new Intent();
-            intent.putExtra(COMPRESS_PATHS, (Serializable) compressPaths);
-            setResult(RESULT_OK, intent);
-            finish();
+    private void compressFinish(List<String> paths) {
+        final List<Map<String, String>> compressPaths = new ArrayList<>();
+        for (int i = 0; i < paths.size(); i++) {
+            String path = paths.get(i);
+            Map<String, String> map = new HashMap<>();
+            map.put("thumbPath", path);
+            map.put("path", path);
+            compressPaths.add(map);
         }
+
+        Intent intent = new Intent();
+        intent.putExtra(COMPRESS_PATHS, (Serializable) compressPaths);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

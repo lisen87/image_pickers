@@ -11,7 +11,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 ## iOS : platform :ios, '10.0'
 
 
-## Android: minSdkVersion 19 targetSdkVersion 29 compileSdkVersion 29
+## Android: minSdkVersion 21 targetSdkVersion 29 compileSdkVersion 29
 ![](https://github.com/lisen87/image_pickers/blob/master/screenshots/1.png)
 
 
