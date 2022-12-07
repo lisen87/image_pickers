@@ -41,7 +41,6 @@ class _MyAppState extends State<MyApp> {
           cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
           compressSize: 500,
           uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),),
-
       );
       print(_listImagePaths.length);
       if(_listImagePaths.length > 0){
