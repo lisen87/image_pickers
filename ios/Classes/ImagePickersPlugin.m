@@ -156,8 +156,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 configuration. allowSelectImage =NO;
                 configuration.allowSelectVideo =YES;
             }
-            
-            
+
+
             configuration.maxSelectVideoDuration = 30000;
             configuration.maxRecordDuration =60;
             [[UIApplication sharedApplication].delegate.window.rootViewController  showDetailViewController:camera sender:nil];
@@ -165,7 +165,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 NSLog(@"%@",videoUrl);
                 NSLog(@"%@",image);
                 if (image) {
-                    NSData *data2=UIImageJPEGRepresentation(image , 0.9);
+                    NSData *data2=UIImageJPEGRepresentation(image , 1);
                     float size =(float)compressSize/data2.length;
                     if(size>=1){
                         size =1;
@@ -180,7 +180,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
                     NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
                     //保存到沙盒
-                    [UIImageJPEGRepresentation(imageFF,0.9) writeToFile:jpgPath atomically:YES];
+                    [UIImageJPEGRepresentation(imageFF,1) writeToFile:jpgPath atomically:YES];
                     NSDictionary *photoDic =@{
                         @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
                         @"path":[NSString stringWithFormat:@"%@",jpgPath],
