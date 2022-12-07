@@ -116,13 +116,12 @@ public class SelectPicsActivity extends BaseActivity {
         //添加图片
         PictureSelector pictureSelector = PictureSelector.create(this);
         if (mimeType != null) {
-            enableCrop = selectCount.intValue() == 1 ? true :false;
             //直接调用拍照或拍视频时
             PictureSelector.create(this).openCamera("photo".equals(mimeType) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
                     .setRecordVideoMaxSecond(60)
                     .setRecordVideoMinSecond(1)
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
-                    .setCropEngine(enableCrop ?
+                    .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
                     .setCompressEngine(new ImageCompressEngine(compressSize.intValue()))
                     ./*setCameraInterceptListener(new OnCameraInterceptListener() {
@@ -147,7 +146,6 @@ public class SelectPicsActivity extends BaseActivity {
             });
         } else {
 
-            enableCrop = selectCount.intValue() == 1 ? true :false;
             PictureSelector.create(this).openGallery("image".equals(mode) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
                     .setImageEngine(GlideEngine.createGlideEngine())
                     .setSelectorUIStyle(pictureStyleUtil.getSelectorStyle())
@@ -155,7 +153,7 @@ public class SelectPicsActivity extends BaseActivity {
                     .setRecordVideoMaxSecond(60)
                     .setRecordVideoMinSecond(1)
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
-                    .setCropEngine(enableCrop ?
+                    .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
                     .setCompressEngine(new ImageCompressEngine(compressSize.intValue()))
                     .setSandboxFileEngine(new MeSandboxFileEngine())
