@@ -15,7 +15,13 @@
   <component name="ChangeListManager">
     <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/leeson/image_pickers/activitys/SelectPicsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
