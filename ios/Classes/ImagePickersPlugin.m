@@ -1,13 +1,14 @@
 #import "ImagePickersPlugin.h"
 #import <Photos/Photos.h>
-#import "ZLPhotoBrowser/ZLPhotoBrowser.h"
-#import "ZLPhotoBrowser/ZLPhotoBrowser-umbrella.h"
+//#import <ZLPhotoBrowser/ZLPhotoBrowser.h>
+//#import <ZLPhotoBrowser/ZLPhotoBrowser-umbrella.h>
 
 
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AFNetworking/AFNetworking.h>
+@import ZLPhotoBrowser.Swift;
 
 #define Frame_rectStatus ([[UIApplication sharedApplication] statusBarFrame].size.height)
 #define Frame_rectNav (self.navigationController.navigationBar.frame.size.height)
