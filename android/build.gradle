@@ -25,7 +25,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
 
     defaultConfig {
         minSdkVersion 21
@@ -47,19 +47,19 @@ dependencies {
 //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.9'
 //    implementation 'io.github.lucksiege:pictureselector:v2.7.3-rc08'
     // PictureSelector basic (Necessary)
-    implementation 'io.github.lucksiege:pictureselector:v3.10.6'
+    implementation 'io.github.lucksiege:pictureselector:v3.10.7'
 
     // image compress library (Not necessary)
-    implementation 'io.github.lucksiege:compress:v3.10.6'
+    implementation 'io.github.lucksiege:compress:v3.10.7'
 
     // uCrop library (Not necessary)
-    implementation 'io.github.lucksiege:ucrop:v3.10.6'
+    implementation 'io.github.lucksiege:ucrop:v3.10.7'
 
     // simple camerax library (Not necessary)
 //    implementation 'io.github.lucksiege:camerax:v3.10.6'
 
 //    implementation 'top.zibin:Luban:1.1.8'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation ('com.github.chrisbanes.photoview:library:1.2.4'){
         exclude group: 'com.android.support'
     }
