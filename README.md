@@ -115,8 +115,8 @@ ImagePickers.saveVideoToGallery("http://xxxx/xx/xx.mp4");
 
 ## iOS
 Add the following entry to your `Info.plist` file, located in `/Info.plist` :
-`
-<key>NSAppTransportSecurity</key>
+
+    <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
         <true/>
@@ -130,7 +130,7 @@ Add the following entry to your `Info.plist` file, located in `/Info.plist` :
     <key>NSPhotoLibraryUsageDescription</key>
     <string>...</string>
 
-`
+
 * 如果用的是之前版本进行更新，若运行失败请删除以前的-l"ZLPhotoBrowser-objc" 位置再targer->build setting ->linking->other linker flags
 
 
