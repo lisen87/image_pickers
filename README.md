@@ -20,7 +20,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^2.0.0+7
+image_pickers: ^2.0.0+9
 ```
 
 ```dart
@@ -130,11 +130,10 @@ Add the following entry to your `Info.plist` file, located in `/Info.plist` :
     <key>NSPhotoLibraryUsageDescription</key>
     <string>...</string>
 
-  * 如果用的是之前版本进行更新，若运行失败请删除以前的-l"ZLPhotoBrowser-objc" 位置再targer->build setting ->linking->other linker flags
-
-
-
-
-
-
 `
+* 如果用的是之前版本进行更新，若运行失败请删除以前的-l"ZLPhotoBrowser-objc" 位置再targer->build setting ->linking->other linker flags
+
+
+
+
+

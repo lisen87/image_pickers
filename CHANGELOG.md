@@ -1,3 +1,6 @@
+## 2.0.0+9
+* 更新ios库，修复找不到方法
+* Update iOS library, fix not found way
 ## 2.0.0+7
 * 更新Android库
 ## 2.0.0+6
