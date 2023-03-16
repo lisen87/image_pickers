@@ -82,6 +82,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         //首页上部颜色
         [ZLPhotoUIConfiguration default].navEmbedTitleViewBgColor = colorType;
     }else{
+        
         /// 导航条颜色
         [ZLPhotoUIConfiguration default].navBarColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
         /// 导航标题颜色
@@ -117,7 +118,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSDictionary *dic = call.arguments;
         NSInteger selectCount =[[dic objectForKey:@"selectCount"] integerValue];//最多多少个
         NSInteger compressSize =[[dic objectForKey:@"compressSize"] integerValue]*1024;//大小
-        
+
         NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//图片还是视频image video
         BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
         if(selectCount>1){
@@ -134,33 +135,34 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
         configuration.allowEditImage =enableCrop;
-        configuration.cellCornerRadio =5;
+        configuration.editAfterSelectThumbnailImage =true;
+        [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.editImageConfiguration.tools_objc=@[@1];
         configuration.editImageConfiguration.clipRatios=@[[[ZLImageClipRatio alloc]initWithTitle:@"" whRatio:((float)width/(float)height) isCircle:false]];
-        
+
         if(cameraMimeType) {
             //cameraMimeType//type   photo video
-            
+
             ZLPhotoUIConfiguration *configurationUI =[ZLPhotoUIConfiguration default];
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configurationUI];
-            
+
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
-            
+
             if ([cameraMimeType isEqualToString:@"photo"]) {
-                configuration.allowTakePhoto =YES;
-                configuration.allowRecordVideo =NO;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowTakePhoto =YES;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo =NO;
                 configuration. allowSelectImage =YES;
                 configuration.allowSelectVideo =NO;
             }else{
-                configuration.allowTakePhoto = NO;
-                configuration.allowRecordVideo = YES;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowTakePhoto = NO;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo = YES;
                 configuration. allowSelectImage =NO;
                 configuration.allowSelectVideo =YES;
             }
 
 
             configuration.maxSelectVideoDuration = 30000;
-            configuration.maxRecordDuration =60;
+            [ZLPhotoConfiguration default].cameraConfiguration.maxRecordDuration =60;
             [[UIApplication sharedApplication].delegate.window.rootViewController  showDetailViewController:camera sender:nil];
             camera.takeDoneBlock = ^(UIImage *image, NSURL *videoUrl){
                 NSLog(@"%@",videoUrl);
@@ -201,9 +203,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     UIImage *img = [self getImage:subString];
                     NSData *data2=UIImageJPEGRepresentation(img , 1);
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
-                    
+
                     [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
-                    
+
                     NSDictionary *photoDic = @{
                         @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
                         @"path":[NSString stringWithFormat:@"%@",subString],
@@ -213,7 +215,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     return ;
                 }
             };
-            
+
         }else{
             ZLPhotoPreviewSheet *ac = [[ZLPhotoPreviewSheet alloc] init];
             configuration.maxSelectCount = selectCount;//最多选择多少张图
@@ -221,36 +223,38 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
             configuration.allowSelectOriginal =NO;//不选择原图
             configuration.allowEditImage =enableCrop;
-            configuration.cellCornerRadio =5;
+            [ZLPhotoUIConfiguration default].cellCornerRadio =5;
+
+            configuration.editAfterSelectThumbnailImage =true;
             configuration.editImageConfiguration.clipRatios=@[[[ZLImageClipRatio alloc]initWithTitle:@"" whRatio:((float)width/(float)height) isCircle:false]];
             configuration.allowSelectGif = isShowGif;
             if ([galleryMode isEqualToString:@"image"]) {
-                configuration.allowTakePhoto =YES;
-                configuration.allowRecordVideo =NO;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowTakePhoto =YES;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo =NO;
                 configuration. allowSelectImage =YES;
                 configuration.allowSelectVideo =NO;
             }else{
                 configuration. allowSelectImage =NO;
                 configuration.allowSelectVideo =YES;
-                configuration.allowTakePhoto =NO;
-                configuration.allowRecordVideo =YES;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowTakePhoto =NO;
+                [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo =YES;
             }
-            
+
             ZLPhotoUIConfiguration *configurationUI =[ZLPhotoUIConfiguration default];
-            
+
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configurationUI];
-            [ac showPhotoLibraryWithSender:[UIApplication sharedApplication].delegate.window.rootViewController];
+//            [ac showPhotoLibraryWithSender:[UIApplication sharedApplication].delegate.window.rootViewController];
             NSMutableArray *arr =[[NSMutableArray alloc]init];
-            
+
             ac.cancelBlock = ^{
                 NSArray *arr =@[];
                 result(arr);
             };
-            
+
             ac.selectImageBlock = ^(NSArray<ZLResultModel *> * modelList, BOOL isB) {
                 //your codes
                 if (![galleryMode isEqualToString:@"image"]) {
-                    
+
                     for (NSInteger i = 0; i < modelList.count; i++) {
                         // 获取一个资源（PHAsset）
                         PHAsset *phAsset = modelList[i].asset;
@@ -263,11 +267,11 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
                         PHImageManager *manager = [PHImageManager defaultManager];
                         [manager requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-                            
+
                             AVURLAsset *urlAsset = (AVURLAsset *)asset;
                             NSURL *url = urlAsset.URL;
                             NSString *subString = [url.absoluteString substringFromIndex:7];
-                            
+
                             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                             formatter.dateFormat = @"yyyyMMddHHmmss";
                             int  x = arc4random() % 10000;
@@ -277,7 +281,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             //保存到沙盒
                             [UIImageJPEGRepresentation(img,1.0) writeToFile:jpgPath atomically:YES];
                             NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                            
+
                             //取出路径
                             [arr addObject:@{
                                 @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
@@ -287,38 +291,38 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                             if (arr.count==modelList.count) {
                                 result(arr);
                                 return ;
-                                
+
                             }
-                            
+
                         }];
                     }
                 }else{
                     if (modelList.count>0) {
                         [self saveImageView:0 imagePHAsset:modelList arr:arr  compressSize:compressSize result:(FlutterResult)result];
                     }
-                    
+
                 }
-                
+
             };
-            
+
             [ac showPhotoLibraryWithSender:[UIApplication sharedApplication].delegate.window.rootViewController];
         }
-        
+
     } else if ([@"previewImages" isEqualToString:call.method]){
-        
+
         NSDictionary *dic = call.arguments;
         NSMutableArray *arr =[[NSMutableArray alloc]init];
         NSArray *imageArr =[dic objectForKey:@"paths"];
         NSInteger initIndex =[[dic objectForKey:@"initIndex"] intValue];
-        
+
         for (int i=0; i<imageArr.count; i++) {
             NSString *imgString  =imageArr[i];
             if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
                 AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:[NSString stringWithFormat:@"%@",imgString] img:nil];
                 [arr addObject:item];
-                
+
             }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"CoreSimulator/"]){
-                
+
                 UIImage *image =[UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",imgString]]];
                 AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"图片详情" url:nil img:image];
                 [arr addObject:item];
@@ -358,7 +362,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         };
         gallery.modalPresentationStyle =UIModalPresentationFullScreen;
         [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
-        
+
     }else if ([@"previewVideo" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         PlayTheVideoVC *vc =[[PlayTheVideoVC alloc]init];
@@ -366,9 +370,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         vc.videoUrl =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
         vc.modalPresentationStyle =UIModalPresentationFullScreen;
         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:vc animated:YES completion:^{
-            
+
         }];
-        
+
     }else if ([@"saveByteDataImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         FlutterStandardTypedData *data =[dic objectForKey:@"uint8List"];
@@ -382,7 +386,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             if(range.location+range.length<str.length){
                 str = [str substringFromIndex:range.location+range.length];
                 if (error) {
-                    
+
                 }else{
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -398,24 +402,24 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         string =@"png";
                     }
                     NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
-                    
+
                     NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
                     //保存到沙盒
                     [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                    
+
                     result(aPath3);
                 }
             }
-            
+
         }];
-        
+
     }
     else if([@"saveImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSString *url =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
         if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
-            
+
             [self saveGifImage:url];
         }else{
             UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
@@ -428,16 +432,16 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 if(range.location+range.length<str.length){
                     str = [str substringFromIndex:range.location+range.length];
                     if (error) {
-                        
+
                     }else{
                         result([NSString stringWithFormat:@"/%@",str]);
                     }
                 }
-                
+
             }];
         }
-        
-        
+
+
     }else if([@"saveVideoToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSString *urlString =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
