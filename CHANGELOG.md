@@ -1,4 +1,4 @@
-## 2.0.0+9
+## 2.0.1
 * 更新ios库，修复找不到方法
 * Update iOS library, fix not found way
 ## 2.0.0+7
