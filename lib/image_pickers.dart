@@ -284,6 +284,11 @@ class Media {
   ///Video path or image path
   String? path;
   GalleryMode? galleryMode;
+   Media({
+    this.thumbPath,
+    this.path,
+    this.galleryMode,
+  });
 }
 
 /// Created by liSen on 2019/11/15 10:51.
