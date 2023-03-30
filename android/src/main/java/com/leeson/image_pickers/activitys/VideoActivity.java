@@ -1,8 +1,6 @@
 package com.leeson.image_pickers.activitys;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -67,67 +65,56 @@ public class VideoActivity extends BaseActivity{
         outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
 
-        Intent intent = new Intent(this, PermissionActivity.class);
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
-        startActivityForResult(intent, READ_SDCARD);
-
+        startPlay();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == READ_SDCARD){
-                if (!TextUtils.isEmpty(thumbPath)){
-                    Glide.with(this).asBitmap().load(thumbPath).into(iv_src);
-                    iv_src.setVisibility(View.VISIBLE);
-                }
-                //网络视频url或本地视频路径
-                Uri uri = Uri.parse(videoPath);
+    protected void startPlay() {
+        if (!TextUtils.isEmpty(thumbPath)){
+            Glide.with(this).asBitmap().load(thumbPath).into(iv_src);
+            iv_src.setVisibility(View.VISIBLE);
+        }
+        //网络视频url或本地视频路径
+        Uri uri = Uri.parse(videoPath);
 
-                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                videoHeight = mediaPlayer.getVideoHeight();
+                videoWidth = mediaPlayer.getVideoWidth();
+                updateVideoViewSize();
+                mediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+                mediaPlayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {
                     @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-                        videoHeight = mediaPlayer.getVideoHeight();
-                        videoWidth = mediaPlayer.getVideoWidth();
-                        updateVideoViewSize();
-                        mediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
-                        mediaPlayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-                            @Override
-                            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START){
-                                    iv_src.setVisibility(View.GONE);
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                                return true;
-                            }
-                        });
-                    }
-                });
-
-                //设置视频路径
-                videoView.setVideoURI(uri);
-
-                //开始播放视频
-                videoView.start();
-
-                layout_root.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
-                //播放完成回调
-                videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        finish();
+                    public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                        if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START){
+                            iv_src.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                        return true;
                     }
                 });
             }
-        }else{
-            finish();
-        }
+        });
+
+        //设置视频路径
+        videoView.setVideoURI(uri);
+
+        //开始播放视频
+        videoView.start();
+
+        layout_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        //播放完成回调
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                finish();
+            }
+        });
     }
 
     @Override

@@ -1,3 +1,5 @@
+## 2.0.2
+* 尝试适配 Android13 权限
 ## 2.0.1
 * 更新ios库，修复找不到方法
 * Update iOS library, fix not found way

@@ -3,6 +3,7 @@ package com.leeson.image_pickers;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 
 import com.leeson.image_pickers.activitys.PermissionActivity;
 import com.leeson.image_pickers.activitys.PhotosActivity;
@@ -35,8 +36,9 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
 
   private static final int SELECT = 102;
   private static final int SAVE_IMAGE = 103;
-  private static final int WRITE_SDCARD = 104;
+  private static final int SAVE_VIDEO = 104;
   private static final int SAVE_IMAGE_DATA = 105;
+  private static final int READ_IMAGE = 106;
 
   private Activity activity;
   private MethodChannel.Result result;
@@ -86,75 +88,35 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       }else if (requestCode == SAVE_IMAGE){
         if (resultCode == Activity.RESULT_OK){
           String imageUrl = intent.getStringExtra("imageUrl");
-          Saver imageSaver = new Saver(activity);
-          imageSaver.saveImgToGallery(imageUrl, new Saver.IFinishListener() {
-            @Override
-            public void onSuccess(Saver.FileInfo fileInfo) {
-              if (result != null){
-                result.success(fileInfo.getPath());
-              }
-            }
-
-            @Override
-            public void onFailed(String errorMsg) {
-              if (result != null){
-                result.error("-1",errorMsg,errorMsg);
-              }
-            }
-          });
+          saveImage(imageUrl);
         }
-      }else if(requestCode == WRITE_SDCARD){
+      }else if(requestCode == SAVE_VIDEO){
         if (resultCode == Activity.RESULT_OK){
           String videoUrl = intent.getStringExtra("videoUrl");
-          Saver videoSaver = new Saver(activity);
-          videoSaver.saveVideoToGallery(videoUrl, new Saver.IFinishListener() {
-            @Override
-            public void onSuccess(Saver.FileInfo fileInfo) {
-              if (result != null){
-                result.success(fileInfo.getPath());
-              }
-            }
-
-            @Override
-            public void onFailed(String errorMsg) {
-              if (result != null){
-                result.error("-1",errorMsg,errorMsg);
-              }
-            }
-          });
+          saveVideo(videoUrl);
         }
       }else if(requestCode == SAVE_IMAGE_DATA){
         if (resultCode == Activity.RESULT_OK && data != null){
-          AppPath appPath = new AppPath(activity);
-          Saver saver = new Saver(activity);
-          saver.saveByteDataToGallery(data, new Saver.IFinishListener() {
-            @Override
-            public void onSuccess(Saver.FileInfo fileInfo) {
-              if (result != null){
-                result.success(fileInfo.getPath());
-              }
-              data = null;
-            }
-
-            @Override
-            public void onFailed(String errorMsg) {
-              if (result != null){
-                result.error("-1",errorMsg,errorMsg);
-              }
-              data = null;
-            }
-          });
-
+          saveImageData();
         }
+      }else if (requestCode == READ_IMAGE){
+        if (resultCode == Activity.RESULT_OK){
+          Intent intent1 = new Intent(activity, SelectPicsActivity.class);
+          intent1.putExtras(intent);
+          activity.startActivityForResult(intent1, SELECT);
+        }
+
       }
       return false;
     }
   };
+
   @Override
   public void onMethodCall(MethodCall methodCall, @NonNull MethodChannel.Result result) {
 
     this.result = result;
     if ("getPickerPaths".equals(methodCall.method)) {
+
       String galleryMode = methodCall.argument("galleryMode");
       Boolean showGif = methodCall.argument("showGif");
       Map<String,Number> uiColor = methodCall.argument("uiColor");
@@ -166,7 +128,8 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       Number compressSize = methodCall.argument("compressSize");
       String cameraMimeType = methodCall.argument("cameraMimeType");
 
-      Intent intent = new Intent(activity, SelectPicsActivity.class);
+      Intent intent = new Intent();
+
       intent.putExtra(SelectPicsActivity.GALLERY_MODE,galleryMode);
       intent.putExtra(SelectPicsActivity.UI_COLOR, (Serializable) uiColor);
       intent.putExtra(SelectPicsActivity.SELECT_COUNT,selectCount);
@@ -178,7 +141,15 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       intent.putExtra(SelectPicsActivity.COMPRESS_SIZE,compressSize);
       //直接调用拍照或拍视频时有效
       intent.putExtra(SelectPicsActivity.CAMERA_MIME_TYPE,cameraMimeType);
-      activity.startActivityForResult(intent, SELECT);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.READ_MEDIA_IMAGES
+                ,Manifest.permission.READ_MEDIA_VIDEO});
+        intent.setClass(activity,PermissionActivity.class);
+        activity.startActivityForResult(intent,READ_IMAGE);
+      }else{
+        intent.setClass(activity,SelectPicsActivity.class);
+        activity.startActivityForResult(intent, SELECT);
+      }
 
     } else if ("previewImage".equals(methodCall.method)) {
       Intent intent = new Intent(activity, PhotosActivity.class);
@@ -199,28 +170,96 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       intent.putExtra(VideoActivity.THUMB_PATH, methodCall.argument("thumbPath").toString());
       activity.startActivity(intent);
     } else if("saveImageToGallery".equals(methodCall.method)) {
-      Intent intent = new Intent(activity, PermissionActivity.class);
-      intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-              ,Manifest.permission.READ_EXTERNAL_STORAGE});
-      intent.putExtra("imageUrl",methodCall.argument("path").toString());
-      activity.startActivityForResult(intent,SAVE_IMAGE);
+      String imageUrl = methodCall.argument("path").toString();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        saveImage(imageUrl);
+      }else{
+        Intent intent = new Intent(activity, PermissionActivity.class);
+        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+        intent.putExtra("imageUrl",imageUrl);
+        activity.startActivityForResult(intent,SAVE_IMAGE);
+      }
+
     } else if("saveVideoToGallery".equals(methodCall.method)) {
-      Intent intent = new Intent(activity, PermissionActivity.class);
-      intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-              ,Manifest.permission.READ_EXTERNAL_STORAGE});
-      intent.putExtra("videoUrl",methodCall.argument("path").toString());
-      activity.startActivityForResult(intent, WRITE_SDCARD);
+      String videoUrl = methodCall.argument("path").toString();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        saveVideo(videoUrl);
+      }else{
+        Intent intent = new Intent(activity, PermissionActivity.class);
+        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+        intent.putExtra("videoUrl",videoUrl);
+        activity.startActivityForResult(intent, SAVE_VIDEO);
+      }
     } else if("saveByteDataImageToGallery".equals(methodCall.method)){
-      Intent intent = new Intent(activity, PermissionActivity.class);
-      intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-              ,Manifest.permission.READ_EXTERNAL_STORAGE});
       data = (byte[])methodCall.argument("uint8List");
-      activity.startActivityForResult(intent, SAVE_IMAGE_DATA);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        saveImageData();
+      }else{
+        Intent intent = new Intent(activity, PermissionActivity.class);
+        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+        activity.startActivityForResult(intent, SAVE_IMAGE_DATA);
+      }
     }else {
       result.notImplemented();
     }
   }
 
+  private void saveImage(String imageUrl){
+    Saver imageSaver = new Saver(activity);
+    imageSaver.saveImgToGallery(imageUrl, new Saver.IFinishListener() {
+      @Override
+      public void onSuccess(Saver.FileInfo fileInfo) {
+        if (result != null){
+          result.success(fileInfo.getPath());
+        }
+      }
+
+      @Override
+      public void onFailed(String errorMsg) {
+        if (result != null){
+          result.error("-1",errorMsg,errorMsg);
+        }
+      }
+    });
+  }
+  private void saveVideo(String videoUrl){
+    Saver videoSaver = new Saver(activity);
+    videoSaver.saveVideoToGallery(videoUrl, new Saver.IFinishListener() {
+      @Override
+      public void onSuccess(Saver.FileInfo fileInfo) {
+        if (result != null){
+          result.success(fileInfo.getPath());
+        }
+      }
+
+      @Override
+      public void onFailed(String errorMsg) {
+        if (result != null){
+          result.error("-1",errorMsg,errorMsg);
+        }
+      }
+    });
+  }
+  private void saveImageData(){
+    Saver saver = new Saver(activity);
+    saver.saveByteDataToGallery(data, new Saver.IFinishListener() {
+      @Override
+      public void onSuccess(Saver.FileInfo fileInfo) {
+        if (result != null){
+          result.success(fileInfo.getPath());
+        }
+        data = null;
+      }
+
+      @Override
+      public void onFailed(String errorMsg) {
+        if (result != null){
+          result.error("-1",errorMsg,errorMsg);
+        }
+        data = null;
+      }
+    });
+  }
   private  FlutterPluginBinding flutterPluginBinding;
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {

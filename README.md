@@ -20,7 +20,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^2.0.1
+image_pickers: ^2.0.2
 ```
 
 ```dart
