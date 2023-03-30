@@ -13,11 +13,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="">
+    <list default="true" id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="安卓更新最新的图片选择库,适配 13">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +58,8 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/cuixiaocun/Desktop/2021/image_pickers_swift&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;experimental&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/flutter_package/image_pickers/example/android/build.gradle&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -88,34 +88,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571893796328</updated>
-    </task>
-    <task id="LOCAL-00006" summary="修复安卓9无法加载图片问题">
-      <created>1573532848936</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1573532848936</updated>
-    </task>
-    <task id="LOCAL-00007" summary="ui颜色">
-      <created>1573794330676</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1573794330677</updated>
-    </task>
-    <task id="LOCAL-00008" summary="拍照，录制视频">
-      <created>1573809374145</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1573809374145</updated>
-    </task>
-    <task id="LOCAL-00009" summary="拍照，录制视频">
-      <created>1573809502015</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1573809502015</updated>
     </task>
     <task id="LOCAL-00010" summary="拍照，录制视频">
       <created>1574054834320</created>
@@ -425,14 +397,42 @@
       <option name="project" value="LOCAL" />
       <updated>1670397231350</updated>
     </task>
-    <task id="LOCAL-00054" summary="ios 找不到方法">
-      <created>1678935718550</created>
+    <task id="LOCAL-00054" summary="安卓更新最新的图片选择库,适配 13">
+      <created>1678166711729</created>
       <option name="number" value="00054" />
       <option name="presentableId" value="LOCAL-00054" />
       <option name="project" value="LOCAL" />
-      <updated>1678935718550</updated>
+      <updated>1678166711729</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="ios更新最新的图片选择库">
+      <created>1678944162373</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1678944162373</updated>
+    </task>
+    <task id="LOCAL-00056" summary="ios更新最新的图片选择库">
+      <created>1678944291403</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1678944291403</updated>
+    </task>
+    <task id="LOCAL-00057" summary="发布2.0.1">
+      <created>1679019867874</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1679019867874</updated>
+    </task>
+    <task id="LOCAL-00058" summary="安卓再次 适配 13权限问题">
+      <created>1680156554707</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1680156554707</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -471,12 +471,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/example/ios/.symlinks/plugins/image_pickers" />
     </ignored-roots>
-    <MESSAGE value="android 测试完成" />
-    <MESSAGE value="测试完成" />
-    <MESSAGE value="视频保存" />
     <MESSAGE value="修复安卓9无法加载图片问题" />
     <MESSAGE value="ui颜色" />
     <MESSAGE value="拍照，录制视频" />
@@ -498,8 +497,11 @@
     <MESSAGE value="IOS适配13.0以下以及 返回箭头问题现同安卓效果" />
     <MESSAGE value="未选择图片将返回空数组，未拍照或者未拍摄视频将返回null" />
     <MESSAGE value="安卓更新最新的图片选择库" />
-    <MESSAGE value="ios 找不到方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="ios 找不到方法" />
+    <MESSAGE value="安卓更新最新的图片选择库,适配 13" />
+    <MESSAGE value="ios更新最新的图片选择库" />
+    <MESSAGE value="发布2.0.1" />
+    <MESSAGE value="安卓再次 适配 13权限问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="安卓再次 适配 13权限问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
