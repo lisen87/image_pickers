@@ -14,7 +14,6 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 ## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
 ## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
 ## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
-## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
 
 
 ## 多选图片时 cropConfig 字段无效 The cropConfig field is invalid when multiple images are selected
@@ -23,7 +22,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^2.0.2
+image_pickers: ^2.0.2+1
 ```
 
 ```dart
