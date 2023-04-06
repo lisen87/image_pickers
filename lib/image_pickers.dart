@@ -10,6 +10,9 @@ enum GalleryMode {
 
   ///选择视频
   video,
+
+  ///选择 图片 和 视频
+  all,
 }
 
 enum CameraMimeType {
@@ -32,10 +35,17 @@ class ImagePickers {
   ///
   ///compressSize 拍照后（录制视频时此参数无效）的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
+  /// videoRecordMaxSecond 录制视频最大时间（秒）
+  ///
+  /// videoRecordMinSecond 录制视频最最小时间（秒）
+  ///
+
   static Future<Media?> openCamera({
     CameraMimeType cameraMimeType: CameraMimeType.photo,
     CropConfig? cropConfig,
     int compressSize: 500,
+    int videoRecordMaxSecond : 120,
+    int videoRecordMinSecond : 1,
   }) async {
     String mimeType = "photo";
     if (cameraMimeType == CameraMimeType.video) {
@@ -69,6 +79,8 @@ class ImagePickers {
       'height': height,
       'compressSize': compressSize < 50 ? 50 : compressSize,
       'cameraMimeType': mimeType,
+      'videoRecordMaxSecond': videoRecordMaxSecond,
+      'videoRecordMinSecond': videoRecordMinSecond,
     };
     final List<dynamic>? paths =
         await _channel.invokeMethod('getPickerPaths', params);
@@ -101,6 +113,14 @@ class ImagePickers {
   ///
   ///compressSize 选择图片（选择视频时此参数无效）后的忽略压缩大小，当图片大小小于compressSize时将不压缩 单位 KB Ignore compression size after selection, will not compress unit KB when the image size is smaller than compressSize
   ///
+  ///
+  /// videoRecordMaxSecond 录制视频最大时间（秒）
+  ///
+  /// videoRecordMinSecond 录制视频最最小时间（秒）
+  ///
+  /// videoSelectMaxSecond 选择视频时视频最大时间（秒）
+  ///
+  /// videoSelectMinSecond 选择视频时视频最小时间（秒）
 
   static Future<List<Media>> pickerPaths({
     GalleryMode galleryMode: GalleryMode.image,
@@ -110,13 +130,11 @@ class ImagePickers {
     bool showGif: true,
     CropConfig? cropConfig,
     int compressSize: 500,
+    int videoRecordMaxSecond : 120,
+    int videoRecordMinSecond : 1,
+    int videoSelectMaxSecond : 120,
+    int videoSelectMinSecond : 1,
   }) async {
-    String gMode = "image";
-    if (galleryMode == GalleryMode.image) {
-      gMode = "image";
-    } else if (galleryMode == GalleryMode.video) {
-      gMode = "video";
-    }
     Color uiColor = UIConfig.defUiThemeColor;
     if (uiConfig != null) {
       uiColor = uiConfig.uiThemeColor;
@@ -132,7 +150,7 @@ class ImagePickers {
     }
 
     final Map<String, dynamic> params = <String, dynamic>{
-      'galleryMode': gMode,
+      'galleryMode': galleryMode.name,
       'showGif': showGif,
       'uiColor': {
         "a": 255,
@@ -147,6 +165,10 @@ class ImagePickers {
       'width': width,
       'height': height,
       'compressSize': compressSize < 50 ? 50 : compressSize,
+      'videoRecordMaxSecond': videoRecordMaxSecond,
+      'videoRecordMinSecond': videoRecordMinSecond,
+      'videoSelectMaxSecond': videoSelectMaxSecond,
+      'videoSelectMinSecond': videoSelectMinSecond,
     };
     final List<dynamic> paths =
         await _channel.invokeMethod('getPickerPaths', params);
@@ -155,7 +177,11 @@ class ImagePickers {
       Media media = Media();
       media.thumbPath = data["thumbPath"];
       media.path = data["path"];
-      media.galleryMode = galleryMode;
+      if(media.path!.contains('image')){
+        media.galleryMode = GalleryMode.image;
+      }else{
+        media.galleryMode = GalleryMode.video;
+      }
       medias.add(media);
     });
     return medias;

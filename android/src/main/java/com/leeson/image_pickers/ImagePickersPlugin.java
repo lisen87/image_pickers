@@ -127,6 +127,10 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       Number height = methodCall.argument("height");
       Number compressSize = methodCall.argument("compressSize");
       String cameraMimeType = methodCall.argument("cameraMimeType");
+      Number videoRecordMaxSecond = methodCall.argument("videoRecordMaxSecond");
+      Number videoRecordMinSecond = methodCall.argument("videoRecordMinSecond");
+      Number videoSelectMaxSecond = methodCall.argument("videoSelectMaxSecond");
+      Number videoSelectMinSecond = methodCall.argument("videoSelectMinSecond");
 
       Intent intent = new Intent();
 
@@ -141,6 +145,11 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       intent.putExtra(SelectPicsActivity.COMPRESS_SIZE,compressSize);
       //直接调用拍照或拍视频时有效
       intent.putExtra(SelectPicsActivity.CAMERA_MIME_TYPE,cameraMimeType);
+      intent.putExtra(SelectPicsActivity.VIDEO_RECORD_MAX_SECOND,videoRecordMaxSecond);
+      intent.putExtra(SelectPicsActivity.VIDEO_RECORD_MIN_SECOND,videoRecordMinSecond);
+      intent.putExtra(SelectPicsActivity.VIDEO_SELECT_MAX_SECOND,videoSelectMaxSecond);
+      intent.putExtra(SelectPicsActivity.VIDEO_SELECT_MIN_SECOND,videoSelectMinSecond);
+
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
         intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.READ_MEDIA_IMAGES
                 ,Manifest.permission.READ_MEDIA_VIDEO});

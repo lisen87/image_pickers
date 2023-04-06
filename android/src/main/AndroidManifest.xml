@@ -27,17 +27,17 @@
         <!--适配9.0的系统-->
         <activity android:name=".activitys.PermissionActivity" android:theme="@style/TransTheme"/>
         <activity android:name=".activitys.SelectPicsActivity" android:theme="@style/TransTheme"/>
-        <activity android:name=".activitys.PhotosActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme"/>
+<!--        <activity android:name=".activitys.PhotosActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme"/>-->
         <activity android:name=".activitys.VideoActivity" android:configChanges="orientation|screenSize" android:theme="@style/AppTheme"/>
 
-        <!--        <provider-->
-        <!--            android:name=".provides.MyProvide"-->
-        <!--            android:authorities="com.leeson.pickers.fileprovider"-->
-        <!--            android:exported="false"-->
-        <!--            android:grantUriPermissions="true">-->
-        <!--            <meta-data-->
-        <!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
-        <!--                android:resource="@xml/pickers_plugin_file_path" />-->
-        <!--        </provider>-->
+<!--        <provider-->
+<!--            android:name=".provides.MyProvide"-->
+<!--            android:authorities="com.leeson.image_pickers.fileprovider"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/pickers_plugin_file_path" />-->
+<!--        </provider>-->
     </application>
 </manifest>

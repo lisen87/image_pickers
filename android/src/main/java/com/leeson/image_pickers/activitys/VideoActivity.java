@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -19,7 +20,10 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.leeson.image_pickers.R;
 
+import java.io.File;
+
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
 /**
  * Created by lisen on 2018-09-14.
@@ -74,7 +78,13 @@ public class VideoActivity extends BaseActivity{
             iv_src.setVisibility(View.VISIBLE);
         }
         //网络视频url或本地视频路径
-        Uri uri = Uri.parse(videoPath);
+
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(this, getPackageName() + ".luckProvider", new File(videoPath));
+        }else{
+            uri = Uri.parse(videoPath);
+        }
 
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override

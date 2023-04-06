@@ -59,6 +59,10 @@ public class SelectPicsActivity extends BaseActivity {
 
     public static final String COMPRESS_PATHS = "COMPRESS_PATHS";//压缩的画
     public static final String CAMERA_MIME_TYPE = "CAMERA_MIME_TYPE";//直接调用拍照或拍视频时有效
+    public static final String VIDEO_RECORD_MAX_SECOND = "VIDEO_RECORD_MAX_SECOND";//录制视频最大时间（秒）
+    public static final String VIDEO_RECORD_MIN_SECOND = "VIDEO_RECORD_MIN_SECOND";//录制视频最最小时间（秒）
+    public static final String VIDEO_SELECT_MAX_SECOND = "VIDEO_SELECT_MAX_SECOND";//选择视频时视频最大时间（秒）
+    public static final String VIDEO_SELECT_MIN_SECOND = "VIDEO_SELECT_MIN_SECOND";//选择视频时视频最小时间（秒）
     private Number compressSize;
     private String mode;
     private Map<String, Number> uiColor;
@@ -69,6 +73,11 @@ public class SelectPicsActivity extends BaseActivity {
     private Number width;
     private Number height;
     private String mimeType;
+
+    private Number videoRecordMaxSecond;
+    private Number videoRecordMinSecond;
+    private Number videoSelectMaxSecond;
+    private Number videoSelectMinSecond;
 
     @Override
     public void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
@@ -86,6 +95,14 @@ public class SelectPicsActivity extends BaseActivity {
         compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
         mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
 
+        videoRecordMaxSecond = getIntent().getIntExtra(VIDEO_RECORD_MAX_SECOND, 120);
+        videoRecordMinSecond = getIntent().getIntExtra(VIDEO_RECORD_MIN_SECOND, 1);
+        videoSelectMaxSecond = getIntent().getIntExtra(VIDEO_SELECT_MAX_SECOND, 120);
+        videoSelectMinSecond = getIntent().getIntExtra(VIDEO_SELECT_MIN_SECOND, 1);
+        Log.e("TAGTAG", "videoRecordMaxSecond  "+videoRecordMaxSecond);
+        Log.e("TAGTAG", "videoRecordMinSecond  "+videoRecordMinSecond);
+        Log.e("TAGTAG", "videoSelectMaxSecond  "+videoSelectMaxSecond);
+        Log.e("TAGTAG", "videoSelectMinSecond  "+videoSelectMinSecond);
         startSel();
     }
 
@@ -118,8 +135,10 @@ public class SelectPicsActivity extends BaseActivity {
         if (mimeType != null) {
             //直接调用拍照或拍视频时
             PictureSelector.create(this).openCamera("photo".equals(mimeType) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
-                    .setRecordVideoMaxSecond(60)
-                    .setRecordVideoMinSecond(1)
+                    .setRecordVideoMaxSecond(videoRecordMaxSecond.intValue())
+                    .setRecordVideoMinSecond(videoRecordMinSecond.intValue())
+                    .setSelectMaxDurationSecond(videoRecordMaxSecond.intValue())
+                    .setSelectMinDurationSecond(videoRecordMinSecond.intValue())
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
                     .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
@@ -133,11 +152,13 @@ public class SelectPicsActivity extends BaseActivity {
             }).*/setSandboxFileEngine(new MeSandboxFileEngine()).forResult(new OnResultCallbackListener<LocalMedia>() {
                 @Override
                 public void onResult(ArrayList<LocalMedia> result) {
+                    Log.e("TAG", "onResult: " );
                     handlerResult(result);
                 }
 
                 @Override
                 public void onCancel() {
+                    Log.e("TAG", "onCancelonCancelonCancel: " );
                     Intent intent = new Intent();
                     intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
                     setResult(RESULT_OK, intent);
@@ -146,12 +167,21 @@ public class SelectPicsActivity extends BaseActivity {
             });
         } else {
 
-            PictureSelector.create(this).openGallery("image".equals(mode) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
+            int selectMimeType = SelectMimeType.ofImage();
+            if("image".equals(mode)){
+                selectMimeType = SelectMimeType.ofImage();
+            }else if ("video".equals(mode)){
+                selectMimeType = SelectMimeType.ofVideo();
+            }else{
+                selectMimeType = SelectMimeType.ofAll();
+            }
+            Log.e("TAG", "startSel: "+selectMimeType+" == "+mode );
+            PictureSelector.create(this).openGallery(selectMimeType)
                     .setImageEngine(GlideEngine.createGlideEngine())
                     .setSelectorUIStyle(pictureStyleUtil.getSelectorStyle())
                     .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                    .setRecordVideoMaxSecond(60)
-                    .setRecordVideoMinSecond(1)
+                    .setRecordVideoMaxSecond(videoRecordMaxSecond.intValue())
+                    .setRecordVideoMinSecond(videoRecordMinSecond.intValue())
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
                     .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
@@ -159,7 +189,13 @@ public class SelectPicsActivity extends BaseActivity {
                     .setSandboxFileEngine(new MeSandboxFileEngine())
                     .isDisplayCamera(showCamera)
                     .isGif(showGif)
+                    .setSelectMaxDurationSecond(videoSelectMaxSecond.intValue())
+                    .setSelectMinDurationSecond(videoSelectMinSecond.intValue())
+                    .setFilterVideoMaxSecond(videoSelectMaxSecond.intValue())
+                    .setFilterVideoMinSecond(videoSelectMinSecond.intValue())
                     .setMaxSelectNum(selectCount.intValue())
+                    .setMaxVideoSelectNum(selectCount.intValue())
+                    .isWithSelectVideoImage(true)
                     .setImageSpanCount(4)// 每行显示个数 int
                     .setSelectionMode(selectCount.intValue() == 1 ? SelectModeConfig.SINGLE : SelectModeConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                     .isDirectReturnSingle(true)
@@ -186,70 +222,37 @@ public class SelectPicsActivity extends BaseActivity {
 
 
     private void handlerResult(ArrayList<LocalMedia> selectList) {
-        List<String> paths = new ArrayList<>();
+        List<Map<String, String>> paths = new ArrayList<>();
         for (int i = 0; i < selectList.size(); i++) {
             LocalMedia localMedia = selectList.get(i);
-            if (localMedia.isCut()) {
-                paths.add(localMedia.getCutPath());
-            } else {
-                paths.add(localMedia.getAvailablePath());
-            }
-        }
 
+            if (localMedia.getMimeType().contains("image")){
+                String path = localMedia.getAvailablePath();
+                if (localMedia.isCut()) {
+                    path = localMedia.getCutPath();
+                }
+                Map<String, String> map = new HashMap<>();
+                map.put("thumbPath", path);
+                map.put("path", path);
+                paths.add(map);
 
-        if (mimeType != null) {
-            //直接调用拍照或拍视频时
-            if ("photo".equals(mimeType)) {
-                compressFinish(paths);
-            } else {
-                resolveVideoPath(selectList);
+            }else{
+                if (localMedia.getAvailablePath() == null) {
+                    break;
+                }
+                Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(localMedia.getAvailablePath(), MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+                String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getAppImgDirPath(), bitmap);
+                Map<String, String> map = new HashMap<>();
+                map.put("thumbPath", thumbPath);
+                map.put("path", localMedia.getAvailablePath());
+                paths.add(map);
             }
-        } else {
-            if ("image".equals(mode)) {
-                //如果选择的是图片就压缩
-                compressFinish(paths);
-            } else {
-                resolveVideoPath(selectList);
-            }
-        }
-    }
 
-    private void resolveVideoPath(ArrayList<LocalMedia> selectList) {
-
-        List<Map<String, String>> thumbPaths = new ArrayList<>();
-        for (int i = 0; i < selectList.size(); i++) {
-            LocalMedia localMedia = selectList.get(i);
-            if (localMedia.getAvailablePath() == null) {
-                break;
-            }
-            Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(localMedia.getAvailablePath(), MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-            Log.e("TAG", "resolveVideoPath: "+localMedia.getPath() +" == "+localMedia.getSandboxPath()+" == "+localMedia.getAvailablePath());
-            String thumbPath = CommonUtils.saveBitmap(this, new AppPath(this).getAppImgDirPath(), bitmap);
-            Map<String, String> map = new HashMap<>();
-            map.put("thumbPath", thumbPath);
-            map.put("path", localMedia.getAvailablePath());
-            thumbPaths.add(map);
         }
         Intent intent = new Intent();
-        intent.putExtra(COMPRESS_PATHS, (Serializable) thumbPaths);
+        intent.putExtra(COMPRESS_PATHS, (Serializable) paths);
         setResult(RESULT_OK, intent);
         finish();
     }
 
-
-    private void compressFinish(List<String> paths) {
-        final List<Map<String, String>> compressPaths = new ArrayList<>();
-        for (int i = 0; i < paths.size(); i++) {
-            String path = paths.get(i);
-            Map<String, String> map = new HashMap<>();
-            map.put("thumbPath", path);
-            map.put("path", path);
-            compressPaths.add(map);
-        }
-
-        Intent intent = new Intent();
-        intent.putExtra(COMPRESS_PATHS, (Serializable) compressPaths);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
 }

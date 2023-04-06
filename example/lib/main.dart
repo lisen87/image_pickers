@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  GalleryMode _galleryMode = GalleryMode.image;
   GlobalKey? globalKey;
   @override
   void initState() {
@@ -28,46 +27,9 @@ class _MyAppState extends State<MyApp> {
 
   List<Media> _listImagePaths = [];
   List<Media> _listVideoPaths = [];
+  List<Media> _listImageVideoPaths = [];
   String? dataImagePath = "";
 
-  Future<void> selectImages() async {
-    try {
-      _galleryMode = GalleryMode.image;
-      _listImagePaths = await ImagePickers.pickerPaths(
-          galleryMode: _galleryMode,
-          showGif: true,
-          selectCount:5,
-          showCamera: true,
-          cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
-          compressSize: 500,
-          uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),),
-      );
-      print(_listImagePaths.length);
-      if(_listImagePaths.length > 0){
-        _listImagePaths.forEach((media){
-          print(media.path.toString());
-        });
-      }
-      setState(() {
-
-      });
-    } on PlatformException {}
-  }
-
-  Future<void> selectVideos() async {
-    try {
-      _galleryMode = GalleryMode.video;
-      _listVideoPaths = await ImagePickers.pickerPaths(
-        galleryMode: _galleryMode,
-        selectCount: 2,
-        showCamera: true,
-      );
-      setState(() {
-
-      });
-      print(_listVideoPaths);
-    } on PlatformException {}
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +81,25 @@ class _MyAppState extends State<MyApp> {
                       );
                     }),
                 ElevatedButton(
-                  onPressed: () {
-                    selectImages();
+                  onPressed: () async {
+                    _listImagePaths = await ImagePickers.pickerPaths(
+                      galleryMode: GalleryMode.image,
+                      showGif: true,
+                      selectCount:5,
+                      showCamera: true,
+                      cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
+                      compressSize: 500,
+                      uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),),
+                    );
+                    print(_listImagePaths.length);
+                    if(_listImagePaths.length > 0){
+                      _listImagePaths.forEach((media){
+                        print(media.path.toString());
+                      });
+                    }
+                    setState(() {
+
+                    });
                   },
                   child: Text("选择图片"),
                 ),
@@ -140,7 +119,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
+                    ImagePickers.openCamera(cameraMimeType: CameraMimeType.video,videoRecordMinSecond: 3,videoRecordMaxSecond: 10).then((media){
                       _listVideoPaths.clear();
                       if(media != null){
                       print(media.path);
@@ -176,10 +155,64 @@ class _MyAppState extends State<MyApp> {
                       );
                     }),
                 ElevatedButton(
-                  onPressed: () {
-                    selectVideos();
+                  onPressed: () async {
+                    _listVideoPaths = await ImagePickers.pickerPaths(
+                      galleryMode: GalleryMode.video,
+                      videoRecordMinSecond: 3,
+                      videoRecordMaxSecond: 10,
+                      videoSelectMaxSecond: 30,
+                      videoSelectMinSecond: 5,
+                      selectCount: 2,
+                      showCamera: true,
+                    );
+                    setState(() {
+
+                    });
+                    print(_listVideoPaths);
                   },
                   child: Text("选择视频"),
+                ),
+
+                GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _listImageVideoPaths.length,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 20.0,
+                        crossAxisSpacing: 10.0,
+                        childAspectRatio: 1.0),
+                    itemBuilder: (BuildContext context, int index) {
+                      Media media = _listImageVideoPaths[index];
+                      return GestureDetector(
+                        onTap: (){
+                          if(media.galleryMode == GalleryMode.image){
+                            ImagePickers.previewImage(media.path!);
+                          }else{
+                            ImagePickers.previewVideo(media.path!,);
+                          }
+                        },
+                        child: Image.file(
+                          File(
+                            _listImageVideoPaths[index].thumbPath!,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    }),
+                ElevatedButton(
+                  onPressed: () async {
+                    _listImageVideoPaths = await ImagePickers.pickerPaths(
+                      galleryMode: GalleryMode.all,
+                      selectCount: 8,
+                      showCamera: true,
+                    );
+                    setState(() {
+
+                    });
+                    print(_listImageVideoPaths);
+                  },
+                  child: Text("选择图片和视频"),
                 ),
 
                 InkWell(
