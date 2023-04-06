@@ -121,9 +121,10 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 
         NSString *galleryMode =[NSString stringWithFormat:@"%@",[dic objectForKey:@"galleryMode"]];//图片还是视频image video
         BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
-        if(selectCount>1){
-            enableCrop =NO;
-        }
+//        if(selectCount>1){
+//            enableCrop =NO;
+//        }
+      
         NSInteger height =[[dic objectForKey:@"height"] integerValue];//宽高比例
         NSInteger width =[[dic objectForKey:@"width"] integerValue];//宽高比例
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
@@ -140,12 +141,23 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.editImageConfiguration.tools_objc=@[@1];
         configuration.editImageConfiguration.clipRatios=@[[[ZLImageClipRatio alloc]initWithTitle:@"" whRatio:((float)width/(float)height) isCircle:false]];
 
+        
+        ///如果是可编辑的就需要设置editAfterSelectThumbnailImage 因为editAfterSelectThumbnailImage=true和maxSelectCount=1的时候enableCrop=false ，所以需要editAfterSelectThumbnailImage =false
+        if(enableCrop==true&&selectCount==1){
+        
+            configuration.editAfterSelectThumbnailImage =false;
+        }else{
+            configuration.editAfterSelectThumbnailImage =true;
+        }
+        
+        
+        //拍照或者视频的时候
         if(cameraMimeType) {
-            //cameraMimeType//type   photo video
-
+       
+           
+            
             ZLPhotoUIConfiguration *configurationUI =[ZLPhotoUIConfiguration default];
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configurationUI];
-
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
 
             if ([cameraMimeType isEqualToString:@"photo"]) {
@@ -159,8 +171,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 configuration. allowSelectImage =NO;
                 configuration.allowSelectVideo =YES;
             }
-
-
             configuration.maxSelectVideoDuration = 30000;
             [ZLPhotoConfiguration default].cameraConfiguration.maxRecordDuration =60;
             [[UIApplication sharedApplication].delegate.window.rootViewController  showDetailViewController:camera sender:nil];
@@ -225,7 +235,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             configuration.allowEditImage =enableCrop;
             [ZLPhotoUIConfiguration default].cellCornerRadio =5;
 
-            configuration.editAfterSelectThumbnailImage =true;
             configuration.editImageConfiguration.clipRatios=@[[[ZLImageClipRatio alloc]initWithTitle:@"" whRatio:((float)width/(float)height) isCircle:false]];
             configuration.allowSelectGif = isShowGif;
             if ([galleryMode isEqualToString:@"image"]) {
@@ -242,6 +251,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 
             ZLPhotoUIConfiguration *configurationUI =[ZLPhotoUIConfiguration default];
 
+            
+            
+            
             [self colorChange:[dic objectForKey:@"uiColor"] configuration:configurationUI];
 //            [ac showPhotoLibraryWithSender:[UIApplication sharedApplication].delegate.window.rootViewController];
             NSMutableArray *arr =[[NSMutableArray alloc]init];
