@@ -47,10 +47,6 @@ class ImagePickers {
     int videoRecordMaxSecond : 120,
     int videoRecordMinSecond : 1,
   }) async {
-    String mimeType = "photo";
-    if (cameraMimeType == CameraMimeType.video) {
-      mimeType = "video";
-    }
 
     bool enableCrop = false;
     int width = 1;
@@ -78,7 +74,7 @@ class ImagePickers {
       'width': width,
       'height': height,
       'compressSize': compressSize < 50 ? 50 : compressSize,
-      'cameraMimeType': mimeType,
+      'cameraMimeType': cameraMimeType.name,
       'videoRecordMaxSecond': videoRecordMaxSecond,
       'videoRecordMinSecond': videoRecordMinSecond,
     };
@@ -177,7 +173,7 @@ class ImagePickers {
       Media media = Media();
       media.thumbPath = data["thumbPath"];
       media.path = data["path"];
-      if(media.path!.contains('image')){
+      if(media.path == media.thumbPath){
         media.galleryMode = GalleryMode.image;
       }else{
         media.galleryMode = GalleryMode.video;
@@ -310,6 +306,11 @@ class Media {
   ///Video path or image path
   String? path;
   GalleryMode? galleryMode;
+
+  @override
+  String toString() {
+    return '( thumbPath = $thumbPath, path = $path, galleryMode = ${galleryMode?.name} )';
+  }
 }
 
 /// Created by liSen on 2019/11/15 10:51.

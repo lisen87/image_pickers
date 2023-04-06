@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GlobalKey? globalKey;
+
   @override
   void initState() {
     super.initState();
@@ -30,7 +31,6 @@ class _MyAppState extends State<MyApp> {
   List<Media> _listImageVideoPaths = [];
   String? dataImagePath = "";
 
-
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
@@ -40,7 +40,6 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.white,
           primaryColor: Colors.white,
         ),
-
         home: Scaffold(
           appBar: AppBar(
             title: const Text('多图选择'),
@@ -60,7 +59,7 @@ class _MyAppState extends State<MyApp> {
                         childAspectRatio: 1.0),
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
-                        onTap: (){
+                        onTap: () {
 //                        ImagePickers.previewImage(_listImagePaths[index].path);
 
 //                      List<String> paths = [];
@@ -70,7 +69,8 @@ class _MyAppState extends State<MyApp> {
 //
 //                        ImagePickers.previewImages(paths,index);
 
-                          ImagePickers.previewImagesByMedia(_listImagePaths,index);
+                          ImagePickers.previewImagesByMedia(
+                              _listImagePaths, index);
                         },
                         child: Image.file(
                           File(
@@ -85,49 +85,53 @@ class _MyAppState extends State<MyApp> {
                     _listImagePaths = await ImagePickers.pickerPaths(
                       galleryMode: GalleryMode.image,
                       showGif: true,
-                      selectCount:5,
+                      selectCount: 5,
                       showCamera: true,
-                      cropConfig :CropConfig(enableCrop: true,height: 1,width: 1),
+                      cropConfig:
+                          CropConfig(enableCrop: true, height: 1, width: 1),
                       compressSize: 500,
-                      uiConfig: UIConfig(uiThemeColor: Color(0xffff0000),),
+                      uiConfig: UIConfig(
+                        uiThemeColor: Color(0xffff0000),
+                      ),
                     );
-                    print(_listImagePaths.length);
-                    if(_listImagePaths.length > 0){
-                      _listImagePaths.forEach((media){
-                        print(media.path.toString());
+                    print(_listImagePaths);
+                    if (_listImagePaths.length > 0) {
+                      _listImagePaths.forEach((media) {
+                        print(media);
                       });
                     }
-                    setState(() {
-
-                    });
+                    setState(() {});
                   },
                   child: Text("选择图片"),
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    ImagePickers.openCamera(cropConfig: CropConfig(enableCrop: true, width: 2, height: 3)).then((Media? media){
+                    ImagePickers.openCamera(
+                            cropConfig: CropConfig(
+                                enableCrop: true, width: 2, height: 3))
+                        .then((Media? media) {
                       _listImagePaths.clear();
-                      if(media != null){
+                      if (media != null) {
                         _listImagePaths.add(media);
                       }
-                      setState(() {
-
-                      });
+                      setState(() {});
                     });
                   },
                   child: Text("拍照"),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    ImagePickers.openCamera(cameraMimeType: CameraMimeType.video,videoRecordMinSecond: 3,videoRecordMaxSecond: 10).then((media){
+                    ImagePickers.openCamera(
+                            cameraMimeType: CameraMimeType.video,
+                            videoRecordMinSecond: 3,
+                            videoRecordMaxSecond: 10)
+                        .then((media) {
                       _listVideoPaths.clear();
-                      if(media != null){
-                      print(media.path);
-                      _listVideoPaths.add(media);
+                      if (media != null) {
+                        print(media.path);
+                        _listVideoPaths.add(media);
                       }
-                      setState(() {
-
-                      });
+                      setState(() {});
                     });
                   },
                   child: Text("拍视频"),
@@ -143,8 +147,10 @@ class _MyAppState extends State<MyApp> {
                         childAspectRatio: 1.0),
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
-                        onTap: (){
-                          ImagePickers.previewVideo(_listVideoPaths[index].path!,);
+                        onTap: () {
+                          ImagePickers.previewVideo(
+                            _listVideoPaths[index].path!,
+                          );
                         },
                         child: Image.file(
                           File(
@@ -165,14 +171,11 @@ class _MyAppState extends State<MyApp> {
                       selectCount: 2,
                       showCamera: true,
                     );
-                    setState(() {
-
-                    });
+                    setState(() {});
                     print(_listVideoPaths);
                   },
                   child: Text("选择视频"),
                 ),
-
                 GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _listImageVideoPaths.length,
@@ -185,11 +188,13 @@ class _MyAppState extends State<MyApp> {
                     itemBuilder: (BuildContext context, int index) {
                       Media media = _listImageVideoPaths[index];
                       return GestureDetector(
-                        onTap: (){
-                          if(media.galleryMode == GalleryMode.image){
+                        onTap: () {
+                          if (media.galleryMode == GalleryMode.image) {
                             ImagePickers.previewImage(media.path!);
-                          }else{
-                            ImagePickers.previewVideo(media.path!,);
+                          } else {
+                            ImagePickers.previewVideo(
+                              media.path!,
+                            );
                           }
                         },
                         child: Image.file(
@@ -207,55 +212,70 @@ class _MyAppState extends State<MyApp> {
                       selectCount: 8,
                       showCamera: true,
                     );
-                    setState(() {
-
-                    });
+                    setState(() {});
                     print(_listImageVideoPaths);
                   },
                   child: Text("选择图片和视频"),
                 ),
-
                 InkWell(
-                  onTap: (){
-                    ImagePickers.previewImage("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
-                  },
-                    child: Image.network("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg",fit: BoxFit.cover,width: 100,height: 100,)),
+                    onTap: () {
+                      ImagePickers.previewImage(
+                          "http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
+                    },
+                    child: Image.network(
+                      "http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg",
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    )),
                 ElevatedButton(
                   onPressed: () {
-                    Future<String?> future = ImagePickers.saveImageToGallery("http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
-                    future.then((path){
-                      print("保存图片路径："+ path!);
+                    Future<String?> future = ImagePickers.saveImageToGallery(
+                        "http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg");
+                    future.then((path) {
+                      print("保存图片路径：" + path!);
                     });
                   },
                   child: Text("保存网络图片"),
                 ),
-                dataImagePath == "" ? Container():GestureDetector(onTap: (){
-                  ImagePickers.previewImage(dataImagePath!);
-                },child: Image.file(File(dataImagePath!),fit: BoxFit.cover,width: 100,height: 100,)),
+                dataImagePath == ""
+                    ? Container()
+                    : GestureDetector(
+                        onTap: () {
+                          ImagePickers.previewImage(dataImagePath!);
+                        },
+                        child: Image.file(
+                          File(dataImagePath!),
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 100,
+                        )),
                 ElevatedButton(
                   onPressed: () async {
-
-                    RenderRepaintBoundary boundary = globalKey!.currentContext!.findRenderObject() as RenderRepaintBoundary;
+                    RenderRepaintBoundary boundary = globalKey!.currentContext!
+                        .findRenderObject() as RenderRepaintBoundary;
                     ui.Image image = await boundary.toImage(pixelRatio: 3);
-                    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png) as ByteData;
+                    ByteData byteData = await image.toByteData(
+                        format: ui.ImageByteFormat.png) as ByteData;
                     Uint8List data = byteData.buffer.asUint8List();
 
-                    dataImagePath = await ImagePickers.saveByteDataImageToGallery(data,);
+                    dataImagePath =
+                        await ImagePickers.saveByteDataImageToGallery(
+                      data,
+                    );
 
-                    print("保存截屏图片 = "+ dataImagePath!);
-                    setState(() {
-
-                    });
+                    print("保存截屏图片 = " + dataImagePath!);
+                    setState(() {});
                   },
                   child: Text("保存截屏图片"),
                 ),
-
                 ElevatedButton(
                   onPressed: () {
-                      Future<String?> future = ImagePickers.saveVideoToGallery("http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
-                      future.then((path){
-                        print("视频保存成功"+path!);
-                      });
+                    Future<String?> future = ImagePickers.saveVideoToGallery(
+                        "http://vd4.bdstatic.com/mda-jbmn50510sid5yx5/sc/mda-jbmn50510sid5yx5.mp4");
+                    future.then((path) {
+                      print("视频保存成功" + path!);
+                    });
                   },
                   child: Text("保存视频"),
                 ),

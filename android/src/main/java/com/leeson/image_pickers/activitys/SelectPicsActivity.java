@@ -1,5 +1,6 @@
 package com.leeson.image_pickers.activitys;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import com.luck.picture.lib.basic.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.SelectMimeType;
 import com.luck.picture.lib.config.SelectModeConfig;
+import com.luck.picture.lib.dialog.RemindDialog;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.interfaces.OnResultCallbackListener;
 import com.luck.picture.lib.style.PictureSelectorStyle;
@@ -137,8 +139,6 @@ public class SelectPicsActivity extends BaseActivity {
             PictureSelector.create(this).openCamera("photo".equals(mimeType) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
                     .setRecordVideoMaxSecond(videoRecordMaxSecond.intValue())
                     .setRecordVideoMinSecond(videoRecordMinSecond.intValue())
-                    .setSelectMaxDurationSecond(videoRecordMaxSecond.intValue())
-                    .setSelectMinDurationSecond(videoRecordMinSecond.intValue())
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
                     .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
@@ -152,13 +152,41 @@ public class SelectPicsActivity extends BaseActivity {
             }).*/setSandboxFileEngine(new MeSandboxFileEngine()).forResult(new OnResultCallbackListener<LocalMedia>() {
                 @Override
                 public void onResult(ArrayList<LocalMedia> result) {
-                    Log.e("TAG", "onResult: " );
-                    handlerResult(result);
+                    if (result != null && result.size() > 0){
+                        LocalMedia localMedia = result.get(0);
+                        long videoDuration = localMedia.getDuration()/1000;
+                        if ("video".equals(mimeType)){
+                            String tips = "";
+                            if (videoDuration < videoRecordMinSecond.intValue()){
+                                tips = getString(R.string.ps_select_video_min_second,videoRecordMinSecond.intValue());
+                            }else if (videoDuration > videoRecordMaxSecond.intValue()){
+                                tips = getString(R.string.ps_select_video_max_second,videoRecordMaxSecond.intValue());
+                            }
+                            RemindDialog tipsDialog = RemindDialog.buildDialog(SelectPicsActivity.this,tips);
+                            tipsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Intent intent = new Intent();
+                                    intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
+                            });
+                            tipsDialog.show();
+
+                        }else{
+                            handlerResult(result);
+                        }
+                    }else{
+                        Intent intent = new Intent();
+                        intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
 
                 @Override
                 public void onCancel() {
-                    Log.e("TAG", "onCancelonCancelonCancel: " );
                     Intent intent = new Intent();
                     intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
                     setResult(RESULT_OK, intent);
