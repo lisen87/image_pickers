@@ -15,6 +15,7 @@
 #define Frame_NavAndStatus (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
 #define CXCHeightX   (([UIScreen mainScreen].bounds.size.height>=812.00)?([[UIScreen mainScreen] bounds].size.height-34):([[UIScreen mainScreen] bounds].size.height)/1.000)
 #define CXCWeight    (([[UIScreen mainScreen] bounds].size.width)/1.000)
+#define IsNilString(__String) (__String==nil ||[__String isEqual:[NSNull null]]|| [__String isEqualToString:@"null"] || [__String isEqualToString:@"<null>"]||[__String isEqualToString:@"(null)"]||[__String isEqualToString:@"null~null"]||[__String isEqualToString:@""])
 @interface ImagePickersPlugin (){
     BOOL isShowGif;
 }
@@ -97,10 +98,61 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     [ZLPhotoUIConfiguration default].bottomViewBlurEffectOfAlbumList =[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
 }
+-(void)changeLanguage:(NSString*)language{
+    
+    if(!IsNilString(language)){
+        ///设置语言
+        if([language isEqualToString:@"system"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSystem;
+        }else if ([language isEqualToString:@"chinese"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeChineseSimplified;
+
+        }else if ([language isEqualToString:@"traditional_chinese"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeChineseTraditional;
+
+        }else if ([language isEqualToString:@"english"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeEnglish;
+
+        }else if ([language isEqualToString:@"japanese"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeJapanese;
+
+        }else if ([language isEqualToString:@"france"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeFrench;
+
+        }else if ([language isEqualToString:@"german"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeGerman;
+
+        }else if ([language isEqualToString:@"russian"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeRussian;
+
+        }else if ([language isEqualToString:@"vietnamese"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeVietnamese;
+
+        }else if ([language isEqualToString:@"korean"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeKorean;
+
+        }else if ([language isEqualToString:@"portuguese"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypePortuguese;
+
+        }else if ([language isEqualToString:@"spanish"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSpanish;
+
+        }else if ([language isEqualToString:@"arabic"]){
+            [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeArabic;
+
+        }
+        
+    }else{
+        [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSystem;
+
+    }
+}
 -(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result
 {
-    ///设置语言
-    [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSystem;
+    NSDictionary *callDic = call.arguments;
+    NSString*language =[NSString stringWithFormat:@"%@",callDic[@"language"]];
+    [self changeLanguage:language];
+   
     resultBack =result;
     if([@"getPickerPaths" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
