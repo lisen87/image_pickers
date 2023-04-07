@@ -14,6 +14,7 @@ import com.luck.picture.lib.engine.CropFileEngine;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 import com.yalantis.ucrop.UCropImageEngine;
+import com.yalantis.ucrop.model.AspectRatio;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,6 +53,11 @@ public class ImageCropEngine implements CropFileEngine {
         options.setShowCropFrame(true);
         options.setHideBottomControls(true);
         options.setAllowedGestures(UCropActivity.ALL,UCropActivity.ALL,UCropActivity.ALL);
+        AspectRatio[] aspectRatios = new AspectRatio[dataSource.size()];
+        for (int i = 0; i < dataSource.size(); i++) {
+            aspectRatios[i] = new AspectRatio("",aspectRatioX,aspectRatioY);
+        }
+        options.setMultipleCropAspectRatio(aspectRatios);
         uCrop.withOptions(options);
         uCrop.withAspectRatio(aspectRatioX,aspectRatioY);
         uCrop.setImageEngine(new UCropImageEngine() {

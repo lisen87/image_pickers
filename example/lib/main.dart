@@ -84,6 +84,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () async {
                     _listImagePaths = await ImagePickers.pickerPaths(
                       galleryMode: GalleryMode.image,
+                      language: Language.chinese,
                       showGif: true,
                       selectCount: 5,
                       showCamera: true,

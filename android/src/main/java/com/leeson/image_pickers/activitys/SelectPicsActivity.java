@@ -24,6 +24,7 @@ import com.luck.picture.lib.config.SelectModeConfig;
 import com.luck.picture.lib.dialog.RemindDialog;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.interfaces.OnResultCallbackListener;
+import com.luck.picture.lib.language.LanguageConfig;
 import com.luck.picture.lib.style.PictureSelectorStyle;
 import com.luck.picture.lib.style.SelectMainStyle;
 import com.luck.picture.lib.style.TitleBarStyle;
@@ -65,46 +66,14 @@ public class SelectPicsActivity extends BaseActivity {
     public static final String VIDEO_RECORD_MIN_SECOND = "VIDEO_RECORD_MIN_SECOND";//录制视频最最小时间（秒）
     public static final String VIDEO_SELECT_MAX_SECOND = "VIDEO_SELECT_MAX_SECOND";//选择视频时视频最大时间（秒）
     public static final String VIDEO_SELECT_MIN_SECOND = "VIDEO_SELECT_MIN_SECOND";//选择视频时视频最小时间（秒）
-    private Number compressSize;
-    private String mode;
-    private Map<String, Number> uiColor;
-    private Number selectCount;
-    private boolean showGif;
-    private boolean showCamera;
-    private boolean enableCrop;
-    private Number width;
-    private Number height;
-    private String mimeType;
+    public static final String LANGUAGE = "LANGUAGE";
 
-    private Number videoRecordMaxSecond;
-    private Number videoRecordMinSecond;
-    private Number videoSelectMaxSecond;
-    private Number videoSelectMinSecond;
 
     @Override
     public void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_pics);
-        mode = getIntent().getStringExtra(GALLERY_MODE);
-        uiColor = (Map<String, Number>) getIntent().getSerializableExtra(UI_COLOR);
 
-        selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
-        showGif = getIntent().getBooleanExtra(SHOW_GIF, true);
-        showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
-        enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
-        width = getIntent().getIntExtra(WIDTH, 1);
-        height = getIntent().getIntExtra(HEIGHT, 1);
-        compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
-        mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
-
-        videoRecordMaxSecond = getIntent().getIntExtra(VIDEO_RECORD_MAX_SECOND, 120);
-        videoRecordMinSecond = getIntent().getIntExtra(VIDEO_RECORD_MIN_SECOND, 1);
-        videoSelectMaxSecond = getIntent().getIntExtra(VIDEO_SELECT_MAX_SECOND, 120);
-        videoSelectMinSecond = getIntent().getIntExtra(VIDEO_SELECT_MIN_SECOND, 1);
-        Log.e("TAGTAG", "videoRecordMaxSecond  "+videoRecordMaxSecond);
-        Log.e("TAGTAG", "videoRecordMinSecond  "+videoRecordMinSecond);
-        Log.e("TAGTAG", "videoSelectMaxSecond  "+videoSelectMaxSecond);
-        Log.e("TAGTAG", "videoSelectMinSecond  "+videoSelectMinSecond);
         startSel();
     }
 
@@ -128,7 +97,56 @@ public class SelectPicsActivity extends BaseActivity {
         return options;
     }
 
+    private int getLang(String language){
+        if ("chinese".equals(language)){
+            return LanguageConfig.CHINESE;
+        }else if ("traditional_chinese".equals(language)){
+            return LanguageConfig.TRADITIONAL_CHINESE;
+        }else if ("english".equals(language)){
+            return LanguageConfig.ENGLISH;
+        }else if ("japanese".equals(language)){
+            return LanguageConfig.JAPAN;
+        }else if ("france".equals(language)){
+            return LanguageConfig.FRANCE;
+        }else if ("german".equals(language)){
+            return LanguageConfig.GERMANY;
+        }else if ("russian".equals(language)){
+            return LanguageConfig.RU;
+        }else if ("vietnamese".equals(language)){
+            return LanguageConfig.VIETNAM;
+        }else if ("korean".equals(language)){
+            return LanguageConfig.KOREA;
+        }else if ("portuguese".equals(language)){
+            return LanguageConfig.PORTUGAL;
+        }else if ("spanish".equals(language)){
+            return LanguageConfig.SPANISH;
+        }else if ("arabic".equals(language)){
+            return LanguageConfig.AR;
+        }
+        return LanguageConfig.SYSTEM_LANGUAGE;
+    }
     private void startSel() {
+
+        String mode = getIntent().getStringExtra(GALLERY_MODE);
+        Map<String, Number> uiColor = (Map<String, Number>) getIntent().getSerializableExtra(UI_COLOR);
+
+        Number selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
+        boolean showGif = getIntent().getBooleanExtra(SHOW_GIF, true);
+        boolean showCamera = getIntent().getBooleanExtra(SHOW_CAMERA, false);
+        boolean enableCrop = getIntent().getBooleanExtra(ENABLE_CROP, false);
+        Number width = getIntent().getIntExtra(WIDTH, 1);
+        Number height = getIntent().getIntExtra(HEIGHT, 1);
+        Number compressSize = getIntent().getIntExtra(COMPRESS_SIZE, 500);
+        String mimeType = getIntent().getStringExtra(CAMERA_MIME_TYPE);
+
+        Number videoRecordMaxSecond = getIntent().getIntExtra(VIDEO_RECORD_MAX_SECOND, 120);
+        Number videoRecordMinSecond = getIntent().getIntExtra(VIDEO_RECORD_MIN_SECOND, 1);
+        Number videoSelectMaxSecond = getIntent().getIntExtra(VIDEO_SELECT_MAX_SECOND, 120);
+        Number videoSelectMinSecond = getIntent().getIntExtra(VIDEO_SELECT_MIN_SECOND, 1);
+
+        String language = getIntent().getStringExtra(LANGUAGE);
+
+
         PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
         pictureStyleUtil.setStyle(uiColor);
         PictureSelectorStyle selectorStyle = pictureStyleUtil.getSelectorStyle();
@@ -139,8 +157,9 @@ public class SelectPicsActivity extends BaseActivity {
             PictureSelector.create(this).openCamera("photo".equals(mimeType) ? SelectMimeType.ofImage() : SelectMimeType.ofVideo())
                     .setRecordVideoMaxSecond(videoRecordMaxSecond.intValue())
                     .setRecordVideoMinSecond(videoRecordMinSecond.intValue())
+                    .setLanguage(getLang(language))
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
-                    .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
+                    .setCropEngine((enableCrop) ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
                     .setCompressEngine(new ImageCompressEngine(compressSize.intValue()))
                     ./*setCameraInterceptListener(new OnCameraInterceptListener() {
@@ -154,8 +173,8 @@ public class SelectPicsActivity extends BaseActivity {
                 public void onResult(ArrayList<LocalMedia> result) {
                     if (result != null && result.size() > 0){
                         LocalMedia localMedia = result.get(0);
-                        long videoDuration = localMedia.getDuration()/1000;
                         if ("video".equals(mimeType)){
+                            long videoDuration = localMedia.getDuration()/1000;
                             String tips = "";
                             if (videoDuration < videoRecordMinSecond.intValue()){
                                 tips = getString(R.string.ps_select_video_min_second,videoRecordMinSecond.intValue());
@@ -210,8 +229,9 @@ public class SelectPicsActivity extends BaseActivity {
                     .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     .setRecordVideoMaxSecond(videoRecordMaxSecond.intValue())
                     .setRecordVideoMinSecond(videoRecordMinSecond.intValue())
+                    .setLanguage(getLang(language))
                     .setOutputCameraDir(new AppPath(this).getAppVideoDirPath())
-                    .setCropEngine((selectCount.intValue() == 1 && enableCrop) ?
+                    .setCropEngine(enableCrop ?
                             new ImageCropEngine(this, buildOptions(selectorStyle), width.intValue(), height.intValue()) : null)
                     .setCompressEngine(new ImageCompressEngine(compressSize.intValue()))
                     .setSandboxFileEngine(new MeSandboxFileEngine())

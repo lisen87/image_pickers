@@ -131,6 +131,7 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       Number videoRecordMinSecond = methodCall.argument("videoRecordMinSecond");
       Number videoSelectMaxSecond = methodCall.argument("videoSelectMaxSecond");
       Number videoSelectMinSecond = methodCall.argument("videoSelectMinSecond");
+      String language = methodCall.argument("language");
 
       Intent intent = new Intent();
 
@@ -149,6 +150,7 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       intent.putExtra(SelectPicsActivity.VIDEO_RECORD_MIN_SECOND,videoRecordMinSecond);
       intent.putExtra(SelectPicsActivity.VIDEO_SELECT_MAX_SECOND,videoSelectMaxSecond);
       intent.putExtra(SelectPicsActivity.VIDEO_SELECT_MIN_SECOND,videoSelectMinSecond);
+      intent.putExtra(SelectPicsActivity.LANGUAGE,language);
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
         intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.READ_MEDIA_IMAGES

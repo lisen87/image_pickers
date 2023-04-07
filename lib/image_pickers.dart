@@ -46,6 +46,7 @@ class ImagePickers {
     int compressSize: 500,
     int videoRecordMaxSecond : 120,
     int videoRecordMinSecond : 1,
+    Language language : Language.system,
   }) async {
 
     bool enableCrop = false;
@@ -77,6 +78,7 @@ class ImagePickers {
       'cameraMimeType': cameraMimeType.name,
       'videoRecordMaxSecond': videoRecordMaxSecond,
       'videoRecordMinSecond': videoRecordMinSecond,
+      'language': language.name,
     };
     final List<dynamic>? paths =
         await _channel.invokeMethod('getPickerPaths', params);
@@ -130,6 +132,7 @@ class ImagePickers {
     int videoRecordMinSecond : 1,
     int videoSelectMaxSecond : 120,
     int videoSelectMinSecond : 1,
+    Language language : Language.system,
   }) async {
     Color uiColor = UIConfig.defUiThemeColor;
     if (uiConfig != null) {
@@ -165,6 +168,7 @@ class ImagePickers {
       'videoRecordMinSecond': videoRecordMinSecond,
       'videoSelectMaxSecond': videoSelectMaxSecond,
       'videoSelectMinSecond': videoSelectMinSecond,
+      'language': language.name,
     };
     final List<dynamic> paths =
         await _channel.invokeMethod('getPickerPaths', params);
@@ -327,4 +331,45 @@ class UIConfig {
 
   /// uiThemeColor
   UIConfig({this.uiThemeColor: defUiThemeColor});
+}
+
+enum Language {
+  /// 系统语言
+  system,
+
+  /// 中文简体
+  chinese,
+
+  /// 中文繁体
+  traditional_chinese,
+
+  /// 英语
+  english,
+
+  /// 日语
+  japanese,
+
+  /// 法语
+  france,
+
+  /// 德语
+  german,
+
+  /// 俄语
+  russian,
+
+  /// 越语
+  vietnamese,
+
+  /// 韩语
+  korean,
+
+  /// 葡萄牙语
+  portuguese,
+
+  /// 西班牙语
+  spanish,
+
+  /// 阿拉伯语
+  arabic,
 }
