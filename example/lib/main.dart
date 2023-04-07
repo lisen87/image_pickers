@@ -166,7 +166,7 @@ class _MyAppState extends State<MyApp> {
                       galleryMode: GalleryMode.video,
                       videoRecordMinSecond: 3,
                       videoRecordMaxSecond: 10,
-                      videoSelectMaxSecond: 30,
+                      // videoSelectMaxSecond: 300,
                       videoSelectMinSecond: 5,
                       selectCount: 2,
                       showCamera: true,
@@ -213,7 +213,7 @@ class _MyAppState extends State<MyApp> {
                       showCamera: true,
                       videoRecordMinSecond: 3,
                       videoRecordMaxSecond: 10,
-                      videoSelectMaxSecond: 30,
+                      videoSelectMaxSecond: 300,
                       videoSelectMinSecond: 5,
                     );
                     setState(() {});
