@@ -87,7 +87,11 @@ class ImagePickers {
       Media media = Media();
       media.thumbPath = paths[0]["thumbPath"];
       media.path = paths[0]["path"];
-      media.galleryMode = GalleryMode.image;
+      if(cameraMimeType == CameraMimeType.photo){
+        media.galleryMode = GalleryMode.image;
+      }else{
+        media.galleryMode = GalleryMode.video;
+      }
       return media;
     }
 

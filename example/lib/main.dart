@@ -113,6 +113,7 @@ class _MyAppState extends State<MyApp> {
                       _listImagePaths.clear();
                       if (media != null) {
                         _listImagePaths.add(media);
+                        print(media.toString());
                       }
                       setState(() {});
                     });
@@ -128,7 +129,7 @@ class _MyAppState extends State<MyApp> {
                         .then((media) {
                       _listVideoPaths.clear();
                       if (media != null) {
-                        print(media.path);
+                        print(media.toString());
                         _listVideoPaths.add(media);
                       }
                       setState(() {});
