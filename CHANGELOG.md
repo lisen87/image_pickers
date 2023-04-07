@@ -1,3 +1,12 @@
+## 2.0.3
+* 更新安卓最新图片选择库
+* Updated the latest image selection library for Android
+* 增加 视频和图片混合选择
+* Added video and picture mixing options
+* 增加 多图裁剪 ，选择视频最大时间，最小时间参数
+* Add multi-image cropping , select the video maximum time, minimum time parameters
+* 增加 多语言
+* Add multilingual
 ## 2.0.2+1
 * 尝试适配 Android13 权限
 ## 2.0.1
