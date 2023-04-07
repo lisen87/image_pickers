@@ -84,7 +84,6 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () async {
                     _listImagePaths = await ImagePickers.pickerPaths(
                       galleryMode: GalleryMode.image,
-                      language: Language.japanese,
                       showGif: true,
                       selectCount: 5,
                       showCamera: true,
@@ -212,6 +211,10 @@ class _MyAppState extends State<MyApp> {
                       galleryMode: GalleryMode.all,
                       selectCount: 8,
                       showCamera: true,
+                      videoRecordMinSecond: 3,
+                      videoRecordMaxSecond: 10,
+                      videoSelectMaxSecond: 30,
+                      videoSelectMinSecond: 5,
                     );
                     setState(() {});
                     print(_listImageVideoPaths);

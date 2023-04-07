@@ -175,24 +175,27 @@ public class SelectPicsActivity extends BaseActivity {
                         LocalMedia localMedia = result.get(0);
                         if ("video".equals(mimeType)){
                             long videoDuration = localMedia.getDuration()/1000;
-                            String tips = "";
-                            if (videoDuration < videoRecordMinSecond.intValue()){
-                                tips = getString(R.string.ps_select_video_min_second,videoRecordMinSecond.intValue());
-                            }else if (videoDuration > videoRecordMaxSecond.intValue()){
-                                tips = getString(R.string.ps_select_video_max_second,videoRecordMaxSecond.intValue());
-                            }
-                            RemindDialog tipsDialog = RemindDialog.buildDialog(SelectPicsActivity.this,tips);
-                            tipsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    Intent intent = new Intent();
-                                    intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
-                                    setResult(RESULT_OK, intent);
-                                    finish();
+                            if(videoDuration < videoRecordMinSecond.intValue() || videoDuration > videoRecordMaxSecond.intValue()){
+                                String tips = "";
+                                if (videoDuration < videoRecordMinSecond.intValue()){
+                                    tips = getString(R.string.ps_select_video_min_second,videoRecordMinSecond.intValue());
+                                }else if (videoDuration > videoRecordMaxSecond.intValue()){
+                                    tips = getString(R.string.ps_select_video_max_second,videoRecordMaxSecond.intValue());
                                 }
-                            });
-                            tipsDialog.show();
-
+                                RemindDialog tipsDialog = RemindDialog.buildDialog(SelectPicsActivity.this,tips);
+                                tipsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        Intent intent = new Intent();
+                                        intent.putExtra(COMPRESS_PATHS, new ArrayList<>());
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                });
+                                tipsDialog.show();
+                            }else{
+                                handlerResult(result);
+                            }
                         }else{
                             handlerResult(result);
                         }
@@ -222,7 +225,7 @@ public class SelectPicsActivity extends BaseActivity {
             }else{
                 selectMimeType = SelectMimeType.ofAll();
             }
-            Log.e("TAG", "startSel: "+selectMimeType+" == "+mode );
+
             PictureSelector.create(this).openGallery(selectMimeType)
                     .setImageEngine(GlideEngine.createGlideEngine())
                     .setSelectorUIStyle(pictureStyleUtil.getSelectorStyle())
