@@ -13,12 +13,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9a73419-4ca1-4a22-98e4-96c91831654b" name="Changes" comment="安卓再次 适配 13权限问题">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+    <list default="true" id="e9a73419-4ca1-4a22-98e4-96c91831654b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ios/Classes/ChooseImageManager.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/ChooseImageManager.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGallery.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGallery.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGallery.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGallery.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryList.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryList.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryListCell.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryListCell.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/Animate/AKInterativeDismissToList.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/Animate/AKInterativeDismissToList.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/PlayTheVideoVC.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +55,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/example/ios/Runner/GeneratedPluginRegistrant.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/lib/main.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/test/widget_test.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/image_pickers.iml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/ChooseImageManager.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ios/image_pickers.podspec" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/image_pickers.dart" root0="FORCE_HIGHLIGHTING" />
@@ -67,6 +82,7 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
+    "flutter.performance.tool.window.visible": "true",
     "io.flutter.reload.alreadyRun": "true",
     "last_opened_file_path": "F:/flutter_package/image_pickers/example/android/build.gradle",
     "settings.editor.selected.configurable": "flutter.settings",
@@ -93,25 +109,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7080ff30-f4dc-4f89-a7df-5629d579afab" name="Default Changelist" comment="" />
+      <changelist id="e9a73419-4ca1-4a22-98e4-96c91831654b" name="Changes" comment="" />
       <created>1571893796328</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571893796328</updated>
-    </task>
-    <task id="LOCAL-00010" summary="拍照，录制视频">
-      <created>1574054834320</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1574054834321</updated>
-    </task>
-    <task id="LOCAL-00011" summary="拍照，录制视频">
-      <created>1574057571847</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1574057571847</updated>
     </task>
     <task id="LOCAL-00012" summary="拍照，录制视频">
       <created>1574058466646</created>
@@ -442,7 +444,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680156554707</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="ios 修改图片video混合上传 等">
+      <created>1680774209169</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1680774209170</updated>
+    </task>
+    <task id="LOCAL-00060" summary="ios 修改图片video混合上传 等">
+      <created>1680830252337</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1680830252337</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -486,7 +502,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/example/ios/.symlinks/plugins/image_pickers" />
     </ignored-roots>
-    <MESSAGE value="修复安卓9无法加载图片问题" />
     <MESSAGE value="ui颜色" />
     <MESSAGE value="拍照，录制视频" />
     <MESSAGE value="glide无法找到问题" />
@@ -511,7 +526,8 @@
     <MESSAGE value="ios更新最新的图片选择库" />
     <MESSAGE value="发布2.0.1" />
     <MESSAGE value="安卓再次 适配 13权限问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="安卓再次 适配 13权限问题" />
+    <MESSAGE value="ios 修改图片video混合上传 等" />
+    <option name="LAST_COMMIT_MESSAGE" value="ios 修改图片video混合上传 等" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -27,9 +27,10 @@
 @property(nonatomic,copy)UIImage* img;
 @property(nonatomic,copy)NSString* imgUrl;
 @property(nonatomic,copy)NSString* memonId;
+@property(nonatomic,copy)NSString* videoString;
 
 
-+(instancetype)itemWithTitle:(NSString*)title url:(NSString* )url img:(UIImage*)img;
++(instancetype)itemWithTitle:(NSString*)title url:(NSString* )url img:(UIImage*)img videoString:(NSString*)videoString;
 
 
 @end

@@ -190,13 +190,15 @@ class _MyAppState extends State<MyApp> {
                       Media media = _listImageVideoPaths[index];
                       return GestureDetector(
                         onTap: () {
-                          if (media.galleryMode == GalleryMode.image) {
-                            ImagePickers.previewImage(media.path!);
-                          } else {
-                            ImagePickers.previewVideo(
-                              media.path!,
-                            );
-                          }
+                       ImagePickers.previewImagesByMedia(
+                              _listImageVideoPaths, index);
+                          // if (media.galleryMode == GalleryMode.image) {
+                          //   ImagePickers.previewImage(media.path!);
+                          // } else {
+                          //   ImagePickers.previewVideo(
+                          //     media.path!,
+                          //   );
+                          // }
                         },
                         child: Image.file(
                           File(

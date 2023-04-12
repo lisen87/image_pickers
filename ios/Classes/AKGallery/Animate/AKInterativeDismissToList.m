@@ -165,7 +165,6 @@
     
     UIView* container= [self.ctx containerView];
     [container addSubview:self.toView];
-    //NSLog(@"startInteractiveTransition %ld",container.subviews.count);
     
     UIView* bgView= [[UIView alloc]initWithFrame:self.finalVCFrame];
     bgView.backgroundColor=[UIColor whiteColor];

@@ -13,11 +13,12 @@
 @implementation AKGalleryItem
 
 
-+(instancetype)itemWithTitle:(NSString*)title url:(NSString* )url img:(UIImage*)img{
++(instancetype)itemWithTitle:(NSString*)title url:(NSString* )url img:(UIImage*)img videoString:(NSString*)videoString{
     AKGalleryItem* item =AKGalleryItem.new;
     item.title=title;
     item.img=img;
     item.url=url;
+    item.videoString =videoString;
     return item;
 }
 

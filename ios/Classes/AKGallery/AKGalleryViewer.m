@@ -11,6 +11,9 @@
 #import "Masonry.h"
 #import <ImageIO/ImageIO.h>
 #import <SDWebImage/UIImage+GIF.h>
+#import "PlayTheVideoVC.h"
+
+#define IsNilString(__String) (__String==nil ||[__String isEqual:[NSNull null]]|| [__String isEqualToString:@"null"] || [__String isEqualToString:@"<null>"]||[__String isEqualToString:@"(null)"]||[__String isEqualToString:@"null~null"]||[__String isEqualToString:@""])
 
 @interface AKGalleryViewer()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UIViewControllerTransitioningDelegate,UIActionSheetDelegate>
 {
@@ -139,9 +142,25 @@
     //        make.edges.equalTo(self.view);
     //    }];
     
+    if(!IsNilString([self.gallery itemForRow:self.index].videoString)){
+        UIImageView* playImageV=[[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, (self.view.bounds.size.height-80)/2, 80, 80)];
+        playImageV.userInteractionEnabled=YES;
+        playImageV.contentMode=UIViewContentModeScaleAspectFit;
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+           // 获取Bundle中的UIImage
+        UIImage *image = [UIImage imageNamed:@"bofang2.png" inBundle:bundle compatibleWithTraitCollection:nil];
+        [playImageV setImage:image];
+
+      [sv addSubview:playImageV];
+        //add gestures
+        UITapGestureRecognizer * playAction =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(playAction)];
+        playAction.numberOfTapsRequired=1;
+        [playImageV addGestureRecognizer:playAction];
+    }
+   
     
     //add gestures
-    UITapGestureRecognizer * singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(switchBgColor)];
+    UITapGestureRecognizer * singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap)];
     singleTap.numberOfTapsRequired=1;
     [sv addGestureRecognizer:singleTap];
     
@@ -152,11 +171,6 @@
     [singleTap requireGestureRecognizerToFail:doubleTap];
     
     
-    
-    //    UIPanGestureRecognizer* pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(userPan:)];
-    //    [sv addGestureRecognizer:pan];
-    //    pan.enabled=NO;
-    //    userPan=pan;
     
     UIPinchGestureRecognizer * pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(userPinch:)];
     pinch.delegate=self;
@@ -172,6 +186,15 @@
     
     
     
+}
+-(void)playAction{
+    PlayTheVideoVC *vc =[[PlayTheVideoVC alloc]init];
+    vc.modalPresentationStyle=0;
+    vc.videoUrl =[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].videoString];
+    vc.modalPresentationStyle =UIModalPresentationFullScreen;
+    [self.navigationController presentViewController:vc animated:NO completion:^{
+        
+    }];
 }
 -(void)LongPressGestureAction:(UILongPressGestureRecognizer*)longPressGesture{
     //初始化一个UIAlertController的警告框
@@ -212,9 +235,16 @@
         containerVC.pageVC.view.backgroundColor=[UIColor blackColor];
     }
 }
--(void)switchBgColor{
+-(void)singleTap{
+    if(!IsNilString([self.gallery itemForRow:self.index].videoString)){
+  
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }
     
-    [self.navigationController popViewControllerAnimated:YES];
 
     
     

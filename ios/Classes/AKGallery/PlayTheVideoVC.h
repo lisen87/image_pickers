@@ -10,4 +10,5 @@
 
 @interface PlayTheVideoVC : UIViewController
 @property(nonatomic,strong)NSString *videoUrl;
+
 @end

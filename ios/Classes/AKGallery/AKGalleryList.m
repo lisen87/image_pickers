@@ -27,9 +27,10 @@ NSString* identifier  = @"AKGalleryListCell";
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     [self.navigationController dismissViewControllerAnimated:NO completion:^{
-        
+
+
     }];
-    
+//
 
 }
 - (void)viewDidLoad {

@@ -8,10 +8,14 @@
 
 #import "AKGalleryListCell.h"
 #import "UIImageView+WebCache.h"
+#import "PlayTheVideoVC.h"
+#define IsNilString(__String) (__String==nil ||[__String isEqual:[NSNull null]]|| [__String isEqualToString:@"null"] || [__String isEqualToString:@"<null>"]||[__String isEqualToString:@"(null)"]||[__String isEqualToString:@"null~null"]||[__String isEqualToString:@""])
 
 @interface AKGalleryListCell()
 {
     UIImageView* imgV;
+    UIImageView* playImageV;
+
 }
 @end
 @implementation AKGalleryListCell
@@ -30,12 +34,22 @@
     
 }
 
-
+-(void)showVideo{
+ 
+}
 -(void)setModel:(AKGalleryItem *)model{
     _model=model;
     
     if (model.img) {
         imgV.image=model.img;
+        imgV.userInteractionEnabled=NO;
+
+    }
+    if(IsNilString(model.videoString)){
+        imgV.image=model.img;
+        imgV.userInteractionEnabled=YES;
+        [imgV addGestureRecognizer:[[UIGestureRecognizer alloc]initWithTarget:self action:@selector(showVideo)]];
+        
     }
     if(model.url){
         
