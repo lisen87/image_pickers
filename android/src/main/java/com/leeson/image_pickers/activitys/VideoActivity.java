@@ -80,11 +80,16 @@ public class VideoActivity extends BaseActivity{
         //网络视频url或本地视频路径
 
         Uri uri;
-        if (Build.VERSION.SDK_INT >= 24) {
-            uri = FileProvider.getUriForFile(this, getPackageName() + ".luckProvider", new File(videoPath));
-        }else{
+        if (videoPath.startsWith("http")){
             uri = Uri.parse(videoPath);
+        }else{
+            if (Build.VERSION.SDK_INT >= 24) {
+                uri = FileProvider.getUriForFile(this, getPackageName() + ".luckProvider", new File(videoPath));
+            }else{
+                uri = Uri.parse(videoPath);
+            }
         }
+
 
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -146,11 +151,13 @@ public class VideoActivity extends BaseActivity{
             RelativeLayout.LayoutParams videoViewParam;
             float height = ((videoHeight*1f / videoWidth) * outMetrics.widthPixels);
             videoViewParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int) height);
+            videoViewParam.addRule(RelativeLayout.CENTER_IN_PARENT);
             videoView.setLayoutParams(videoViewParam);
         }else{
             RelativeLayout.LayoutParams videoViewParam;
             float width = ((videoWidth*1f / videoHeight) * outMetrics.widthPixels);
             videoViewParam = new RelativeLayout.LayoutParams((int) width,RelativeLayout.LayoutParams.MATCH_PARENT);
+            videoViewParam.addRule(RelativeLayout.CENTER_IN_PARENT);
             videoView.setLayoutParams(videoViewParam);
         }
     }

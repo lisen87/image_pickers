@@ -49,6 +49,31 @@ public class CommonUtils {
         return "";
     }
 
+    public static String saveBitmapByPath(Context context,String filePath,String fileName,Bitmap bitmap){
+        try {
+            File file = new File(filePath);
+            if (!file.exists()){
+                file.mkdirs();
+            }
+            File tempBitmap = new File(file,fileName);
+            if (tempBitmap.exists()){
+                tempBitmap.delete();
+                tempBitmap.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(tempBitmap,false);
+            if(bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)){
+                out.flush();
+                out.close();
+            }
+            return tempBitmap.getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static Bitmap saveRoundBitmap(Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();

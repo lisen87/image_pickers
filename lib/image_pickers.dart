@@ -202,7 +202,7 @@ class ImagePickers {
     _channel.invokeMethod('previewImage', params);
   }
 
-  ///预览多张图片 Preview multiple pictures
+  ///预览多张图片和视频 Preview multiple pictures and multiple videos
   ///
   ///imagePaths 图片本地路径集合或者网络url集合 Image local path collection or network url collection
 
@@ -214,9 +214,9 @@ class ImagePickers {
     _channel.invokeMethod('previewImages', params);
   }
 
-  ///预览多张图片 Preview multiple pictures
+  ///预览多张图片和视频  Preview multiple pictures and multiple videos
   ///
-  ///imageMedias 图片数据集合 Image local path collection or network url collection
+  ///imageMedias 图片/视频 数据集合 Image videos local path collection or network url collection
   ///
   ///Media中真正有效使用的数据是 Media.path The really effectively used data in Media is Media.path
   ///
