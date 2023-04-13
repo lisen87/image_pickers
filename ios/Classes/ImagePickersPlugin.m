@@ -325,29 +325,25 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSMutableArray *arr =[[NSMutableArray alloc]init];
         NSArray *imageArr =[dic objectForKey:@"paths"];
         NSInteger initIndex =[[dic objectForKey:@"initIndex"] intValue];
-//        [NSURL URLWithString:[NSString stringWithFormat:@"%@",_videoUrl]]
-//        for (int i=0; i<imageArr.count; i++){
-//            NSString *imgString  =imageArr[i];
-//            [arr addObject:[UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",imgString]]]];
-//        }
-     
-//        ZLImagePreviewController *vc =[[ZLImagePreviewController alloc]initWithDatas:arr index:0 showSelectBtn:false showBottomView:false urlType:^enum ZLURLType(NSURL * url) {
-//            if([videoSuffixs containsObject: [url.absoluteString componentsSeparatedByString:@"."].lastObject]){
-//                return ZLURLTypeVideo;
-//            }else{
-//                return ZLURLTypeImage ;
-//            }
-//        } urlImageLoader:^(NSURL * url, UIImageView * image, void (^ _Nonnull)(CGFloat), void (^ _Nonnull)(void)){
-//
-//        }];
-//        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:vc animated:YES completion:^{
-//        }];
         NSArray* videoSuffixs = @[@"mp4", @"mov", @"avi", @"rmvb", @"rm", @"flv", @"3gp", @"wmv", @"vob", @"dat", @"m4v", @"f4v", @"mkv"]; // and mor
         for (int i=0; i<imageArr.count; i++) {
             NSString *imgString  =imageArr[i];
            if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
-                AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:[NSString stringWithFormat:@"%@",imgString] img:nil videoString:@""];
-                [arr addObject:item];
+               if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
+                   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                   formatter.dateFormat = @"yyyyMMddHHmmss";
+                   int  x = arc4random() % 10000;
+                   NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+                   UIImage *img = [self getUrlImage:imgString];
+                   NSData *data2=UIImageJPEGRepresentation(img , 1);
+                   NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
+                BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
+                   AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:img videoString:imgString];
+                   [arr addObject:item];
+               }else{
+                   AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:[NSString stringWithFormat:@"%@",imgString] img:nil videoString:@""];
+                   [arr addObject:item];
+               }
 
             }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"CoreSimulator/"]){
                 if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
@@ -572,6 +568,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 [arr addObject:[NSString stringWithFormat:@"%@",str]];
                 [self saveImageView:index imagePHAsset:modelList arr:arr  compressSize:compressSize result:result];
             }
+      
             
         }];
     }
@@ -611,7 +608,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     
 }
 
-#pragma //mark 通过视频的URL，获得视频缩略图
+#pragma mark 通过视频的路径获取视频的第一帧
 -(UIImage *)getImage:(NSString *)videoURL
 {
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:videoURL] options:nil];
@@ -625,7 +622,23 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     CGImageRelease(image);
     return thumb;
 }
+#pragma mark 通过网络视频获取视频的第一帧
 
+-(UIImage *)getUrlImage:(NSString *)videoURL
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoURL] options:nil];
+    AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    gen.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+    NSError *error = nil;
+    CMTime actualTime;
+    CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    UIImage *thumb = [[UIImage alloc] initWithCGImage:image];
+    CGImageRelease(image);
+    return thumb;
+}
+
+///下载视频
 - (void)playerDownload:(NSString *)url{
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
