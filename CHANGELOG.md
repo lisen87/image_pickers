@@ -1,3 +1,6 @@
+## 2.0.4
+* 增加 视频和图片混合预览
+* Add video and picture mixing preview
 ## 2.0.3+1
 * 更新安卓最新图片选择库
 * Updated the latest image selection library for Android

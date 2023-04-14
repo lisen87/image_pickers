@@ -20,7 +20,7 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^2.0.3+1
+image_pickers: ^2.0.4
 ```
 
 ```dart
@@ -83,9 +83,10 @@ ImagePickers.openCamera(cameraMimeType: CameraMimeType.video).then((media){
 ```dart
 ///预览图片 Preview picture
 ImagePickers.previewImage(_listImagePaths[index].path);
-///预览多张图片 Preview multiple pictures
+
+///预览多张图片或视频 Preview multiple pictures or videos
 ImagePickers.previewImagesByMedia(_listImagePaths,index);
-///预览多张图片 Preview multiple pictures
+///预览多张图片或视频  Preview multiple pictures or videos
 ImagePickers.previewImages(paths,index);
 
 ///预览视频 Preview video
