@@ -204,7 +204,7 @@ class ImagePickers {
 
   ///预览多张图片和视频 Preview multiple pictures and multiple videos
   ///
-  ///imagePaths 图片本地路径集合或者网络url集合 Image local path collection or network url collection
+  ///imagePaths 图片/视频本地路径集合或者网络url集合 Image or videos local path collection or network url collection
 
   static previewImages(List<String?> imagePaths, int initIndex) {
     final Map<String, dynamic> params = <String, dynamic>{

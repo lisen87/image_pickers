@@ -27,8 +27,7 @@
                 android:id="@+id/iv_src"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"/>
+                android:layout_centerInParent="true"/>
             <ImageView
                 android:id="@+id/iv_play"
                 android:layout_width="60dp"
