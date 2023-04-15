@@ -96,10 +96,10 @@ public class PhotosActivity extends BaseActivity {
             String url = images.get(position);
             String ext = MimeTypeMap.getFileExtensionFromUrl(url);
             String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext);
-            if (mimeType.contains("image")){
-                view = setupImage(container,url);
-            }else{
+            if (!TextUtils.isEmpty(mimeType) && mimeType.contains("video")){
                 view = setupVideo(container,url);
+            }else{
+                view = setupImage(container,url);
             }
 
             container.addView(view);
