@@ -1,4 +1,4 @@
-## 2.0.4
+## 2.0.4+1
 * 增加 视频和图片混合预览
 * Add video and picture mixing preview
 ## 2.0.3+1
