@@ -5,12 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cdfd5ac-d0bc-40e5-a503-df650d375c68" name="Changes" comment="多选裁剪">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_7_9_27_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_7_9_27__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AKGallery/AKGalleryViewer.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASCompositeConstraint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASCompositeConstraint.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASConstraint+Private.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASConstraint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASConstraint.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASConstraintMaker.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASConstraintMaker.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASLayoutConstraint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASLayoutConstraint.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASUtilities.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASViewAttribute.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASViewAttribute.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASViewConstraint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/MASViewConstraint.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/Masonry.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/NSArray+MASAdditions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/NSArray+MASAdditions.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/NSArray+MASShorthandAdditions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/NSLayoutConstraint+MASDebugAdditions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/NSLayoutConstraint+MASDebugAdditions.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/View+MASAdditions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/View+MASAdditions.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/View+MASShorthandAdditions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/ViewController+MASAdditions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Masonry/ViewController+MASAdditions.m" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +49,18 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/example/.flutter-plugins-dependencies" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/ios/Runner/GeneratedPluginRegistrant.m" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/lib/main.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/test/widget_test.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/image_pickers.iml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/image_pickers.podspec" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/image_pickers.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

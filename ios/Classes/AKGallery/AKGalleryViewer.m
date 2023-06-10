@@ -8,7 +8,6 @@
 
 #import "AKGalleryViewer.h"
 #import "UIImageView+WebCache.h"
-#import "Masonry.h"
 #import <ImageIO/ImageIO.h>
 #import <SDWebImage/UIImage+GIF.h>
 #import "PlayTheVideoVC.h"
@@ -64,27 +63,9 @@
     }
     
     if ([self.gallery itemForRow:self.index].url) {
-//
         if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]||[[self.gallery itemForRow:self.index].url containsString:@"gif"]){
             NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
            [self.imgView setImage:[UIImage sd_imageWithGIFData:data]];
-//              CGImageSourceRef gifSource;
-//            gifSource =  CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
-//            size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
-//            NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
-//            double timeLong =0;
-//            for (size_t i=0; i<frameCout;i++){
-//
-//                CGImageRef imageRef=CGImageSourceCreateImageAtIndex(gifSource, i, NULL);//从GIF图片中取出源图片
-//                UIImage* imageName=[UIImage imageWithCGImage:imageRef];//将图片源转换成UIimageView能使用的图片源
-//                [frames addObject:imageName];//将图片加入数组中
-//                CGImageRelease(imageRef);
-//                timeLong =timeLong+[self gifImageDeleyTime:gifSource index:i];
-//            }
-//
-//            self.imgView.animationImages=frames;//将图片数组加入UIImageView动画数组中
-//            self.imgView.animationDuration=timeLong;//每次动画时长
-//            [self.imgView startAnimating];//开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
         }else{
             [self.imgView sd_setImageWithURL:(NSURL*)[self.gallery itemForRow:self.index].url  placeholderImage:[UIImage imageNamed:@"error.png"] options:SDWebImageProgressiveLoad completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 if(error){
@@ -93,16 +74,8 @@
             }];
             
         }
-        
-        
-        
-        //self.imgView.image= [self.gallery itemForRow:self.index].img;
-        
     }
-    
-    
-    //    AKLog(@"viewer %p did appear %ld",self,self.index);
-    
+
     
     if (self.gallery.choose) {
         self.gallery.choose(self.index);
@@ -126,21 +99,14 @@
     sv.maximumZoomScale=self.gallery.custUI.maxZoomScale;
     [self.view addSubview:sv];
     self.scrollView=sv;
-    
-    //    [sv mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.edges.equalTo(self.view);
-    //    }];
-    
+
     //imageView
     UIImageView* imgv=[[UIImageView alloc]initWithFrame:self.view.bounds];
     imgv.userInteractionEnabled=YES;
     imgv.contentMode=UIViewContentModeScaleAspectFit;
     [sv addSubview:imgv];
     self.imgView=imgv;
-    
-    //    [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.edges.equalTo(self.view);
-    //    }];
+
     
     if(!IsNilString([self.gallery itemForRow:self.index].videoString)){
         UIImageView* playImageV=[[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, (self.view.bounds.size.height-80)/2, 80, 80)];
@@ -176,14 +142,7 @@
     pinch.delegate=self;
     [sv addGestureRecognizer:pinch];
     userPinch=pinch;
-//    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
-//                                                    
-//                                                    initWithTarget:self action:@selector(LongPressGestureAction:)];
-//
-//    //        longPressReger.minimumPressDuration = 2.0;
-//
-//    [sv addGestureRecognizer:longPressReger];
-    
+
     
     
 }
@@ -245,30 +204,6 @@
 
     }
     
-
-    
-    
-    
-//
-//    UIColor* curColor=self.view.backgroundColor;
-//    AKGalleryViewerContainer *containerVC= self.navigationController.viewControllers[1];
-//
-//    [UIView animateWithDuration:0.25 animations:^{
-//
-//        if (curColor==[UIColor whiteColor]) {
-//            self.navigationController.navigationBarHidden=YES;
-//            containerVC.toolBar.hidden=YES;
-//            self.view.backgroundColor=[UIColor blackColor];
-//            self.gallery.custUI.viewerBackgroundBlack=YES;
-//        }
-//        if (curColor==[UIColor blackColor]) {
-//            self.navigationController.navigationBarHidden=NO;
-//            containerVC.toolBar.hidden=YES;
-//            self.view.backgroundColor=[UIColor blackColor];
-//
-//            self.gallery.custUI.viewerBackgroundBlack=YES;
-//        }
-//    }];
 }
 
 
@@ -282,9 +217,6 @@
     
     
     CGPoint  point =  [tap locationInView:tap.view];
-    
-    //    AKLog(@"double tap %@",NSStringFromCGPoint(point));
-    
     if(self.scrollView.zoomScale!=1){
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -297,11 +229,6 @@
     }
     
     [self.scrollView zoomToRect:CGRectMake(point.x-50, point.y-50, 100, 100) animated:YES];
-    
-    
-    
-    
-    
 }
 
 -(void)collectionThePhoto{
@@ -309,19 +236,10 @@
     
 }
 
-
-
-
-
-
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        
-        
         UIImageWriteToSavedPhotosAlbum(self.imgView.image, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
-        
-        
     }else if (buttonIndex == 1) {
     }else if(buttonIndex == 2) {
     }else if(buttonIndex == 3) {
@@ -337,7 +255,6 @@
     {
         message = [error description];
     }
-    //NSLog(@"message is %@",message);
 }
 
 
@@ -348,11 +265,8 @@
 
 
 -(void)userPinch:(UIPinchGestureRecognizer*)pinch{
-    //    AKLog(@"userPinch scale:%f  velocity:%f",pinch.scale,pinch.velocity);
     float scale = pinch.scale;
     UIGestureRecognizerState state= pinch.state;
-    
-    
     switch (state) {
         case  UIGestureRecognizerStateBegan:
         {
@@ -390,10 +304,7 @@
         }
             break;
         case UIGestureRecognizerStateEnded:{
-            //            AKLog(@"end");
-            //todo: shake navi title when end
-            
-            
+          
             if (self.interativeDismiss) {
                 
                 //poping
@@ -416,7 +327,6 @@
             
             break;
         case UIGestureRecognizerStateCancelled:{
-            //            AKLog(@"cancel");
             if (self.interativeDismiss) {
                 //poping
                 [self.interativeDismiss cancelInteractiveTransition];
@@ -426,7 +336,6 @@
             }
             userPan.enabled=NO;
             
-            //            AKLog(@"self.interativeDismiss=nil;");
         }break;
             
         default:
@@ -436,7 +345,6 @@
 }
 
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView{
-    //    AKLog(@"zoom");
     
     if(scrollView.zoomScale<1){
         
@@ -489,16 +397,8 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.extendedLayoutIncludesOpaqueBars=YES;
 
-
-//    NSString * path = [[NSBundle mainBundle]pathForResource:@"bigImage" ofType:@"bundle"];
-  //  UIImage *iconImage= [UIImage imageWithContentsOfFile:[path stringByAppendingPathComponent:@"back"]];
     UIImage *iconImage= [UIImage imageNamed:@"backBlack.png"];
-//    UIImage *image = [iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithImage:iconImage style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
 
-    //back bar buttonios/Assets/backBlack.png
-//    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:iconImage style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
-    
     UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
     
     self.navigationItem.leftBarButtonItem=backBarBtn;
@@ -506,17 +406,8 @@
     //toolBar
     UIToolbar* tBar = UIToolbar.new;
     tBar.tintColor=self.gallery.custUI.viewerBarTint;
-//    [self.view addSubview:tBar];
     self.toolBar=tBar;
-    
-    
-    
-//    [tBar mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.height.equalTo(@44);
-//        make.left.right.equalTo(self.view);
-//        make.bottom.equalTo(self.view.mas_bottom);
-//    }];
-    
+
     UIBarButtonItem*left =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     left.width=[UIScreen mainScreen].bounds.size.width/2-50;
     
@@ -524,16 +415,10 @@
     UIBarButtonItem* pBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(previous)];
 //
     UIBarButtonItem* nBtn =[[UIBarButtonItem alloc]initWithTitle:@">"  style:UIBarButtonItemStylePlain target:self action:@selector(next)];
-//    self.toolBar.items=@[left,pBtn,mid,nBtn];
     mid.width=30;
     
     previousBarBtn = pBtn;
     nextBarBtn=nBtn;
-    
-    
-    
-    
-    
     
     UIPageViewController* pvc= [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{
         UIPageViewControllerOptionInterPageSpacingKey:@(self.gallery.custUI.spaceBetweenViewer)
@@ -556,14 +441,6 @@
     self.pageVC=pvc;
     
     [self.view bringSubviewToFront:self.toolBar];
-    [pvc.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        //        make.left.right.top.equalTo(self.view);
-        //        make.bottom.equalTo(self.toolBar.mas_top);
-        make.edges.equalTo(self.view);
-    }];
-    
-    
-    
     [self updateUI];
     
 }
@@ -733,13 +610,9 @@
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                                    interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController NS_AVAILABLE_IOS(7_0){
-    
-    //    AKLog(@"interaction %@",);
-    //    return [AKInterativeDismissToList new];
-    //    return  [AKInterativeDismissToList new];
+
     AKGalleryViewer* viewer= self.pageVC.viewControllers.firstObject;
     
-    //    AKLog(@"inter :%@",viewer.interativeDismiss);
     return viewer.interativeDismiss;
     
 }
@@ -754,11 +627,7 @@
     
     //viewer pop to container -> AKInterativeDismissList
     if([fromVC isKindOfClass:[AKGalleryViewerContainer class]]&&operation == UINavigationControllerOperationPop){
-        
-        //        AKGalleryViewerContainer* container = (AKGalleryViewerContainer*)fromVC;
-        //        AKGalleryViewer* viewer= self.pageVC.viewControllers.firstObject;
-        //        AKLog(@"animate %@", AKInterativeDismissToList.new);
-        //        return viewer.interativeDismiss;
+  
         return AKInterativeDismissToList.new;
     }
     return nil;
