@@ -1,3 +1,6 @@
+## 2.0.4+2
+* 增加 图片图片任意比例裁剪
+* Add Picture image cropping at any scale
 ## 2.0.4+1
 * 增加 视频和图片混合预览
 * Add video and picture mixing preview
