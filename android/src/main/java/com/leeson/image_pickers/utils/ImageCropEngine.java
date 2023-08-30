@@ -37,8 +37,8 @@ public class ImageCropEngine implements CropFileEngine {
     public ImageCropEngine(Context context, UCrop.Options options, float aspectRatioX, float aspectRatioY) {
         this.context = context;
         this.options = options;
-        this.aspectRatioX = aspectRatioX == 0?1:aspectRatioX;
-        this.aspectRatioY = aspectRatioY == 0?1:aspectRatioY;
+        this.aspectRatioX = aspectRatioX;
+        this.aspectRatioY = aspectRatioY;
     }
 
     private String getSandboxPath() {
@@ -51,6 +51,7 @@ public class ImageCropEngine implements CropFileEngine {
         //options.setMultipleCropAspectRatio(buildAspectRatios(dataSource.size()));
         options.isDragCropImages(true);
         options.setShowCropFrame(true);
+        options.setFreeStyleCropEnabled(aspectRatioX <= 0 || aspectRatioY <= 0);
         options.setHideBottomControls(true);
         options.setAllowedGestures(UCropActivity.ALL,UCropActivity.ALL,UCropActivity.ALL);
         AspectRatio[] aspectRatios = new AspectRatio[dataSource.size()];

@@ -37,7 +37,6 @@ class _MyAppState extends State<MyApp> {
       key: globalKey,
       child: MaterialApp(
         theme: ThemeData(
-          backgroundColor: Colors.white,
           primaryColor: Colors.white,
         ),
         home: Scaffold(
@@ -88,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                       selectCount: 5,
                       showCamera: true,
                       cropConfig:
-                          CropConfig(enableCrop: true, height: 1, width: 1),
+                          CropConfig(enableCrop: true),
                       compressSize: 500,
                       uiConfig: UIConfig(
                         uiThemeColor: Color(0xffff0000),

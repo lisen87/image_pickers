@@ -41,21 +41,21 @@ class ImagePickers {
   ///
 
   static Future<Media?> openCamera({
-    CameraMimeType cameraMimeType: CameraMimeType.photo,
+    CameraMimeType cameraMimeType = CameraMimeType.photo,
     CropConfig? cropConfig,
-    int compressSize: 500,
-    int videoRecordMaxSecond : 120,
-    int videoRecordMinSecond : 1,
-    Language language : Language.system,
+    int compressSize = 500,
+    int videoRecordMaxSecond = 120,
+    int videoRecordMinSecond = 1,
+    Language language = Language.system,
   }) async {
 
     bool enableCrop = false;
-    int width = 1;
-    int height = 1;
+    int width = -1;
+    int height = -1;
     if (cropConfig != null) {
       enableCrop = cropConfig.enableCrop;
-      width = cropConfig.width <= 0 ? 1 : cropConfig.width;
-      height = cropConfig.height <= 0 ? 1 : cropConfig.height;
+      width = cropConfig.width <= 0 ? -1 : cropConfig.width;
+      height = cropConfig.height <= 0 ? -1 : cropConfig.height;
     }
 
     Color uiColor = UIConfig.defUiThemeColor;
@@ -125,18 +125,18 @@ class ImagePickers {
   /// videoSelectMinSecond 选择视频时视频最小时间（秒）
 
   static Future<List<Media>> pickerPaths({
-    GalleryMode galleryMode: GalleryMode.image,
+    GalleryMode galleryMode = GalleryMode.image,
     UIConfig? uiConfig,
-    int selectCount: 1,
-    bool showCamera: false,
-    bool showGif: true,
+    int selectCount = 1,
+    bool showCamera = false,
+    bool showGif = true,
     CropConfig? cropConfig,
-    int compressSize: 500,
-    int videoRecordMaxSecond : 120,
-    int videoRecordMinSecond : 1,
-    int videoSelectMaxSecond : 120,
-    int videoSelectMinSecond : 1,
-    Language language : Language.system,
+    int compressSize = 500,
+    int videoRecordMaxSecond = 120,
+    int videoRecordMinSecond = 1,
+    int videoSelectMaxSecond = 120,
+    int videoSelectMinSecond = 1,
+    Language language = Language.system,
   }) async {
     Color uiColor = UIConfig.defUiThemeColor;
     if (uiConfig != null) {
@@ -144,12 +144,12 @@ class ImagePickers {
     }
 
     bool enableCrop = false;
-    int width = 1;
-    int height = 1;
+    int width = -1;
+    int height = -1;
     if (cropConfig != null) {
       enableCrop = cropConfig.enableCrop;
-      width = cropConfig.width <= 0 ? 1 : cropConfig.width;
-      height = cropConfig.height <= 0 ? 1 : cropConfig.height;
+      width = cropConfig.width <= 0 ? -1 : cropConfig.width;
+      height = cropConfig.height <= 0 ? -1 : cropConfig.height;
     }
 
     final Map<String, dynamic> params = <String, dynamic>{
@@ -234,7 +234,7 @@ class ImagePickers {
   ///
   /// thumbPath 视频封面图 Video cover
 
-  static previewVideo(String videoPath, {String thumbPath: ""}) {
+  static previewVideo(String videoPath, {String thumbPath = ""}) {
     final Map<String, dynamic> params = <String, dynamic>{
       'path': videoPath,
       'thumbPath': thumbPath,
@@ -296,13 +296,13 @@ class CropConfig {
 
   ///裁剪的宽度比例
   ///Cropped width ratio
-  int width = 1;
+  int width = -1;
 
   ///裁剪的高度比例
   ///Crop height ratio
-  int height = 1;
+  int height = -1;
 
-  CropConfig({this.enableCrop: false, this.width: 1, this.height: 1});
+  CropConfig({this.enableCrop = false, this.width = -1, this.height = -1});
 }
 
 class Media {
@@ -334,7 +334,7 @@ class UIConfig {
   Color uiThemeColor;
 
   /// uiThemeColor
-  UIConfig({this.uiThemeColor: defUiThemeColor});
+  UIConfig({this.uiThemeColor = defUiThemeColor});
 }
 
 enum Language {
