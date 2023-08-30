@@ -165,6 +165,10 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         BOOL enableCrop =[[dic objectForKey:@"enableCrop"] boolValue];//是否裁剪
         NSInteger height =[[dic objectForKey:@"height"] integerValue];//宽高比例
         NSInteger width =[[dic objectForKey:@"width"] integerValue];//宽高比例
+        if(width<=0||height<=0){
+            width=0;
+            height=1;
+        }
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
         isShowGif =[[dic objectForKey:@"showGif"] boolValue];//是否选择gif
 
