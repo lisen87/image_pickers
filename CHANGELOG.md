@@ -1,3 +1,8 @@
+## 2.0.4+3
+* 首次打开相机无响应。
+* Opening the camera for the first time is unresponsive.
+* 保存图片类型问题。
+* Save picture type issues.
 ## 2.0.4+2
 * 增加 图片图片任意比例裁剪
 * Add Picture image cropping at any scale
