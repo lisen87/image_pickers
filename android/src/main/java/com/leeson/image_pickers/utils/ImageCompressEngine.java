@@ -10,6 +10,7 @@ import com.luck.picture.lib.utils.DateUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnNewCompressListener;
 import top.zibin.luban.OnRenameListener;
@@ -31,7 +32,12 @@ public class ImageCompressEngine implements CompressFileEngine {
     @Override
     public void onStartCompress(Context context, ArrayList<Uri> source, OnKeyValueResultCallbackListener call) {
 
-        Luban.with(context).load(source).ignoreBy(compressSize).setRenameListener(new OnRenameListener() {
+        Luban.with(context).load(source).ignoreBy(compressSize).filter(new CompressionPredicate() {
+            @Override
+            public boolean apply(String path) {
+                return !path.endsWith(".gif");
+            }
+        }).setRenameListener(new OnRenameListener() {
             @Override
             public String rename(String filePath) {
                 int indexOf = filePath.lastIndexOf(".");
