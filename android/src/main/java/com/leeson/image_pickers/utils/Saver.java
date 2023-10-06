@@ -624,7 +624,7 @@ public class Saver {
         values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
         values.put(MediaStore.Images.Media.TITLE, fileName);
         values.put(MediaStore.Images.Media.DESCRIPTION, fileName);
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
+        values.put(MediaStore.Images.Media.MIME_TYPE, getMIMEType(fileName));
         return copy(originFilePath, values, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     }
 
@@ -633,7 +633,7 @@ public class Saver {
         values.put(MediaStore.Video.Media.DISPLAY_NAME, fileName);
         values.put(MediaStore.Video.Media.TITLE, fileName);
         values.put(MediaStore.Video.Media.DESCRIPTION, fileName);
-        values.put(MediaStore.Video.Media.MIME_TYPE, "video/*");
+        values.put(MediaStore.Video.Media.MIME_TYPE, getMIMEType(fileName));
         return copy(originFilePath, values, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
     }
 

@@ -151,15 +151,21 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       intent.putExtra(SelectPicsActivity.VIDEO_SELECT_MAX_SECOND,videoSelectMaxSecond);
       intent.putExtra(SelectPicsActivity.VIDEO_SELECT_MIN_SECOND,videoSelectMinSecond);
       intent.putExtra(SelectPicsActivity.LANGUAGE,language);
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.READ_MEDIA_IMAGES
-                ,Manifest.permission.READ_MEDIA_VIDEO});
+      if(cameraMimeType != null){
+        //为什么这么写？  PictureSelector中 有bug，在无任何权限情况下首次直接调用打开相机，会出现一个透明的activity
+        intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.CAMERA});
         intent.setClass(activity,PermissionActivity.class);
         activity.startActivityForResult(intent,READ_IMAGE);
       }else{
-        intent.setClass(activity,SelectPicsActivity.class);
-        activity.startActivityForResult(intent, SELECT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+          intent.putExtra(PermissionActivity.PERMISSIONS, new String[]{Manifest.permission.READ_MEDIA_IMAGES
+                  ,Manifest.permission.READ_MEDIA_VIDEO});
+          intent.setClass(activity,PermissionActivity.class);
+          activity.startActivityForResult(intent,READ_IMAGE);
+        }else{
+          intent.setClass(activity,SelectPicsActivity.class);
+          activity.startActivityForResult(intent, SELECT);
+        }
       }
 
     } else if ("previewImage".equals(methodCall.method)) {
