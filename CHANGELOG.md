@@ -1,6 +1,9 @@
+## 2.0.4+4
+* 修复 ios 视频选择时间限制无效问题
+* Fix iOS video selection time limit invalid issue
 ## 2.0.4+3
-* 首次打开相机无响应。
-* Opening the camera for the first time is unresponsive.
+* Android 首次打开相机无响应。
+* Android Opening the camera for the first time is unresponsive.
 * 保存图片类型问题。
 * Save picture type issues.
 ## 2.0.4+2
