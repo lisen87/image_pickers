@@ -180,26 +180,31 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.allowSelectOriginal =NO;//不选择原图
         [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.allowSelectGif = isShowGif;
+          
         //type photo video  若不存在则为带相册的，若存在则直接打开相机或录像
-        if([cameraMimeType isEqualToString:@"video"]||[galleryMode isEqualToString:@"video"]){
-            NSInteger videoRecordMinSecond =[[dic objectForKey:@"videoRecordMinSecond"] integerValue];
-            NSInteger videoRecordMaxSecond =[[dic objectForKey:@"videoRecordMaxSecond"] integerValue];
-            NSInteger videoSelectMaxSecond =[[dic objectForKey:@"videoSelectMaxSecond"] integerValue];
-            NSInteger videoSelectMinSecond =[[dic objectForKey:@"videoSelectMinSecond"] integerValue];
-            if([dic objectForKey:@"videoRecordMinSecond"]){
-                [ZLPhotoConfiguration default].cameraConfiguration.minRecordDuration =videoRecordMinSecond;
-            }
-            if([dic objectForKey:@"videoSelectMinSecond"]){
-                configuration.minSelectVideoDuration = videoSelectMinSecond;
-            }
-            if([dic objectForKey:@"videoRecordMaxSecond"]){
-                [ZLPhotoConfiguration default].cameraConfiguration.maxRecordDuration =videoRecordMaxSecond;
-            }
-            if([dic objectForKey:@"videoSelectMaxSecond"]){
-                configuration.maxSelectVideoDuration = videoSelectMaxSecond;
-            }
-        }
-       
+          if([cameraMimeType isEqualToString:@"video"]||[galleryMode isEqualToString:@"video"]||[galleryMode isEqualToString:@"all"]){
+                   if([dic objectForKey:@"videoRecordMinSecond"]){
+                       NSInteger videoRecordMinSecond =[[dic objectForKey:@"videoRecordMinSecond"] integerValue];
+
+                       [ZLPhotoConfiguration default].cameraConfiguration.minRecordDuration =videoRecordMinSecond;
+                   }
+                   if([dic objectForKey:@"videoSelectMinSecond"]){
+                       NSInteger videoSelectMinSecond =[[dic objectForKey:@"videoSelectMinSecond"] integerValue];
+
+                       configuration.minSelectVideoDuration = videoSelectMinSecond;
+                   }
+                   if([dic objectForKey:@"videoRecordMaxSecond"]){
+                       NSInteger videoRecordMaxSecond =[[dic objectForKey:@"videoRecordMaxSecond"] integerValue];
+
+                       [ZLPhotoConfiguration default].cameraConfiguration.maxRecordDuration =videoRecordMaxSecond;
+                   }
+                   if([dic objectForKey:@"videoSelectMaxSecond"]){
+                       NSInteger videoSelectMaxSecond =[[dic objectForKey:@"videoSelectMaxSecond"] integerValue];
+
+                       configuration.maxSelectVideoDuration = videoSelectMaxSecond;
+                   }
+         }
+
         /*以下是编辑相关*/
         ///如果是可编辑的就需要设置editAfterSelectThumbnailImage 因为editAfterSelectThumbnailImage=true和maxSelectCount=1的时候enableCrop=false ，所以需要editAfterSelectThumbnailImage =false
         configuration.allowEditImage =enableCrop;
@@ -230,6 +235,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 configuration.allowSelectImage =NO;
         
             }
+            
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
             [[UIApplication sharedApplication].delegate.window.rootViewController  showDetailViewController:camera sender:nil];
             camera.takeDoneBlock = ^(UIImage *image, NSURL *videoUrl){
