@@ -574,8 +574,12 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 [self saveImageView:index imagePHAsset:modelList arr:arr  compressSize:compressSize result:result];
             }else{
                 NSData *gifData = imageData;
-                NSString *str =    [ImagePickersPlugin createFile:gifData suffix:@".gif"];
-                [arr addObject:[NSString stringWithFormat:@"%@",str]];
+                NSString *str = [ImagePickersPlugin createFile:gifData suffix:@".gif"];
+                //取出路径
+                [arr addObject: @{
+                    @"thumbPath":[NSString stringWithFormat:@"%@",str],
+                    @"path":[NSString stringWithFormat:@"%@",str],
+                }];
                 [self saveImageView:index imagePHAsset:modelList arr:arr  compressSize:compressSize result:result];
             }
       
