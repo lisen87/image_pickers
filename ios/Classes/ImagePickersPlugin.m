@@ -178,6 +178,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.maxSelectCount = selectCount;//最多选择多少张图
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
+        configuration.downloadVideoBeforeSelecting =true;
         [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.allowSelectGif = isShowGif;
           
@@ -254,14 +255,13 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     formatter.dateFormat = @"yyyyMMddHHmmss";
                     int  x = arc4random() % 10000;
                     NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
-                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
+                    NSString  *jpgPath = [NSHomeDirectory()  stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
                     //保存到沙盒
                     [UIImageJPEGRepresentation(imageFF,1) writeToFile:jpgPath atomically:YES];
                     NSDictionary *photoDic =@{
                         @"thumbPath":[NSString stringWithFormat:@"%@",jpgPath],
                         @"path":[NSString stringWithFormat:@"%@",jpgPath],
                     };
-
                     //取出路径
                     NSArray *arr =@[photoDic];
                     result(arr);

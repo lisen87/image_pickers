@@ -209,15 +209,23 @@ class _MyAppState extends State<MyApp> {
                     }),
                 ElevatedButton(
                   onPressed: () async {
-                    _listImageVideoPaths = await ImagePickers.pickerPaths(
-                      galleryMode: GalleryMode.all,
-                      selectCount: 8,
-                      showCamera: true,
-                      videoRecordMinSecond: 3,
-                      videoRecordMaxSecond: 10,
-                      videoSelectMaxSecond: 300,
-                      videoSelectMinSecond: 5,
-                    );
+                    // _listImageVideoPaths = await ImagePickers.pickerPaths(
+                    //   galleryMode: GalleryMode.all,
+                    //   selectCount: 8,
+                    //   showCamera: true,
+                    //   videoRecordMinSecond: 3,
+                    //   videoRecordMaxSecond: 10,
+                    //   videoSelectMaxSecond: 300,
+                    //   videoSelectMinSecond: 5,
+                    // );
+
+
+                    _listImageVideoPaths = await  ImagePickers.pickerPaths(
+                      galleryMode:GalleryMode.all,
+                      videoSelectMaxSecond: 1200,
+                      videoRecordMaxSecond: 1200,
+                      selectCount: 10,
+                    ) ;
                     setState(() {});
                     print(_listImageVideoPaths);
                   },
@@ -292,4 +300,5 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
 }

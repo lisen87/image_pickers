@@ -7,7 +7,7 @@
 //
 
 #import "AKGalleryViewer.h"
-#import "UIImageView+WebCache.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <ImageIO/ImageIO.h>
 #import <SDWebImage/UIImage+GIF.h>
 #import "PlayTheVideoVC.h"
