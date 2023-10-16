@@ -1,3 +1,8 @@
+## 2.0.4+5
+* 修复 ios 选择gif错误问题
+* Fix iOS selection GIF error issue
+* 修复 ios 选择 iCloud 文件错误问题
+* Fix iOS selection iCloud file error issue
 ## 2.0.4+4
 * 修复 ios 视频选择时间限制无效问题
 * Fix iOS video selection time limit invalid issue
