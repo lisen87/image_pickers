@@ -178,7 +178,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.maxSelectCount = selectCount;//最多选择多少张图
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
-        configuration.downloadVideoBeforeSelecting =true;
+        configuration.downloadVideoBeforeSelecting =true;//选择之前下载
+        configuration.timeout =600;
         [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.allowSelectGif = isShowGif;
           
@@ -314,6 +315,14 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 configuration.allowSelectVideo =YES;
                 configuration.allowSelectImage =NO;
             }
+            
+            ///区分是从icloud上的。暂时发现iCloud的有问题
+//            configuration.canSelectAsset = ^BOOL(PHAsset * asset) {
+//                if(asset.sourceType==PHAssetSourceTypeCloudShared){
+//                    return  false;
+//                }
+//                return true;
+//            };
         
             NSMutableArray *arr11 =[[NSMutableArray alloc]init];
             ac.cancelBlock = ^{
@@ -507,20 +516,20 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     PHAsset *asset  =modelList[index].asset;
     index++;
     if(asset.mediaType==PHAssetMediaTypeVideo){
-        PHImageManager *manage =[[PHImageManager alloc]init];
-        PHImageRequestOptions *option =[[PHImageRequestOptions alloc]init];
-        option.networkAccessAllowed =YES;
+
         //视频
         PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
         options.version = PHVideoRequestOptionsVersionCurrent;
         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
         PHImageManager *manager = [PHImageManager defaultManager];
+        options.networkAccessAllowed =YES;
+
         [manager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
 
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSString *subString = [url.absoluteString substringFromIndex:7];
-            NSInteger a=  urlAsset.duration.value/urlAsset.duration.timescale;
+//            NSInteger a=  urlAsset.duration.value/urlAsset.duration.timescale;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmss";
             int  x = arc4random() % 10000;
