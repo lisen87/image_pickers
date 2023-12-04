@@ -154,7 +154,7 @@ public class Saver {
 
         if (fileInfo != null && fileInfo.size > 0) {
             Log.e("TAG", "saveImgToGallery: 复制文件" );
-            fileInfo = copyImgToPicture(fileInfo.getPath(), fileName);
+            fileInfo = copyImgToPicture(fileInfo.getPath(), System.currentTimeMillis()+fileName);
             notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
@@ -646,6 +646,7 @@ public class Saver {
 
     private FileInfo copy(String originFilePath, ContentValues values, Uri uri) {
 
+        Log.e("TAG", "copy: "+originFilePath );
         FileInfo fileInfo = new FileInfo();
         fileInfo.setBeforeDownload(false);
         String outPath = "";
@@ -675,7 +676,9 @@ public class Saver {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("TAG", "Exception: "+originFilePath );
         } finally {
+            Log.e("TAG", "finally: "+fileInfo );
             try {
                 if (inputStream != null) {
                     inputStream.close();
@@ -687,6 +690,7 @@ public class Saver {
                 e.printStackTrace();
             }
         }
+        Log.e("TAG", "finally--->: "+fileInfo );
         return fileInfo;
     }
 
