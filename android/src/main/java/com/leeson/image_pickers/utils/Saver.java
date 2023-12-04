@@ -123,8 +123,6 @@ public class Saver {
     }
 
     /**
-     * androidQ 保存在 sd/Pictures，非 sd/packageName/Pictures
-     * 保存到相册，卸载后不会被删除
      *
      * @param saveUrl
      * @param iDownload
@@ -134,37 +132,35 @@ public class Saver {
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
         String dirPath = appPath.getAppImgDirPath();
 
-        String selection = MediaStore.Images.Media.DISPLAY_NAME + "='" + fileName + "'";
+        /*String selection = MediaStore.Images.Media.DISPLAY_NAME + "='" + fileName + "'";
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String columnIdName = MediaStore.Images.Media._ID;
         String size = MediaStore.Images.Media.SIZE;
         String data = MediaStore.Images.Media.DATA;
-        String order = MediaStore.Images.Media.SIZE + " DESC";
+        String order = MediaStore.Images.Media.SIZE + " DESC";*/
 
         FileInfo fileInfo = null;
 
         //判断文件是否下载过
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
-        }else{
-            //低于android q 数据库中存储的名称不同机型有差异
-            final File file = new File(dirPath,fileName);
-            if (file.exists() && file.length() > 0){
-                fileInfo = new FileInfo();
-                fileInfo.setBeforeDownload(true);
-                fileInfo.setUri(PictureFileUtils.parUri(context,file));
-                fileInfo.setPath(file.getAbsolutePath());
-                fileInfo.setSize(file.length());
-            }
+        final File file = new File(dirPath,fileName);
+        if (file.exists() && file.length() > 0){
+            Log.e("TAG", "saveImgToGallery: has file" );
+            fileInfo = new FileInfo();
+            fileInfo.setBeforeDownload(true);
+            fileInfo.setUri(PictureFileUtils.parUri(context,file));
+            fileInfo.setPath(file.getAbsolutePath());
+            fileInfo.setSize(file.length());
         }
 
         if (fileInfo != null && fileInfo.size > 0) {
+            Log.e("TAG", "saveImgToGallery: 复制文件" );
             fileInfo = copyImgToPicture(fileInfo.getPath(), fileName);
             notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
             }
         } else {
+            Log.e("TAG", "saveImgToGallery: 开始下载" );
             download(saveUrl,dirPath , new IDownload() {
                 @Override
                 public void onDownloadSuccess(String filePath, String fileName) {
@@ -192,8 +188,6 @@ public class Saver {
     }
 
     /**
-     * androidQ 保存在 sd/Movies，非 sd/packageName/Movies
-     * 保存到相册，卸载后不会被删除
      *
      * @param saveUrl
      * @param iDownload
@@ -202,36 +196,34 @@ public class Saver {
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
         String dirPath = appPath.getAppVideoDirPath();
 
-        String selection = MediaStore.Video.Media.DISPLAY_NAME + "='" + fileName + "'";
+        /*String selection = MediaStore.Video.Media.DISPLAY_NAME + "='" + fileName + "'";
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String columnIdName = MediaStore.Video.Media._ID;
         String size = MediaStore.Video.Media.SIZE;
         String data = MediaStore.Video.Media.DATA;
-        String order = MediaStore.Video.Media.SIZE + " DESC";
+        String order = MediaStore.Video.Media.SIZE + " DESC";*/
 
         FileInfo fileInfo = null;
 
         //判断文件是否下载过
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            fileInfo = getFileInfo(uri,selection, columnIdName, size, data,order);
-        }else{
-            //低于android q 数据库中存储的名称不同机型有差异
-            final File file = new File(dirPath,fileName);
-            if (file.exists() && file.length() > 0){
-                fileInfo = new FileInfo();
-                fileInfo.setBeforeDownload(true);
-                fileInfo.setUri(PictureFileUtils.parUri(context,file));
-                fileInfo.setPath(file.getAbsolutePath());
-                fileInfo.setSize(file.length());
-            }
+        final File file = new File(dirPath,fileName);
+        if (file.exists() && file.length() > 0){
+            Log.e("TAG", "saveVideoToGallery: has file" );
+            fileInfo = new FileInfo();
+            fileInfo.setBeforeDownload(true);
+            fileInfo.setUri(PictureFileUtils.parUri(context,file));
+            fileInfo.setPath(file.getAbsolutePath());
+            fileInfo.setSize(file.length());
         }
         if (fileInfo != null) {
+            Log.e("TAG", "saveVideoToGallery: 复制文件" );
             fileInfo = copyToMovies(fileInfo.getPath(), fileName);
             notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
             }
         }else{
+            Log.e("TAG", "saveVideoToGallery: 开始下载" );
             download(saveUrl,dirPath , new IDownload() {
                 @Override
                 public void onDownloadSuccess(String filePath, String fileName) {
@@ -256,8 +248,6 @@ public class Saver {
     }
 
     /**
-     * androidQ 保存在 sd/Download，非 sd/packageName/Download
-     * 下载文件到公有目录，卸载后不会被删除
      *
      * 只有29 才有 MediaStore.Downloads
      * @param saveUrl

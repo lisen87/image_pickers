@@ -1,3 +1,6 @@
+## 2.0.4+6
+* 修复部分机型保存图片失败问题
+* Fixed the issue that some models failed to save pictures
 ## 2.0.4+5
 * 修复 ios 选择gif错误问题
 * Fix iOS selection GIF error issue
