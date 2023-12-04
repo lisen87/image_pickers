@@ -179,7 +179,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
         configuration.downloadVideoBeforeSelecting =true;//选择之前下载
-        configuration.timeout =600;
         [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.allowSelectGif = isShowGif;
           
