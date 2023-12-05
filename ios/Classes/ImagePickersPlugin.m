@@ -479,20 +479,27 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 
             [self saveGifImage:url];
         }else{
-            UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+            NSString* encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+            UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:encodedString]]];
             __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
             [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
              {
                 NSString *str =assetURL.absoluteString;
+                
+                NSLog(@"assetURL.absoluteString%@",str);
                 NSString *string =@"://";
                 NSRange range = [str rangeOfString:string];//匹配得到的下标
                 if(range.location+range.length<str.length){
                     str = [str substringFromIndex:range.location+range.length];
                     if (error) {
-
+                        result([NSString stringWithFormat:@"error"]);
                     }else{
                         result([NSString stringWithFormat:@"/%@",str]);
                     }
+                }else{
+                    result([NSString stringWithFormat:@"error"]);
+
                 }
             }];
         }
@@ -610,8 +617,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     }];
 }
 - (void)saveGifImage:(NSString*)urlString {
-    
-    NSURL *fileUrl = [NSURL URLWithString:urlString];
+    NSString* encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSURL *fileUrl = [NSURL URLWithString:encodedString];
     
     [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
@@ -650,7 +658,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 
 -(UIImage *)getUrlImage:(NSString *)videoURL
 {
-    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoURL] options:nil];
+    NSString* encodedString = [videoURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:encodedString] options:nil];
     AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     gen.appliesPreferredTrackTransform = YES;
     CMTime time = CMTimeMakeWithSeconds(0.0, 600);
@@ -672,7 +682,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString  *fullPath = [NSString stringWithFormat:@"%@/%@.mp4", documentsDirectory,[NSString stringWithFormat:@"%@",[formatter stringFromDate:[NSDate date]]]];
-    NSURL *urlNew = [NSURL URLWithString:url];
+    NSString* encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSURL *urlNew = [NSURL URLWithString:encodedString];
     NSURLRequest *request = [NSURLRequest requestWithURL:urlNew];
     NSURLSessionDownloadTask *task =
     [manager downloadTaskWithRequest:request
@@ -689,7 +701,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 //videoPath为视频下载到本地之后的本地路径
 - (void)saveVideo:(NSString *)videoPath{
     if (videoPath) {
-        NSURL *url = [NSURL URLWithString:videoPath];
+        NSString* encodedString = [videoPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+        NSURL *url = [NSURL URLWithString:encodedString];
         BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([url path]);
         if (compatible)
         {   //保存相册核心代码
