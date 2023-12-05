@@ -132,13 +132,6 @@ public class Saver {
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
         String dirPath = appPath.getAppImgDirPath();
 
-        /*String selection = MediaStore.Images.Media.DISPLAY_NAME + "='" + fileName + "'";
-        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String columnIdName = MediaStore.Images.Media._ID;
-        String size = MediaStore.Images.Media.SIZE;
-        String data = MediaStore.Images.Media.DATA;
-        String order = MediaStore.Images.Media.SIZE + " DESC";*/
-
         FileInfo fileInfo = null;
 
         //判断文件是否下载过
@@ -153,19 +146,19 @@ public class Saver {
         }
 
         if (fileInfo != null && fileInfo.size > 0) {
-            Log.e("TAG", "saveImgToGallery: 复制文件" );
+            Log.e("TAG", "saveImgToGallery: copy file" );
             fileInfo = copyImgToPicture(fileInfo.getPath(), System.currentTimeMillis()+fileName);
             notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
             }
         } else {
-            Log.e("TAG", "saveImgToGallery: 开始下载" );
+            Log.e("TAG", "saveImgToGallery: start download" );
             download(saveUrl,dirPath , new IDownload() {
                 @Override
                 public void onDownloadSuccess(String filePath, String fileName) {
                     //下载到私有目录成功并复制到公有目录
-                    FileInfo fileInfo  = copyImgToPicture(filePath, fileName);
+                    FileInfo fileInfo  = copyImgToPicture(filePath, System.currentTimeMillis()+fileName);
                     notifyGallery(fileInfo.getPath());
                         /*File originFile = new File(filePath);
                         originFile.delete();*/
@@ -196,13 +189,6 @@ public class Saver {
         final String fileName = saveUrl.substring(saveUrl.lastIndexOf("/") + 1);
         String dirPath = appPath.getAppVideoDirPath();
 
-        /*String selection = MediaStore.Video.Media.DISPLAY_NAME + "='" + fileName + "'";
-        Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String columnIdName = MediaStore.Video.Media._ID;
-        String size = MediaStore.Video.Media.SIZE;
-        String data = MediaStore.Video.Media.DATA;
-        String order = MediaStore.Video.Media.SIZE + " DESC";*/
-
         FileInfo fileInfo = null;
 
         //判断文件是否下载过
@@ -216,20 +202,20 @@ public class Saver {
             fileInfo.setSize(file.length());
         }
         if (fileInfo != null) {
-            Log.e("TAG", "saveVideoToGallery: 复制文件" );
-            fileInfo = copyToMovies(fileInfo.getPath(), fileName);
+            Log.e("TAG", "saveVideoToGallery: copy file" );
+            fileInfo = copyToMovies(fileInfo.getPath(), System.currentTimeMillis()+fileName);
             notifyGallery(fileInfo.getPath());
             if (iFinishListener != null) {
                 iFinishListener.onSuccess(fileInfo);
             }
         }else{
-            Log.e("TAG", "saveVideoToGallery: 开始下载" );
+            Log.e("TAG", "saveVideoToGallery: start download" );
             download(saveUrl,dirPath , new IDownload() {
                 @Override
                 public void onDownloadSuccess(String filePath, String fileName) {
 
                     //下载到私有目录成功并复制到公有目录
-                    FileInfo fileInfo = copyToMovies(filePath, fileName);
+                    FileInfo fileInfo = copyToMovies(filePath, System.currentTimeMillis()+fileName);
                     notifyGallery(fileInfo.getPath());
                     /*File originFile = new File(filePath);
                     originFile.delete();*/
@@ -646,7 +632,6 @@ public class Saver {
 
     private FileInfo copy(String originFilePath, ContentValues values, Uri uri) {
 
-        Log.e("TAG", "copy: "+originFilePath );
         FileInfo fileInfo = new FileInfo();
         fileInfo.setBeforeDownload(false);
         String outPath = "";
@@ -676,9 +661,7 @@ public class Saver {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("TAG", "Exception: "+originFilePath );
         } finally {
-            Log.e("TAG", "finally: "+fileInfo );
             try {
                 if (inputStream != null) {
                     inputStream.close();
@@ -690,7 +673,6 @@ public class Saver {
                 e.printStackTrace();
             }
         }
-        Log.e("TAG", "finally--->: "+fileInfo );
         return fileInfo;
     }
 
