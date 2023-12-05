@@ -45,6 +45,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 -(void)colorChange:(NSDictionary*)colorString configuration:(ZLPhotoUIConfiguration*)configuration {
     UIColor* colorType =[self stringChangeColor:colorString];
     int light =[[colorString objectForKey:@"l"] intValue];
+    [ZLPhotoUIConfiguration default].timeout =600;
+    [ZLPhotoUIConfiguration default].showIndexOnSelectBtn =true;
     /// 相册列表界面背景色
     [ZLPhotoUIConfiguration default].albumListBgColor =[UIColor whiteColor];
     [ZLPhotoUIConfiguration default].previewVCBgColor =[UIColor whiteColor];
@@ -179,7 +181,6 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.allowTakePhotoInLibrary =showCamera;//是否显示摄像头
         configuration.allowSelectOriginal =NO;//不选择原图
         configuration.downloadVideoBeforeSelecting =true;//选择之前下载
-        configuration.timeout =600;
         [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.allowSelectGif = isShowGif;
           
@@ -751,3 +752,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     return @"PNG";
 }
 @end
+/*
+
+ 
+ 
+ */
