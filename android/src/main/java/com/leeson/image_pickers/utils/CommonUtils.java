@@ -25,6 +25,9 @@ import java.io.IOException;
 @SuppressWarnings("all")
 public class CommonUtils {
     public static String saveBitmap(Context context,String sdPath,Bitmap bitmap){
+        if (bitmap == null){
+            return "";
+        }
         try {
             File file = new File(sdPath);
             if (!file.exists()){

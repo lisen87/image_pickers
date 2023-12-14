@@ -1,3 +1,8 @@
+## 2.0.4+8
+* 安卓更新图片选择库到 3.11.1
+* Android updated image selection library to 3.11.1
+* ios图片链接包含中文处理
+* iOS image links contain Chinese processing
 ## 2.0.4+7
 * 修复部分机型保存图片失败问题
 * Fixed the issue that some models failed to save pictures
