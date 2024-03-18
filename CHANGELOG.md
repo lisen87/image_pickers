@@ -1,3 +1,6 @@
+## 2.0.4+9
+* 安卓去掉 jcenter(),R文件使用完整包名
+* Android removes jcenter() and the R file uses the full package name
 ## 2.0.4+8
 * 安卓更新图片选择库到 3.11.1
 * Android updated image selection library to 3.11.1
