@@ -1,3 +1,6 @@
+## 2.0.4+10
+* 安卓使用 pictureselector:v3.11.2
+* Android uses pictureselector: v3.11.2
 ## 2.0.4+9
 * 安卓去掉 jcenter(),R文件使用完整包名
 * Android removes jcenter() and the R file uses the full package name
