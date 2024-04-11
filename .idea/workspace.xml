@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cdfd5ac-d0bc-40e5-a503-df650d375c68" name="Changes" comment="修复ios上传iCloud视频的问题">
+    <list default="true" id="0cdfd5ac-d0bc-40e5-a503-df650d375c68" name="Changes" comment="图片地址为中文报错">
+      <change afterPath="$PROJECT_DIR$/ios/Resources/PrivacyInfo.xcprivacy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/image_pickers.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/image_pickers.podspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,12 +23,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/README.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/.flutter-plugins-dependencies" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/ios/Podfile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/ios/Runner/AppDelegate.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/ios/Runner/GeneratedPluginRegistrant.m" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/example/ios/Runner/main.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/lib/main.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/example/test/widget_test.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/image_pickers.iml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Classes/ChooseImageManager.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ios/Classes/ImagePickersPlugin.m" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ios/image_pickers.podspec" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/image_pickers.dart" root0="FORCE_HIGHLIGHTING" />
@@ -54,6 +61,9 @@
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;F:/flutter_package/image_pickers&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
@@ -177,7 +187,21 @@
       <option name="project" value="LOCAL" />
       <updated>1697525006901</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="修复timeout 问题">
+      <created>1701739951690</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1701739951690</updated>
+    </task>
+    <task id="LOCAL-00017" summary="图片地址为中文报错">
+      <created>1701768943320</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1701768943320</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -211,6 +235,8 @@
     <MESSAGE value="修复ios上传iCloud视频的问题" />
     <MESSAGE value="修复ios上传iCloud视频的问题，gif多图问题" />
     <MESSAGE value="iCloud视频选择问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="iCloud视频选择问题" />
+    <MESSAGE value="修复timeout 问题" />
+    <MESSAGE value="图片地址为中文报错" />
+    <option name="LAST_COMMIT_MESSAGE" value="图片地址为中文报错" />
   </component>
 </project>
