@@ -1,3 +1,6 @@
+## 2.0.5
+* ios 添加 PrivacyInfo.xcprivacy
+* 安卓 修改 gradle 代码
 ## 2.0.4+10
 * 安卓使用 pictureselector:v3.11.2
 * Android uses pictureselector: v3.11.2
