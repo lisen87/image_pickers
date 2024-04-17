@@ -50,7 +50,7 @@
             }
         }
     }
-
+    
     return duration;
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -64,8 +64,39 @@
     
     if ([self.gallery itemForRow:self.index].url) {
         if ([[self.gallery itemForRow:self.index].url containsString:@"GIF"]||[[self.gallery itemForRow:self.index].url containsString:@"gif"]){
-            NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
-           [self.imgView setImage:[UIImage sd_imageWithGIFData:data]];
+            if([[self.gallery itemForRow:self.index].url containsString:@"http"]){
+                NSURL *fileUrl = [NSURL URLWithString:[self.gallery itemForRow:self.index].url];//加载GIF图片
+                
+                CGImageSourceRef gifSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);//将GIF图片转换成对应的图片源
+                size_t frameCout=CGImageSourceGetCount(gifSource);//获取其中图片源个数，即由多少帧图片组成
+                NSTimeInterval totalDuration = 0;//总时长
+                NSMutableArray* frames=[[NSMutableArray alloc] init];//定义数组存储拆分出来的图片
+                for (size_t i=0; i<frameCout;i++){
+                    CGImageRef imageRef=CGImageSourceCreateImageAtIndex(gifSource, i, NULL);//从GIF图片中取出源图片
+                    UIImage* imageName=[UIImage imageWithCGImage:imageRef];//将图片源转换成UIimageView能使用的图片源
+                    NSTimeInterval duration = [self gifImageDeleyTime:gifSource index:i];
+                    totalDuration += duration;
+                    [frames addObject:imageName];//将图片加入数组中
+                    
+                    CGImageRelease(imageRef);
+                    
+                }
+                
+                CFRelease(gifSource);
+                self.imgView.animationImages=frames;//将图片数组加入UIImageView动画数组中
+                self.imgView.animationDuration=totalDuration;//每次动画时长
+                //开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理;
+                [self.imgView startAnimating];
+              
+            }else{
+                NSData *data =[[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@",[self.gallery itemForRow:self.index].url]];
+                NSLog(@"%@",[self.gallery itemForRow:self.index]);
+                NSLog(@"%@",[self.gallery itemForRow:self.index].url);
+                [self.imgView setImage:[UIImage sd_imageWithGIFData:data]];
+                
+            }
+            
+            
         }else{
             [self.imgView sd_setImageWithURL:(NSURL*)[self.gallery itemForRow:self.index].url  placeholderImage:[UIImage imageNamed:@"error.png"] options:SDWebImageProgressiveLoad completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 if(error){
@@ -75,7 +106,7 @@
             
         }
     }
-
+    
     
     if (self.gallery.choose) {
         self.gallery.choose(self.index);
@@ -99,31 +130,31 @@
     sv.maximumZoomScale=self.gallery.custUI.maxZoomScale;
     [self.view addSubview:sv];
     self.scrollView=sv;
-
+    
     //imageView
     UIImageView* imgv=[[UIImageView alloc]initWithFrame:self.view.bounds];
     imgv.userInteractionEnabled=YES;
     imgv.contentMode=UIViewContentModeScaleAspectFit;
     [sv addSubview:imgv];
     self.imgView=imgv;
-
+    
     
     if(!IsNilString([self.gallery itemForRow:self.index].videoString)){
         UIImageView* playImageV=[[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, (self.view.bounds.size.height-80)/2, 80, 80)];
         playImageV.userInteractionEnabled=YES;
         playImageV.contentMode=UIViewContentModeScaleAspectFit;
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-           // 获取Bundle中的UIImage
+        // 获取Bundle中的UIImage
         UIImage *image = [UIImage imageNamed:@"bofang2.png" inBundle:bundle compatibleWithTraitCollection:nil];
         [playImageV setImage:image];
-
-      [sv addSubview:playImageV];
+        
+        [sv addSubview:playImageV];
         //add gestures
         UITapGestureRecognizer * playAction =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(playAction)];
         playAction.numberOfTapsRequired=1;
         [playImageV addGestureRecognizer:playAction];
     }
-   
+    
     
     //add gestures
     UITapGestureRecognizer * singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap)];
@@ -142,7 +173,7 @@
     pinch.delegate=self;
     [sv addGestureRecognizer:pinch];
     userPinch=pinch;
-
+    
     
     
 }
@@ -157,22 +188,22 @@
 }
 -(void)LongPressGestureAction:(UILongPressGestureRecognizer*)longPressGesture{
     //初始化一个UIAlertController的警告框
-       UIAlertController *alertController = [[UIAlertController alloc] init];
-       //初始化一个UIAlertController的警告框将要用到的UIAlertAction style cancle
-       UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-           NSLog(@"t提示框上的按钮 cancle 被点击了");
-       }];
-       //初始化一个UIAlertController的警告框将要用到的UIAlertAction style Default
-       UIAlertAction *save = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-           NSLog(@"提示框上的按钮保存 被点击了");
-       }];
+    UIAlertController *alertController = [[UIAlertController alloc] init];
+    //初始化一个UIAlertController的警告框将要用到的UIAlertAction style cancle
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        NSLog(@"t提示框上的按钮 cancle 被点击了");
+    }];
+    //初始化一个UIAlertController的警告框将要用到的UIAlertAction style Default
+    UIAlertAction *save = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSLog(@"提示框上的按钮保存 被点击了");
+    }];
     
-       //将初始化好的UIAlertAction添加到UIAlertController中
-       [alertController addAction:cancle];
-       [alertController addAction:save];
-       //将初始化好的j提示框显示出来
-       [self presentViewController:alertController animated:true completion:nil];
-
+    //将初始化好的UIAlertAction添加到UIAlertController中
+    [alertController addAction:cancle];
+    [alertController addAction:save];
+    //将初始化好的j提示框显示出来
+    [self presentViewController:alertController animated:true completion:nil];
+    
 }
 
 
@@ -196,12 +227,12 @@
 }
 -(void)singleTap{
     if(!IsNilString([self.gallery itemForRow:self.index].videoString)){
-  
+        
         [self.navigationController popViewControllerAnimated:YES];
-
+        
     }else{
         [self.navigationController popViewControllerAnimated:YES];
-
+        
     }
     
 }
@@ -304,7 +335,7 @@
         }
             break;
         case UIGestureRecognizerStateEnded:{
-          
+            
             if (self.interativeDismiss) {
                 
                 //poping
@@ -396,9 +427,9 @@
     self.edgesForExtendedLayout=UIRectEdgeAll;
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.extendedLayoutIncludesOpaqueBars=YES;
-
+    
     UIImage *iconImage= [UIImage imageNamed:@"backBlack.png"];
-
+    
     UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pop) ];
     
     self.navigationItem.leftBarButtonItem=backBarBtn;
@@ -407,13 +438,13 @@
     UIToolbar* tBar = UIToolbar.new;
     tBar.tintColor=self.gallery.custUI.viewerBarTint;
     self.toolBar=tBar;
-
+    
     UIBarButtonItem*left =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     left.width=[UIScreen mainScreen].bounds.size.width/2-50;
     
     UIBarButtonItem*mid =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     UIBarButtonItem* pBtn =[[UIBarButtonItem alloc]initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(previous)];
-//
+    //
     UIBarButtonItem* nBtn =[[UIBarButtonItem alloc]initWithTitle:@">"  style:UIBarButtonItemStylePlain target:self action:@selector(next)];
     mid.width=30;
     
@@ -610,7 +641,7 @@
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                                    interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController NS_AVAILABLE_IOS(7_0){
-
+    
     AKGalleryViewer* viewer= self.pageVC.viewControllers.firstObject;
     
     return viewer.interativeDismiss;
@@ -627,7 +658,7 @@
     
     //viewer pop to container -> AKInterativeDismissList
     if([fromVC isKindOfClass:[AKGalleryViewerContainer class]]&&operation == UINavigationControllerOperationPop){
-  
+        
         return AKInterativeDismissToList.new;
     }
     return nil;

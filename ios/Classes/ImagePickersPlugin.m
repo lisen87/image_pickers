@@ -33,7 +33,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     ImagePickersPlugin *instance = [[ImagePickersPlugin alloc] init];
     instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
-        
+    
 }
 -(UIColor*)stringChangeColor:(NSDictionary*)colorString{
     int alph =[[colorString objectForKey:@"a"] intValue];
@@ -111,45 +111,45 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSystem;
         }else if ([language isEqualToString:@"chinese"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeChineseSimplified;
-
+            
         }else if ([language isEqualToString:@"traditional_chinese"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeChineseTraditional;
-
+            
         }else if ([language isEqualToString:@"english"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeEnglish;
-
+            
         }else if ([language isEqualToString:@"japanese"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeJapanese;
-
+            
         }else if ([language isEqualToString:@"france"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeFrench;
-
+            
         }else if ([language isEqualToString:@"german"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeGerman;
-
+            
         }else if ([language isEqualToString:@"russian"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeRussian;
-
+            
         }else if ([language isEqualToString:@"vietnamese"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeVietnamese;
-
+            
         }else if ([language isEqualToString:@"korean"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeKorean;
-
+            
         }else if ([language isEqualToString:@"portuguese"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypePortuguese;
-
+            
         }else if ([language isEqualToString:@"spanish"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSpanish;
-
+            
         }else if ([language isEqualToString:@"arabic"]){
             [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeArabic;
-
+            
         }
         
     }else{
         [ZLPhotoUIConfiguration default].languageType=ZLLanguageTypeSystem;
-
+        
     }
 }
 -(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result
@@ -157,7 +157,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     NSDictionary *callDic = call.arguments;
     NSString*language =[NSString stringWithFormat:@"%@",callDic[@"language"]];
     [self changeLanguage:language];
-   
+    
     resultBack =result;
     if([@"getPickerPaths" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
@@ -173,7 +173,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         }
         BOOL showCamera =[[dic objectForKey:@"showCamera"] boolValue];//显示摄像头
         isShowGif =[[dic objectForKey:@"showGif"] boolValue];//是否选择gif
-
+        
         //type photo video  若不存在则为带相册的，若存在则直接打开相册相机
         NSString *cameraMimeType =[dic objectForKey:@"cameraMimeType"];
         ZLPhotoConfiguration *configuration =[ZLPhotoConfiguration default];
@@ -183,31 +183,31 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         configuration.downloadVideoBeforeSelecting =true;//选择之前下载
         [ZLPhotoUIConfiguration default].cellCornerRadio =5;
         configuration.allowSelectGif = isShowGif;
-          
+        
         //type photo video  若不存在则为带相册的，若存在则直接打开相机或录像
-          if([cameraMimeType isEqualToString:@"video"]||[galleryMode isEqualToString:@"video"]||[galleryMode isEqualToString:@"all"]){
-                   if([dic objectForKey:@"videoRecordMinSecond"]){
-                       NSInteger videoRecordMinSecond =[[dic objectForKey:@"videoRecordMinSecond"] integerValue];
-
-                       [ZLPhotoConfiguration default].cameraConfiguration.minRecordDuration =videoRecordMinSecond;
-                   }
-                   if([dic objectForKey:@"videoSelectMinSecond"]){
-                       NSInteger videoSelectMinSecond =[[dic objectForKey:@"videoSelectMinSecond"] integerValue];
-
-                       configuration.minSelectVideoDuration = videoSelectMinSecond;
-                   }
-                   if([dic objectForKey:@"videoRecordMaxSecond"]){
-                       NSInteger videoRecordMaxSecond =[[dic objectForKey:@"videoRecordMaxSecond"] integerValue];
-
-                       [ZLPhotoConfiguration default].cameraConfiguration.maxRecordDuration =videoRecordMaxSecond;
-                   }
-                   if([dic objectForKey:@"videoSelectMaxSecond"]){
-                       NSInteger videoSelectMaxSecond =[[dic objectForKey:@"videoSelectMaxSecond"] integerValue];
-
-                       configuration.maxSelectVideoDuration = videoSelectMaxSecond;
-                   }
-         }
-
+        if([cameraMimeType isEqualToString:@"video"]||[galleryMode isEqualToString:@"video"]||[galleryMode isEqualToString:@"all"]){
+            if([dic objectForKey:@"videoRecordMinSecond"]){
+                NSInteger videoRecordMinSecond =[[dic objectForKey:@"videoRecordMinSecond"] integerValue];
+                
+                [ZLPhotoConfiguration default].cameraConfiguration.minRecordDuration =videoRecordMinSecond;
+            }
+            if([dic objectForKey:@"videoSelectMinSecond"]){
+                NSInteger videoSelectMinSecond =[[dic objectForKey:@"videoSelectMinSecond"] integerValue];
+                
+                configuration.minSelectVideoDuration = videoSelectMinSecond;
+            }
+            if([dic objectForKey:@"videoRecordMaxSecond"]){
+                NSInteger videoRecordMaxSecond =[[dic objectForKey:@"videoRecordMaxSecond"] integerValue];
+                
+                [ZLPhotoConfiguration default].cameraConfiguration.maxRecordDuration =videoRecordMaxSecond;
+            }
+            if([dic objectForKey:@"videoSelectMaxSecond"]){
+                NSInteger videoSelectMaxSecond =[[dic objectForKey:@"videoSelectMaxSecond"] integerValue];
+                
+                configuration.maxSelectVideoDuration = videoSelectMaxSecond;
+            }
+        }
+        
         /*以下是编辑相关*/
         ///如果是可编辑的就需要设置editAfterSelectThumbnailImage 因为editAfterSelectThumbnailImage=true和maxSelectCount=1的时候enableCrop=false ，所以需要editAfterSelectThumbnailImage =false
         configuration.allowEditImage =enableCrop;
@@ -229,14 +229,14 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo = NO;
                 configuration.allowSelectImage =YES;
                 configuration.allowSelectVideo =NO;
-             
+                
             }else if([cameraMimeType isEqual:@"video"]){
                 configuration.allowMixSelect = true;//允许混合选择 不允许的时候只能选一个所以这里写允许
                 [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo = YES;
                 [ZLPhotoConfiguration default].cameraConfiguration.allowTakePhoto = NO;
                 configuration.allowSelectVideo =YES;
                 configuration.allowSelectImage =NO;
-        
+                
             }
             
             ZLCustomCamera *camera = [[ZLCustomCamera alloc] init];
@@ -269,7 +269,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     result(arr);
                     return ;
                 }else{
-
+                    
                     NSURL *url =videoUrl;
                     NSString *subString = [url.absoluteString substringFromIndex:7];
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -281,7 +281,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     NSData *data2=UIImageJPEGRepresentation(img , 1);
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
                     [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
-
+                    
                     NSDictionary *photoDic = @{
                         @"thumbPath":[NSString stringWithFormat:@"%@",aPath3],
                         @"path":[NSString stringWithFormat:@"%@",subString],
@@ -291,7 +291,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     return ;
                 }
             };
-
+            
         }else{
             ZLPhotoPreviewSheet *ac = [[ZLPhotoPreviewSheet alloc] init];
             /*以下是图片和视频混合选择相关*/
@@ -308,7 +308,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo = NO;
                 configuration.allowSelectImage =YES;
                 configuration.allowSelectVideo =NO;
-             
+                
             }else if([galleryMode isEqual:@"video"]){
                 configuration.allowMixSelect = true;//允许混合选择 不允许的时候只能选一个所以这里写允许
                 [ZLPhotoConfiguration default].cameraConfiguration.allowRecordVideo = YES;
@@ -318,13 +318,13 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             }
             
             ///区分是从icloud上的。暂时发现iCloud的有问题
-//            configuration.canSelectAsset = ^BOOL(PHAsset * asset) {
-//                if(asset.sourceType==PHAssetSourceTypeCloudShared){
-//                    return  false;
-//                }
-//                return true;
-//            };
-        
+            //            configuration.canSelectAsset = ^BOOL(PHAsset * asset) {
+            //                if(asset.sourceType==PHAssetSourceTypeCloudShared){
+            //                    return  false;
+            //                }
+            //                return true;
+            //            };
+            
             NSMutableArray *arr11 =[[NSMutableArray alloc]init];
             ac.cancelBlock = ^{
                 NSArray *arr =@[];
@@ -338,9 +338,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             };
             [ac showPhotoLibraryWithSender:[UIApplication sharedApplication].delegate.window.rootViewController];
         }
-
+        
     } else if ([@"previewImages" isEqualToString:call.method]){
-
+        
         NSDictionary *dic = call.arguments;
         NSMutableArray *arr =[[NSMutableArray alloc]init];
         NSArray *imageArr =[dic objectForKey:@"paths"];
@@ -348,34 +348,34 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSArray* videoSuffixs = @[@"mp4", @"mov", @"avi", @"rmvb", @"rm", @"flv", @"3gp", @"wmv", @"vob", @"dat", @"m4v", @"f4v", @"mkv"]; // and mor
         for (int i=0; i<imageArr.count; i++) {
             NSString *imgString  =imageArr[i];
-           if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
-               if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
-                   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                   formatter.dateFormat = @"yyyyMMddHHmmss";
-                   int  x = arc4random() % 10000;
-                   NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                   UIImage *img = [self getUrlImage:imgString];
-                   NSData *data2=UIImageJPEGRepresentation(img , 1);
-                   NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
-                BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
-                   AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:img videoString:imgString];
-                   [arr addObject:item];
-               }else{
-                   AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:[NSString stringWithFormat:@"%@",imgString] img:nil videoString:@""];
-                   [arr addObject:item];
-               }
-
+            if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
+                if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyyMMddHHmmss";
+                    int  x = arc4random() % 10000;
+                    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+                    UIImage *img = [self getUrlImage:imgString];
+                    NSData *data2=UIImageJPEGRepresentation(img , 1);
+                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
+                    BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
+                    AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:img videoString:imgString];
+                    [arr addObject:item];
+                }else{
+                    AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:[NSString stringWithFormat:@"%@",imgString] img:nil videoString:@""];
+                    [arr addObject:item];
+                }
+                
             }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"CoreSimulator/"]){
                 if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     formatter.dateFormat = @"yyyyMMddHHmmss";
                     int  x = arc4random() % 10000;
                     NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                   
+                    
                     UIImage *img = [self getImage:imgString];
                     NSData *data2=UIImageJPEGRepresentation(img , 1);
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
-                 BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
+                    BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
                     AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:img videoString:imgString];
                     [arr addObject:item];
                     
@@ -384,7 +384,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:image videoString:@""];
                     [arr addObject:item];
                 }
-           
+                
             }
             if (i==imageArr.count-1) {
                 AKGallery* gallery = AKGallery.new;
@@ -420,7 +420,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         };
         gallery.modalPresentationStyle =UIModalPresentationFullScreen;
         [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
-
+        
     }else if ([@"previewVideo" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         PlayTheVideoVC *vc =[[PlayTheVideoVC alloc]init];
@@ -428,9 +428,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         vc.videoUrl =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
         vc.modalPresentationStyle =UIModalPresentationFullScreen;
         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:vc animated:YES completion:^{
-
+            
         }];
-
+        
     }else if ([@"saveByteDataImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         FlutterStandardTypedData *data =[dic objectForKey:@"uint8List"];
@@ -443,7 +443,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             if(range.location+range.length<str.length){
                 str = [str substringFromIndex:range.location+range.length];
                 if (error) {
-
+                    
                 }else{
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -459,49 +459,59 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                         string =@"png";
                     }
                     NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
-
+                    
                     NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
                     //保存到沙盒
                     [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-
+                    
                     result(aPath3);
                 }
             }
-
+            
         }];
-
+        
     }
     else if([@"saveImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSString *url =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
+        
         if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
-
-            [self saveGifImage:url];
+            [self saveGifImage:url result:result];
         }else{
-            NSString* encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-            UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:encodedString]]];
-            __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-            [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
-             {
-                NSString *str =assetURL.absoluteString;
+            
+            NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
+            NSString *encodedString =[url stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
+            
+            dispatch_queue_t asynchronousQueue =dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+            dispatch_async(asynchronousQueue, ^{
+                UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:encodedString]]];
                 
-                NSLog(@"assetURL.absoluteString%@",str);
-                NSString *string =@"://";
-                NSRange range = [str rangeOfString:string];//匹配得到的下标
-                if(range.location+range.length<str.length){
-                    str = [str substringFromIndex:range.location+range.length];
-                    if (error) {
-                        result([NSString stringWithFormat:@"error"]);
+                __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+                [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+                 {
+                    NSString *str =assetURL.absoluteString;
+                    
+                    NSLog(@"assetURL.absoluteString%@",str);
+                    NSString *string =@"://";
+                    NSRange range = [str rangeOfString:string];//匹配得到的下标
+                    if(range.location+range.length<str.length){
+                        str = [str substringFromIndex:range.location+range.length];
+                        if (error) {
+                            result([NSString stringWithFormat:@"error"]);
+                        }else{
+                            result([NSString stringWithFormat:@"/%@",str]);
+                        }
                     }else{
-                        result([NSString stringWithFormat:@"/%@",str]);
+                        result([NSString stringWithFormat:@"error"]);
+                        
                     }
-                }else{
-                    result([NSString stringWithFormat:@"error"]);
-
-                }
-            }];
+                }];
+                
+            });
+            
+            
+            
         }
     }else if([@"saveVideoToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
@@ -511,7 +521,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 }
 
 -(void)saveImageView:(NSInteger)index imagePHAsset:(NSArray<ZLResultModel *> *)modelList arr:(NSMutableArray*)arr compressSize:(NSInteger)compressSize result:(FlutterResult)result{
-   
+    
     if (index==modelList.count) {
         NSMutableArray *urlArr =[[NSMutableArray alloc]init];
         for (int i=0; i<arr.count; i++) {
@@ -524,20 +534,20 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     PHAsset *asset  =modelList[index].asset;
     index++;
     if(asset.mediaType==PHAssetMediaTypeVideo){
-
+        
         //视频
         PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
         options.version = PHVideoRequestOptionsVersionCurrent;
         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
         PHImageManager *manager = [PHImageManager defaultManager];
         options.networkAccessAllowed =YES;
-
+        
         [manager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-
+            
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSString *subString = [url.absoluteString substringFromIndex:7];
-//            NSInteger a=  urlAsset.duration.value/urlAsset.duration.timescale;
+            //            NSInteger a=  urlAsset.duration.value/urlAsset.duration.timescale;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmss";
             int  x = arc4random() % 10000;
@@ -552,7 +562,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 @"path":[NSString stringWithFormat:@"%@",subString],
             }];
             [self saveImageView:index imagePHAsset:modelList arr:arr  compressSize:compressSize result:result];
-          
+            
         }];
         
     }else if(asset.mediaType==PHAssetMediaTypeImage){
@@ -599,31 +609,23 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 }];
                 [self saveImageView:index imagePHAsset:modelList arr:arr  compressSize:compressSize result:result];
             }
-      
+            
             
         }];
     }
 }
 #pragma mark //保存gif
-- (void)saveGifDataImage:(NSData*)data {
-    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
-    }completionHandler:^(BOOL success,NSError*_Nullableerror) {
-        if(success && !_Nullableerror) {
-            NSLog(@"下载成功");
-        }else{
-            NSLog(@"下载失败");
-        }
-    }];
-}
-- (void)saveGifImage:(NSString*)urlString {
-    NSString* encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+- (void)saveGifImage:(NSString*)urlString result:(FlutterResult)result{
+    //    NSString* encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *encodedString =[urlString stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
     NSURL *fileUrl = [NSURL URLWithString:encodedString];
     
     [[[NSURLSession sharedSession] downloadTaskWithURL:fileUrl completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                
+        
         NSData *data = [NSData dataWithContentsOfFile:location.path];
+        
+        NSString *path =location.path;
         
         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
             
@@ -632,8 +634,11 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         }completionHandler:^(BOOL success,NSError*_Nullableerror) {
             if(success && !error) {
                 NSLog(@"下载成功");
+                result(path);
             }else{
                 NSLog(@"下载失败");
+                result([NSString stringWithFormat:@"%@",error]);
+                
             }
         }];
     }]resume];
@@ -658,8 +663,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 
 -(UIImage *)getUrlImage:(NSString *)videoURL
 {
-    NSString* encodedString = [videoURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+    NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *encodedString =[videoURL stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:encodedString] options:nil];
     AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     gen.appliesPreferredTrackTransform = YES;
@@ -682,8 +687,9 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString  *fullPath = [NSString stringWithFormat:@"%@/%@.mp4", documentsDirectory,[NSString stringWithFormat:@"%@",[formatter stringFromDate:[NSDate date]]]];
-    NSString* encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+    //    NSString* encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *encodedString =[url stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
     NSURL *urlNew = [NSURL URLWithString:encodedString];
     NSURLRequest *request = [NSURLRequest requestWithURL:urlNew];
     NSURLSessionDownloadTask *task =
@@ -701,8 +707,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 //videoPath为视频下载到本地之后的本地路径
 - (void)saveVideo:(NSString *)videoPath{
     if (videoPath) {
-        NSString* encodedString = [videoPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+        NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
+        NSString *encodedString =[videoPath stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
         NSURL *url = [NSURL URLWithString:encodedString];
         BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([url path]);
         if (compatible)
@@ -767,7 +773,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 }
 @end
 /*
-
+ 
  
  
  */
