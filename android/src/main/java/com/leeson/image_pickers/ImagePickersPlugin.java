@@ -286,7 +286,10 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
 
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-    channel.setMethodCallHandler(null);
+    // 听网友建议 添加了判断
+    if (channel != null){
+      channel.setMethodCallHandler(null);
+    }
   }
 
   @Override

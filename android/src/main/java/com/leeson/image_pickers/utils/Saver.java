@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -399,11 +400,22 @@ public class Saver {
             @Override
             public void run() {
                 try{
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inJustDecodeBounds = true;
+                    options.inSampleSize = 3;
+                    BitmapFactory.decodeByteArray(data,0,data.length,options);
+                    String mimeType = options.outMimeType;
+
+                    Log.e("TAG", "mimeType: == "+mimeType);
+
                     File dir = new File(appPath.getAppImgDirPath());
                     if (!dir.exists()) {
                         dir.mkdirs();
                     }
                     String suffix = ".png";
+                    if(mimeType.contains("gif")){
+                        suffix = ".gif";
+                    }
                     final String fileName = System.currentTimeMillis() + suffix;
                     final File imageFile = new File(dir, fileName);
 

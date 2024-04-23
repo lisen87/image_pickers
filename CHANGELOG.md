@@ -1,3 +1,5 @@
+## 2.0.5+1
+* ios/android修复gif保存问题
 ## 2.0.5
 * ios 添加 PrivacyInfo.xcprivacy
 * 安卓 修改 gradle 代码
