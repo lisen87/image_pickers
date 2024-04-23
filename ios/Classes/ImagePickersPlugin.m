@@ -157,7 +157,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     NSDictionary *callDic = call.arguments;
     NSString*language =[NSString stringWithFormat:@"%@",callDic[@"language"]];
     [self changeLanguage:language];
-    
+    NSArray* videoSuffixs = @[@"mp4", @"mov", @"avi", @"rmvb", @"rm", @"flv", @"3gp", @"wmv", @"vob", @"dat", @"m4v", @"f4v", @"mkv"]; // and mor
     resultBack =result;
     if([@"getPickerPaths" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
@@ -253,10 +253,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     data2=UIImageJPEGRepresentation(image, size);
                     UIImage *imageFF =[UIImage imageWithData:data2];
                     //重命名并且保存
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                    int  x = arc4random() % 10000;
-                    NSString *name = [NSString stringWithFormat:@"%@01%d",[formatter stringFromDate:[NSDate date]],x];
+                    NSString *name = [self getNewName];
                     NSString  *jpgPath = [NSHomeDirectory()  stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.%@",name,[self imageType:data2]]];
                     //保存到沙盒
                     [UIImageJPEGRepresentation(imageFF,1) writeToFile:jpgPath atomically:YES];
@@ -272,11 +269,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                     
                     NSURL *url =videoUrl;
                     NSString *subString = [url.absoluteString substringFromIndex:7];
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                    int  x = arc4random() % 10000;
-                    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
-                    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                    NSString *name  =[self getNewName];
                     UIImage *img = [self getImage:subString];
                     NSData *data2=UIImageJPEGRepresentation(img , 1);
                     NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
@@ -345,37 +338,26 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         NSMutableArray *arr =[[NSMutableArray alloc]init];
         NSArray *imageArr =[dic objectForKey:@"paths"];
         NSInteger initIndex =[[dic objectForKey:@"initIndex"] intValue];
-        NSArray* videoSuffixs = @[@"mp4", @"mov", @"avi", @"rmvb", @"rm", @"flv", @"3gp", @"wmv", @"vob", @"dat", @"m4v", @"f4v", @"mkv"]; // and mor
+        
         for (int i=0; i<imageArr.count; i++) {
             NSString *imgString  =imageArr[i];
+            ///如果是网络 或者是gif图片
             if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
+                //如果是视频
                 if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                    int  x = arc4random() % 10000;
-                    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
                     UIImage *img = [self getUrlImage:imgString];
-                    NSData *data2=UIImageJPEGRepresentation(img , 1);
-                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
-                    BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
                     AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:img videoString:imgString];
                     [arr addObject:item];
                 }else{
+                    //如果是网络图片或者gif
                     AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:[NSString stringWithFormat:@"%@",imgString] img:nil videoString:@""];
                     [arr addObject:item];
                 }
                 
             }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"CoreSimulator/"]){
                 if([videoSuffixs containsObject: [imgString componentsSeparatedByString:@"."].lastObject.lowercaseString]){
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                    int  x = arc4random() % 10000;
-                    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
                     
                     UIImage *img = [self getImage:imgString];
-                    NSData *data2=UIImageJPEGRepresentation(img , 1);
-                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.%@",NSHomeDirectory(),name,[self imageType:data2]];
-                    BOOL isSave= [UIImageJPEGRepresentation(img,1) writeToFile:aPath3 atomically:YES];
                     AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:img videoString:imgString];
                     [arr addObject:item];
                     
@@ -387,41 +369,27 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
                 
             }
             if (i==imageArr.count-1) {
-                AKGallery* gallery = AKGallery.new;
-                gallery.items=arr;
-                gallery.modalPresentationStyle = 0;
-                gallery.custUI=AKGalleryCustUI.new;
-                gallery.selectIndex=initIndex;
-                gallery.completion=^{
-                };
-                //show gallery
-                gallery.modalPresentationStyle =UIModalPresentationFullScreen;
-                [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
+                [self showImages:arr index:initIndex];
             }
         }
     }else if ([@"previewImage" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
+        NSString *imgString  =[dic objectForKey:@"path"];
         NSMutableArray *arr =[[NSMutableArray alloc]init];
-        BOOL isOnline =false;///默认是本地
-        if ([[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"http"]) {
-            isOnline =true;
-        }else if ([[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]] containsString:@"CoreSimulator/"]){
-            isOnline =false;
-        }else{
-            return;
+        ///如果是网络 或者是gif图片
+        if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"http"]||[imgString containsString:@"GIF"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"gif"]) {
+            //如果是网络图片或者gif
+            AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:[NSString stringWithFormat:@"%@",imgString] img:nil videoString:@""];
+            [arr addObject:item];
+            
+        }else if ([[NSString stringWithFormat:@"%@",imgString] containsString:@"var/"]||[[NSString stringWithFormat:@"%@",imgString] containsString:@"CoreSimulator/"]){
+            UIImage *image =[UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",imgString]]];
+            AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:nil img:image videoString:@""];
+            [arr addObject:item];
         }
-        AKGalleryItem* item = [AKGalleryItem itemWithTitle:@"" url:isOnline==true?([NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]]):nil img:isOnline==true?nil:([UIImage imageWithData:[NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]]]] ) videoString:@""];
-        [arr addObject:item];
-        AKGallery* gallery = AKGallery.new;
-        gallery.items=arr;
-        gallery.custUI=AKGalleryCustUI.new;
-        gallery.selectIndex=0;
-        gallery.completion=^{
-        };
-        gallery.modalPresentationStyle =UIModalPresentationFullScreen;
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
-        
-    }else if ([@"previewVideo" isEqualToString:call.method]){
+        [self showImages:arr index:0];
+    }
+    else if ([@"previewVideo" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         PlayTheVideoVC *vc =[[PlayTheVideoVC alloc]init];
         vc.modalPresentationStyle=0;
@@ -434,91 +402,133 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     }else if ([@"saveByteDataImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         FlutterStandardTypedData *data =[dic objectForKey:@"uint8List"];
+        
         UIImage *image=[UIImage imageWithData:data.data];
-        __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-        [lib writeImageToSavedPhotosAlbum:image.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error){
-            NSString *str =assetURL.absoluteString;
-            NSString *string =@"://";
-            NSRange range = [str rangeOfString:string];//匹配得到的下标
-            if(range.location+range.length<str.length){
-                str = [str substringFromIndex:range.location+range.length];
-                if (error) {
-                    
-                }else{
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    formatter.dateFormat = @"yyyyMMddHHmmss";
-                    NSString *string;
-                    NSString *subStr = @"&ext=";//指定字符串
-                    if ([str containsString:subStr])
-                    {//先做安全判断
-                        NSRange subStrRange = [str rangeOfString:subStr];//找出指定字符串的range
-                        NSInteger index = subStrRange.location + subStrRange.length;//获得“指定的字符以后的所有字符”的起始点
-                        NSString *restStr = [str substringFromIndex:index];
-                        string =restStr;
+        ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+        
+        
+        [lib writeImageDataToSavedPhotosAlbum:data.data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error){
+            if([[self imageType:data.data] isEqualToString:@"GIF"]||[[self imageType:data.data] isEqualToString:@"gif"]){
+                result(assetURL.absoluteURL);
+                return;
+            }else{
+                NSString *str =assetURL.absoluteString;
+                NSString *string =@"://";
+                NSRange range = [str rangeOfString:string];//匹配得到的下标
+                if(range.location+range.length<str.length){
+                    str = [str substringFromIndex:range.location+range.length];
+                    if (error) {
+                        
                     }else{
-                        string =@"png";
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        formatter.dateFormat = @"yyyyMMddHHmmss";
+                        NSString *string;
+                        NSString *subStr = @"&ext=";//指定字符串
+                        if ([str containsString:subStr])
+                        {//先做安全判断
+                            NSRange subStrRange = [str rangeOfString:subStr];//找出指定字符串的range
+                            NSInteger index = subStrRange.location + subStrRange.length;//获得“指定的字符以后的所有字符”的起始点
+                            NSString *restStr = [str substringFromIndex:index];
+                            string =restStr;
+                        }else{
+                            string =[self imageType:data.data];
+                        }
+                        
+                        NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
+                        
+                        NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
+                        //保存到沙盒
+                        [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
+                        NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
+                        
+                        result(aPath3);
                     }
-                    NSString *name = [NSString stringWithFormat:@"%@01.%@",[formatter stringFromDate:[NSDate date]],string];
-                    
-                    NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
-                    //保存到沙盒
-                    [UIImageJPEGRepresentation(image,1.0) writeToFile:jpgPath atomically:YES];
-                    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),name];
-                    
-                    result(aPath3);
                 }
+                
             }
             
-        }];
+        }
+        ];
         
     }
     else if([@"saveImageToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSString *url =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
+        NSFileManager *fileManager =[[NSFileManager alloc]init];
         
-        if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
-            [self saveGifImage:url result:result];
+        ///如果已经有
+        if([fileManager fileExistsAtPath:url]){
+            NSData*data =   [NSData dataWithContentsOfFile:url options:nil error:nil];
+            UIImage *image=[UIImage imageWithData:data];
+            ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+            [lib writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error){
+                if(error){
+                    result(@"error");
+                    return;
+                }
+                result(assetURL.absoluteString);
+            }];
+            
         }else{
-            
-            NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
-            NSString *encodedString =[url stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
-            
-            dispatch_queue_t asynchronousQueue =dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-            dispatch_async(asynchronousQueue, ^{
-                UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:encodedString]]];
+            if ([url.lastPathComponent containsString:@"gif"]||[url.lastPathComponent containsString:@"GIF"]) {
+                [self saveGifImage:url result:result];
+            }else{
                 
-                __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-                [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
-                 {
-                    NSString *str =assetURL.absoluteString;
+                NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
+                NSString *encodedString =[url stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
+                
+                dispatch_queue_t asynchronousQueue =dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+                dispatch_async(asynchronousQueue, ^{
                     
-                    NSLog(@"assetURL.absoluteString%@",str);
-                    NSString *string =@"://";
-                    NSRange range = [str rangeOfString:string];//匹配得到的下标
-                    if(range.location+range.length<str.length){
-                        str = [str substringFromIndex:range.location+range.length];
-                        if (error) {
-                            result([NSString stringWithFormat:@"error"]);
-                        }else{
-                            result([NSString stringWithFormat:@"/%@",str]);
-                        }
-                    }else{
-                        result([NSString stringWithFormat:@"error"]);
+                    UIImage *img =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:encodedString]]];
+                    
+                    __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+                    [lib writeImageToSavedPhotosAlbum:img.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+                     {
+                        NSString *str =assetURL.absoluteString;
                         
-                    }
-                }];
+                        NSLog(@"assetURL.absoluteString%@",str);
+                        NSString *string =@"://";
+                        NSRange range = [str rangeOfString:string];//匹配得到的下标
+                        if(range.location+range.length<str.length){
+                            str = [str substringFromIndex:range.location+range.length];
+                            if (error) {
+                                result([NSString stringWithFormat:@"error"]);
+                            }else{
+                                result([NSString stringWithFormat:@"/%@",str]);
+                            }
+                        }else{
+                            result([NSString stringWithFormat:@"error"]);
+                            
+                        }
+                    }];
+                    
+                });
                 
-            });
-            
-            
-            
+                
+                
+            }
         }
+        
     }else if([@"saveVideoToGallery" isEqualToString:call.method]){
         NSDictionary *dic = call.arguments;
         NSString *urlString =[NSString stringWithFormat:@"%@",[dic objectForKey:@"path"]];
         [self  playerDownload :urlString];
     }
 }
+-(void)showImages:(NSMutableArray*)arr index:(NSInteger)index{
+    AKGallery* gallery = AKGallery.new;
+    gallery.items=arr;
+    gallery.modalPresentationStyle = 0;
+    gallery.custUI=AKGalleryCustUI.new;
+    gallery.selectIndex=index;
+    gallery.completion=^{
+    };
+    //show gallery
+    gallery.modalPresentationStyle =UIModalPresentationFullScreen;
+    [[UIApplication sharedApplication].delegate.window.rootViewController presentAKGallery:gallery animated:YES completion:nil];
+}
+
 
 -(void)saveImageView:(NSInteger)index imagePHAsset:(NSArray<ZLResultModel *> *)modelList arr:(NSMutableArray*)arr compressSize:(NSInteger)compressSize result:(FlutterResult)result{
     
@@ -547,11 +557,8 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             NSURL *url = urlAsset.URL;
             NSString *subString = [url.absoluteString substringFromIndex:7];
-            //            NSInteger a=  urlAsset.duration.value/urlAsset.duration.timescale;
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = @"yyyyMMddHHmmss";
-            int  x = arc4random() % 10000;
-            NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+            
+            NSString *name = [self getNewName];
             NSString  *jpgPath = [NSHomeDirectory()     stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
             UIImage *img = [self getImage:subString]  ;
             //保存到沙盒
@@ -581,9 +588,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             if((![dataUTI containsString:@"gif"])&&(![dataUTI containsString:@"GIF"])){
                 //若裁剪需要裁剪后的图片，需要保存一下
                 //重命名
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                formatter.dateFormat = @"yyyyMMddHHmmss";
-                NSString *name = [NSString stringWithFormat:@"%@%@",[formatter stringFromDate:[NSDate date]],imageLast];
+                NSString *name = [NSString stringWithFormat:@"%@%@",[self getNewName],imageLast];
                 NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
                 NSData *data2=UIImageJPEGRepresentation(im , 1.0);
                 float rate =1.0;
@@ -616,7 +621,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
 }
 #pragma mark //保存gif
 - (void)saveGifImage:(NSString*)urlString result:(FlutterResult)result{
-    //    NSString* encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     NSCharacterSet *allowCharacterSet =[NSCharacterSet URLQueryAllowedCharacterSet];
     NSString *encodedString =[urlString stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
     NSURL *fileUrl = [NSURL URLWithString:encodedString];
@@ -770,6 +775,14 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
             return @"PNG";
     }
     return @"PNG";
+}
+-(NSString*)getNewName{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    int  x = arc4random() % 10000;
+    NSString *name = [NSString stringWithFormat:@"%@%d",[formatter stringFromDate:[NSDate date]],x];
+    return name;
 }
 @end
 /*
