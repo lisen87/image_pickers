@@ -49,6 +49,7 @@ public class SelectPicsActivity extends BaseActivity {
     private static final int WRITE_SDCARD = 101;
 
     public static final String GALLERY_MODE = "GALLERY_MODE";
+    public static final String SCREEN_ORIENTATION = "SCREEN_ORIENTATION";
     public static final String UI_COLOR = "UI_COLOR";
     public static final String SHOW_GIF = "SHOW_GIF";
     public static final String SHOW_CAMERA = "SHOW_CAMERA";
@@ -127,6 +128,7 @@ public class SelectPicsActivity extends BaseActivity {
     private void startSel() {
 
         String mode = getIntent().getStringExtra(GALLERY_MODE);
+        Number screenOrientation = getIntent().getIntExtra(SCREEN_ORIENTATION, 1);
         Map<String, Number> uiColor = (Map<String, Number>) getIntent().getSerializableExtra(UI_COLOR);
 
         Number selectCount = getIntent().getIntExtra(SELECT_COUNT, 9);
@@ -145,6 +147,8 @@ public class SelectPicsActivity extends BaseActivity {
 
         String language = getIntent().getStringExtra(LANGUAGE);
 
+        // 屏幕方向
+        int requestedOrientation = screenOrientation.intValue() == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : (screenOrientation.intValue() == 1 ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         PictureStyleUtil pictureStyleUtil = new PictureStyleUtil(this);
         pictureStyleUtil.setStyle(uiColor);
@@ -228,7 +232,7 @@ public class SelectPicsActivity extends BaseActivity {
             PictureSelector.create(this).openGallery(selectMimeType)
                     .setImageEngine(GlideEngine.createGlideEngine())
                     .setSelectorUIStyle(pictureStyleUtil.getSelectorStyle())
-                    .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                    .setRequestedOrientation(requestedOrientation)
                     .setRecordVideoMaxSecond(videoRecordMaxSecond.intValue())
                     .setRecordVideoMinSecond(videoRecordMinSecond.intValue())
                     .setLanguage(getLang(language))
