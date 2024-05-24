@@ -612,7 +612,7 @@ public class Saver {
         values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
         values.put(MediaStore.Images.Media.TITLE, fileName);
         values.put(MediaStore.Images.Media.DESCRIPTION, fileName);
-        values.put(MediaStore.Images.Media.MIME_TYPE, getMIMEType(fileName));
+        values.put(MediaStore.Images.Media.MIME_TYPE, getMIMEType("image",fileName));
         return copy(originFilePath, values, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     }
 
@@ -621,7 +621,7 @@ public class Saver {
         values.put(MediaStore.Video.Media.DISPLAY_NAME, fileName);
         values.put(MediaStore.Video.Media.TITLE, fileName);
         values.put(MediaStore.Video.Media.DESCRIPTION, fileName);
-        values.put(MediaStore.Video.Media.MIME_TYPE, getMIMEType(fileName));
+        values.put(MediaStore.Video.Media.MIME_TYPE, getMIMEType("video",fileName));
         return copy(originFilePath, values, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
     }
 
@@ -630,14 +630,14 @@ public class Saver {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
         values.put(MediaStore.Downloads.TITLE, fileName);
-        values.put(MediaStore.Downloads.MIME_TYPE, getMIMEType(fileName));
+        values.put(MediaStore.Downloads.MIME_TYPE, getMIMEType("",fileName));
         return copy(originFilePath, values, MediaStore.Downloads.EXTERNAL_CONTENT_URI);
     }
     private FileInfo copyToMusic(String originFilePath, String fileName) {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Audio.Media.DISPLAY_NAME, fileName);
         values.put(MediaStore.Audio.Media.TITLE, fileName);
-        values.put(MediaStore.Audio.Media.MIME_TYPE, getMIMEType(fileName));
+        values.put(MediaStore.Audio.Media.MIME_TYPE, getMIMEType("",fileName));
         return copy(originFilePath, values, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
     }
 
@@ -1048,9 +1048,12 @@ public class Saver {
             {".1", "application/vnd.android.package-archive"}
     };
 
-    public String getMIMEType(String fileName) {
-
-        String type = "*/*";
+    public String getMIMEType(String media,String fileName) {
+        // 设置初始的类型
+        String type = "image/png";
+        if("video".equals(media)){
+            type = "video/mp4";
+        }
         int dotIndex = fileName.lastIndexOf(".");
         if (dotIndex < 0){
             return type;
