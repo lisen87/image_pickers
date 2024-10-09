@@ -6,7 +6,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'image_pickers'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
@@ -21,7 +21,7 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'AFNetworking'
   s.dependency 'SDWebImage'
-  s.dependency 'ZLPhotoBrowser', '4.5.4'
+  s.dependency 'ZLPhotoBrowser', '4.5.5'
   s.ios.deployment_target = '10.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.0'
