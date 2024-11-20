@@ -118,6 +118,7 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
     if ("getPickerPaths".equals(methodCall.method)) {
 
       String galleryMode = methodCall.argument("galleryMode");
+      Number screenOrientation = methodCall.argument("screenOrientation");
       Boolean showGif = methodCall.argument("showGif");
       Map<String,Number> uiColor = methodCall.argument("uiColor");
       Number selectCount = methodCall.argument("selectCount");
@@ -136,6 +137,7 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       Intent intent = new Intent();
 
       intent.putExtra(SelectPicsActivity.GALLERY_MODE,galleryMode);
+      intent.putExtra(SelectPicsActivity.SCREEN_ORIENTATION, screenOrientation);
       intent.putExtra(SelectPicsActivity.UI_COLOR, (Serializable) uiColor);
       intent.putExtra(SelectPicsActivity.SELECT_COUNT,selectCount);
       intent.putExtra(SelectPicsActivity.SHOW_GIF,showGif);
