@@ -48,27 +48,6 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
   public ImagePickersPlugin() {
   }
 
-  /**
-   * pre-Flutter-1.12 Android projects.
-   */
-  public static void registerWith(PluginRegistry.Registrar registrar) {
-    ImagePickersPlugin imagePickersPlugin = new ImagePickersPlugin();
-    imagePickersPlugin.setup(registrar,null);
-  }
-
-  private void setup(PluginRegistry.Registrar registrar, ActivityPluginBinding activityBinding){
-    if (registrar != null){
-      activity = registrar.activity();
-      channel = new MethodChannel(registrar.messenger(), "flutter/image_pickers");
-      channel.setMethodCallHandler(this);
-      registrar.addActivityResultListener(listener);
-    }else{
-      activity = activityBinding.getActivity();
-      channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "flutter/image_pickers");
-      channel.setMethodCallHandler(this);
-      activityBinding.addActivityResultListener(listener);
-    }
-  }
 
   private PluginRegistry.ActivityResultListener listener = new PluginRegistry.ActivityResultListener() {
     @Override
@@ -277,11 +256,10 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
       }
     });
   }
-  private  FlutterPluginBinding flutterPluginBinding;
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    this.flutterPluginBinding = flutterPluginBinding;
-
+    channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "flutter/image_pickers");
+    channel.setMethodCallHandler(this);
   }
 
   @Override
@@ -294,7 +272,8 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
 
   @Override
   public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
-    setup(null,binding);
+    activity = binding.getActivity();
+    binding.addActivityResultListener(listener);
   }
 
   @Override
@@ -309,6 +288,6 @@ public class ImagePickersPlugin implements FlutterPlugin,MethodChannel.MethodCal
 
   @Override
   public void onDetachedFromActivity() {
-
+    activity = null;
   }
 }

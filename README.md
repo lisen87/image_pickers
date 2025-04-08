@@ -11,16 +11,16 @@ image pickers support multi-selection of local pictures, multi-selection of loca
 ## iOS : platform :ios, '10.0'
 
 
-## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
-## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
-## 注意 ---> Android请指定您项目中 : targetSdkVersion 33 compileSdkVersion 33,否则 Android 13 可能会出现 无法正常访问图片！
+## 注意 ---> Android请指定您项目中 : targetSdkVersion 34 compileSdkVersion 34,否则 Android 13 可能会出现 无法正常访问图片！
+## 注意 ---> Android请指定您项目中 : targetSdkVersion 34 compileSdkVersion 34,否则 Android 13 可能会出现 无法正常访问图片！
+## 注意 ---> Android请指定您项目中 : targetSdkVersion 34 compileSdkVersion 34,否则 Android 13 可能会出现 无法正常访问图片！
 
 
 ## How to Use
 
 ```yaml
 # add this line to your dependencies
-image_pickers: ^2.0.5+2
+image_pickers: ^2.0.6
 ```
 
 ```dart
