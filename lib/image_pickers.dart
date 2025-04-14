@@ -21,6 +21,16 @@ enum CameraMimeType {
   video,
 }
 
+/// 屏幕方向设置，android独有
+enum ScreenOrientation {
+  // 横屏
+  landscape,
+  // 竖屏
+  portrait,
+  // unspecified
+  unspecified,
+}
+
 class ImagePickers {
   static const MethodChannel _channel =
       const MethodChannel('flutter/image_pickers');
@@ -58,7 +68,8 @@ class ImagePickers {
 
     Color uiColor = UIConfig.defUiThemeColor;
     final Map<String, dynamic> params = <String, dynamic>{
-      'galleryMode': "image",
+      'galleryMode': GalleryMode.image.name,
+      'screenOrientation': ScreenOrientation.portrait.index,
       'showGif': true,
       'uiColor': {
         "a": 255,
@@ -124,6 +135,7 @@ class ImagePickers {
 
   static Future<List<Media>> pickerPaths({
     GalleryMode galleryMode = GalleryMode.image,
+    ScreenOrientation screenOrientation = ScreenOrientation.portrait,
     UIConfig? uiConfig,
     int selectCount = 1,
     bool showCamera = false,
@@ -152,6 +164,7 @@ class ImagePickers {
 
     final Map<String, dynamic> params = <String, dynamic>{
       'galleryMode': galleryMode.name,
+      'screenOrientation': screenOrientation.index,
       'showGif': showGif,
       'uiColor': {
         "a": 255,
